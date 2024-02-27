@@ -27,6 +27,8 @@ export default function Navbar() {
 }
 
 const NavbarContainer = styled.div`
+  background-color: #162318;
+  opacity: 0.5;
   height: 97px;
   display: flex;
   justify-content: center;

@@ -41,8 +41,8 @@ const BodyContainer = styled.body`
 const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
-  background-color: #162318;
-  opacity: 0.5;
+  /* background-color: #162318;
+  opacity: 0.5; */
   z-index: 10;
 `;
 
