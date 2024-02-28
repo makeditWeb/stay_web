@@ -34,8 +34,9 @@ export default function RootLayout({
 }
 
 const BodyContainer = styled.body`
-  width: 1920px;
+  width: 100%;
   overflow: auto;
+  background: #f6f5f1;
 `;
 
 const HeaderContainer = styled.header`

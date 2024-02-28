@@ -2,8 +2,12 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Mainpage() {
+  const pathName = usePathname();
+
   return (
     <IndexContainter>
       <div style={{ width: "100%", height: "950px" }}>
@@ -18,24 +22,7 @@ export default function Mainpage() {
               width={500}
               height={600}
             />
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "absolute",
-                left: "109px",
-                bottom: "45px",
-                width: "280px",
-                height: "45px",
-                border: "1px solid #ffffff",
-                borderRadius: "6px",
-                color: "#ffffff",
-                cursor: "pointer",
-              }}
-            >
-              예약현황 바로가기
-            </div>
+            <ReservationStatus>예약현황 바로가기</ReservationStatus>
           </BigImgDiv>
           <SubImgDiv>
             <SmallImgDiv>
@@ -95,37 +82,10 @@ export default function Mainpage() {
             >
               OUR STAY
             </div>
-            <div
-              style={{
-                display: "flex",
-                marginLeft: "30px",
-                fontSize: "19px",
-                fontWeight: "300",
-                color: "#162318",
-                alignItems: "center",
-              }}
-            >
-              스테이인터뷰의 숙소들
-            </div>
+            <HotelListText>스테이인터뷰의 숙소들</HotelListText>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "45px",
-              flexWrap: "wrap",
-              marginBottom: "150px",
-            }}
-          >
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+          <HotelListContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -135,14 +95,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -151,35 +104,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -189,14 +124,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -205,35 +133,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -243,14 +153,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -259,35 +162,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -297,14 +182,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -313,35 +191,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -351,14 +211,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -367,35 +220,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -405,14 +240,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -421,35 +249,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -459,14 +269,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -475,35 +278,17 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-            <div
-              style={{
-                width: "370px",
-                height: "350px",
-                border: "1px",
-                borderRadius: "15px",
-                overflow: "hidden",
-                boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+            </HotelContainer>
+            <HotelContainer>
               <div style={{ width: "370px", height: "230px" }}>
                 <Image
                   src="/hotelListImg.png"
@@ -513,14 +298,7 @@ export default function Mainpage() {
                 />
               </div>
               <div style={{ display: "flex", marginTop: "45px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "300px",
-                    margin: "auto",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <HotelContents>
                   <div>
                     <div style={{ fontSize: "18px", fontWeight: "700" }}>
                       스테이인텁, 영동
@@ -529,33 +307,27 @@ export default function Mainpage() {
                       제주특별자치도 서귀포시 중문관광로 288
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "12px",
-                      width: "70px",
-                      height: "20px",
-                      border: "1px solid #000000",
-                      borderRadius: "15px",
-                      fontSize: "10px",
-                      fontWeight: "300",
-                    }}
+
+                  <Link
+                    href={{ pathname: "/roomDetail" }}
+                    style={{ textDecoration: "none" }}
                   >
-                    둘러보기 →
-                  </div>
-                </div>
+                    <DetailPostButton>둘러보기 →</DetailPostButton>
+                  </Link>
+                </HotelContents>
               </div>
-            </div>
-          </div>
+            </HotelContainer>
+          </HotelListContainer>
         </div>
       </IndexBottomContainer>
     </IndexContainter>
   );
 }
 
-const IndexContainter = styled.div``;
+const IndexContainter = styled.div`
+  width: 1920px;
+  margin: auto;
+`;
 
 const IndexBottomContainer = styled.div``;
 
@@ -570,6 +342,53 @@ const MainImgDiv = styled.div`
   margin-top: 100px;
 `;
 
+const HotelListText = styled.div`
+  display: flex;
+  margin-left: 30px;
+  font-size: 19px;
+  font-weight: 300;
+  color: #162318;
+  align-items: center;
+`;
+
+const HotelListContainer = styled.div`
+  display: flex;
+  gap: 45px;
+  flex-wrap: wrap;
+  margin-bottom: 150px;
+`;
+
+const HotelContainer = styled.div`
+  width: 370px;
+  height: 350px;
+  border: 1px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+`;
+
+const HotelContents = styled.div`
+  display: flex;
+  width: 300px;
+  margin: auto;
+  justify-content: space-between;
+`;
+
+const DetailPostButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  width: 70px;
+  height: 20px;
+  border: 1px solid #000000;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: 300;
+  color: #000000;
+  cursor: pointer;
+`;
+
 const SubImgDiv = styled.div`
   width: 100%;
   display: flex;
@@ -579,6 +398,21 @@ const SubImgDiv = styled.div`
 const BigImgDiv = styled.div`
   width: 500px;
   position: relative;
+`;
+
+const ReservationStatus = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 109px;
+  bottom: 45px;
+  width: 280px;
+  height: 45px;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
 `;
 
 const SmallImgDiv = styled.div`
