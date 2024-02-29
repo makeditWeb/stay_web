@@ -34,15 +34,16 @@ export default function RootLayout({
 }
 
 const BodyContainer = styled.body`
-  width: 1920px;
+  width: 100%;
   overflow: auto;
+  background: #f6f5f1;
 `;
 
 const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
-  background-color: #162318;
-  opacity: 0.5;
+  /* background-color: #162318;
+  opacity: 0.5; */
   z-index: 10;
 `;
 
