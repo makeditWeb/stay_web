@@ -16,7 +16,7 @@ export default function RoomDetailPage() {
           />
         </div>
         <div
-          style={{ width: "1920px", height: "350px", background: "black" }}
+          style={{ width: "1920px", height: "350px", background: "#203d1e" }}
         ></div>
         <MainTitleContainer>
           <div>
@@ -237,6 +237,7 @@ export default function RoomDetailPage() {
                   borderRadius: "4px",
                   border: "1px solid #ffffff",
                   color: "#ffffff",
+                  marginTop: "15px",
                 }}
               >
                 more
@@ -320,7 +321,7 @@ export default function RoomDetailPage() {
             background: "#ffffff",
           }}
         >
-          <div style={{ marginTop: "50px" }}>
+          <div style={{ marginTop: "50px", marginBottom: "80px" }}>
             <div
               style={{ width: "800px", height: "450px", marginBottom: "15px" }}
             >
@@ -340,8 +341,19 @@ export default function RoomDetailPage() {
               />
             </div>
           </div>
-          <div style={{ marginTop: "50px", marginLeft: "150px" }}>
-            <div style={{ fontSize: "32px", fontWeight: "700" }}>
+          <div
+            style={{
+              marginTop: "50px",
+              marginLeft: "150px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "32px",
+                fontWeight: "700",
+                marginBottom: "60px",
+              }}
+            >
               스테이인터뷰, 강릉
             </div>
             <div style={{ fontSize: "19px", fontWeight: "300" }}>
@@ -359,8 +371,13 @@ export default function RoomDetailPage() {
             </div>
           </div>
         </div>
-        <div>
-          <div style={{ width: "1920px", height: "650px" }}>
+        <div style={{ position: "relative" }}>
+          <div
+            style={{
+              width: "1920px",
+              height: "650px",
+            }}
+          >
             <Image
               src="/roomDetailImg4.png"
               alt="서브 이미지"
@@ -368,16 +385,16 @@ export default function RoomDetailPage() {
               height={650}
             />
           </div>
-          <div>
+          <div style={{ position: "absolute", top: "80px", left: "360px" }}>
             <div
               style={{
                 display: "flex",
                 width: "1200px",
                 height: "150px",
                 margin: "auto",
-                background: "gray",
                 borderRadius: "15px",
                 marginBottom: "20px",
+                background: "rgba(255, 255, 255, 0.75)",
                 // opacity: "0.7",
               }}
             >
@@ -448,9 +465,9 @@ export default function RoomDetailPage() {
                 width: "1200px",
                 height: "150px",
                 margin: "auto",
-                background: "gray",
                 borderRadius: "15px",
                 marginBottom: "20px",
+                background: "rgba(255, 255, 255, 0.75)",
                 // opacity: "0.7",
               }}
             >
@@ -521,9 +538,8 @@ export default function RoomDetailPage() {
                 width: "1200px",
                 height: "150px",
                 margin: "auto",
-                background: "gray",
+                background: "rgba(255, 255, 255, 0.75)",
                 borderRadius: "15px",
-                // opacity: "0.7",
               }}
             >
               <div
@@ -587,6 +603,52 @@ export default function RoomDetailPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div
+          style={{
+            width: "1200px",
+            margin: "auto",
+            marginTop: "100px",
+          }}
+        >
+          <div style={{ marginBottom: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "150px",
+                height: "55px",
+                fontSize: "30px",
+                fontWeight: "700",
+              }}
+            >
+              주변 관광지
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                height: "40px",
+                fontSize: "16px",
+                gap: "5px",
+              }}
+            >
+              <div style={{ fontWeight: "600" }}>스테이인터뷰 강릉</div>
+              <div>강원 강릉시 강동면 율곡로 1458</div>
+            </div>
+          </div>
+          <div style={{ width: "1200px", height: "400px" }}>
+            <Image src="/map.png" alt="지도" width={1200} height={400} />
+          </div>
+          <div style={{ width: "1200px", height: "600px" }}>
+            <Image
+              src="/mapStore.png"
+              alt="지도 근처 가게"
+              width={1200}
+              height={600}
+            />
           </div>
         </div>
       </div>

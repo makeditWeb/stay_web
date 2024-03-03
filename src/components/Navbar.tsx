@@ -21,7 +21,10 @@ export default function Navbar() {
         <Link href={{ pathname: "/login" }}>
           <MenuDiv style={{ margin: "0 44px 0 250px" }}>Login</MenuDiv>
         </Link>
-        <Link href="/" style={{ width: "36px", height: "36px" }}>
+        <Link
+          href="https://www.instagram.com/stay.interview"
+          style={{ width: "36px", height: "36px" }}
+        >
           <img src="/instagramLogo.png" alt="인스타그램 로고" />
         </Link>
       </NavbarDiv>
