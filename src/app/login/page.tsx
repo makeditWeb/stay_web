@@ -38,11 +38,14 @@ export default function LoginPage() {
         <GeneralLoginButton>로그인</GeneralLoginButton>
         <KakaoLoginButton>
           <Image
-            src="/kakaoLogin.png"
+            src="/kakaoIcon.png"
             alt="카카오 로그인 버튼"
-            width={300}
-            height={45}
+            width={20}
+            height={18}
           />
+          <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+            카카오 로그인
+          </div>
         </KakaoLoginButton>
         <ReservationInquiryButton>비회원 예약조회</ReservationInquiryButton>
       </LoginContainer>
@@ -159,6 +162,7 @@ const GeneralLoginButton = styled.div`
   background: #203d1e;
   color: #ffffff;
   margin-bottom: 15px;
+  font-size: 18px;
   cursor: pointer;
 `;
 
@@ -180,6 +184,7 @@ const ReservationInquiryButton = styled.div`
   align-items: center;
   width: 500px;
   height: 52px;
+  font-size: 18px;
   border-radius: 15px;
   background: #c2bfb3;
   color: #ffffff;

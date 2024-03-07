@@ -44,7 +44,7 @@ export default function Footer() {
 }
 
 const FooterContainer = styled.div`
-  height: 283px;
+  height: 280px;
 `;
 
 const FooterDiv = styled.div`
