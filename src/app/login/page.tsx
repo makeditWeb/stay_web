@@ -3,8 +3,17 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import KakaoLogin from "react-kakao-login";
 
 export default function LoginPage() {
+  const Rest_api_key = "fdae58a0738089d459f46e607436eb39"; //REST API KEY
+  const redirect_uri = "http://3.209.225.241:8000/healthCheck"; //Redirect URI
+  // oauth 요청 URL
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+  const handleLogin = () => {
+    window.location.href = kakaoURL;
+  };
+
   return (
     <div style={{ height: "100%", background: "#f6f5f1" }}>
       <LoginContainer>
@@ -36,7 +45,13 @@ export default function LoginPage() {
           </AccountFind>
         </SignDiv>
         <GeneralLoginButton>로그인</GeneralLoginButton>
-        <KakaoLoginButton>
+        {/* <KakaoLogin
+          token={kakaoClientId}
+          onSuccess={kakaoOnSuccess}
+          onFail={kakaoOnFailure}
+        /> */}
+
+        <KakaoLoginButton onClick={handleLogin}>
           <Image
             src="/kakaoIcon.png"
             alt="카카오 로그인 버튼"
