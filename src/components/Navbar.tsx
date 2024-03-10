@@ -13,7 +13,9 @@ export default function Navbar() {
         <img src="/stayinterviewLogo.png" alt="사이트 로고" />
       </Link>
       <NavbarDiv style={{ marginLeft: "15px" }}>
-        <MenuDiv>OUR STAY</MenuDiv>
+        <Link href={{ pathname: "/ourStay" }}>
+          <MenuDiv>OUR STAY</MenuDiv>
+        </Link>
         <MenuDiv>CONSULTING</MenuDiv>
         <MenuDiv>OUR NEWS</MenuDiv>
       </NavbarDiv>
@@ -33,8 +35,9 @@ export default function Navbar() {
 }
 
 const NavbarContainer = styled.div`
-  background-color: #162318;
-  opacity: 0.5;
+  position: fixed;
+  width: 1920px;
+  background: rgba(22, 35, 24, 0.5);
   height: 97px;
   display: flex;
   justify-content: center;

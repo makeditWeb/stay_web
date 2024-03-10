@@ -7,19 +7,19 @@ export default function RoomDetailPage() {
   return (
     <RoomDetailContainer>
       <div style={{ position: "relative" }}>
-        <div style={{ height: "950px" }}>
+        <div style={{ height: "900px" }}>
           <Image
-            src="/roomDetailImg.png"
+            src="/DetailPageImg.png"
             alt="상세 페이지 메인 이미지"
             width={1920}
-            height={950}
+            height={900}
           />
         </div>
         <div
-          style={{ width: "1920px", height: "350px", background: "#203d1e" }}
+          style={{ width: "1920px", height: "400px", background: "#203d1e" }}
         ></div>
         <MainTitleContainer>
-          <div>
+          <div style={{ paddingTop: "80px" }}>
             <div
               style={{
                 fontSize: "25px",

@@ -395,6 +395,7 @@ export default function ReservationPage() {
                         fontWeight: "600",
                         marginTop: "5px",
                         marginLeft: "380px",
+                        cursor: "pointer",
                       }}
                     >
                       예약하기
