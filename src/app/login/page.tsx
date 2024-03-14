@@ -72,6 +72,7 @@ const LoginContainer = styled.div`
   width: 500px;
   height: 700px;
   margin: auto;
+  padding-top: 100px;
 `;
 
 const LoginTextDiv = styled.div`

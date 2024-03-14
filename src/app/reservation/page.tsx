@@ -325,20 +325,34 @@ export default function ReservationPage() {
                     marginBottom: "20px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "380px",
-                      height: "250px",
-                      marginRight: "60px",
-                    }}
-                  >
-                    <Image
-                      src="/reservationImg2.png"
-                      alt="객실 이미지"
-                      width={380}
-                      height={250}
-                    />
-                  </div>
+                  <RoomImg>
+                    <div>
+                      <Image
+                        src="/reservationImg2.png"
+                        alt="객실 이미지"
+                        width={380}
+                        height={250}
+                      />
+                    </div>
+                    <RoomDiv>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "150px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          border: "1px solid #ffffff",
+                          color: "#ffffff",
+                          cursor: "pointer",
+                        }}
+                      >
+                        상세보기
+                      </div>
+                    </RoomDiv>
+                  </RoomImg>
+                  <div></div>
                   <div>
                     <div
                       style={{
@@ -395,6 +409,7 @@ export default function ReservationPage() {
                         fontWeight: "600",
                         marginTop: "5px",
                         marginLeft: "380px",
+                        cursor: "pointer",
                       }}
                     >
                       예약하기
@@ -412,20 +427,34 @@ export default function ReservationPage() {
                     marginBottom: "20px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "380px",
-                      height: "250px",
-                      marginRight: "60px",
-                    }}
-                  >
-                    <Image
-                      src="/reservationImg2.png"
-                      alt="객실 이미지"
-                      width={380}
-                      height={250}
-                    />
-                  </div>
+                  <RoomImg>
+                    <div>
+                      <Image
+                        src="/reservationImg2.png"
+                        alt="객실 이미지"
+                        width={380}
+                        height={250}
+                      />
+                    </div>
+                    <RoomDiv>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "150px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          border: "1px solid #ffffff",
+                          color: "#ffffff",
+                          cursor: "pointer",
+                        }}
+                      >
+                        상세보기
+                      </div>
+                    </RoomDiv>
+                  </RoomImg>
+                  <div></div>
                   <div>
                     <div
                       style={{
@@ -482,6 +511,7 @@ export default function ReservationPage() {
                         fontWeight: "600",
                         marginTop: "5px",
                         marginLeft: "380px",
+                        cursor: "pointer",
                       }}
                     >
                       예약하기
@@ -499,20 +529,34 @@ export default function ReservationPage() {
                     marginBottom: "20px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "380px",
-                      height: "250px",
-                      marginRight: "60px",
-                    }}
-                  >
-                    <Image
-                      src="/reservationImg2.png"
-                      alt="객실 이미지"
-                      width={380}
-                      height={250}
-                    />
-                  </div>
+                  <RoomImg>
+                    <div>
+                      <Image
+                        src="/reservationImg2.png"
+                        alt="객실 이미지"
+                        width={380}
+                        height={250}
+                      />
+                    </div>
+                    <RoomDiv>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "150px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          border: "1px solid #ffffff",
+                          color: "#ffffff",
+                          cursor: "pointer",
+                        }}
+                      >
+                        상세보기
+                      </div>
+                    </RoomDiv>
+                  </RoomImg>
+                  <div></div>
                   <div>
                     <div
                       style={{
@@ -569,6 +613,7 @@ export default function ReservationPage() {
                         fontWeight: "600",
                         marginTop: "5px",
                         marginLeft: "380px",
+                        cursor: "pointer",
                       }}
                     >
                       예약하기
@@ -586,20 +631,34 @@ export default function ReservationPage() {
                     marginBottom: "20px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "380px",
-                      height: "250px",
-                      marginRight: "60px",
-                    }}
-                  >
-                    <Image
-                      src="/reservationImg2.png"
-                      alt="객실 이미지"
-                      width={380}
-                      height={250}
-                    />
-                  </div>
+                  <RoomImg>
+                    <div>
+                      <Image
+                        src="/reservationImg2.png"
+                        alt="객실 이미지"
+                        width={380}
+                        height={250}
+                      />
+                    </div>
+                    <RoomDiv>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "150px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          border: "1px solid #ffffff",
+                          color: "#ffffff",
+                          cursor: "pointer",
+                        }}
+                      >
+                        상세보기
+                      </div>
+                    </RoomDiv>
+                  </RoomImg>
+                  <div></div>
                   <div>
                     <div
                       style={{
@@ -656,6 +715,7 @@ export default function ReservationPage() {
                         fontWeight: "600",
                         marginTop: "5px",
                         marginLeft: "380px",
+                        cursor: "pointer",
                       }}
                     >
                       예약하기
@@ -674,4 +734,30 @@ export default function ReservationPage() {
 const ReservationContainer = styled.div`
   display: flex;
   width: 1920px;
+  padding-bottom: 80px;
+`;
+
+const RoomImg = styled.div`
+  position: relative;
+  width: 380px;
+  height: 250px;
+  margin-right: 60px;
+`;
+
+const RoomDiv = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.35s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    opacity: 1;
+  }
 `;

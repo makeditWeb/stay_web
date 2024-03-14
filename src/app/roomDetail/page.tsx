@@ -2,24 +2,48 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import Slider from "react-slick";
+import "slick-carousel";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function RoomDetailPage() {
+  const settings = {
+    dots: false,
+    infintie: true,
+    useTransform: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: (
+      <StyledImage
+        src="/leftVector.png"
+        alt="Previous"
+        width={20}
+        height={40}
+      />
+    ),
+    nextArrow: (
+      <StyledImage src="/rightVector.png" alt="Next" width={20} height={40} />
+    ),
+  };
+
   return (
     <RoomDetailContainer>
       <div style={{ position: "relative" }}>
-        <div style={{ height: "950px" }}>
+        <div style={{ height: "850px" }}>
           <Image
-            src="/roomDetailImg.png"
+            src="/DetailPageImg.png"
             alt="상세 페이지 메인 이미지"
             width={1920}
-            height={950}
+            height={850}
           />
         </div>
         <div
-          style={{ width: "1920px", height: "350px", background: "#203d1e" }}
+          style={{ width: "1920px", height: "400px", background: "#203d1e" }}
         ></div>
         <MainTitleContainer>
-          <div>
+          <div style={{ paddingTop: "80px" }}>
             <div
               style={{
                 fontSize: "25px",
@@ -74,14 +98,45 @@ export default function RoomDetailPage() {
               나만의 스테이에엇 바다와 산이 열립니다.
             </div>
           </div>
-          <div style={{ borderRadius: "15px 15px 0 0", overflow: "hidden" }}>
-            <div style={{ width: "1200px", height: "550px" }}>
-              <Image
+          <div>
+            <div
+              style={{ width: "1200px", height: "500px", borderRadius: "15px" }}
+            >
+              <SlickSlider {...settings}>
+                <div>
+                  <Image
+                    src="/roomDetailImg2.png"
+                    alt="슬라이더1"
+                    width={1200}
+                    height={500}
+                    style={{ borderRadius: "15px 15px 0 0" }}
+                  />
+                </div>
+                <div>
+                  <Image
+                    src="/roomDetailImg3.png"
+                    alt="슬라이더1"
+                    width={1200}
+                    height={500}
+                    style={{ borderRadius: "15px 15px 0 0" }}
+                  />
+                </div>
+                <div>
+                  <Image
+                    src="/roomDetailImg4.png"
+                    alt="슬라이더1"
+                    width={1200}
+                    height={500}
+                    style={{ borderRadius: "15px 15px 0 0" }}
+                  />
+                </div>
+              </SlickSlider>
+              {/* <Image
                 src="/roomDetailImg.png"
                 alt="상세 페이지 메인 이미지"
                 width={1200}
                 height={550}
-              />
+              /> */}
             </div>
             <div
               style={{
@@ -1214,4 +1269,50 @@ const MainTitleContainer = styled.div`
   position: absolute;
   top: 50px;
   left: 360px;
+`;
+
+const SlickSlider = styled(Slider)`
+  border-radius: 15px 0 15px 0;
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .slick-dots {
+    display: none;
+    li button {
+      &:before {
+        color: #000000; /* dots 색상 변경 */
+        font-size: 20px !important; /* dots 크기 변경 */
+      }
+    }
+  }
+
+  .slick-prev,
+  .slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; /* 화살표가 슬라이드 위에 오도록 */
+    /* left 또는 right 값으로 위치 조정 */
+  }
+
+  .slick-prev {
+    left: -50px; /* 좌측 여백 조정 */
+  }
+
+  .slick-next {
+    right: -50px; /* 우측 여백 조정 */
+  }
+`;
+
+// 슬라이드 화살표 이미지
+const StyledImage = styled(Image)`
+  /* 여기에 스타일을 추가하세요 */
+  width: 20px; /* 원하는 크기로 조정 */
+  height: 40px; /* 원하는 크기로 조정 */
+  position: absolute; /* 원하는 위치로 조정하기 위해 절대 위치 지정 */
+  top: 50%; /* 원하는 위치로 조정 */
+  transform: translateY(-50%); /* 세로 가운데 정렬 */
 `;
