@@ -25,6 +25,7 @@ export default function RootLayout({
           <Navbar />
         </HeaderContainer>
         <main>{children}</main>
+        <div id="modal-root"></div>
         <FooterContainer>
           <Footer />
         </FooterContainer>

@@ -2,10 +2,31 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const MyPageTabContents = ({ tabNumber }) => {
+  // 연락처 인풋
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const [isMarketingCollection, setIsMarketingCollection] = useState(false);
 
   const marketingCollectionHandler = () => {
     setIsMarketingCollection(!isMarketingCollection);
+  };
+
+  // 연락처 글자 제한, 자동 (-)
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    if (inputPhoneNumber.length > 11) {
+      inputPhoneNumber = inputPhoneNumber.slice(0, 11); // 11자 이상 입력 방지
+    }
+    // 하이픈(-) 삽입
+    if (inputPhoneNumber.length > 3 && inputPhoneNumber.length < 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    } else if (inputPhoneNumber.length >= 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(
+        /(\d{3})(\d{4})(\d{1,4})/,
+        "$1-$2-$3"
+      );
+    }
+    setPhoneNumber(inputPhoneNumber);
   };
 
   if (tabNumber === 1) {
@@ -161,7 +182,12 @@ const MyPageTabContents = ({ tabNumber }) => {
             <InformationInputContainer>
               <InformationText>연락처</InformationText>
               <InformationInputDiv>
-                <InformationInput placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)" />
+                <InformationInput
+                  value={phoneNumber}
+                  onChange={handlePhoneNumberChange}
+                  type="text"
+                  placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)"
+                />
               </InformationInputDiv>
             </InformationInputContainer>
             <InformationInputContainer>
@@ -193,7 +219,10 @@ const MyPageTabContents = ({ tabNumber }) => {
             <InformationInputContainer>
               <InformationText>비밀번호</InformationText>
               <InformationInputDiv>
-                <InformationInput placeholder="비밀번호를 입력해주세요." />
+                <InformationInput
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                />
               </InformationInputDiv>
             </InformationInputContainer>
             <ChangeInformation>회원정보 변경하기</ChangeInformation>
@@ -228,6 +257,7 @@ const MyPageTabContents = ({ tabNumber }) => {
             <InformationInputContainer>
               <InformationInputDiv style={{ width: "1120px" }}>
                 <InformationInput
+                  type="password"
                   style={{ width: "1000px" }}
                   placeholder="현재 비밀번호를 입력해주세요."
                 />
@@ -236,6 +266,7 @@ const MyPageTabContents = ({ tabNumber }) => {
             <InformationInputContainer>
               <InformationInputDiv style={{ width: "1120px" }}>
                 <InformationInput
+                  type="password"
                   style={{ width: "1000px" }}
                   placeholder="새 비밀번호를 입력해주세요."
                 />
@@ -244,6 +275,7 @@ const MyPageTabContents = ({ tabNumber }) => {
             <InformationInputContainer>
               <InformationInputDiv style={{ width: "1120px" }}>
                 <InformationInput
+                  type="password"
                   style={{ width: "1000px" }}
                   placeholder="새 비밀번호를 한번 더 입력해주세요."
                 />
