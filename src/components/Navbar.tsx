@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 export default function Navbar() {
   const pathName = usePathname();
+
   return (
     <NavbarContainer>
       <Link href="/" style={{ textDecoration: "none" }}>
@@ -17,8 +18,13 @@ export default function Navbar() {
         <MenuDiv>OUR NEWS</MenuDiv>
       </NavbarDiv>
       <NavbarDiv>
-        <MenuDiv style={{ margin: "0 44px 0 250px" }}>Login</MenuDiv>
-        <Link href="/" style={{ width: "36px", height: "36px" }}>
+        <Link href={{ pathname: "/login" }}>
+          <MenuDiv style={{ margin: "0 44px 0 250px" }}>Login</MenuDiv>
+        </Link>
+        <Link
+          href="https://www.instagram.com/stay.interview"
+          style={{ width: "36px", height: "36px" }}
+        >
           <img src="/instagramLogo.png" alt="인스타그램 로고" />
         </Link>
       </NavbarDiv>
@@ -27,6 +33,8 @@ export default function Navbar() {
 }
 
 const NavbarContainer = styled.div`
+  background-color: #162318;
+  opacity: 0.5;
   height: 97px;
   display: flex;
   justify-content: center;
