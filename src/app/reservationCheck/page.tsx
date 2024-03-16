@@ -4,6 +4,27 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export default function ReservationCheckPage() {
+  // 연락처 인풋
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  // 연락처 글자 제한, 자동 (-)
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    if (inputPhoneNumber.length > 11) {
+      inputPhoneNumber = inputPhoneNumber.slice(0, 11); // 11자 이상 입력 방지
+    }
+    // 하이픈(-) 삽입
+    if (inputPhoneNumber.length > 3 && inputPhoneNumber.length < 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    } else if (inputPhoneNumber.length >= 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(
+        /(\d{3})(\d{4})(\d{1,4})/,
+        "$1-$2-$3"
+      );
+    }
+    setPhoneNumber(inputPhoneNumber);
+  };
+
   return (
     <ReservatioonCheckContainer>
       <div
@@ -30,7 +51,10 @@ export default function ReservationCheckPage() {
       </div>
       <ReservationInputBox placeholder="이름을 입력해주세요"></ReservationInputBox>
       <ReservationInputBox
+        type="text"
         style={{ margin: "20px 0 20px 0" }}
+        value={phoneNumber}
+        onChange={handlePhoneNumberChange}
         placeholder="휴대폰 번호를 입력해주세요"
       ></ReservationInputBox>
       <ReservationInputBox

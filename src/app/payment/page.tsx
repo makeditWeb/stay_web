@@ -42,6 +42,9 @@ export default function PaymentPage() {
   // 결제하기 버튼
   const [paymentEnabled, setPaymentEnabled] = useState(false);
 
+  // 연락처 인풋
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   useEffect(() => {
     if (
       (cardPayment || bankBookPayment) &&
@@ -62,6 +65,24 @@ export default function PaymentPage() {
     covidChecked,
     nonMemberChecked,
   ]);
+
+  // 연락처 글자 제한, 자동 (-)
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    if (inputPhoneNumber.length > 11) {
+      inputPhoneNumber = inputPhoneNumber.slice(0, 11); // 11자 이상 입력 방지
+    }
+    // 하이픈(-) 삽입
+    if (inputPhoneNumber.length > 3 && inputPhoneNumber.length < 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    } else if (inputPhoneNumber.length >= 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(
+        /(\d{3})(\d{4})(\d{1,4})/,
+        "$1-$2-$3"
+      );
+    }
+    setPhoneNumber(inputPhoneNumber);
+  };
 
   // 결제 방법 함수
   const cardPaymentHandler = () => {
@@ -361,6 +382,7 @@ export default function PaymentPage() {
                     color: "#203d1e",
                     fontSize: "16px",
                     fontWeight: "500",
+                    cursor: "pointer",
                   }}
                 >
                   인원 수정
@@ -475,7 +497,12 @@ export default function PaymentPage() {
           <InformationInputContainer>
             <InformationText>연락처</InformationText>
             <InformationInputDiv>
-              <InformationInput placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)" />
+              <InformationInput
+                type="text"
+                placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+              />
             </InformationInputDiv>
           </InformationInputContainer>
           <InformationInputContainer>
