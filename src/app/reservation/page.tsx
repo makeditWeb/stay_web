@@ -401,9 +401,13 @@ export default function ReservationPage() {
                 <CalendarContents
                   onChange={changeDate}
                   // value={value}
+                  // minDetail="month"
+                  // maxDetail="month"
                   selectRange={true}
-                  calendarType="hebrew"
-                  formatDay={(locale, date) => moment(date).format("DD")}
+                  // calendarType="hebrew"
+                  calendarType="gregory"
+                  formatDay={(locale, date) => moment(date).format("D")}
+                  formatMonthYear={(locale, date) => moment(date).format("M월")}
                   prev2Label={null}
                   next2Label={null}
                 ></CalendarContents>
@@ -903,7 +907,7 @@ const CalendarContents = styled(Calendar)`
   // 선택된 날짜들의 배경
   .react-calendar__tile--active {
     background-color: rgba(43, 118, 56, 0.3);
-    color: #171717;
+    color: #ffffff;
     font-size: 16px;
   }
 
@@ -933,6 +937,11 @@ const CalendarContents = styled(Calendar)`
     }
   }
 
+  .react-calendar__tile--active {
+    background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
+    color: white;
+  }
+
   /* 이번 달 일자 */
   .react-calendar__tile {
     font-size: 16px;
@@ -949,15 +958,16 @@ const CalendarContents = styled(Calendar)`
     font-weight: 600;
   }
 
-  .react-calendar__month-view__days__day--weekend {
+  /* .react-calendar__month-view__days__day--weekend {
     // 주말 글씨 빨간색 없애기
     color: var(--festie-gray-800, #3a3a3a);
-  }
+  } */
 
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     //hover 했을 때 색상 변경
     background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
+    color: #ffffff;
   }
 
   .react-calendar__tile--rangeStart {
