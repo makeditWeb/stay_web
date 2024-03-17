@@ -5,14 +5,28 @@ import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
-//
+import "moment/locale/ko";
+import ModalComponent from "@/components/modalComponent";
 
 export default function ReservationPage() {
+  moment.locale("ko");
   const [value, onChange] = useState([new Date(), new Date()]);
   const [nowDate, setNowDate] = useState("날짜");
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
+  //모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // 달력
   const changeDate = (e) => {
     const startDateFormat = moment(e[0]).format("YYYY/MM/DD");
     const endDateFormat = moment(e[1]).format("YYYY/MM/DD");
@@ -354,7 +368,8 @@ export default function ReservationPage() {
                       color: "#203D1E",
                     }}
                   >
-                    {moment(startDate).format("YYYY년 MM월 DD일")}
+                    {/* {moment(startDate).format("YYYY년 MM월 DD일")} */}
+                    {moment(startDate).format("YYYY년 MM월 DD일 (ddd)")}
                   </div>
                 </div>
                 <div
@@ -392,7 +407,7 @@ export default function ReservationPage() {
                     }}
                   >
                     {/* {moment(value).format("YYYY년 MM월 DD일")} */}
-                    {moment(endDate).format("YYYY년 MM월 DD일")}
+                    {moment(endDate).format("YYYY년 MM월 DD일 (ddd)")}
                   </div>
                 </div>
               </div>
@@ -404,8 +419,10 @@ export default function ReservationPage() {
                   // minDetail="month"
                   // maxDetail="month"
                   selectRange={true}
+                  showNeighboringMonth={false}
                   // calendarType="hebrew"
                   calendarType="gregory"
+                  minDate={new Date()}
                   formatDay={(locale, date) => moment(date).format("D")}
                   formatMonthYear={(locale, date) => moment(date).format("M월")}
                   prev2Label={null}
@@ -463,318 +480,16 @@ export default function ReservationPage() {
                           color: "#ffffff",
                           cursor: "pointer",
                         }}
+                        onClick={openModal}
                       >
                         상세보기
                       </div>
-                    </RoomDiv>
-                  </RoomImg>
-                  <div></div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        fontWeight: "700",
-                        color: "#203d1e",
-                        marginTop: "40px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      디럭스 룸
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "200",
-                        lineHeight: "25px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      아름다운 동해바다를 배경으로 멋진 사진을 남길 수 있는
-                      곳입니다.
-                      <br />
-                      사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "141px",
-                        height: "22px",
-                        fontSize: "16px",
-                        background: "#2b7638",
-                        gap: "5px",
-                        borderRadius: "4px",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <div style={{ fontWeight: "700" }}>기준 3인</div>
-                      (최대 4인)
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "210px",
-                        height: "40px",
-                        background: "#203d1e",
-                        borderRadius: "15px",
-                        color: "#ffffff",
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginTop: "5px",
-                        marginLeft: "380px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      예약하기
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "1050px",
-                    height: "250px",
-                    background: "#ffffff",
-                    borderRadius: "15px",
-                    overflow: "hidden",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <RoomImg>
-                    <div>
-                      <Image
-                        src="/reservationImg2.png"
-                        alt="객실 이미지"
-                        width={380}
-                        height={250}
+                      <ModalComponent
+                        isOpen={isModalOpen}
+                        closeModal={closeModal}
                       />
-                    </div>
-                    <RoomDiv>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "150px",
-                          height: "36px",
-                          borderRadius: "6px",
-                          border: "1px solid #ffffff",
-                          color: "#ffffff",
-                          cursor: "pointer",
-                        }}
-                      >
-                        상세보기
-                      </div>
                     </RoomDiv>
                   </RoomImg>
-                  <div></div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        fontWeight: "700",
-                        color: "#203d1e",
-                        marginTop: "40px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      디럭스 룸
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "200",
-                        lineHeight: "25px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      아름다운 동해바다를 배경으로 멋진 사진을 남길 수 있는
-                      곳입니다.
-                      <br />
-                      사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "141px",
-                        height: "22px",
-                        fontSize: "16px",
-                        background: "#2b7638",
-                        gap: "5px",
-                        borderRadius: "4px",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <div style={{ fontWeight: "700" }}>기준 3인</div>
-                      (최대 4인)
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "210px",
-                        height: "40px",
-                        background: "#203d1e",
-                        borderRadius: "15px",
-                        color: "#ffffff",
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginTop: "5px",
-                        marginLeft: "380px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      예약하기
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "1050px",
-                    height: "250px",
-                    background: "#ffffff",
-                    borderRadius: "15px",
-                    overflow: "hidden",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <RoomImg>
-                    <div>
-                      <Image
-                        src="/reservationImg2.png"
-                        alt="객실 이미지"
-                        width={380}
-                        height={250}
-                      />
-                    </div>
-                    <RoomDiv>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "150px",
-                          height: "36px",
-                          borderRadius: "6px",
-                          border: "1px solid #ffffff",
-                          color: "#ffffff",
-                          cursor: "pointer",
-                        }}
-                      >
-                        상세보기
-                      </div>
-                    </RoomDiv>
-                  </RoomImg>
-                  <div></div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        fontWeight: "700",
-                        color: "#203d1e",
-                        marginTop: "40px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      디럭스 룸
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "200",
-                        lineHeight: "25px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      아름다운 동해바다를 배경으로 멋진 사진을 남길 수 있는
-                      곳입니다.
-                      <br />
-                      사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "141px",
-                        height: "22px",
-                        fontSize: "16px",
-                        background: "#2b7638",
-                        gap: "5px",
-                        borderRadius: "4px",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <div style={{ fontWeight: "700" }}>기준 3인</div>
-                      (최대 4인)
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "210px",
-                        height: "40px",
-                        background: "#203d1e",
-                        borderRadius: "15px",
-                        color: "#ffffff",
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginTop: "5px",
-                        marginLeft: "380px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      예약하기
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "1050px",
-                    height: "250px",
-                    background: "#ffffff",
-                    borderRadius: "15px",
-                    overflow: "hidden",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <RoomImg>
-                    <div>
-                      <Image
-                        src="/reservationImg2.png"
-                        alt="객실 이미지"
-                        width={380}
-                        height={250}
-                      />
-                    </div>
-                    <RoomDiv>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "150px",
-                          height: "36px",
-                          borderRadius: "6px",
-                          border: "1px solid #ffffff",
-                          color: "#ffffff",
-                          cursor: "pointer",
-                        }}
-                      >
-                        상세보기
-                      </div>
-                    </RoomDiv>
-                  </RoomImg>
-                  <div></div>
                   <div>
                     <div
                       style={{
@@ -911,12 +626,6 @@ const CalendarContents = styled(Calendar)`
     font-size: 16px;
   }
 
-  // 달력에서 보이는 저번 달과 다음 달 숫자 색
-  .react-calendar__month-view__days__day--neighboringMonth {
-    color: #bdbdbd;
-    font-size: 16px;
-  }
-
   /* 요일 밑줄 제거 */
   .react-calendar__month-view__weekdays abbr {
     text-decoration: none;
@@ -945,6 +654,7 @@ const CalendarContents = styled(Calendar)`
   /* 이번 달 일자 */
   .react-calendar__tile {
     font-size: 16px;
+    font-weight: 300;
   }
 
   /* 요일 */
@@ -976,5 +686,40 @@ const CalendarContents = styled(Calendar)`
 
   .react-calendar__tile--rangeEnd {
     border-radius: 0px 15px 15px 0px;
+  }
+
+  // 토요일에 해당하는 날짜의 글씨 색상을 파란색으로 변경
+  .react-calendar__month-view__days__day--weekend:is(
+      .react-calendar__month-view__days__day--weekend
+    ) {
+    color: #2555ff !important;
+  }
+
+  // 일요일에 해당하는 날짜의 글씨 색상을 빨간색으로 변경
+  .react-calendar__month-view__days__day--weekend:is(
+      .react-calendar__month-view__days__day--weekend
+    )
+    + .react-calendar__month-view__days__day--weekend {
+    color: #cd0000 !important;
+  }
+
+  // 달력에서 보이는 저번 달과 다음 달 숫자 색
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #bdbdbd;
+    font-size: 16px;
+  }
+
+  // 선택된 달력 헤더의 배경색을 투명하게 설정
+  .react-calendar__navigation__label {
+    background-color: transparent !important;
+  }
+
+  .react-calendar__navigation__arrow {
+    background-color: transparent !important;
+  }
+
+  .react-calendar__tile:disabled {
+    background-color: #ffffff;
+    color: #ababab;
   }
 `;
