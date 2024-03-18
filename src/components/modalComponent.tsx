@@ -4,8 +4,21 @@ import Image from "next/image";
 import Modal from "react-modal";
 import styled from "styled-components";
 import ModalTabContents from "./ModalTabContents";
+import Slider from "react-slick";
+import "slick-carousel";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ModalComponent = ({ isOpen, closeModal }) => {
+  const settings = {
+    dots: true,
+    infintie: true,
+    useTransform: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const [activeTab, setActiveTab] = useState(1);
 
   const handleTabClick = (tabIndex: number) => {
@@ -80,16 +93,39 @@ const ModalComponent = ({ isOpen, closeModal }) => {
             width: "1100px",
             height: "580px",
             margin: "auto",
-            borderRadius: "0px 0px 15px 15px",
+            borderRadius: "15px",
             overflow: "hidden",
           }}
         >
-          <Image
-            src="/mainImg.png"
-            alt="임시 이미지"
-            width={1100}
-            height={580}
-          />
+          <SlickSlider {...settings}>
+            <div>
+              <Image
+                src="/roomDetailImg2.png"
+                alt="슬라이더1"
+                width={1200}
+                height={500}
+                // style={{ borderRadius: "15px 15px 0 0" }}
+              />
+            </div>
+            <div>
+              <Image
+                src="/roomDetailImg3.png"
+                alt="슬라이더1"
+                width={1200}
+                height={500}
+                // style={{ borderRadius: "15px 15px 0 0" }}
+              />
+            </div>
+            <div>
+              <Image
+                src="/roomDetailImg4.png"
+                alt="슬라이더1"
+                width={1200}
+                height={500}
+                // style={{ borderRadius: "15px 15px 0 0" }}
+              />
+            </div>
+          </SlickSlider>
         </div>
         <div
           style={{ display: "flex", paddingLeft: "100px", marginTop: "80px" }}
@@ -1227,4 +1263,42 @@ const TabBtn = styled.div<TabBtnProps>`
   font-weight: ${(props) => (props.active ? "800" : "500")};
   color: ${(props) => (props.active ? "#ffffff" : "#C3C3C3")};
   cursor: pointer;
+`;
+
+// 모달
+const SlickSlider = styled(Slider)`
+  border-radius: 15px;
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .slick-dots {
+    li button {
+      &:before {
+        color: #203d1e; /* dots 색상 변경 */
+        font-size: 22px !important; /* dots 크기 변경 */
+        margin-top: 25px;
+      }
+    }
+  }
+
+  .slick-prev,
+  .slick-next {
+    display: none;
+    /* position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; */
+    /* left 또는 right 값으로 위치 조정 */
+  }
+
+  .slick-prev {
+    left: -50px; /* 좌측 여백 조정 */
+  }
+
+  .slick-next {
+    right: -50px; /* 우측 여백 조정 */
+  }
 `;
