@@ -1,107 +1,156 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 
 export default function PaymentPage() {
+  // Day-1
   const [oneBed, setOneBad] = useState(false);
   const [oneGrill, setOneGrill] = useState(false);
   const [oneCoffeeToast, setOneCoffeeToast] = useState(false);
   const [oneCoffeeCream, setOneCoffeeCream] = useState(false);
 
+  // Day-2
   const [twoBed, setTwoBad] = useState(false);
   const [twoGrill, setTwoGrill] = useState(false);
   const [twoCoffeeToast, setTwoCoffeeToast] = useState(false);
   const [twoCoffeeCream, setTwoCoffeeCream] = useState(false);
 
-  const [termsOfUse, setTermsOfUse] = useState("/topVector.png");
-  const [collectionInformation, setCollectionInformation] =
-    useState("/topVector.png");
-  const [ageCheck, setAgeCheck] = useState("/topVector.png");
-  const [receivingInformation, setReceivingInformation] =
-    useState("/topVector.png");
+  // 약관동의 Vector 이미지
+  const [orderProduct, setOrderProduct] = useState("/topVector.png");
+  const [trust, setTrust] = useState("/topVector.png");
+  const [covid, setCovid] = useState("/topVector.png");
+  const [nonMember, setNonMember] = useState("/topVector.png");
+
+  // 결제 방법
+  const [cardPayment, setCardPayment] = useState(false);
+  const [bankBookPayment, setBankBookPayment] = useState(false);
 
   // 토글
-  const [termsOfUseToggle, setTermsOfUseToggle] = useState(false);
-  const [collectionInformationToggle, setCollectionInformationToggle] =
-    useState(false);
-  const [ageCheckToggle, setAgeCheckToggle] = useState(false);
-  const [receivingInformationToggle, setReceivingInformationToggle] =
-    useState(false);
+  const [orderProductToggle, setOrderProductToggle] = useState(false);
+  const [trustToggle, setTrustToggle] = useState(false);
+  const [covidToggle, setCovidToggle] = useState(false);
+  const [nonMemberToggle, setNonMemberToggle] = useState(false);
 
   // 체크박스
-  const [isChecked, setIsChecked] = useState(false);
-  const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(false);
-  const [isCollectionChecked, setIsCollectionChecked] = useState(false);
-  const [isAgeChecked, setIsAgeChecked] = useState(false);
-  const [isReceivingChecked, setIsReceivingChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const [orderProductChecked, setOrderProductChecked] = useState(false);
+  const [trustChecked, setTrustChecked] = useState(false);
+  const [covidChecked, setCovidChecked] = useState(false);
+  const [nonMemberChecked, setNonMemberChecked] = useState(false);
 
-  // 토글 람수
+  // 결제하기 버튼
+  const [paymentEnabled, setPaymentEnabled] = useState(false);
+
+  // 연락처 인풋
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  useEffect(() => {
+    if (
+      (cardPayment || bankBookPayment) &&
+      orderProductChecked &&
+      trustChecked &&
+      covidChecked &&
+      nonMemberChecked
+    ) {
+      setPaymentEnabled(true);
+    } else {
+      setPaymentEnabled(false);
+    }
+  }, [
+    cardPayment,
+    bankBookPayment,
+    orderProductChecked,
+    trustChecked,
+    covidChecked,
+    nonMemberChecked,
+  ]);
+
+  // 연락처 글자 제한, 자동 (-)
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    if (inputPhoneNumber.length > 11) {
+      inputPhoneNumber = inputPhoneNumber.slice(0, 11); // 11자 이상 입력 방지
+    }
+    // 하이픈(-) 삽입
+    if (inputPhoneNumber.length > 3 && inputPhoneNumber.length < 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    } else if (inputPhoneNumber.length >= 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(
+        /(\d{3})(\d{4})(\d{1,4})/,
+        "$1-$2-$3"
+      );
+    }
+    setPhoneNumber(inputPhoneNumber);
+  };
+
+  // 결제 방법 함수
+  const cardPaymentHandler = () => {
+    setCardPayment(!cardPayment);
+  };
+
+  const bankBookPaymentHandler = () => {
+    setBankBookPayment(!bankBookPayment);
+  };
+
+  // 토글 함수
   const handleSelectAllChange = (event) => {
     const { checked } = event.target;
-    setIsChecked(checked);
-    setIsTermsOfUseChecked(checked);
-    setIsCollectionChecked(checked);
-    setIsAgeChecked(checked);
-    setIsReceivingChecked(checked);
+    setAllChecked(checked);
+    setOrderProductChecked(checked);
+    setTrustChecked(checked);
+    setCovidChecked(checked);
+    setNonMemberChecked(checked);
   };
 
-  const termsOfUseCheckedHandler = () => {
-    setIsTermsOfUseChecked(!isTermsOfUseChecked);
-    setIsChecked(false);
+  const orderProductCheckedHandler = () => {
+    setOrderProductChecked(!orderProductChecked);
+    setAllChecked(false);
   };
 
-  const collectionCheckedHandler = () => {
-    setIsCollectionChecked(!isCollectionChecked);
-    setIsChecked(false);
+  const trustCheckedHandler = () => {
+    setTrustChecked(!trustChecked);
+    setAllChecked(false);
   };
 
-  const ageCheckedHandler = () => {
-    setIsAgeChecked(!isAgeChecked);
-    setIsChecked(false);
+  const covidCheckedHandler = () => {
+    setCovidChecked(!covidChecked);
+    setAllChecked(false);
   };
 
-  const receivingCheckedHandler = () => {
-    setIsReceivingChecked(!isReceivingChecked);
-    setIsChecked(false);
+  const nonMemberCheckedHandler = () => {
+    setNonMemberChecked(!nonMemberChecked);
+    setAllChecked(false);
   };
 
-  // const handleSelectAllChange = () => {
-  //   setIsChecked(!isChecked);
-  // };
-
-  const termsOfUseHandler = () => {
-    setTermsOfUse(
-      termsOfUse === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
+  const orderProductHandler = () => {
+    setOrderProduct(
+      orderProduct === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
     );
-    setTermsOfUseToggle(!termsOfUseToggle);
+    setOrderProductToggle(!orderProductToggle);
   };
 
-  const collectionHandler = () => {
-    setCollectionInformation(
-      collectionInformation === "/topVector.png"
-        ? "/bottomVector.png"
-        : "/topVector.png"
+  const trustHandler = () => {
+    setTrust(
+      trust === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
     );
 
-    setCollectionInformationToggle(!collectionInformationToggle);
+    setTrustToggle(!trustToggle);
   };
 
-  const ageCheckHandler = () => {
-    setAgeCheck(
-      ageCheck === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
+  const covidCheckHandler = () => {
+    setCovid(
+      covid === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
     );
 
-    setAgeCheckToggle(!ageCheckToggle);
+    setCovidToggle(!covidToggle);
   };
 
-  const receivingHandler = () => {
-    setReceivingInformation(
-      receivingInformation === "/topVector.png"
-        ? "/bottomVector.png"
-        : "/topVector.png"
+  const nonMemberHandler = () => {
+    setNonMember(
+      nonMember === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
     );
-    setReceivingInformationToggle(!receivingInformationToggle);
+    setNonMemberToggle(!nonMemberToggle);
   };
 
   // 옵션 선택
@@ -136,6 +185,23 @@ export default function PaymentPage() {
 
   const twoCoffeeCreamCheckHandler = () => {
     setTwoCoffeeCream(!twoCoffeeCream);
+  };
+
+  // 결제하기 버튼 함수
+  const paymentHandler = () => {
+    if (
+      (cardPayment || bankBookPayment) &&
+      orderProductChecked &&
+      trustChecked &&
+      covidChecked &&
+      nonMemberChecked
+    ) {
+      setPaymentEnabled(true);
+      alert("결제 진행을 합니다");
+    } else {
+      setPaymentEnabled(false);
+      alert("약관 동의를 해주세요");
+    }
   };
 
   return (
@@ -316,6 +382,7 @@ export default function PaymentPage() {
                     color: "#203d1e",
                     fontSize: "16px",
                     fontWeight: "500",
+                    cursor: "pointer",
                   }}
                 >
                   인원 수정
@@ -430,7 +497,12 @@ export default function PaymentPage() {
           <InformationInputContainer>
             <InformationText>연락처</InformationText>
             <InformationInputDiv>
-              <InformationInput placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)" />
+              <InformationInput
+                type="text"
+                placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+              />
             </InformationInputDiv>
           </InformationInputContainer>
           <InformationInputContainer>
@@ -512,7 +584,10 @@ export default function PaymentPage() {
                   checked={oneBed}
                   onChange={oneBedCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox"
+                  style={{ background: oneBed ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -556,7 +631,10 @@ export default function PaymentPage() {
                   checked={oneGrill}
                   onChange={oneGrillCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox1"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox1"
+                  style={{ background: oneGrill ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -600,7 +678,10 @@ export default function PaymentPage() {
                   checked={oneCoffeeToast}
                   onChange={oneCoffeeToastCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox2"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox2"
+                  style={{ background: oneCoffeeToast ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -643,7 +724,10 @@ export default function PaymentPage() {
                   checked={oneCoffeeCream}
                   onChange={oneCoffeeCreamCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox3"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox3"
+                  style={{ background: oneCoffeeCream ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -725,7 +809,10 @@ export default function PaymentPage() {
                   checked={twoBed}
                   onChange={twoBedCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox4"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox4"
+                  style={{ background: twoBed ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -769,7 +856,10 @@ export default function PaymentPage() {
                   checked={twoGrill}
                   onChange={twoGrillCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox5"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox5"
+                  style={{ background: twoGrill ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -813,7 +903,10 @@ export default function PaymentPage() {
                   checked={twoCoffeeToast}
                   onChange={twoCoffeeToastCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox6"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox6"
+                  style={{ background: twoCoffeeToast ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -856,7 +949,10 @@ export default function PaymentPage() {
                   checked={twoCoffeeCream}
                   onChange={twoCoffeeCreamCheckHandler}
                 ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox7"></CheckBoxLabel>
+                <CheckBoxLabel
+                  htmlFor="ckbox7"
+                  style={{ background: twoCoffeeCream ? "#2b7638" : "initial" }}
+                ></CheckBoxLabel>
                 <div
                   style={{
                     fontSize: "20px",
@@ -1110,8 +1206,16 @@ export default function PaymentPage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
-          <CheckBox type="paymentcheckbox" id="paymentckbox"></CheckBox>
-          <CheckBoxLabel htmlFor="paymentcheckbox"></CheckBoxLabel>
+          <CheckBox
+            type="checkbox"
+            id="paymentckbox"
+            checked={cardPayment}
+            onChange={cardPaymentHandler}
+          ></CheckBox>
+          <CheckBoxLabel
+            htmlFor="paymentckbox"
+            style={{ background: cardPayment ? "#2b7638" : "initial" }}
+          ></CheckBoxLabel>
           <div
             style={{
               display: "flex",
@@ -1130,8 +1234,16 @@ export default function PaymentPage() {
         <div
           style={{ display: "flex", alignItems: "center", marginLeft: "50px" }}
         >
-          <CheckBox type="paymentcheckbox" id="paymentckbox"></CheckBox>
-          <CheckBoxLabel htmlFor="paymentcheckbox"></CheckBoxLabel>
+          <CheckBox
+            type="checkbox"
+            id="paymentckbox2"
+            checked={bankBookPayment}
+            onChange={bankBookPaymentHandler}
+          ></CheckBox>
+          <CheckBoxLabel
+            htmlFor="paymentckbox2"
+            style={{ background: bankBookPayment ? "#2b7638" : "initial" }}
+          ></CheckBoxLabel>
           <div
             style={{
               display: "flex",
@@ -1185,13 +1297,13 @@ export default function PaymentPage() {
               gap: "20px",
             }}
           >
-            <AgreementCheckBox
+            <CheckBox
               type="checkbox"
-              id="ckbox"
-              checked={isChecked}
+              id="allckbox"
+              checked={allChecked}
               onChange={handleSelectAllChange}
-            ></AgreementCheckBox>
-            <AgreementCheckBoxLabel htmlFor="ckbox"></AgreementCheckBoxLabel>
+            ></CheckBox>
+            <CheckBoxLabel htmlFor="allckbox"></CheckBoxLabel>
             전체동의
           </div>
           <div
@@ -1205,25 +1317,25 @@ export default function PaymentPage() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <CheckBox
                 type="checkbox"
-                id="ckbox1"
-                checked={isTermsOfUseChecked}
-                onChange={termsOfUseCheckedHandler}
+                id="productckbox"
+                checked={orderProductChecked}
+                onChange={orderProductCheckedHandler}
               ></CheckBox>
-              <CheckBoxLabel htmlFor="ckbox1"></CheckBoxLabel>
+              <CheckBoxLabel htmlFor="productckbox"></CheckBoxLabel>
               <div style={{ marginLeft: "20px", width: "930px" }}>
-                스테이 인터뷰 이용약관 동의 (필수)
+                주문 상품정보에 동의 (필수)
               </div>
               <Image
-                src={termsOfUse}
+                src={orderProduct}
                 alt="화살표"
                 width={15}
                 height={10}
                 style={{ cursor: "pointer" }}
-                onClick={termsOfUseHandler}
+                onClick={orderProductHandler}
               />
             </div>
           </div>
-          {termsOfUseToggle && (
+          {orderProductToggle && (
             <div
               style={{
                 display: "flex",
@@ -1272,25 +1384,26 @@ export default function PaymentPage() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <CheckBox
                 type="checkbox"
-                id="ckbox2"
-                checked={isCollectionChecked}
-                onChange={collectionCheckedHandler}
+                id="trustckbox"
+                checked={trustChecked}
+                onChange={trustCheckedHandler}
               ></CheckBox>
-              <CheckBoxLabel htmlFor="ckbox2"></CheckBoxLabel>
+              <CheckBoxLabel htmlFor="trustckbox"></CheckBoxLabel>
               <div style={{ marginLeft: "20px", width: "930px" }}>
-                개인정보 수집 및 이용 동의 (필수)
+                결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의
+                (필수)
               </div>
               <Image
-                src={collectionInformation}
+                src={trust}
                 alt="화살표"
                 width={15}
                 height={10}
                 style={{ cursor: "pointer" }}
-                onClick={collectionHandler}
+                onClick={trustHandler}
               />
             </div>
           </div>
-          {collectionInformationToggle && (
+          {trustToggle && (
             <div
               style={{
                 display: "flex",
@@ -1339,25 +1452,25 @@ export default function PaymentPage() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <CheckBox
                 type="checkbox"
-                id="ckbox3"
-                checked={isAgeChecked}
-                onChange={ageCheckedHandler}
+                id="covidckbox"
+                checked={covidChecked}
+                onChange={covidCheckedHandler}
               ></CheckBox>
-              <CheckBoxLabel htmlFor="ckbox3"></CheckBoxLabel>
+              <CheckBoxLabel htmlFor="covidckbox"></CheckBoxLabel>
               <div style={{ marginLeft: "20px", width: "930px" }}>
-                만 14세 이상 확인 (필수)
+                코로나 19로 인한 방역지침 약관 (필수)
               </div>
               <Image
-                src={ageCheck}
+                src={covid}
                 alt="화살표"
                 width={15}
                 height={10}
                 style={{ cursor: "pointer" }}
-                onClick={ageCheckHandler}
+                onClick={covidCheckHandler}
               />
             </div>
           </div>
-          {ageCheckToggle && (
+          {covidToggle && (
             <div
               style={{
                 display: "flex",
@@ -1406,25 +1519,25 @@ export default function PaymentPage() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <CheckBox
                 type="checkbox"
-                id="ckbox4"
-                checked={isReceivingChecked}
-                onChange={receivingCheckedHandler}
+                id="nonmemberckbox"
+                checked={nonMemberChecked}
+                onChange={nonMemberCheckedHandler}
               ></CheckBox>
-              <CheckBoxLabel htmlFor="ckbox4"></CheckBoxLabel>
+              <CheckBoxLabel htmlFor="nonmemberckbox"></CheckBoxLabel>
               <div style={{ marginLeft: "20px", width: "930px" }}>
-                마케팅 정보 수신 (선택)
+                비회원 정보수집 약관 (필수)
               </div>
               <Image
-                src={receivingInformation}
+                src={nonMember}
                 alt="화살표"
                 width={15}
                 height={10}
                 style={{ cursor: "pointer" }}
-                onClick={receivingHandler}
+                onClick={nonMemberHandler}
               />
             </div>
           </div>
-          {receivingInformationToggle && (
+          {nonMemberToggle && (
             <div
               style={{
                 display: "flex",
@@ -1478,7 +1591,7 @@ export default function PaymentPage() {
           justifyContent: "center",
           width: "1200px",
           height: "78px",
-          background: "#203d1e",
+          background: paymentEnabled ? "#203d1e" : "#808080",
           borderRadius: "15px",
           color: "#ffffff",
           fontSize: "25px",
@@ -1486,6 +1599,7 @@ export default function PaymentPage() {
           margin: "50px 0 100px 0",
           cursor: "pointer",
         }}
+        onClick={paymentHandler}
       >
         결제하기
       </div>
@@ -1588,10 +1702,6 @@ const CheckBoxLabel = styled.label`
     opacity: 0;
   }
 
-  ${CheckBox}:checked + & {
-    background-color: #2b7638; /* 체크박스가 선택되었을 때 배경색을 변경 */
-  }
-
   ${CheckBox}:checked + &::after {
     opacity: 1;
     border-color: #d9d9d9;
@@ -1607,44 +1717,5 @@ const RequestedTermInput = styled.input`
 
   &:focus {
     outline: none;
-  }
-`;
-
-// 이용자 약관 동의 체크박스
-const AgreementCheckBox = styled.input`
-  display: none;
-  width: 23px;
-  height: 23px;
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-`;
-
-const AgreementCheckBoxLabel = styled.label`
-  width: 23px;
-  height: 23px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-
-  &:after {
-    content: "";
-    width: 10px;
-    height: 14px;
-    background-color: transparent;
-    border: 2px solid yellow;
-    border-left: none;
-    border-top: none;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    opacity: 0;
-  }
-
-  ${CheckBox}:checked + &::after {
-    opacity: 1;
-    border-color: #d9d9d9;
   }
 `;

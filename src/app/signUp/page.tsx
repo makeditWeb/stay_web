@@ -4,6 +4,9 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export default function SignUpPage() {
+  // 연락처 인풋
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const [termsOfUse, setTermsOfUse] = useState("/topVector.png");
   const [collectionInformation, setCollectionInformation] =
     useState("/topVector.png");
@@ -57,6 +60,24 @@ export default function SignUpPage() {
   // const handleSelectAllChange = () => {
   //   setIsChecked(!isChecked);
   // };
+
+  // 연락처 글자 제한, 자동 (-)
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    if (inputPhoneNumber.length > 11) {
+      inputPhoneNumber = inputPhoneNumber.slice(0, 11); // 11자 이상 입력 방지
+    }
+    // 하이픈(-) 삽입
+    if (inputPhoneNumber.length > 3 && inputPhoneNumber.length < 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    } else if (inputPhoneNumber.length >= 8) {
+      inputPhoneNumber = inputPhoneNumber.replace(
+        /(\d{3})(\d{4})(\d{1,4})/,
+        "$1-$2-$3"
+      );
+    }
+    setPhoneNumber(inputPhoneNumber);
+  };
 
   const termsOfUseHandler = () => {
     setTermsOfUse(
@@ -121,13 +142,19 @@ export default function SignUpPage() {
           <InformationInputContainer>
             <InformationText>비밀번호</InformationText>
             <InformationInputDiv>
-              <InformationInput placeholder="비밀번호를 입력해주세요." />
+              <InformationInput
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+              />
             </InformationInputDiv>
           </InformationInputContainer>
           <InformationInputContainer>
             <InformationText style={{ background: "none" }}></InformationText>
             <InformationInputDiv>
-              <InformationInput placeholder="비밀번호 확인을 위해 재입력해주세요." />
+              <InformationInput
+                type="password"
+                placeholder="비밀번호 확인을 위해 재입력해주세요."
+              />
             </InformationInputDiv>
           </InformationInputContainer>
           <InformationInputContainer>
@@ -141,6 +168,9 @@ export default function SignUpPage() {
             >
               <InformationInputDiv style={{ width: "800px" }}>
                 <InformationInput
+                  type="text"
+                  value={phoneNumber}
+                  onChange={handlePhoneNumberChange}
                   style={{ width: "770px" }}
                   placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요. )"
                 />
