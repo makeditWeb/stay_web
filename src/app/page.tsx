@@ -542,26 +542,6 @@ const SliderContainer = styled.div`
   margin-top: 100px;
 `;
 
-// 화살표
-
-const CustomPrevArrow = (props) => {
-  const { className, onClick } = props;
-  return (
-    <div style={{ width: "80px" }} className={className} onClick={onClick}>
-      <Image src="/leftArrow.png" alt="왼쪽화살표" width={50} height={50} />
-    </div>
-  );
-};
-
-const CustomNextArrow = (props) => {
-  const { className, onClick } = props;
-  return (
-    <div className={className} onClick={onClick}>
-      <Image src="/rightArrow.png" alt="오른쪽 화살표" width={50} height={50} />
-    </div>
-  );
-};
-
 const SlickSlider = styled(Slider)`
   border-radius: 15px;
 

@@ -20,8 +20,18 @@ export default function Navbar() {
         >
           <MenuDiv>OUR STAY</MenuDiv>
         </Link>
-        <MenuDiv>CONSULTING</MenuDiv>
-        <MenuDiv>OUR NEWS</MenuDiv>
+        <Link
+          href={{ pathname: "/consulting" }}
+          style={{ textDecoration: "none" }}
+        >
+          <MenuDiv>CONSULTING</MenuDiv>
+        </Link>
+        <Link
+          href={{ pathname: "/ourNews" }}
+          style={{ textDecoration: "none" }}
+        >
+          <MenuDiv>OUR NEWS</MenuDiv>
+        </Link>
       </NavbarDiv>
       <NavbarDiv>
         <Link href={{ pathname: "/login" }} style={{ textDecoration: "none" }}>
