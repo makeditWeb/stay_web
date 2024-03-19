@@ -41,7 +41,12 @@ export default function Mainpage() {
                   width={500}
                   height={600}
                 />
-                <ReservationStatus>예약현황 바로가기</ReservationStatus>
+                <Link
+                  href={{ pathname: "/reservation" }}
+                  style={{ textDecoration: "none" }}
+                >
+                  <ReservationStatus>예약현황 바로가기</ReservationStatus>
+                </Link>
               </BigImgDiv>
               <SubImgDiv>
                 <SmallImgDiv>
