@@ -45,6 +45,11 @@ export default function PaymentPage() {
   // 연락처 인풋
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  // 인풋태그
+  const handleClick = () => {
+    document.getElementById("requestedTermInput").focus(); // input 태그에 포커스를 설정합니다.
+  };
+
   useEffect(() => {
     if (
       (cardPayment || bankBookPayment) &&
@@ -1009,9 +1014,14 @@ export default function PaymentPage() {
             borderRadius: "15px",
             overflow: "hidden",
             padding: "10px 10px 10px 10px",
+            cursor: "text",
           }}
+          onClick={handleClick}
         >
-          <RequestedTermInput />
+          <RequestedTermInput
+            id="requestedTermInput"
+            style={{ height: "30px" }}
+          />
         </div>
       </div>
       <div
@@ -1278,7 +1288,6 @@ export default function PaymentPage() {
         style={{
           display: "flex",
           width: "1200px",
-          height: "500px",
           background: "#ffffff",
           borderRadius: "15px",
           padding: "30px 0 30px 50px",

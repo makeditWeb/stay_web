@@ -202,7 +202,7 @@ const MyPageTabContents = ({ tabNumber }) => {
                 alignItems: "center",
                 width: "1060px",
                 margin: "30px 0 30px 250px",
-                fontSize: "20px",
+                fontSize: "16px",
                 fontWeight: "500",
                 gap: "20px",
               }}

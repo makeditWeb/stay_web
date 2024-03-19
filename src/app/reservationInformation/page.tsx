@@ -76,6 +76,7 @@ export default function ReservationInformationPage() {
                 border: "1px solid #203d1e",
                 color: "#203d1e",
                 borderRadius: "4px",
+                cursor: "pointer",
               }}
             >
               예약 취소
@@ -199,12 +200,14 @@ export default function ReservationInformationPage() {
           width: "1200px",
           borderRadius: "15px",
           background: "#ffffff",
-          paddingTop: "50px",
-          paddingBottom: "30px",
+          paddingTop: "10px",
+          paddingBottom: "10px",
         }}
       >
         {feeGuidanceToggle && (
-          <div style={{ fontSize: "14px", fontWeight: "300" }}>
+          <div
+            style={{ fontSize: "14px", fontWeight: "300", paddingTop: "20px" }}
+          >
             <div
               style={{
                 display: "flex",

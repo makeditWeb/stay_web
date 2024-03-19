@@ -15,6 +15,11 @@ export default function ReservationPage() {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
+  // 카운팅 숫자
+  const [adultCount, setAdultCount] = useState(0);
+  const [kidCount, setKidCount] = useState(0);
+  const [petCount, setPetCount] = useState(0);
+
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,10 +39,40 @@ export default function ReservationPage() {
     setEndDate(endDateFormat);
   };
 
-  // const handleDateChange = (selectedDate) => {
-  //   onChange(selectedDate);
-  //   setNowDate(moment(selectedDate).format("YYYY년 MM월 DD일"));
-  // };
+  // 카운팅 함수
+
+  const adultPlusCountHandler = () => {
+    setAdultCount((prevadultCount) => prevadultCount + 1);
+  };
+
+  const adultMinusCountHandler = () => {
+    if (adultCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setAdultCount((prevadultCount) => prevadultCount - 1);
+    }
+  };
+
+  const kidPlusCountHandler = () => {
+    setKidCount((prevkidCount) => prevkidCount + 1);
+  };
+
+  const kidMinusCountHandler = () => {
+    if (kidCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setKidCount((prevkidCount) => prevkidCount - 1);
+    }
+  };
+
+  const petPlusCountHandler = () => {
+    setPetCount((prevpetCount) => prevpetCount + 1);
+  };
+
+  const petMinusCountHandler = () => {
+    if (petCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setPetCount((prevpetCount) => prevpetCount - 1);
+    }
+  };
 
   return (
     <ReservationContainer>
@@ -115,6 +150,8 @@ export default function ReservationPage() {
               >
                 <div
                   style={{
+                    textAlign: "center",
+                    width: "45px",
                     fontSize: "16px",
                     fontWeight: "300",
                   }}
@@ -141,7 +178,10 @@ export default function ReservationPage() {
                       width: "250px",
                     }}
                   >
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={adultMinusCountHandler}
+                    >
                       <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
@@ -150,8 +190,13 @@ export default function ReservationPage() {
                         style={{ cursor: "pointer" }}
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>3</div>
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                      {adultCount}
+                    </div>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={adultPlusCountHandler}
+                    >
                       <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
@@ -174,11 +219,13 @@ export default function ReservationPage() {
               >
                 <div
                   style={{
+                    textAlign: "center",
+                    width: "45px",
                     fontSize: "16px",
                     fontWeight: "300",
                   }}
                 >
-                  성인
+                  어린이
                 </div>
                 <div
                   style={{
@@ -200,7 +247,10 @@ export default function ReservationPage() {
                       width: "250px",
                     }}
                   >
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={kidMinusCountHandler}
+                    >
                       <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
@@ -209,8 +259,13 @@ export default function ReservationPage() {
                         style={{ cursor: "pointer" }}
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>3</div>
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                      {kidCount}
+                    </div>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={kidPlusCountHandler}
+                    >
                       <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
@@ -232,11 +287,13 @@ export default function ReservationPage() {
               >
                 <div
                   style={{
+                    textAlign: "center",
+                    width: "45px",
                     fontSize: "16px",
                     fontWeight: "300",
                   }}
                 >
-                  성인
+                  반려견
                 </div>
                 <div
                   style={{
@@ -258,7 +315,10 @@ export default function ReservationPage() {
                       width: "250px",
                     }}
                   >
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={petMinusCountHandler}
+                    >
                       <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
@@ -267,8 +327,13 @@ export default function ReservationPage() {
                         style={{ cursor: "pointer" }}
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>3</div>
-                    <div style={{ width: "45px", height: "45px" }}>
+                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
+                      {petCount}
+                    </div>
+                    <div
+                      style={{ width: "45px", height: "45px" }}
+                      onClick={petPlusCountHandler}
+                    >
                       <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
