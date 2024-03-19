@@ -14,10 +14,11 @@ export default function OurStayPage() {
 
   return (
     <OurStayContainer>
-      <div style={{ position: "relative", width: "1920px", height: "750px" }}>
+      <div style={{ position: "relative", width: "100vw", height: "750px" }}>
         <Image
           src="/ourStayImg.png"
           alt="대표 이미지"
+          style={{ width: "100vw", height: "750px" }}
           width={1920}
           height={750}
         />
@@ -26,7 +27,7 @@ export default function OurStayPage() {
             width: "500px",
             height: "320px",
             position: "absolute",
-            left: "710px",
+            left: "42%",
             top: "225px",
             borderRadius: "15px",
             color: "#ffffff",
@@ -148,7 +149,7 @@ export default function OurStayPage() {
 }
 
 const OurStayContainer = styled.div`
-  width: 1920px;
+  // width: 1920px;
 `;
 
 const HotelListContainer = styled.div`

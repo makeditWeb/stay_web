@@ -372,7 +372,7 @@ export default function ReservationInformationPage() {
 const ReservationInformationContainer = styled.div`
   width: 1200px;
   margin: auto;
-  padding-top: 50px;
+  padding-top: 192px;
   padding-bottom: 150px;
 `;
 
