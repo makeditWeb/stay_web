@@ -28,7 +28,13 @@ export default function Mainpage() {
   return (
     <IndexContainter>
       <div style={{ width: "100%", height: "950px" }}>
-        <Image src="/mainImg.png" alt="대문 사진" width={1920} height={950} />
+        <Image
+          src="/mainImg.png"
+          alt="대문 사진"
+          style={{ width: "100vw" }}
+          width={1920}
+          height={950}
+        />
       </div>
       <SliderContainer>
         <SlickSlider {...settings}>
@@ -436,7 +442,8 @@ export default function Mainpage() {
 }
 
 const IndexContainter = styled.div`
-  width: 1920px;
+  // width: 1920px;
+  width: 100vw;
   margin: auto;
 `;
 
