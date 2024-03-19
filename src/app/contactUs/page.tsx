@@ -145,6 +145,6 @@ export default function ContactUsPage() {
 const ContactUsContainer = styled.div`
   width: 800px;
   margin: auto;
-  padding-top: 30px;
+  padding-top: 150px;
   padding-bottom: 150px;
 `;

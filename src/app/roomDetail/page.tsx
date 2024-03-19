@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import Slider from "react-slick";
@@ -208,20 +209,44 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   >
                     입실일
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "270px",
-                      height: "55px",
-                      border: "1px solid #203d1e",
-                      borderRadius: "7px",
-                      fontSize: "18px",
-                      fontWeight: "600",
-                      color: "#203d1e",
-                    }}
-                  >
-                    2024년 1월 31일 (수)
+                  <div>
+                    {/* <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "250px",
+                        height: "55px",
+                        border: "1px solid #203d1e",
+                        borderRadius: "7px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#203d1e",
+                        paddingLeft: "20px",
+                        cursor: "pointer",
+                      }}
+                      onClick={toggleCalendar}
+                    >
+                      {formatDate(selectedDate)}
+                    </div> */}
+                    <input
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "250px",
+                        height: "55px",
+                        border: "1px solid #203d1e",
+                        borderRadius: "7px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#203d1e",
+                        paddingLeft: "20px",
+                        zIndex: 1,
+                      }}
+                      type="date"
+                      id="date"
+                      // value={selectedDate}
+                      // onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div>
@@ -236,21 +261,43 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   >
                     퇴실일
                   </div>
-                  <div
+                  <div>
+                    <input
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "250px",
+                        height: "55px",
+                        border: "1px solid #203d1e",
+                        borderRadius: "7px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#203d1e",
+                        paddingLeft: "20px",
+                        zIndex: 1,
+                      }}
+                      type="date"
+                      id="date"
+                      // value={selectedDate}
+                      // onChange={handleChange}
+                    />
+                  </div>
+                  {/* <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      width: "270px",
+                      width: "250px",
                       height: "55px",
                       border: "1px solid #203d1e",
                       borderRadius: "7px",
                       fontSize: "18px",
                       fontWeight: "600",
                       color: "#203d1e",
+                      paddingLeft: "20px",
                     }}
                   >
                     2024년 1월 31일 (수)
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <div
@@ -268,36 +315,42 @@ export default function RoomDetailPage({ location }: { location: string }) {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      width: "270px",
+                      width: "250px",
                       height: "55px",
                       border: "1px solid #203d1e",
                       borderRadius: "7px",
                       fontSize: "18px",
                       fontWeight: "600",
                       color: "#203d1e",
+                      paddingLeft: "20px",
                     }}
                   >
-                    2024년 1월 31일 (수)
+                    성인 0명 / 어린이 0명
                   </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "210px",
-                    height: "55px",
-                    border: "1px solid #203d1e",
-                    borderRadius: "7px",
-                    background: "#203d1e",
-                    color: "#ffffff",
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    marginTop: "36px",
-                  }}
+                <Link
+                  href={{ pathname: "/reservation" }}
+                  style={{ textDecoration: "none" }}
                 >
-                  예약하기
-                </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "210px",
+                      height: "55px",
+                      border: "1px solid #203d1e",
+                      borderRadius: "7px",
+                      background: "#203d1e",
+                      color: "#ffffff",
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      marginTop: "36px",
+                    }}
+                  >
+                    예약하기
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

@@ -28,7 +28,13 @@ export default function Mainpage() {
   return (
     <IndexContainter>
       <div style={{ width: "100%", height: "950px" }}>
-        <Image src="/mainImg.png" alt="대문 사진" width={1920} height={950} />
+        <Image
+          src="/mainImg.png"
+          alt="대문 사진"
+          style={{ width: "100vw" }}
+          width={1920}
+          height={950}
+        />
       </div>
       <SliderContainer>
         <SlickSlider {...settings}>
@@ -41,7 +47,12 @@ export default function Mainpage() {
                   width={500}
                   height={600}
                 />
-                <ReservationStatus>예약현황 바로가기</ReservationStatus>
+                <Link
+                  href={{ pathname: "/reservation" }}
+                  style={{ textDecoration: "none" }}
+                >
+                  <ReservationStatus>예약현황 바로가기</ReservationStatus>
+                </Link>
               </BigImgDiv>
               <SubImgDiv>
                 <SmallImgDiv>
@@ -436,7 +447,8 @@ export default function Mainpage() {
 }
 
 const IndexContainter = styled.div`
-  width: 1920px;
+  // width: 1920px;
+  width: 100vw;
   margin: auto;
 `;
 

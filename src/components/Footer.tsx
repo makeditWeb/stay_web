@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function Footer() {
@@ -34,9 +35,24 @@ export default function Footer() {
           </div>
         </div>
         <FooterRightDiv>
-          <BoldLetter>CONTANT US</BoldLetter>
-          <BoldLetter>TEAMS AND CONDITION</BoldLetter>
-          <BoldLetter>PRIVACY POLICY</BoldLetter>
+          <Link
+            href={{ pathname: "/contactUs" }}
+            style={{ textDecoration: "none" }}
+          >
+            <BoldLetter>CONTACT US</BoldLetter>
+          </Link>
+          <Link
+            href={{ pathname: "/termsAndConditions" }}
+            style={{ textDecoration: "none" }}
+          >
+            <BoldLetter>TEAMS AND CONDITION</BoldLetter>
+          </Link>
+          <Link
+            href={{ pathname: "/policies" }}
+            style={{ textDecoration: "none" }}
+          >
+            <BoldLetter>PRIVACY POLICY</BoldLetter>
+          </Link>
         </FooterRightDiv>
       </FooterDiv>
     </FooterContainer>
