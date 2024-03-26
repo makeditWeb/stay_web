@@ -1,23 +1,17 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import SweetAlert from "sweetalert2";
 
-export const basicAxios = axios.create({
+// axios instance 생성
+export const customAxios: AxiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
   headers: {
-    "Content-Type": `application/json;charset=UTF-8`,
+    "Content-Type": `application/json`,
     "Access-Control-Allow-Origin": "*",
     Accept: "application/json",
   },
 });
 
-export const nickePayAxios = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_NICEPAY_SERVER_ADDRESS}`,
-  headers: {
-    "Content-Type": `application/json;charset=UTF-8`,
-  },
-});
-
-basicAxios.interceptors.request.use(
+customAxios.interceptors.request.use(
   (config) => {
     //cookie에 access_token,refresh_token을 어떤 이름으로 저장했는지?
     const accesskey = localStorage.getItem("accessToken");
@@ -35,7 +29,7 @@ basicAxios.interceptors.request.use(
   }
 );
 
-basicAxios.interceptors.response.use(
+customAxios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
@@ -93,3 +87,21 @@ basicAxios.interceptors.response.use(
     }
   }
 );
+
+// 실제 API 통신
+// path : API url
+// params : request parameter
+// export const doAxios = async <T>(
+//   path: string,
+//   params: any
+// ): Promise<T | null> => {
+//   try {
+//     const { status, data }: AxiosResponse<T> = await customAxios.post(
+//       path,
+//       params
+//     );
+//     return status < 500 ? data : null;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

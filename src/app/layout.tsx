@@ -64,7 +64,9 @@ const BodyContainer = styled.body`
 `;
 
 const HeaderContainer = styled.header`
-  position: sticky;
+  position: absolute;
+  width: 100%;
+  // position: sticky;
   top: 0;
   /* background-color: #162318;
   opacity: 0.5; */
