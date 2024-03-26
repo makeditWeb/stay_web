@@ -12,42 +12,36 @@ import "react-kakao-maps-sdk";
 export default function RoomDetailPage({ location }: { location: string }) {
   useEffect(() => {
     // 1. 카카오 지도 초기화
-    kakao.maps.load(() => {
-      // 2. 지도 생성 및 설정
-      const container = document.getElementById("map");
-      const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-      const map = new kakao.maps.Map(container as HTMLElement, options);
-
-      let geocoder = new kakao.maps.services.Geocoder(); // 3. 주소-좌표 변환 객체 생성
-
-      // 4. 지도 상에 주소를 표시
-      geocoder.addressSearch(location, function (result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          // 5. 결과값으로 받은 위치를 마커로 표시
-          const latitude: number = Number(result[0].y);
-          const longitude: number = Number(result[0].x);
-
-          let coords = new kakao.maps.LatLng(latitude, longitude);
-
-          // 결과값으로 받은 위치를 마커로 표시
-          let marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-          });
-
-          var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:300px;text-align:center;padding:6px 0;">${location}</div>`,
-          });
-          infowindow.open(map, marker);
-
-          // 6. 지도의 중심을 결과값으로 받은 위치로 이동
-          map.setCenter(coords);
-        }
-      });
-    });
+    // kakao.maps.load(() => {
+    //   // 2. 지도 생성 및 설정
+    //   const container = document.getElementById("map");
+    //   const options = {
+    //     center: new kakao.maps.LatLng(33.450701, 126.570667),
+    //     level: 3,
+    //   };
+    //   const map = new kakao.maps.Map(container as HTMLElement, options);
+    //   let geocoder = new kakao.maps.services.Geocoder(); // 3. 주소-좌표 변환 객체 생성
+    //   // 4. 지도 상에 주소를 표시
+    //   geocoder.addressSearch(location, function (result, status) {
+    //     if (status === kakao.maps.services.Status.OK) {
+    //       // 5. 결과값으로 받은 위치를 마커로 표시
+    //       const latitude: number = Number(result[0].y);
+    //       const longitude: number = Number(result[0].x);
+    //       let coords = new kakao.maps.LatLng(latitude, longitude);
+    //       // 결과값으로 받은 위치를 마커로 표시
+    //       let marker = new kakao.maps.Marker({
+    //         map: map,
+    //         position: coords,
+    //       });
+    //       var infowindow = new kakao.maps.InfoWindow({
+    //         content: `<div style="width:300px;text-align:center;padding:6px 0;">${location}</div>`,
+    //       });
+    //       infowindow.open(map, marker);
+    //       // 6. 지도의 중심을 결과값으로 받은 위치로 이동
+    //       map.setCenter(coords);
+    //     }
+    //   });
+    // });
   }, [location]);
 
   const settings = {
@@ -79,11 +73,10 @@ export default function RoomDetailPage({ location }: { location: string }) {
             alt="상세 페이지 메인 이미지"
             width={1920}
             height={850}
+            style={{ width: "100vw" }}
           />
         </div>
-        <div
-          style={{ width: "1920px", height: "400px", background: "#203d1e" }}
-        ></div>
+        <div style={{ height: "400px", background: "#203d1e" }}></div>
         <MainTitleContainer>
           <div style={{ paddingTop: "80px" }}>
             <div
@@ -466,7 +459,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
         <div
           style={{
             display: "flex",
-            width: "1920px",
+            // width: "1920px",
             background: "#ffffff",
           }}
         >
@@ -599,7 +592,8 @@ export default function RoomDetailPage({ location }: { location: string }) {
         <div style={{ position: "relative" }}>
           <div
             style={{
-              width: "1920px",
+              // width: "1920px",
+              width: "100vw",
               height: "650px",
             }}
           >
@@ -608,9 +602,16 @@ export default function RoomDetailPage({ location }: { location: string }) {
               alt="서브 이미지"
               width={1920}
               height={650}
+              style={{ width: "100vw" }}
             />
           </div>
-          <div style={{ position: "absolute", top: "80px", left: "360px" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "80px",
+              // left: "360px"
+            }}
+          >
             <div
               style={{
                 display: "flex",
@@ -1355,15 +1356,16 @@ export default function RoomDetailPage({ location }: { location: string }) {
 }
 
 const RoomDetailContainer = styled.div`
-  width: 1920px;
+  // width: 1920px;
   margin: auto;
 `;
 
 const MainTitleContainer = styled.div`
-  width: 1200px;
+  // width: 1200px;
+  width: 100%;
   position: absolute;
   top: 50px;
-  left: 360px;
+  // left: 360px;
 `;
 
 const SlickSlider = styled(Slider)`

@@ -6,13 +6,17 @@ import styled from "styled-components";
 export default function ConsultingPage() {
   return (
     <ConsultingContainer>
-      <div style={{ position: "relative", width: "1920px" }}>
-        <div style={{ width: "1920px" }}>
-          <Image
+      <div
+        style={{
+          position: "relative",
+          // width: "1920px"
+        }}
+      >
+        <div>
+          <img
             src="/consultingImg.png"
             alt="컨설팅 이미지"
-            width={1920}
-            height={1000}
+            style={{ width: "100%" }}
           />
         </div>
         <div
@@ -86,9 +90,9 @@ export default function ConsultingPage() {
           style={{
             display: "flex",
             position: "absolute",
-            width: "1200px",
+            // width: "1200px",
             height: "500px",
-            left: "360px",
+            // left: "360px",
             top: "800px",
             margin: "auto",
           }}
@@ -103,7 +107,7 @@ export default function ConsultingPage() {
       </div>
       <div
         style={{
-          width: "1200px",
+          // width: "1200px",
           paddingTop: "400px",
           margin: "auto",
         }}
@@ -285,7 +289,7 @@ export default function ConsultingPage() {
       <div
         style={{
           display: "flex",
-          width: "1920px",
+          // width: "1920px",
           height: "640px",
           background: "#ffffff",
         }}
@@ -363,7 +367,11 @@ export default function ConsultingPage() {
         </div>
       </div>
       <div
-        style={{ width: "1200px", marginLeft: "400px", paddingTop: "100px" }}
+        style={{
+          // width: "1200px",
+          marginLeft: "400px",
+          paddingTop: "100px",
+        }}
       >
         <div>
           <Image
@@ -429,12 +437,16 @@ export default function ConsultingPage() {
               height={400}
             />
           </div>
-          <div style={{ width: "1060px", height: "400px" }}>
-            <Image
+          <div
+            style={{
+              // width: "1060px",
+              height: "400px",
+            }}
+          >
+            <img
               src="/remodelingAfterImg.png"
               alt="리모델링 후"
-              width={1060}
-              height={400}
+              style={{ width: "100%" }}
             />
           </div>
         </div>
@@ -447,7 +459,7 @@ export default function ConsultingPage() {
       </div>
       <div
         style={{
-          width: "1920px",
+          // width: "1920px",
           background: "#ffffff",
           paddingTop: "80px",
           paddingBottom: "50px",
@@ -516,7 +528,7 @@ export default function ConsultingPage() {
         <div
           style={{
             display: "flex",
-            width: "1220px",
+            // width: "1220px",
             gap: "40px",
             margin: "auto",
           }}
@@ -547,13 +559,23 @@ export default function ConsultingPage() {
           </div>
         </div>
       </div>
-      <div style={{ position: "relative", width: "1920px", height: "850px" }}>
-        <div style={{ width: "1920px", height: "850px" }}>
-          <Image
+      <div
+        style={{
+          position: "relative",
+          //  width: "1920px",
+          height: "850px",
+        }}
+      >
+        <div
+          style={{
+            // width: "1920px",
+            height: "850px",
+          }}
+        >
+          <img
             src="/consultingBgImg.png"
             alt="백그라운드 이미지"
-            width={1920}
-            height={850}
+            style={{ width: "100%" }}
           />
         </div>
         <div
@@ -561,7 +583,7 @@ export default function ConsultingPage() {
             position: "absolute",
             display: "flex",
             gap: "20px",
-            left: "370px",
+            // left: "370px",
             top: "55px",
           }}
         >
@@ -792,7 +814,7 @@ export default function ConsultingPage() {
       <div
         style={{
           display: "flex",
-          width: "1920px",
+          // width: "1920px",
           paddingTop: "20px",
           paddingBottom: "100px",
         }}
@@ -805,7 +827,12 @@ export default function ConsultingPage() {
             height={1000}
           />
         </div>
-        <div style={{ paddingTop: "150px", marginLeft: "50px" }}>
+        <div
+          style={{
+            paddingTop: "150px",
+            //  marginLeft: "50px"
+          }}
+        >
           <div
             style={{
               fontSize: "19px",
@@ -948,7 +975,7 @@ export default function ConsultingPage() {
 }
 
 const ConsultingContainer = styled.div`
-  width: 1920px;
+  // width: 1920px;
 `;
 
 const ConsultingInputBox = styled.input`

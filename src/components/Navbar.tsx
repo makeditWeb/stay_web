@@ -54,9 +54,9 @@ export default function Navbar() {
 }
 
 const NavbarContainer = styled.div`
-  position: fixed;
+  // position: fixed;
   // width: 1920px;
-  width: 100vw;
+  width: 100%;
   background: rgba(22, 35, 24, 0.5);
   height: 97px;
   display: flex;
