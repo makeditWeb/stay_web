@@ -4,13 +4,30 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import Slider from "react-slick";
-
-import "slick-carousel";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useRouter, usePathname } from "next/navigation";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
+// import "slick-carousel";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import "react-kakao-maps-sdk";
 
 export default function RoomDetailPage({ location }: { location: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const partnerStoreId = pathname.split("/")[3];
+  const [partnerStoreData, setPartnerStoreData] = useState<any>(null);
+
+  console.log("partnerStoreData   :   ", partnerStoreData);
+
+  useEffect(() => {
+    customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
+      if (res !== undefined && res?.status === 200) {
+        setPartnerStoreData(res.data.response);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     // 1. 카카오 지도 초기화
     // kakao.maps.load(() => {
@@ -633,14 +650,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   justifyContent: "space-between",
                 }}
               >
-                <div>
-                  <Image
-                    src="/photoZone.png"
-                    alt="포토존"
-                    width={100}
-                    height={80}
-                  />
-                </div>
                 <div style={{ width: "100px" }}>
                   <div
                     style={{
@@ -707,14 +716,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   justifyContent: "space-between",
                 }}
               >
-                <div>
-                  <Image
-                    src="/oceanView.png"
-                    alt="오션뷰"
-                    width={100}
-                    height={80}
-                  />
-                </div>
                 <div style={{ width: "100px" }}>
                   <div
                     style={{
@@ -780,14 +781,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   justifyContent: "space-between",
                 }}
               >
-                <div>
-                  <Image
-                    src="/welcomeDrink.png"
-                    alt="웰컴드링크"
-                    width={100}
-                    height={80}
-                  />
-                </div>
                 <div style={{ width: "140px" }}>
                   <div
                     style={{

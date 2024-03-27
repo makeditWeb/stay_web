@@ -2,17 +2,20 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-import "slick-carousel";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+import Script from "next/script";
 
 export default function Mainpage() {
   const [partnerStoreList, setPartnerStoreList] = useState([]);
+  const router = useRouter();
+  const pathName = usePathname();
 
   const settings = {
     dots: true,
@@ -27,8 +30,6 @@ export default function Mainpage() {
     draggable: false,
   };
 
-  const pathName = usePathname();
-
   useEffect(() => {
     customAxios.get(`${API.PARTNER_STORE}`).then((res) => {
       if (res?.status === 200) {
@@ -37,8 +38,62 @@ export default function Mainpage() {
     });
   }, []);
 
+  const serverAuth = () => {
+    if (typeof window !== "undefined") {
+      const pay_obj = window;
+      const { AUTHNICE } = pay_obj;
+
+      goPay(document.payForm);
+    }
+  };
+
+  const random = (length = 8) => {
+    return Math.random().toString(16).substr(2, length);
+  };
+
+  const handlePagePartnerStore = (e: any) => {
+    const partnerStoreId = e.target.id;
+    router.push(`/partner/store/${partnerStoreId}`);
+  };
+
   return (
     <IndexContainter>
+      <Script
+        src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
+        type="text/javascript"
+      />
+      {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
+      <form name="payForm" method="post" acceptCharset="euc-kr">
+        <input
+          type="hidden"
+          name="GoodsName"
+          value={"스테이인터뷰, 하늘"}
+        ></input>
+        <input type="hidden" name="Amt" value={"1000"}></input>
+        <input type="hidden" name="MID" value="Kwonstay1m"></input>
+        <input type="hidden" name="EdiDate" value={"20240326101200"}></input>
+        <input type="hidden" name="Moid" value={"HN1213"}></input>
+        <input
+          type="hidden"
+          name="SignData"
+          value={
+            "4A87F00CA9284114B8F3EC6D9FA65D56D62EAD079735ACEDD7F0D36A7CA93D9E"
+          }
+        ></input>
+        <input type="hidden" name="PayMethod" value={"CARD"}></input>
+        <input
+          type="hidden"
+          name="ReturnURL"
+          value={"http://localhost:9000/api/v1/nice-pay"}
+        ></input>
+        <input
+          type="hidden"
+          name="MerchantKey"
+          value={
+            "VEssZGW19yqVwVXhJ5x4VdzDRtAxBkAE7ZratupXmYglgn2jjCatUduvIlk9J1fXMo9VSDye/qGGnnJr+RrKdA=="
+          }
+        ></input>
+      </form>
       <div style={{ width: "100%", height: "950px" }}>
         <img
           src="/image/main/main.png"
@@ -46,6 +101,8 @@ export default function Mainpage() {
           style={{ width: "100vw", height: "953px" }}
         />
       </div>
+      <button onClick={() => serverAuth()}>serverAuth 결제하기</button>
+
       <SliderContainer>
         <SlickSlider {...settings}>
           <div>
@@ -158,7 +215,7 @@ export default function Mainpage() {
             {partnerStoreList?.map((item, index) => {
               return (
                 <>
-                  <HotelContainer>
+                  <HotelContainer key={index}>
                     <div style={{ width: "370px", height: "230px" }}>
                       <Image
                         src="/hotelListImg.png"
@@ -178,12 +235,12 @@ export default function Mainpage() {
                           </div>
                         </div>
 
-                        <Link
-                          href={{ pathname: "/roomDetail" }}
-                          style={{ textDecoration: "none" }}
+                        <DetailPostButton
+                          id={item.id}
+                          onClick={handlePagePartnerStore}
                         >
-                          <DetailPostButton>둘러보기 →</DetailPostButton>
-                        </Link>
+                          둘러보기 →
+                        </DetailPostButton>
                       </HotelContents>
                     </div>
                   </HotelContainer>

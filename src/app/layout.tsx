@@ -2,6 +2,9 @@
 import type { Metadata } from "next";
 // import { Inter } from "next/font/google";
 import "./globals.css";
+import "slick-carousel";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import styled from "styled-components";
@@ -52,6 +55,13 @@ export default function RootLayout({
           type="text/javascript"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&libraries=services&autoload=false`}
         ></Script>
+
+        {/* <script src="https://pay.nicepay.co.kr/v1/js/"></script> */}
+        <Script
+          src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"
+          type="text/javascript"
+        ></Script>
+        {/* <script src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"></script> */}
       </BodyContainer>
     </html>
   );

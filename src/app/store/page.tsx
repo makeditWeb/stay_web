@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import Slider from "react-slick";
-
 import "slick-carousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

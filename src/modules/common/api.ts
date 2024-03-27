@@ -30,36 +30,16 @@ customAxios.interceptors.request.use(
 );
 
 customAxios.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
     if (error.response) {
       const { status, data, msg } = error.response;
-      console.log(error.response);
-      // 401 토큰 만료
-      if (status === 401) {
-        SweetAlert.fire({ title: "로그인 후 이용해주세요. :)" }).then(() => {
-          window.location.href = `${process.env.PUBLIC_URL}/login`;
-        });
-      } else if (status === 403) {
-        SweetAlert.fire({
-          title: "토큰이 만료되었습니다. :)",
-        }).then(() => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("user");
-          localStorage.removeItem("expirationTime");
-          localStorage.setItem("login", false);
-          window.location.href = `${process.env.PUBLIC_URL}/login`;
-        });
-      } else if (status === 404) {
-        SweetAlert.fire({
-          title: "존재하지 않는 페이지입니다. :)",
-        }).then(() => {
-          window.location.href = `${process.env.PUBLIC_URL}/login`;
-        });
-      } else if (status === 410) {
-        throw new Error("Internal Server Error 410 로그아웃한 토큰", msg);
-      } else if (status === 500) {
+
+      if (status === Number(500)) {
+        console.log("500 error");
+
         SweetAlert.fire({
           title: "요청하신 작업을 수행하지 못했습니다.",
           text: `${
@@ -67,41 +47,20 @@ customAxios.interceptors.response.use(
               ? data.message
               : "일시적인 현상이니 잠시 후 다시 시도해 주세요.(오류코드:500)"
           }`,
-        }).then(() => {
-          window.location.reload();
         });
-      } else {
-        SweetAlert.fire({
-          title: "요청하신 작업을 수행하지 못했습니다.",
-          text: `${
-            data.message != null
-              ? data.message
-              : "일시적인 현상이니 잠시 후 다시 시도해 주세요.(오류코드:400)"
-          }`,
-        }).then(() => {
-          window.location.reload();
-        });
+
+        return Promise.reject(error);
       }
-    } else {
-      // throw new Error('Network Error');
+
+      if (status === Number(401)) {
+        console.log("401 error");
+
+        SweetAlert.fire({ title: "로그인 후 이용해주세요. :)" }).then(() => {
+          window.location.href = `${process.env.PUBLIC_URL}/login`;
+        });
+
+        return Promise.reject(error);
+      }
     }
   }
 );
-
-// 실제 API 통신
-// path : API url
-// params : request parameter
-// export const doAxios = async <T>(
-//   path: string,
-//   params: any
-// ): Promise<T | null> => {
-//   try {
-//     const { status, data }: AxiosResponse<T> = await customAxios.post(
-//       path,
-//       params
-//     );
-//     return status < 500 ? data : null;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
