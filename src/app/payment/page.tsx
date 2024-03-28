@@ -39,6 +39,12 @@ export default function PaymentPage() {
   const [covidChecked, setCovidChecked] = useState(false);
   const [nonMemberChecked, setNonMemberChecked] = useState(false);
 
+  // 카운팅 숫자
+  const [adultCount, setAdultCount] = useState(0);
+  const [kidCount, setKidCount] = useState(0);
+  const [petCount, setPetCount] = useState(0);
+  const [showEditBox, setShowEditBox] = useState(false);
+
   // 결제하기 버튼
   const [paymentEnabled, setPaymentEnabled] = useState(false);
 
@@ -48,6 +54,53 @@ export default function PaymentPage() {
   // 인풋태그
   const handleClick = () => {
     document.getElementById("requestedTermInput").focus(); // input 태그에 포커스를 설정합니다.
+  };
+
+  // 카운팅 함수
+
+  const handleEditClick = () => {
+    setShowEditBox(true);
+
+    if (showEditBox === true) {
+      setShowEditBox(false);
+    }
+  };
+
+  const handleCompletionClick = () => {
+    setShowEditBox(false);
+  };
+
+  const adultPlusCountHandler = () => {
+    setAdultCount((prevadultCount) => prevadultCount + 1);
+  };
+
+  const adultMinusCountHandler = () => {
+    if (adultCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setAdultCount((prevadultCount) => prevadultCount - 1);
+    }
+  };
+
+  const kidPlusCountHandler = () => {
+    setKidCount((prevkidCount) => prevkidCount + 1);
+  };
+
+  const kidMinusCountHandler = () => {
+    if (kidCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setKidCount((prevkidCount) => prevkidCount - 1);
+    }
+  };
+
+  const petPlusCountHandler = () => {
+    setPetCount((prevpetCount) => prevpetCount + 1);
+  };
+
+  const petMinusCountHandler = () => {
+    if (petCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setPetCount((prevpetCount) => prevpetCount - 1);
+    }
   };
 
   useEffect(() => {
@@ -363,6 +416,7 @@ export default function PaymentPage() {
                   display: "flex",
                   width: "400px",
                   justifyContent: "space-between",
+                  position: "relative",
                 }}
               >
                 <div
@@ -373,7 +427,8 @@ export default function PaymentPage() {
                     marginBottom: "10px",
                   }}
                 >
-                  성인 4인 / 아동 2인 / 유아 1인
+                  성인 {adultCount}인 / 아동 {kidCount}인 / 반려견 {petCount}
+                  마리
                 </div>
                 <div
                   style={{
@@ -389,9 +444,272 @@ export default function PaymentPage() {
                     fontWeight: "500",
                     cursor: "pointer",
                   }}
+                  onClick={handleEditClick}
                 >
                   인원 수정
                 </div>
+                {showEditBox && (
+                  <div
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "340px",
+                      height: "290px",
+                      background: "rgba(255, 255, 255, 0.80)",
+                      color: "#203d1e",
+                      borderRadius: "15px",
+                      marginBottom: "20px",
+                      position: "absolute",
+                      top: "40px",
+                      left: "60px",
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "30px",
+                          marginBottom: "10px",
+                          marginTop: "20px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "55px",
+                            fontSize: "20px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          성인
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "180px",
+                            height: "55px",
+                            background: "#ffffff",
+                            border: "1px solid #203d1e",
+                            borderRadius: "10px",
+                            padding: "0 10px 0 10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              margin: "auto",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              width: "250px",
+                            }}
+                          >
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={adultMinusCountHandler}
+                            >
+                              <Image
+                                src="/minusIcon.png"
+                                alt="마이너스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                            <div
+                              style={{ fontSize: "25px", fontWeight: "600" }}
+                            >
+                              {adultCount}
+                            </div>
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={adultPlusCountHandler}
+                            >
+                              <Image
+                                src="/plusIcon.png"
+                                alt="플러스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "30px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "55px",
+                            fontSize: "20px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          어린이
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "180px",
+                            height: "55px",
+                            background: "#ffffff",
+                            border: "1px solid #203d1e",
+                            borderRadius: "10px",
+                            padding: "0 10px 0 10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              margin: "auto",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              width: "250px",
+                            }}
+                          >
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={kidMinusCountHandler}
+                            >
+                              <Image
+                                src="/minusIcon.png"
+                                alt="마이너스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                            <div
+                              style={{ fontSize: "25px", fontWeight: "600" }}
+                            >
+                              {kidCount}
+                            </div>
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={kidPlusCountHandler}
+                            >
+                              <Image
+                                src="/plusIcon.png"
+                                alt="플러스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "30px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "55px",
+                            fontSize: "20px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          반려견
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "180px",
+                            height: "55px",
+                            background: "#ffffff",
+                            border: "1px solid #203d1e",
+                            borderRadius: "10px",
+                            padding: "0 10px 0 10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              margin: "auto",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              width: "250px",
+                            }}
+                          >
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={petMinusCountHandler}
+                            >
+                              <Image
+                                src="/minusIcon.png"
+                                alt="마이너스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                            <div
+                              style={{ fontSize: "25px", fontWeight: "600" }}
+                            >
+                              {petCount}
+                            </div>
+                            <div
+                              style={{ width: "45px", height: "45px" }}
+                              onClick={petPlusCountHandler}
+                            >
+                              <Image
+                                src="/plusIcon.png"
+                                alt="플러스 아이콘"
+                                width={45}
+                                height={45}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "290px",
+                        height: "55px",
+                        background: "#203d1e",
+                        color: "#ffffff",
+                        fontSize: "20px",
+                        fontWeight: "600",
+                        borderRadius: "15px",
+                        margin: "auto",
+                        marginTop: "10px",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleCompletionClick}
+                    >
+                      수정
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
