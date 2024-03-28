@@ -7,9 +7,6 @@ import Link from "next/link";
 import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-// import "slick-carousel";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import Script from "next/script";
 
 export default function Mainpage() {
@@ -57,7 +54,7 @@ export default function Mainpage() {
   };
 
   return (
-    <IndexContainter>
+    <div className="main_container">
       <Script
         src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
         type="text/javascript"
@@ -94,128 +91,63 @@ export default function Mainpage() {
           }
         ></input>
       </form>
-      <div style={{ width: "100%", height: "950px" }}>
+      <div className="main_banner_ctn">
         <img
+          className="main_banner_img"
           src="/image/main/main.png"
           alt="main_top"
-          style={{ width: "100vw", height: "953px" }}
         />
       </div>
       <button onClick={() => serverAuth()}>serverAuth 결제하기</button>
 
-      <SliderContainer>
+      <div className="slider_container">
         <SlickSlider {...settings}>
           <div>
-            <MainImgDiv style={{ borderRadius: "15px" }}>
-              <BigImgDiv>
-                <Image
-                  src="/indexImg.png"
-                  alt="임시 이미지"
-                  width={500}
-                  height={600}
-                />
-                <Link
-                  href={{ pathname: "/reservation" }}
-                  style={{ textDecoration: "none" }}
-                >
-                  <ReservationStatus>예약현황 바로가기</ReservationStatus>
-                </Link>
-              </BigImgDiv>
-              <SubImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg1.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg2.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg3.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg1.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg3.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-                <SmallImgDiv>
-                  <Image
-                    src="/indexImg1.png"
-                    alt="임시 이미지"
-                    width={350}
-                    height={200}
-                  />
-                </SmallImgDiv>
-              </SubImgDiv>
-            </MainImgDiv>
-
-            {/* <Image
-              src="/roomDetailImg2.png"
-              alt="슬라이더1"
-              width={1200}
-              height={500}
-              style={{ borderRadius: "15px" }}
-            /> */}
-          </div>
-          <div>
-            <Image
+            <img
               src="/roomDetailImg3.png"
               alt="슬라이더1"
-              width={1200}
+              // width={1200}
               height={600}
               style={{ borderRadius: "15px" }}
             />
           </div>
           <div>
-            <Image
+            <img
               src="/roomDetailImg4.png"
               alt="슬라이더1"
-              width={1200}
+              // width={1200}
+              height={600}
+              style={{ borderRadius: "15px" }}
+            />
+          </div>
+          <div>
+            <img
+              src="/roomDetailImg4.png"
+              alt="슬라이더1"
+              // width={1200}
               height={600}
               style={{ borderRadius: "15px" }}
             />
           </div>
         </SlickSlider>
-      </SliderContainer>
-      <IndexBottomContainer>
-        <div style={{ width: "1200px", margin: "auto", marginTop: "150px" }}>
-          <div style={{ display: "flex", marginBottom: "50px" }}>
+      </div>
+      <div>
+        <div className="main_our_stay_container">
+          <div className="main_our_stay_title_container">
             <div
               style={{ fontSize: "32px", fontWeight: "700", color: "#203d1e" }}
             >
               OUR STAY
             </div>
-            <HotelListText>스테이인터뷰의 숙소들</HotelListText>
+            <div className="main_out_stay_hotelList_div">
+              스테이인터뷰의 숙소들
+            </div>
           </div>
-          <HotelListContainer>
+          <div className="main_our_stay_content_container">
             {partnerStoreList?.map((item, index) => {
               return (
                 <>
-                  <HotelContainer key={index}>
+                  <div className="out_stay_container" key={index}>
                     <div style={{ width: "370px", height: "230px" }}>
                       <Image
                         src="/hotelListImg.png"
@@ -225,7 +157,7 @@ export default function Mainpage() {
                       />
                     </div>
                     <div style={{ display: "flex", marginTop: "45px" }}>
-                      <HotelContents>
+                      <div className="our_stay_content_container">
                         <div>
                           <div style={{ fontSize: "18px", fontWeight: "700" }}>
                             {item?.storeName}
@@ -235,22 +167,23 @@ export default function Mainpage() {
                           </div>
                         </div>
 
-                        <DetailPostButton
+                        <button
+                          className="our_stay_content_btn"
                           id={item.id}
                           onClick={handlePagePartnerStore}
                         >
                           둘러보기 →
-                        </DetailPostButton>
-                      </HotelContents>
+                        </button>
+                      </div>
                     </div>
-                  </HotelContainer>
+                  </div>
                 </>
               );
             })}
-          </HotelListContainer>
+          </div>
         </div>
-      </IndexBottomContainer>
-    </IndexContainter>
+      </div>
+    </div>
   );
 }
 
@@ -349,13 +282,13 @@ const SmallImgDiv = styled.div`
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    width: 1200px;
+    // width: 1200px;
     margin: auto;
   }
 `;
 
 const SliderContainer = styled.div`
-  width: 1200px;
+  // width: 1200px;
   height: 600px;
   margin: auto;
   border-radius: 15px;

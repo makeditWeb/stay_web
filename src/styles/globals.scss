@@ -1,0 +1,329 @@
+//767
+
+@media screen and (max-width: 767px) {
+  html {
+    // width: 755px;
+  }
+
+  body {
+    .header_continer {
+      position: absolute;
+      // width: 755px;
+      // width: 100%;
+      // position: sticky;
+      top: 0;
+      /* background-color: #162318;
+          opacity: 0.5; */
+      z-index: 10;
+    }
+
+    .navbar_container {
+      // position: fixed;
+      // width: 1920px;
+      width: 100%;
+      background: rgba(22, 35, 24, 0.5);
+      height: 97px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .navbar_div {
+      display: none;
+    }
+
+    .footer_container {
+      height: 100%;
+    }
+
+    .footer_content_container {
+      display: flex;
+      justify-content: center;
+      padding: 35px;
+      flex-direction: column;
+    }
+
+    .footer_content_1 {
+      order: 2;
+      margin-top: 22px;
+    }
+
+    .footer_content_2 {
+      margin-left: 0px;
+      order: 1;
+    }
+
+    .footer_title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .small_bold_letter {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .thine_letter {
+      font-size: 12px;
+      font-weight: 300;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .main_our_stay_container {
+      margin: auto;
+      margin-top: 40px;
+    }
+
+    .main_our_stay_title_container {
+      margin-bottom: 50px;
+      padding: 0 41px;
+      display: block;
+    }
+
+    .main_out_stay_hotelList_div {
+      display: flex;
+      margin-left: 0px;
+      margin-top: 10px;
+      font-size: 19px;
+      font-weight: 300;
+      color: #162318;
+      align-items: center;
+    }
+
+    .main_our_stay_content_container {
+      display: flex;
+      gap: 45px;
+      flex-wrap: wrap;
+      margin-bottom: 45px;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main_banner_ctn {
+      width: 100%;
+      height: 500px;
+    }
+
+    .main_banner_img {
+      height: 557px;
+      object-fit: cover;
+    }
+
+    .slider_container {
+      height: 600px;
+      margin: auto;
+      border-radius: 15px;
+      margin-top: 70px;
+      padding: 0 36px;
+    }
+
+    .slider_container img {
+      width: 100%;
+      height: 500px;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+  }
+}
+
+//HEADER
+
+.header_continer {
+  position: absolute;
+  width: 100%;
+  // width: 100%;
+  // position: sticky;
+  top: 0;
+  /* background-color: #162318;
+    opacity: 0.5; */
+  z-index: 10;
+}
+
+.navbar_container {
+  // position: fixed;
+  // width: 1920px;
+  width: 100%;
+  background: rgba(22, 35, 24, 0.5);
+  height: 97px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//FOOTER
+.footer_container {
+  height: 280px;
+}
+
+.footer_content_container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.bold_letter {
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.footer_content_2 {
+  margin-left: 600px;
+}
+
+.footer_title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.small_bold_letter {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.thine_letter {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+//MAIN
+.main_container {
+  // width: 100vw;
+  margin: auto;
+}
+
+.main_banner_ctn {
+  width: 100%;
+  height: 845px;
+}
+
+.main_banner_img {
+  width: 100%;
+  height: 845px;
+  object-fit: cover;
+}
+
+.main_our_stay_container {
+  margin: auto;
+  margin-top: 150px;
+}
+
+.main_our_stay_title_container {
+  display: flex;
+  margin-bottom: 50px;
+  padding: 0 290px;
+}
+
+.main_out_stay_hotelList_div {
+  display: flex;
+  margin-left: 30px;
+  font-size: 19px;
+  font-weight: 300;
+  color: #162318;
+  align-items: center;
+}
+
+.main_our_stay_content_container {
+  display: flex;
+  gap: 45px 3%;
+  flex-wrap: wrap;
+  margin-bottom: 150px;
+  justify-content: center;
+  padding: 0px 200px;
+}
+
+.slider_container {
+  height: 600px;
+  margin: auto;
+  border-radius: 15px;
+  margin-top: 100px;
+  padding: 0 290px;
+}
+
+.slider_content_container {
+  border-radius: 15px;
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .slick-dots {
+    li button {
+      &:before {
+        color: #203d1e; /* dots 색상 변경 */
+        font-size: 22px !important; /* dots 크기 변경 */
+        margin-top: 25px;
+      }
+    }
+  }
+
+  .slick-prev,
+  .slick-next {
+    display: none;
+    /* position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; */
+    /* left 또는 right 값으로 위치 조정 */
+  }
+
+  .slick-prev {
+    left: -50px; /* 좌측 여백 조정 */
+  }
+
+  .slick-next {
+    right: -50px; /* 우측 여백 조정 */
+  }
+}
+
+.slider_container img {
+  width: 100%;
+  height: 600px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.out_stay_container {
+  width: 370px;
+  height: 350px;
+  border: 1px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.our_stay_content_container {
+  display: flex;
+  width: 300px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.our_stay_content_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  width: 74px;
+  height: 27px;
+  border: 0.5px solid #000000;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #000000;
+  cursor: pointer;
+}

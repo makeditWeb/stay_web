@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 // import { Inter } from "next/font/google";
 import "./globals.css";
+import "@/styles/globals.scss";
 import "slick-carousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,9 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <BodyContainer>
-        <HeaderContainer>
+        <div className="header_continer">
           <Navbar />
-        </HeaderContainer>
+        </div>
         <main>{children}</main>
         <div id="modal-root"></div>
         <FooterContainer>
@@ -76,6 +77,7 @@ const BodyContainer = styled.body`
 const HeaderContainer = styled.header`
   position: absolute;
   width: 100%;
+  // width: 100%;
   // position: sticky;
   top: 0;
   /* background-color: #162318;

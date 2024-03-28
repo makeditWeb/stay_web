@@ -5,9 +5,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import Slider from "react-slick";
 
-import "slick-carousel";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import "react-kakao-maps-sdk";
 
 export default function RoomDetailPage({ location }: { location: string }) {
