@@ -75,14 +75,29 @@ export default function ReservationPage() {
   };
 
   return (
-    <div className="reservation_containter">
-      <div className="reservation_left_container">
-        <img
-          className="reservation_left_container_background"
+    <ReservationContainer>
+      <div
+        style={{
+          display: "flex",
+          width: "600px",
+          height: "1100px",
+          position: "relative",
+        }}
+      >
+        <Image
           src="/reservationImg.png"
           alt="예약 이미지"
+          width={600}
+          height={1100}
         />
-        <div className="reservation_left_item_container">
+        <div
+          style={{
+            position: "absolute",
+            top: "200px",
+            left: "85px",
+            color: "#ffffff",
+          }}
+        >
           <div
             style={{
               fontSize: "25px",
@@ -351,57 +366,156 @@ export default function ReservationPage() {
           </div>
         </div>
       </div>
-      <div className="reservation_right_container">
+      <div style={{ width: "1320px" }}>
         <div style={{ marginTop: "100px" }}>
-          <div className="reservation_calendar_container">
-            <div className="calendar_title_container">날짜 선택</div>
-            <div className="calendar_item_container">
-              <div style={{ display: "flex", width: "100%" }}>
-                <div className="date_container">
-                  <p className="date_title">입실일</p>
-                  <div className="date_input">
+          <div
+            style={{
+              width: "1050px",
+              margin: "auto",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: "140px",
+                height: "58px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "32px",
+                fontWeight: "700",
+                marginBottom: "30px",
+                paddingTop: "50px",
+              }}
+            >
+              날짜 선택
+            </div>
+            <div
+              style={{
+                width: "1050px",
+                height: "580px",
+                background: "#ffffff",
+                borderRadius: "15px",
+                overflow: "hidden",
+                paddingTop: "25px",
+              }}
+            >
+              <div style={{ display: "flex", paddingLeft: "100px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "80px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "300",
+                      color: "#203D1E",
+                      marginLeft: "0px",
+                      marginRight: "28px",
+                    }}
+                  >
+                    입실일
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "330px",
+                      height: "53px",
+                      border: "1px solid #203D1E",
+                      borderRadius: "15px",
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      color: "#203D1E",
+                    }}
+                  >
                     {/* {moment(startDate).format("YYYY년 MM월 DD일")} */}
                     {moment(startDate).format("YYYY년 MM월 DD일 (ddd)")}
                   </div>
                 </div>
-                <div className="date_container">
-                  <p className="date_title">퇴실일</p>
-                  <div className="date_input">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "80px",
+                    marginLeft: "46px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "300",
+                      color: "#203D1E",
+                      // marginLeft: "46px",
+                      marginRight: "38px",
+                    }}
+                  >
+                    퇴실일
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "330px",
+                      height: "55px",
+                      border: "1px solid #203D1E",
+                      borderRadius: "15px",
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      color: "#203D1E",
+                    }}
+                  >
                     {/* {moment(value).format("YYYY년 MM월 DD일")} */}
                     {moment(endDate).format("YYYY년 MM월 DD일 (ddd)")}
                   </div>
                 </div>
               </div>
-              <div>
-                <CalendarContainer>
-                  <CalendarContents
-                    onChange={changeDate}
-                    // value={value}
-                    // minDetail="month"
-                    // maxDetail="month"
-                    selectRange={true}
-                    showNeighboringMonth={false}
-                    // calendarType="hebrew"
-                    calendarType="gregory"
-                    minDate={new Date()}
-                    formatDay={(locale, date) => moment(date).format("D")}
-                    formatMonthYear={(locale, date) =>
-                      moment(date).format("M월")
-                    }
-                    prev2Label={null}
-                    next2Label={null}
-                  ></CalendarContents>
-                </CalendarContainer>
-              </div>
-            </div>
 
+              <CalendarContainer>
+                <CalendarContents
+                  onChange={changeDate}
+                  // value={value}
+                  // minDetail="month"
+                  // maxDetail="month"
+                  selectRange={true}
+                  showNeighboringMonth={false}
+                  // calendarType="hebrew"
+                  calendarType="gregory"
+                  minDate={new Date()}
+                  formatDay={(locale, date) => moment(date).format("D")}
+                  formatMonthYear={(locale, date) => moment(date).format("M월")}
+                  prev2Label={null}
+                  next2Label={null}
+                ></CalendarContents>
+              </CalendarContainer>
+            </div>
             <div>
-              <div className="room_title">객실 선택</div>
+              <div
+                style={{
+                  display: "flex",
+                  width: "140px",
+                  height: "58px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  marginTop: "50px",
+                  marginBottom: "50px",
+                }}
+              >
+                객실 선택
+              </div>
               <div>
                 <div
                   style={{
                     display: "flex",
-                    // width: "1050px",
+                    width: "1050px",
                     height: "250px",
                     background: "#ffffff",
                     borderRadius: "15px",
@@ -409,28 +523,46 @@ export default function ReservationPage() {
                     marginBottom: "20px",
                   }}
                 >
-                  <div className="room_image_container">
+                  <RoomImg>
                     <div>
-                      <img src="/reservationImg2.png" alt="객실 이미지" />
+                      <Image
+                        src="/reservationImg2.png"
+                        alt="객실 이미지"
+                        width={380}
+                        height={250}
+                      />
                     </div>
-                    <div className="room_image_div">
-                      <div className="room_detail_btn" onClick={openModal}>
+                    <RoomDiv>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "150px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          border: "1px solid #ffffff",
+                          color: "#ffffff",
+                          cursor: "pointer",
+                        }}
+                        onClick={openModal}
+                      >
                         상세보기
                       </div>
                       <ModalComponent
                         isOpen={isModalOpen}
                         closeModal={closeModal}
                       />
-                    </div>
-                  </div>
-                  <div className="room_container">
+                    </RoomDiv>
+                  </RoomImg>
+                  <div>
                     <div
                       style={{
                         fontSize: "30px",
                         fontWeight: "700",
                         color: "#203d1e",
-                        // marginTop: "40px",
-                        marginBottom: "10px",
+                        marginTop: "40px",
+                        marginBottom: "20px",
                       }}
                     >
                       디럭스 룸
@@ -478,9 +610,8 @@ export default function ReservationPage() {
                         fontSize: "18px",
                         fontWeight: "600",
                         marginTop: "5px",
-                        // marginLeft: "380px",
+                        marginLeft: "380px",
                         cursor: "pointer",
-                        float: "right",
                       }}
                     >
                       예약하기
@@ -492,7 +623,7 @@ export default function ReservationPage() {
           </div>
         </div>
       </div>
-    </div>
+    </ReservationContainer>
   );
 }
 

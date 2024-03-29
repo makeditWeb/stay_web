@@ -9,12 +9,29 @@ import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import "react-kakao-maps-sdk";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Cookies } from "react-cookie";
 
 export default function RoomDetailPage({ location }: { location: string }) {
+  console.log("location : ", location);
+
   const router = useRouter();
+  console.log("router : ", router);
+
+  const cookies = new Cookies();
+
+  console.log("cookies : ", cookies.get("partnerStore"));
+
+  const cookiesData = JSON.stringify(cookies.get("partnerStore"));
+
   const pathname = usePathname();
   const partnerStoreId = pathname.split("/")[3];
   const [partnerStoreData, setPartnerStoreData] = useState<any>(null);
+  const [longitude, setLongitude] = useState(0); //x좌표
+  const [latitude, setLatitude] = useState(0); //y좌표
+
+  console.log("longitude : ", longitude);
+  console.log("latitude : ", latitude);
+
   const [storyData, setStoryData] = useState<any>();
   const [storeImageData, setStoreImageData] = useState<any>([]);
   const [featureData, setFeatureData] = useState<any>([]);
@@ -23,12 +40,63 @@ export default function RoomDetailPage({ location }: { location: string }) {
 
   const [reservationInfoData, setReservationInfoData] = useState<any>({}); // 예약 정보 데이터
 
+  // 카운팅 숫자
+  const [adultCount, setAdultCount] = useState(0);
+  const [kidCount, setKidCount] = useState(0);
+  const [petCount, setPetCount] = useState(0);
+  const [showEditBox, setShowEditBox] = useState(false);
+
+  const handleEditClick = () => {
+    setShowEditBox(true);
+
+    if (showEditBox === true) {
+      setShowEditBox(false);
+    }
+  };
+
+  // 카운팅 함수
+
+  const adultPlusCountHandler = () => {
+    setAdultCount((prevadultCount) => prevadultCount + 1);
+  };
+
+  const adultMinusCountHandler = () => {
+    if (adultCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setAdultCount((prevadultCount) => prevadultCount - 1);
+    }
+  };
+
+  const kidPlusCountHandler = () => {
+    setKidCount((prevkidCount) => prevkidCount + 1);
+  };
+
+  const kidMinusCountHandler = () => {
+    if (kidCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setKidCount((prevkidCount) => prevkidCount - 1);
+    }
+  };
+
+  const petPlusCountHandler = () => {
+    setPetCount((prevpetCount) => prevpetCount + 1);
+  };
+
+  const petMinusCountHandler = () => {
+    if (petCount > 0) {
+      // 음수로 가지 않도록 확인합니다.
+      setPetCount((prevpetCount) => prevpetCount - 1);
+    }
+  };
+
   useEffect(() => {
     customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
       if (res !== undefined && res?.status === 200) {
         console.log("res.data.response   :   ", res.data.response);
 
         setPartnerStoreData(res.data.response);
+        setLongitude(res.data.response.longitude);
+        setLatitude(res.data.response.latitude);
         setStoreImageData(res.data.response.storeImages);
         // setNoticeData(res.data.response.noticeList?.data);
         setStoryData({
@@ -195,9 +263,313 @@ export default function RoomDetailPage({ location }: { location: string }) {
                         </div>
                       </div>
                       <div>
-                        <div className="reservation_info_item_div">인원</div>
+                        {/* <div className="reservation_info_item_div">인원</div>
                         <div className="reservation_info_item_input">
                           성인 0명 / 어린이 0명
+                        </div> */}
+                        <div>
+                          <div className="reservation_info_item_div">인원</div>
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                width: "250px",
+                                height: "55px",
+                                border: "1px solid #203d1e",
+                                borderRadius: "7px",
+                                fontSize: "18px",
+                                fontWeight: "600",
+                                color: "#203d1e",
+                                paddingLeft: "20px",
+                                position: "relative",
+                              }}
+                            >
+                              인원 입력하기
+                              <div onClick={handleEditClick}>
+                                <Image
+                                  src="/editorVector.png"
+                                  alt="수정버튼"
+                                  width={7}
+                                  height={15}
+                                  style={{
+                                    marginRight: "10px",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              </div>
+                              {showEditBox && (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    width: "980px",
+                                    height: "84px",
+                                    position: "absolute",
+                                    background: "rgba(255, 255, 255, 0.75)",
+                                    borderRadius: "15px",
+                                    bottom: "120px",
+                                    left: "-535px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          textAlign: "center",
+                                          width: "45px",
+                                          fontSize: "25px",
+                                          fontWeight: "500",
+                                          marginLeft: "20px",
+                                          marginRight: "20px",
+                                        }}
+                                      >
+                                        성인
+                                      </div>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          width: "200px",
+                                          height: "55px",
+                                          background: "#ffffff",
+                                          border: "1px solid #203d1e",
+                                          borderRadius: "10px",
+                                          padding: "0 10px 0 10px",
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            margin: "auto",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            width: "250px",
+                                          }}
+                                        >
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={adultMinusCountHandler}
+                                          >
+                                            <Image
+                                              src="/minusIcon.png"
+                                              alt="마이너스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                          <div
+                                            style={{
+                                              fontSize: "25px",
+                                              fontWeight: "600",
+                                            }}
+                                          >
+                                            {adultCount}
+                                          </div>
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={adultPlusCountHandler}
+                                          >
+                                            <Image
+                                              src="/plusIcon.png"
+                                              alt="플러스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          textAlign: "center",
+                                          width: "55px",
+                                          fontSize: "20px",
+                                          fontWeight: "500",
+                                          marginLeft: "20px",
+                                          marginRight: "20px",
+                                        }}
+                                      >
+                                        어린이
+                                      </div>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          width: "200px",
+                                          height: "55px",
+                                          background: "#ffffff",
+                                          border: "1px solid #203d1e",
+                                          borderRadius: "10px",
+                                          padding: "0 10px 0 10px",
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            margin: "auto",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            width: "250px",
+                                          }}
+                                        >
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={kidMinusCountHandler}
+                                          >
+                                            <Image
+                                              src="/minusIcon.png"
+                                              alt="마이너스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                          <div
+                                            style={{
+                                              fontSize: "25px",
+                                              fontWeight: "600",
+                                            }}
+                                          >
+                                            {kidCount}
+                                          </div>
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={kidPlusCountHandler}
+                                          >
+                                            <Image
+                                              src="/plusIcon.png"
+                                              alt="플러스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          width: "55px",
+                                          fontSize: "20px",
+                                          fontWeight: "500",
+                                          marginLeft: "20px",
+                                          marginRight: "20px",
+                                        }}
+                                      >
+                                        반려견
+                                      </div>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          width: "200px",
+                                          height: "55px",
+                                          background: "#ffffff",
+                                          border: "1px solid #203d1e",
+                                          borderRadius: "10px",
+                                          padding: "0 10px 0 10px",
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            margin: "auto",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            width: "250px",
+                                          }}
+                                        >
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={petMinusCountHandler}
+                                          >
+                                            <Image
+                                              src="/minusIcon.png"
+                                              alt="마이너스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                          <div
+                                            style={{
+                                              fontSize: "25px",
+                                              fontWeight: "600",
+                                            }}
+                                          >
+                                            {petCount}
+                                          </div>
+                                          <div
+                                            style={{
+                                              width: "45px",
+                                              height: "45px",
+                                            }}
+                                            onClick={petPlusCountHandler}
+                                          >
+                                            <Image
+                                              src="/plusIcon.png"
+                                              alt="플러스 아이콘"
+                                              width={45}
+                                              height={45}
+                                              style={{ cursor: "pointer" }}
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="reservation_info_item_btn_div">
@@ -263,48 +635,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
             <div className="story_content_haed_title">
               {partnerStoreData?.storeName}
             </div>
-            <div id="storyContent" className="story_item_content">
-              {/* {storyData?.storyContent} */}
-            </div>
-            {/* <div className="story_item_title">
-              동해에서 가장 먼저 태양과 마주할 수 있는 곳. <br />
-              스테이 인터뷰 강릉 <br />
-              나만의 스테이에서 바다와 산이 열린다
-            </div>
-            <div className="story_item_content">
-              동해안을 따라 남쪽으로 가다 보면 초록 솔향과 청량한 바닷바람을
-              가르는 곳이 있다.
-              <br /> 층층의 하얀색 외벽과 비대칭 지붕이 풍광과 아름다운 조화를
-              이룬 스테이인터뷰 강릉.
-              <br /> 해안 협곡에 자리한 덕분에 시시각각 변하는 자연의 빛과
-              파도소리의 움직임이 여행자를 따라다닌다
-            </div>
-            <div className="story_item_title">
-              일출이 아름다운 모든 객실은 <br />
-              개방감을 극대화한 통창이 설치 되어 있어
-              <br /> 동해의 일출을 직접 마주할 수 있다.
-            </div>
-            <div className="story_item_content">
-              창 넘어 번지는 붉은 빛은 고단함에 지친 몸과 마음을 채우고 따뜻한 
-              휴식을 선사한다. 숙소를 나와 한 걸음을 떼면 천혜의 포토존으로
-              가득찬 공간이 펼쳐진다. <br />
-              오두막 사이로 보이는 해변을 배경으로 남기는 사진 한장.
-              <br /> 누르는 셔터마다 감성을 듬뿍 채우는 아름다운 풍경은
-              누군가에게 잊지 못할 기록으로  남는다.
-            </div>
-            <div className="story_item_title">
-              동해에서 가장 먼저 태양과 마주할 수 있는 곳.
-              <br /> 스테이 인터뷰 강릉 <br />
-              나만의 스테이에서 바다와 산이 열린다
-            </div>
-            <div className="story_item_content">
-              동해안을 따라 남쪽으로 가다 보면 초록 솔향과 청량한 바닷바람을
-              가르는 곳이 있다.
-              <br /> 층층의 하얀색 외벽과 비대칭 지붕이 풍광과 아름다운 조화를
-              이룬 스테이인터뷰 강릉.
-              <br /> 해안 협곡에 자리한 덕분에 시시각각 변하는 자연의 빛과
-              파도소리의 움직임이 여행자를 따라다닌다.
-            </div> */}
+            <div id="storyContent" className="story_item_content"></div>
           </div>
         </div>
         <div style={{ position: "relative" }}>
@@ -367,33 +698,17 @@ export default function RoomDetailPage({ location }: { location: string }) {
               </div>
             </div>
           </div>
-          <Map
-            center={{
-              lat: partnerStoreData?.latitude,
-              lng: partnerStoreData?.longitude,
-            }}
-            style={{ width: "100%", height: "350px" }}
-          >
-            <MapMarker
-              position={{
-                lat: partnerStoreData?.latitude,
-                lng: partnerStoreData?.longitude,
-              }}
-            ></MapMarker>
-          </Map>
+
           <div className="tourist_spot_map_container" id="map">
             <div className="map_wrap">
               <Map
-                center={{
-                  lat: partnerStoreData?.latitude,
-                  lng: partnerStoreData?.longitude,
-                }}
+                center={{ lat: latitude, lng: longitude }}
                 style={{ width: "100%", height: "400px" }}
               >
                 <MapMarker
                   position={{
-                    lat: partnerStoreData?.latitude,
-                    lng: partnerStoreData?.longitude,
+                    lat: latitude,
+                    lng: longitude,
                   }}
                 ></MapMarker>
               </Map>
