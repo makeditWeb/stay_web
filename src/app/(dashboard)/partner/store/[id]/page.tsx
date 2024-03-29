@@ -8,31 +8,38 @@ import { useRouter, usePathname } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 export default function RoomDetailPage({ location }: { location: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const partnerStoreId = pathname.split("/")[3];
   const [partnerStoreData, setPartnerStoreData] = useState<any>(null);
-  const [touristSpotData, setTouristSpotData] = useState<any>([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
-
+  const [storyData, setStoryData] = useState<any>();
+  const [storeImageData, setStoreImageData] = useState<any>([]);
+  const [featureData, setFeatureData] = useState<any>([]);
+  const [touristSpotData, setTouristSpotData] = useState<any>([]);
   const [noticeData, setNoticeData] = useState<any>([{}, {}, {}]);
 
-  console.log("partnerStoreData   :   ", partnerStoreData);
+  const [reservationInfoData, setReservationInfoData] = useState<any>({}); // 예약 정보 데이터
 
   useEffect(() => {
     customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
       if (res !== undefined && res?.status === 200) {
+        console.log("res.data.response   :   ", res.data.response);
+
         setPartnerStoreData(res.data.response);
+        setStoreImageData(res.data.response.storeImages);
+        // setNoticeData(res.data.response.noticeList?.data);
+        setStoryData({
+          storyTitle: res.data.response.storyTitle,
+          storyContent: res.data.response.storyContent,
+        });
+        setFeatureData(res.data.response.storeFeatureList.data);
+        setTouristSpotData(res.data.response.touristSpotList.data);
+
+        document.getElementById("storyContent").innerHTML =
+          res.data.response.storyContent;
       }
     });
   }, []);
@@ -71,6 +78,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
     // });
   }, [location]);
 
+  const onChangeReservationInfo = (e: any) => {
+    setReservationInfoData({
+      ...reservationInfoData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const settings = {
     dots: false,
     infintie: true,
@@ -103,7 +117,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
             style={{ width: "100vw" }}
           />
         </div>
-        <div style={{ height: "400px", background: "#203d1e" }}></div>
+        {/* <div style={{ height: "183px", background: "#203d1e" }}></div> */}
         <MainTitleContainer>
           <div
             style={{
@@ -115,10 +129,12 @@ export default function RoomDetailPage({ location }: { location: string }) {
             <div className="detail_main_container">
               <div className="detail_partner_store_container">
                 <div className="english_name_container">
-                  STAY INTERVIEW, Gangnenung
+                  {partnerStoreData?.storeEnglishName}
                 </div>
                 <div className="korean_name_container">
-                  <div className="korean_name_title">스테이인터뷰, 강릉</div>
+                  <div className="korean_name_title">
+                    {partnerStoreData?.storeName}
+                  </div>
                   <div>
                     <div className="reservation_status_btn">예약현황 보기</div>
                   </div>
@@ -128,133 +144,112 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   강릉 나만의 스테이에엇 바다와 산이 열립니다.
                 </div>
               </div>
-              <div style={{ width: "100%" }}>
-                <div className="detail_slider_container">
-                  <SlickSlider {...settings}>
-                    <div>
-                      <img
-                        src="/roomDetailImg2.png"
-                        alt="슬라이더1"
-                        // width={1200}
-                        height={500}
-                        style={{
-                          borderRadius: "15px 15px 0 0",
-                          margin: "auto",
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <img
-                        src="/roomDetailImg3.png"
-                        alt="슬라이더1"
-                        // width={1200}
-                        height={500}
-                        style={{
-                          borderRadius: "15px 15px 0 0",
-                          margin: "auto",
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <img
-                        src="/roomDetailImg4.png"
-                        alt="슬라이더1"
-                        // width={1200}
-                        height={500}
-                        style={{
-                          width: "100%",
-                          borderRadius: "15px 15px 0 0",
-                          margin: "auto",
-                        }}
-                      />
-                    </div>
-                  </SlickSlider>
-                  {/* <Image
-                src="/roomDetailImg.png"
-                alt="상세 페이지 메인 이미지"
-                width={1200}
-                height={550}
-              /> */}
-                </div>
-                <div className="reservation_info_container">
-                  <div className="reservation_info_div">
-                    <div>
-                      <div className="reservation_info_item_div">입실일</div>
+              <div className="banner_container">
+                <div>
+                  <div className="detail_slider_container">
+                    <SlickSlider {...settings}>
+                      {storeImageData.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <img
+                              src={item?.imageUrl}
+                              alt={item?.imageName}
+                              // width={1200}
+                              height={500}
+                              style={{
+                                borderRadius: "15px 15px 0 0",
+                                margin: "auto",
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                    </SlickSlider>
+                  </div>
+                  <div className="reservation_info_container">
+                    <div className="reservation_info_div">
                       <div>
-                        <input
-                          className="reservation_info_item_input"
-                          type="date"
-                          id="date"
-                          // value={selectedDate}
-                          // onChange={handleChange}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="reservation_info_item_div">퇴실일</div>
-                      <div>
-                        <input
-                          className="reservation_info_item_input"
-                          type="date"
-                          id="date"
-                          // value={selectedDate}
-                          // onChange={handleChange}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="reservation_info_item_div">인원</div>
-                      <div className="reservation_info_item_input">
-                        성인 0명 / 어린이 0명
-                      </div>
-                    </div>
-                    <div className="reservation_info_item_btn_div">
-                      <Link
-                        href={{ pathname: "/reservation" }}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <div className="reservation_info_item_btn">
-                          예약하기
+                        <div className="reservation_info_item_div">입실일</div>
+                        <div>
+                          <input
+                            className="reservation_info_item_input"
+                            type="date"
+                            id="date"
+                            name="checkInDate"
+                            onChange={onChangeReservationInfo}
+                            // value={selectedDate}
+                          />
                         </div>
-                      </Link>
+                      </div>
+                      <div>
+                        <div className="reservation_info_item_div">퇴실일</div>
+                        <div>
+                          <input
+                            className="reservation_info_item_input"
+                            type="date"
+                            id="date"
+                            name="checkOutDate"
+                            onChange={onChangeReservationInfo}
+                            // value={selectedDate}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="reservation_info_item_div">인원</div>
+                        <div className="reservation_info_item_input">
+                          성인 0명 / 어린이 0명
+                        </div>
+                      </div>
+                      <div className="reservation_info_item_btn_div">
+                        <Link
+                          href={{ pathname: "/reservation" }}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <div className="reservation_info_item_btn">
+                            예약하기
+                          </div>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div className="notice_container">
-              <div className="notice_container_div">
-                <div className="notice_title_container">
-                  <div className="notice_title">공지사항</div>
-                  <div className="notice_btn">more</div>
-                </div>
-                {noticeData.map((item, index) => {
-                  return (
-                    <div style={{ marginBottom: "10px" }}>
-                      <div className="notice_content_container">
-                        <div className="notice_content">
-                          숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
-                          숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
-                          출력
-                        </div>
-                        <div className="notice_content_date">2024.02.19</div>
-                      </div>
-                      <div className="notice_content_line"></div>
-                    </div>
-                  );
-                })}
+        </MainTitleContainer>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#203d1e",
+            // height: "400px",
+          }}
+        >
+          <div className="notice_container">
+            <div className="notice_container_div">
+              <div className="notice_title_container">
+                <div className="notice_title">공지사항</div>
+                <div className="notice_btn">more</div>
               </div>
+              {noticeData.map((item, index) => {
+                return (
+                  <div style={{ marginBottom: "10px" }} key={index}>
+                    <div className="notice_content_container">
+                      <div className="notice_content">
+                        숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
+                        숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
+                        출력
+                      </div>
+                      <div className="notice_content_date">2024.02.19</div>
+                    </div>
+                    <div className="notice_content_line"></div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </MainTitleContainer>
+        </div>
         <div className="story_container">
           <div style={{ marginTop: "50px", marginBottom: "80px" }}>
             <div className="story_img_container">
@@ -265,8 +260,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
           <div className="story_content_container">
-            <div className="story_content_haed_title">스테이인터뷰, 강릉</div>
-            <div className="story_item_title">
+            <div className="story_content_haed_title">
+              {partnerStoreData?.storeName}
+            </div>
+            <div id="storyContent" className="story_item_content">
+              {/* {storyData?.storyContent} */}
+            </div>
+            {/* <div className="story_item_title">
               동해에서 가장 먼저 태양과 마주할 수 있는 곳. <br />
               스테이 인터뷰 강릉 <br />
               나만의 스테이에서 바다와 산이 열린다
@@ -304,7 +304,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
               이룬 스테이인터뷰 강릉.
               <br /> 해안 협곡에 자리한 덕분에 시시각각 변하는 자연의 빛과
               파도소리의 움직임이 여행자를 따라다닌다.
-            </div>
+            </div> */}
           </div>
         </div>
         <div style={{ position: "relative" }}>
@@ -331,52 +331,27 @@ export default function RoomDetailPage({ location }: { location: string }) {
             }}
           >
             <div className="feature_container">
-              <div className="feature_container_div">
-                <div className="feature_item_div">
-                  <div className="feature_item_title_container">
-                    <div className="feature_item_title_badge">Point 1</div>
-                    <div className="feature_item_title_div">포토존</div>
-                  </div>
-                  <div className="feature_item_content_container">
-                    <div className="feature_item_content_div">
-                      아름다운 동해바다를 배경으로 멋진사진을 남길 수 있는
-                      곳입니다. 사랑하는 사람과 함께 예쁘고 행복한 추억을
-                      남겨보세요.
+              {featureData.map((item, index) => {
+                return (
+                  <div className="feature_container_div">
+                    <div className="feature_item_div">
+                      <div className="feature_item_title_container">
+                        <div className="feature_item_title_badge">
+                          Point {index + 1}
+                        </div>
+                        <div className="feature_item_title_div">
+                          {item.title}
+                        </div>
+                      </div>
+                      <div className="feature_item_content_container">
+                        <div className="feature_item_content_div">
+                          {item.content}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="feature_container_div">
-                <div className="feature_item_div">
-                  <div className="feature_item_title_container">
-                    <div className="feature_item_title_badge">Point 2</div>
-                    <div className="feature_item_title_div">오션뷰</div>
-                  </div>
-                  <div className="feature_item_content_container">
-                    <div className="feature_item_content_div">
-                      전 객실에서 바다가 보이는 스테이인터뷰는 일출명소입니다.
-                      <br />
-                      머무는 공간에서 일출을 맞이해보세요. <br />
-                      여행에 또 다른 추억과 생각지 못했던 큰 선물이 될것입니다
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="feature_container_div3">
-                <div className="feature_item_div">
-                  <div className="feature_item_title_container">
-                    <div className="feature_item_title_badge">Point 3</div>
-                    <div className="feature_item_title_div">웰컴드링크</div>
-                  </div>
-                  <div className="feature_item_content_container">
-                    <div className="feature_item_content_div">
-                      저희 스테이인터뷰를 예약해주신 모든 고객님들께 커피를
-                      드리고 있습니다.
-                      <br /> 아름다운 자연과 함께 커피한잔 즐겨보세요
-                    </div>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -384,11 +359,46 @@ export default function RoomDetailPage({ location }: { location: string }) {
           <div style={{ marginBottom: "15px" }}>
             <div className="tourist_spot_title_container">주변 관광지</div>
             <div className="tourist_spot_sub_container">
-              <div style={{ fontWeight: "600" }}>스테이인터뷰 강릉</div>
-              <div>강원 강릉시 강동면 율곡로 1458</div>
+              <p>
+                <strong>{partnerStoreData?.storeName}</strong>
+              </p>
+              <div>
+                {partnerStoreData?.address} {partnerStoreData?.addressDetail}
+              </div>
             </div>
           </div>
+          <Map
+            center={{
+              lat: partnerStoreData?.latitude,
+              lng: partnerStoreData?.longitude,
+            }}
+            style={{ width: "100%", height: "350px" }}
+          >
+            <MapMarker
+              position={{
+                lat: partnerStoreData?.latitude,
+                lng: partnerStoreData?.longitude,
+              }}
+            ></MapMarker>
+          </Map>
           <div className="tourist_spot_map_container" id="map">
+            <div className="map_wrap">
+              <Map
+                center={{
+                  lat: partnerStoreData?.latitude,
+                  lng: partnerStoreData?.longitude,
+                }}
+                style={{ width: "100%", height: "400px" }}
+              >
+                <MapMarker
+                  position={{
+                    lat: partnerStoreData?.latitude,
+                    lng: partnerStoreData?.longitude,
+                  }}
+                ></MapMarker>
+              </Map>
+            </div>
+
             {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
           </div>
 
@@ -400,16 +410,22 @@ export default function RoomDetailPage({ location }: { location: string }) {
                     <div className="tourist_spot_no_div">{index + 1}</div>
                     <div className="tourist_spot_item_content_div">
                       <div className="tourist_spot_item_content_title">
-                        <div className="tourist_spot_item_content_title_div">
-                          동명해변
+                        <div
+                          className="tourist_spot_item_content_title_div"
+                          style={{ fontWeight: 700 }}
+                        >
+                          {item.name}
                         </div>
                         <div className="tourist_spot_item_content_title_div2">
-                          강원 강릉시 강동면 정동신리 490-2
+                          {item.address} {item.addressDetail}
                         </div>
                       </div>
                       <div className="tourist_spot_item_content_content">
-                        기찻길 너머에 펼쳐진 모래사장이 인상적인 해수욕장
-                        숙소로부터의 거리 0.4 km
+                        {item.description}
+                        <br />
+                        숙소로부터의 거리 {Math.round(item.distance * 10) /
+                          10}{" "}
+                        km
                       </div>
                     </div>
                   </div>
@@ -432,13 +448,16 @@ export default function RoomDetailPage({ location }: { location: string }) {
           </div>
           <div className="partenrs_store_contact_container_div">
             <div className="partenrs_store_contact_content_container ">
-              스테이인터뷰, 강릉
+              {partnerStoreData?.storeName}
             </div>
             <div
               className="partenrs_store_contact_content_container"
               style={{ fontWeight: "700" }}
             >
-              010-2517-2160
+              {String(partnerStoreData?.phone).replace(
+                /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                `$1-$2-$3`
+              )}
             </div>
           </div>
         </div>

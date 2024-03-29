@@ -79,6 +79,10 @@
       padding: 0;
     }
 
+    .detail_banner_div {
+      width: 100%;
+    }
+
     .detail_partner_store_container {
       padding: 0 50px;
       padding-top: 80px;
@@ -182,6 +186,10 @@
       object-fit: cover;
     }
 
+    .banner_container {
+      display: block;
+    }
+
     .detail_slider_container {
       width: 100%;
       height: 500px;
@@ -245,7 +253,7 @@
       color: #ffffff;
       font-size: 18px;
       font-weight: 600;
-      margin-top: 36p;
+      // margin-top: 36px;
     }
 
     .slick-prev {
@@ -263,6 +271,8 @@
     //[공지사항]
     .notice_container {
       width: 100%;
+      height: 205px;
+      margin-top: 402px;
     }
 
     .notice_container_div {
@@ -290,7 +300,7 @@
       align-items: center;
       // width: "1920px",
       background: #f6f5f1;
-      margin-top: 288px;
+      // margin-top: 288px;
     }
 
     .story_img_container {
@@ -460,11 +470,11 @@
     //[연락처]
     .partenrs_store_contact_container {
       display: block;
-      align-items: center;
-      justify-content: center;
       width: 250px;
+      height: 67px;
       margin: auto;
       gap: 40px;
+      padding: 30px 0;
     }
 
     .partenrs_store_contact_container_div {
@@ -654,6 +664,11 @@
   object-fit: cover;
 }
 
+.slick-slide img {
+  margin: 0px;
+  width: 100%;
+}
+
 .out_stay_container {
   width: 370px;
   height: 350px;
@@ -688,7 +703,21 @@
 //DETAIL
 .detail_main_container {
   width: 100%;
-  padding: 0 250px;
+  // padding: 0 250px;
+}
+
+// .detail_banner_container {
+//   margin: auto;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+.banner_container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .detail_slider_container {
@@ -698,6 +727,7 @@
 }
 
 .detail_partner_store_container {
+  padding: 0 250px;
   padding-top: 80px;
 }
 
@@ -794,7 +824,7 @@
   color: #ffffff;
   font-size: 18px;
   font-weight: 600;
-  margin-top: 36p;
+  margin-top: 36px;
 }
 
 //[스토리]
@@ -1012,6 +1042,7 @@
   height: 100px;
   margin: auto;
   gap: 40px;
+  padding: 30px 0;
 }
 
 .partenrs_store_contact_container_div {
@@ -1030,7 +1061,15 @@
 }
 
 .notice_container_div {
-  margin-top: 50px;
+  margin-top: 110px;
+}
+
+.notice_container_div :nth-child(4) {
+  margin-bottom: 55px !important;
+}
+
+.notice_container_div :nth-child(4) > :nth-last-child(1) {
+  display: none;
 }
 
 .notice_title_container {
