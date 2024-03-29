@@ -288,7 +288,7 @@ const MyPageTabContents = ({ tabNumber }) => {
         <ChangeInformation
           style={{ width: "1200px", marginTop: "40px", background: "#C2BFB3" }}
         >
-          회원탍뢰
+          회원탈퇴
         </ChangeInformation>
       </>
     );

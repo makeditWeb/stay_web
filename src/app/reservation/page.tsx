@@ -629,7 +629,7 @@ export default function ReservationPage() {
 
 const ReservationContainer = styled.div`
   display: flex;
-  width: 1920px;
+  // width: 1920px;
   padding-bottom: 80px;
 `;
 

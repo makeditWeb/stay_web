@@ -9,11 +9,11 @@ export default function Navbar() {
   const pathName = usePathname();
 
   return (
-    <NavbarContainer>
+    <div className="navbar_container">
       <Link href="/" style={{ textDecoration: "none" }}>
         <img src="/stayinterviewLogo.png" alt="사이트 로고" />
       </Link>
-      <NavbarDiv style={{ marginLeft: "15px" }}>
+      <NavbarDiv className="navbar_div" style={{ marginLeft: "15px" }}>
         <Link
           href={{ pathname: "/ourStay" }}
           style={{ textDecoration: "none" }}
@@ -33,7 +33,7 @@ export default function Navbar() {
           <MenuDiv>OUR NEWS</MenuDiv>
         </Link>
       </NavbarDiv>
-      <NavbarDiv>
+      <NavbarDiv className="navbar_div">
         <Link href={{ pathname: "/login" }} style={{ textDecoration: "none" }}>
           <MenuDiv style={{ margin: "0 44px 0 250px" }}>Login</MenuDiv>
         </Link>
@@ -49,14 +49,14 @@ export default function Navbar() {
           />
         </Link>
       </NavbarDiv>
-    </NavbarContainer>
+    </div>
   );
 }
 
 const NavbarContainer = styled.div`
-  position: fixed;
+  // position: fixed;
   // width: 1920px;
-  width: 100vw;
+  width: 100%;
   background: rgba(22, 35, 24, 0.5);
   height: 97px;
   display: flex;
