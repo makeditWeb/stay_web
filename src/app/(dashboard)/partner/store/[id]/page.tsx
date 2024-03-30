@@ -9,28 +9,15 @@ import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import "react-kakao-maps-sdk";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { Cookies } from "react-cookie";
 
 export default function RoomDetailPage({ location }: { location: string }) {
-  console.log("location : ", location);
-
   const router = useRouter();
-  console.log("router : ", router);
-
-  const cookies = new Cookies();
-
-  console.log("cookies : ", cookies.get("partnerStore"));
-
-  const cookiesData = JSON.stringify(cookies.get("partnerStore"));
 
   const pathname = usePathname();
   const partnerStoreId = pathname.split("/")[3];
   const [partnerStoreData, setPartnerStoreData] = useState<any>(null);
   const [longitude, setLongitude] = useState(0); //x좌표
   const [latitude, setLatitude] = useState(0); //y좌표
-
-  console.log("longitude : ", longitude);
-  console.log("latitude : ", latitude);
 
   const [storyData, setStoryData] = useState<any>();
   const [storeImageData, setStoreImageData] = useState<any>([]);
@@ -574,7 +561,18 @@ export default function RoomDetailPage({ location }: { location: string }) {
                       </div>
                       <div className="reservation_info_item_btn_div">
                         <Link
-                          href={{ pathname: "/reservation" }}
+                          href={{
+                            pathname: `/reservation/${partnerStoreData?.id}`,
+                            query: {
+                              storeId: partnerStoreData?.id,
+                              storeName: partnerStoreData?.storeName,
+                              englishStoreName:
+                                partnerStoreData?.storeEnglishName,
+                              checkInDate: reservationInfoData.checkInDate,
+                              checkOutDate: reservationInfoData.checkOutDate,
+                            },
+                          }}
+                          // as={`/reservation/${partnerStoreData?.id}`}
                           style={{ textDecoration: "none" }}
                         >
                           <div className="reservation_info_item_btn">

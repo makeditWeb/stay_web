@@ -2,19 +2,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import "moment/locale/ko";
 import ModalComponent from "@/components/modalComponent";
 
-export default function ReservationPage() {
+export default function ReservationPage(props: any) {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log("router", router.query);
-  console.log("pathname", pathname);
+  const searchParams = useSearchParams();
+  const storeId: any = searchParams.get("storeId");
+  const storeName: any = searchParams.get("storeName");
+  const englishStoreName: any = searchParams.get("englishStoreName");
+  // console.log("storeName", storeName);
 
   moment.locale("ko");
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -90,248 +93,90 @@ export default function ReservationPage() {
           alt="예약 이미지"
         />
         <div className="reservation_left_item_container">
-          <div
-            style={{
-              fontSize: "25px",
-              fontWeight: "200",
-              marginBottom: "20px",
-            }}
-          >
-            STAY INTERVIEW, Gangneung
-          </div>
-          <div
-            style={{
-              fontSize: "50px",
-              fontWeight: "700",
-              marginBottom: "120px",
-            }}
-          >
-            스테이 인터뷰, 강릉
-          </div>
-          <div
-            style={{
-              fontSize: "32px",
-              fontWeight: "700",
-              marginBottom: "20px",
-            }}
-          >
-            인원 선택
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "430px",
-              height: "240px",
-              background: "rgba(255, 255, 255, 0.75)",
-              color: "#203d1e",
-              borderRadius: "15px",
-              marginBottom: "20px",
-            }}
-          >
+          <div className="reservation_english_name">{englishStoreName}</div>
+          <div className="reservation_korean_name">{storeName}</div>
+          <div className="reservation_select_people_title">인원 선택</div>
+          <div className="reservation_select_people_container">
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "30px",
-                  marginBottom: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    textAlign: "center",
-                    width: "45px",
-                    fontSize: "16px",
-                    fontWeight: "300",
-                  }}
-                >
-                  성인
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "260px",
-                    height: "55px",
-                    background: "#ffffff",
-                    border: "1px solid #203d1e",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      margin: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "250px",
-                    }}
-                  >
+              <div className="reservation_select_people_div">
+                <div className="reservation_adult_title">성인</div>
+                <div className="reservation_adult_input_container">
+                  <div className="reservation_adult_input_div">
                     <div
-                      style={{ width: "45px", height: "45px" }}
+                      className="reservation_quantity_btn"
                       onClick={adultMinusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
-                      {adultCount}
-                    </div>
+                    <p className="reservation_quantity_input">{adultCount}</p>
                     <div
-                      style={{ width: "45px", height: "45px" }}
+                      className="reservation_quantity_btn"
                       onClick={adultPlusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "30px",
-                  marginBottom: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    textAlign: "center",
-                    width: "45px",
-                    fontSize: "16px",
-                    fontWeight: "300",
-                  }}
-                >
-                  어린이
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "260px",
-                    height: "55px",
-                    background: "#ffffff",
-                    border: "1px solid #203d1e",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      margin: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "250px",
-                    }}
-                  >
+              <div className="reservation_select_people_div">
+                <div className="reservation_adult_title">어린이</div>
+                <div className="reservation_adult_input_container">
+                  <div className="reservation_adult_input_div">
                     <div
                       style={{ width: "45px", height: "45px" }}
                       onClick={kidMinusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
-                      {kidCount}
-                    </div>
+                    <p className="reservation_quantity_input">{kidCount}</p>
                     <div
-                      style={{ width: "45px", height: "45px" }}
+                      className="reservation_quantity_btn"
                       onClick={kidPlusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "30px",
-                }}
-              >
-                <div
-                  style={{
-                    textAlign: "center",
-                    width: "45px",
-                    fontSize: "16px",
-                    fontWeight: "300",
-                  }}
-                >
-                  반려견
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "260px",
-                    height: "55px",
-                    background: "#ffffff",
-                    border: "1px solid #203d1e",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      margin: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "250px",
-                    }}
-                  >
+              <div className="reservation_select_people_div">
+                <div className="reservation_adult_title">반려견</div>
+                <div className="reservation_adult_input_container">
+                  <div className="reservation_adult_input_div">
                     <div
-                      style={{ width: "45px", height: "45px" }}
+                      className="reservation_quantity_btn"
                       onClick={petMinusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
-                    <div style={{ fontSize: "25px", fontWeight: "600" }}>
-                      {petCount}
-                    </div>
+                    <p className="reservation_quantity_input">{petCount}</p>
                     <div
-                      style={{ width: "45px", height: "45px" }}
+                      className="reservation_quantity_btn"
                       onClick={petPlusCountHandler}
                     >
-                      <Image
+                      <img
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
-                        width={45}
-                        height={45}
-                        style={{ cursor: "pointer" }}
+                        className="reservation_quantity_img"
                       />
                     </div>
                   </div>
@@ -339,31 +184,15 @@ export default function ReservationPage() {
               </div>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "210px",
-              height: "55px",
-              background: "#f6f5f1",
-              borderRadius: "15px",
-              color: "#203d1e",
-              fontSize: "18px",
-              fontWeight: "600",
-              cursor: "pointer",
-            }}
-          >
-            이전으로
-          </div>
+          <button className="reservation_previous_btn">이전으로</button>
         </div>
       </div>
       <div className="reservation_right_container">
-        <div style={{ marginTop: "100px" }}>
+        <div className="reservation_right_div">
           <div className="reservation_calendar_container">
-            <div className="calendar_title_container">날짜 선택</div>
+            <div className="calendar_title">날짜 선택</div>
             <div className="calendar_item_container">
-              <div style={{ display: "flex", width: "100%" }}>
+              <div className="calendar_item_div">
                 <div className="date_container">
                   <p className="date_title">입실일</p>
                   <div className="date_input">
@@ -405,17 +234,7 @@ export default function ReservationPage() {
             <div>
               <div className="room_title">객실 선택</div>
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    // width: "1050px",
-                    height: "250px",
-                    background: "#ffffff",
-                    borderRadius: "15px",
-                    overflow: "hidden",
-                    marginBottom: "20px",
-                  }}
-                >
+                <div className="room_info_conatiner">
                   <div className="room_image_container">
                     <div>
                       <img src="/reservationImg2.png" alt="객실 이미지" />
@@ -430,68 +249,19 @@ export default function ReservationPage() {
                       />
                     </div>
                   </div>
-                  <div className="room_container">
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        fontWeight: "700",
-                        color: "#203d1e",
-                        // marginTop: "40px",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      디럭스 룸
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "200",
-                        lineHeight: "25px",
-                        marginBottom: "20px",
-                      }}
-                    >
+                  <div className="room_cotent_container">
+                    <div className="room_info_title">디럭스 룸</div>
+                    <div className="room_info_content">
                       아름다운 동해바다를 배경으로 멋진 사진을 남길 수 있는
                       곳입니다.
                       <br />
                       사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "141px",
-                        height: "22px",
-                        fontSize: "16px",
-                        background: "#2b7638",
-                        gap: "5px",
-                        borderRadius: "4px",
-                        color: "#ffffff",
-                      }}
-                    >
+                    <div className="room_badge">
                       <div style={{ fontWeight: "700" }}>기준 3인</div>
                       (최대 4인)
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "210px",
-                        height: "40px",
-                        background: "#203d1e",
-                        borderRadius: "15px",
-                        color: "#ffffff",
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginTop: "5px",
-                        // marginLeft: "380px",
-                        cursor: "pointer",
-                        float: "right",
-                      }}
-                    >
-                      예약하기
-                    </div>
+                    <div className="room_reservation_btn">예약하기</div>
                   </div>
                 </div>
               </div>

@@ -8,14 +8,11 @@ import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import Script from "next/script";
-import { Cookies } from "react-cookie";
 
 export default function Mainpage() {
   const [partnerStoreList, setPartnerStoreList] = useState([]);
   const router = useRouter();
   const pathName = usePathname();
-
-  const cookies = new Cookies();
 
   const settings = {
     dots: true,
@@ -59,8 +56,6 @@ export default function Mainpage() {
     partnerStoreList.filter((item) => {
       if (item.id === Number(partnerStoreId)) {
         console.log("item", item);
-
-        cookies.set("partnerStore", item);
       }
     });
   };
