@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import Image from "next/image";
 import styled from "styled-components";
+import Script from "next/script";
 
 export default function OrdersContainer() {
   const searchParams = useSearchParams();
@@ -340,19 +340,23 @@ export default function OrdersContainer() {
 
   // 결제하기 버튼 함수
   const paymentHandler = () => {
-    if (
-      (cardPayment || bankBookPayment) &&
-      orderProductChecked &&
-      trustChecked &&
-      covidChecked &&
-      nonMemberChecked
-    ) {
-      setPaymentEnabled(true);
-      alert("결제 진행을 합니다");
-    } else {
-      setPaymentEnabled(false);
-      alert("약관 동의를 해주세요");
-    }
+    //TODO 입력값 벨리데이션 체크 추가 (Pia)
+
+    goPay(document.payForm);
+
+    // if (
+    //   (cardPayment || bankBookPayment) &&
+    //   orderProductChecked &&
+    //   trustChecked &&
+    //   covidChecked &&
+    //   nonMemberChecked
+    // ) {
+    //   setPaymentEnabled(true);
+    //   alert("결제 진행을 합니다");
+    // } else {
+    //   setPaymentEnabled(false);
+    //   alert("약관 동의를 해주세요");
+    // }
   };
 
   return (
@@ -827,6 +831,42 @@ export default function OrdersContainer() {
       >
         결제하기
       </button>
+      <Script
+        src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
+        type="text/javascript"
+      />
+      {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
+      <form name="payForm" method="post" acceptCharset="euc-kr">
+        <input
+          type="hidden"
+          name="GoodsName"
+          value={"스테이인터뷰, 하늘"}
+        ></input>
+        <input type="hidden" name="Amt" value={"1000"}></input>
+        <input type="hidden" name="MID" value="Kwonstay1m"></input>
+        <input type="hidden" name="EdiDate" value={"20240326101200"}></input>
+        <input type="hidden" name="Moid" value={"HN1213"}></input>
+        <input
+          type="hidden"
+          name="SignData"
+          value={
+            "4A87F00CA9284114B8F3EC6D9FA65D56D62EAD079735ACEDD7F0D36A7CA93D9E"
+          }
+        ></input>
+        <input type="hidden" name="PayMethod" value={"CARD"}></input>
+        <input
+          type="hidden"
+          name="ReturnURL"
+          value={"http://localhost:9000/api/v1/nice-pay"}
+        ></input>
+        <input
+          type="hidden"
+          name="MerchantKey"
+          value={
+            "VEssZGW19yqVwVXhJ5x4VdzDRtAxBkAE7ZratupXmYglgn2jjCatUduvIlk9J1fXMo9VSDye/qGGnnJr+RrKdA=="
+          }
+        ></input>
+      </form>
     </div>
   );
 }
