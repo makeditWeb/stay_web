@@ -35,7 +35,7 @@ export default function Navbar() {
       </NavbarDiv>
       <NavbarDiv className="navbar_div">
         <Link href={{ pathname: "/login" }} style={{ textDecoration: "none" }}>
-          <MenuDiv style={{ margin: "0 44px 0 250px" }}>Login</MenuDiv>
+          <MenuDiv>Login</MenuDiv>
         </Link>
         <Link
           href="https://www.instagram.com/stay.interview"
@@ -65,8 +65,10 @@ const NavbarContainer = styled.div`
 `;
 
 const NavbarDiv = styled.div`
+  width: 30%;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const MenuDiv = styled.div`
