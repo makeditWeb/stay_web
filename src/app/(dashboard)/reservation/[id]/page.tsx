@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Calendar from "react-calendar";
@@ -17,7 +17,8 @@ export default function ReservationPage(props: any) {
   const storeId: any = searchParams.get("storeId");
   const storeName: any = searchParams.get("storeName");
   const englishStoreName: any = searchParams.get("englishStoreName");
-  // console.log("storeName", storeName);
+  const addres: any = searchParams.get("address");
+  const [roomId, setRoomId] = useState(1);
 
   moment.locale("ko");
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -209,7 +210,7 @@ export default function ReservationPage(props: any) {
                 </div>
               </div>
               <div>
-                <CalendarContainer>
+                <div className="calendar_container">
                   <CalendarContents
                     onChange={changeDate}
                     // value={value}
@@ -227,7 +228,7 @@ export default function ReservationPage(props: any) {
                     prev2Label={null}
                     next2Label={null}
                   ></CalendarContents>
-                </CalendarContainer>
+                </div>
               </div>
             </div>
 
@@ -261,7 +262,26 @@ export default function ReservationPage(props: any) {
                       <div style={{ fontWeight: "700" }}>기준 3인</div>
                       (최대 4인)
                     </div>
-                    <div className="room_reservation_btn">예약하기</div>
+                    <Link
+                      href={{
+                        pathname: `/reservation/orders/new/${roomId}`,
+                        query: {
+                          roomId: 1,
+                          roomName: "디럭스 룸",
+                          storeName: storeName,
+                          addres: addres || "강원도 양양군 현남면 현남로 1",
+                          englishStoreName: englishStoreName,
+                          adultCount: adultCount || 2,
+                          kidCount: kidCount || 0,
+                          petCount: petCount || 0,
+                          checkInDate: "2024-03-30",
+                          checkOutDate: "2024-04-01",
+                        },
+                      }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div className="room_reservation_btn">예약하기</div>
+                    </Link>
                   </div>
                 </div>
               </div>

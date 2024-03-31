@@ -679,6 +679,197 @@
       float: right;
     }
 
+    //예약 주문(order/new)
+    .order_room_content_container {
+      display: block;
+      // width: 1200px;
+      // height: 500px;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 15px;
+    }
+
+    .order_room_item_container {
+      display: flex;
+      width: 100%;
+      height: 80px;
+    }
+
+    .order_room_item_content_div {
+      margin: auto;
+    }
+
+    .order_room_item_bottom_div {
+      display: flex;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .order_room_section {
+      width: 100%;
+    }
+
+    .order_room_item_div {
+      display: flex;
+      margin-top: 0px;
+      // width: 100%;
+    }
+
+    .info_personnel_container2 {
+      display: flex;
+      // width: 400px;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .select_room_container {
+      display: none;
+    }
+
+    .info_title_wrap {
+      display: flex;
+      width: 100%;
+    }
+
+    .info_personnel_title_wrap {
+      display: block;
+      width: 100%;
+    }
+
+    .info_title {
+      font-size: 18px;
+      font-weight: 500;
+      // margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info_personnel_modify {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 88px;
+      height: 22px;
+      border: 1px solid #203d1e;
+      border-radius: 4px;
+      color: #203d1e;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0;
+      margin-top: 10px;
+      // margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .reservation_person_2row_wrap {
+      display: block;
+      align-items: center;
+      // justify-content: center;
+      // width: 1100px;
+      height: 100%;
+      margin: auto;
+      margin-bottom: 10px;
+    }
+
+    .rev_person_section {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .rev_person_section_ml {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      margin-left: 0px;
+    }
+
+    .reservation_person_title_wrap {
+      width: 40%;
+    }
+
+    .reservation_person_title_2row_wrap {
+      width: 40%;
+    }
+
+    .reservation_person_title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 24px;
+      background: #203d1e;
+      color: #ffffff;
+      border-radius: 4px;
+      margin-right: 0px;
+    }
+
+    .reservation_person_2row_select {
+      // width: 400px;
+      width: 100%;
+      height: 52px;
+      border: 1px solid #203d1e;
+      border-radius: 15px;
+      padding-left: 10px;
+      color: #c8cdc6;
+    }
+
+    .options_content_wrap {
+      display: flex;
+      align-items: flex-start;
+      margin: auto;
+      font-size: 20px;
+      font-weight: 500;
+      gap: 20px;
+    }
+
+    .option_info_section {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .additional_options_wrap {
+      display: flex;
+      margin: auto;
+      // width: 1000px;
+      height: 100%;
+      padding: 0 10px;
+      padding-top: 50px;
+    }
+
+    .payment_method_container {
+      display: flex;
+      // width: 1200px;
+      height: 60px;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 9px 30px;
+    }
+
+    .terms_container {
+      display: flex;
+      // width: 1200px;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 0px;
+    }
+
+    .terms_toggle_container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 320px;
+      background: #f8f8f8;
+      font-size: 14px;
+      font-weight: 300;
+      margin: auto;
+      margin-top: 20px;
+    }
+
     .mr-b-15 {
       margin-bottom: 15px;
     }
@@ -724,6 +915,8 @@
   display: flex;
   justify-content: center;
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bold_letter {
@@ -1480,6 +1673,13 @@
   color: #203d1e;
 }
 
+.calendar_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
 .calendar_title {
   display: flex;
   width: 140px;
@@ -1625,5 +1825,716 @@
   border-radius: 6px;
   border: 1px solid #ffffff;
   color: #ffffff;
+  cursor: pointer;
+}
+
+//예약 주문(order/new)
+.order_new_container {
+  width: 100%;
+  margin: auto;
+  margin-top: 100px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.order_new_title {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  width: 400px;
+  height: 100px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #162318;
+}
+
+.order_room_content_container {
+  display: flex;
+  // width: 1200px;
+  height: 240px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+
+.order_room_section {
+  width: 50%;
+}
+
+.select_room_container {
+  width: 1px;
+  height: 220px;
+  background: #d9d9d9;
+  margin-top: 10px;
+}
+
+.order_room_item_container {
+  display: flex;
+  width: 100%;
+  height: 120px;
+}
+
+.order_room_item_div {
+  display: flex;
+  // margin-top: 0px;
+}
+
+.order_room_item_bottom_div {
+  display: flex;
+  margin-top: 20px;
+}
+
+.order_room_badge_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // width: 100%;
+  height: 100%;
+}
+
+.order_room_badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 22px;
+  background: #203d1e;
+  border-radius: 4px;
+  color: #ffffff;
+  margin: 0 30px 0 30px;
+}
+
+.order_room_item_content_div {
+  margin: auto;
+}
+
+.info_title_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_personnel_title_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_title {
+  font-size: 18px;
+  font-weight: 500;
+  // margin-bottom: 10px;
+}
+
+.info_text {
+  font-size: 18px;
+}
+
+.info_personnel_container {
+  display: flex;
+  // width: 400px;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.info_personnel_container2 {
+  display: flex;
+  // width: 400px;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.info_personnel_modify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 22px;
+  border: 1px solid #203d1e;
+  border-radius: 4px;
+  color: #203d1e;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.personnel_modify_container {
+  align-items: center;
+  justify-content: center;
+  width: 340px;
+  height: 290px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #203d1e;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 40px;
+  left: 60px;
+}
+
+.personnel_modify_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.personnel_modify_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.personnel_number_container {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  height: 55px;
+  background: #ffffff;
+  border: 1px solid #203d1e;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.personnel_number_section {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+  height: 100%;
+}
+
+.personnel_number_btn {
+  width: 45px;
+  height: 45px;
+}
+
+.personnel_number_btn_img {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.personnel_number_text {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.personnel_modify_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 290px;
+  height: 55px;
+  background: #203d1e;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.reservation_person_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // width: 1200px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+
+.reservation_person_section {
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.reservation_person_wrap {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  // width: 1100px;
+  height: 60px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.reservation_person_2row_wrap {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  // width: 1100px;
+  height: 60px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.rev_person_section {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.rev_person_section_ml {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.reservation_person_title_wrap {
+  width: 22%;
+}
+
+.reservation_person_title_2row_wrap {
+  width: 40%;
+}
+
+.reservation_person_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 24px;
+  background: #203d1e;
+  color: #ffffff;
+  border-radius: 4px;
+  margin-right: 50px;
+}
+
+.reservation_person_select_wrap {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.reservation_person_select {
+  // width: 400px;
+  width: 100%;
+  height: 52px;
+  border: 1px solid #203d1e;
+  border-radius: 15px;
+  padding-left: 10px;
+  color: #c8cdc6;
+}
+
+.reservation_person_2row_select {
+  // width: 400px;
+  width: 66%;
+  height: 52px;
+  border: 1px solid #203d1e;
+  border-radius: 15px;
+  padding-left: 10px;
+  color: #c8cdc6;
+}
+
+.reservation_person_text_section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #203d1e;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.reservation_person_text {
+  // width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+
+  &::placeholder {
+    font-size: 15px;
+    font-weight: 300;
+    color: #c8cdc6;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+//추가옵션
+.additional_options_section {
+  // width: 1200px;
+  background: #ffffff;
+  border-radius: 15px;
+}
+
+.additional_options_underline:not(:last-child) {
+  display: flex;
+  margin: auto;
+  // width: 1050px;
+  border: 1px solid #d9d9d9;
+}
+
+.additional_options_underline {
+  display: none;
+}
+
+.additional_options_wrap {
+  display: flex;
+  margin: auto;
+  // width: 1000px;
+  height: 299px;
+  padding-top: 50px;
+}
+
+.options_badge_section {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.options_badge_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 22px;
+  background: #203d1e;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.options_content_container {
+}
+
+.options_content_section {
+  // width: 800px;
+  margin-bottom: 20px;
+}
+
+.options_content_wrap {
+  display: flex;
+  // align-items: center;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 500;
+  gap: 20px;
+}
+
+.option_info_section {
+  margin-bottom: 15px;
+}
+
+.option_title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #2b7638;
+}
+
+.option_content {
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+//요청사항
+
+.request_content_section {
+  // width: 1200px;
+  height: 320px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.request_content_wrap {
+  // width: 1100px;
+  height: 300px;
+  margin: auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 10px;
+  cursor: text;
+}
+
+.request_content {
+  // width: 1100px;
+  height: 30px;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 300;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+//결제정보
+.payment_info_container {
+  // width: 1200px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px 0;
+}
+
+.payment_info_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // width: 1000px;
+  height: 50px;
+  margin: auto;
+  padding: 0 30px;
+}
+
+.payment_info_underline {
+  // width: 1000px;
+  height: 1px;
+  background: #d9d9d9;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.payment_info_toggle {
+  display: block;
+  height: 100%;
+}
+
+.payment_info_toggle_container {
+  // display: flex;
+  justify-content: center;
+  // width: 1000px;
+  // height: 320px;
+  // background: #f8f8f8;
+  font-size: 14px;
+  font-weight: 300;
+  margin: auto;
+  margin-top: 20px;
+  padding: 0 40px;
+}
+
+.payment_info_toggle_section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+
+.payment_info_toggle_date_title {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  // height: 100px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #203d1e;
+}
+
+.payment_info_toggle_date_value {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.payment_info_toggle_title {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  // height: 100px;
+  font-size: 20px;
+  // font-weight: bold;
+  color: black;
+}
+
+.payment_info_toggle_value {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  width: 100%;
+}
+
+.payment_info_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // width: 1000px;
+  height: 50px;
+  margin: auto;
+}
+
+.payment_info_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 24px;
+  background: #203d1e;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.payment_img_section {
+  width: 40px;
+}
+
+.payment_value_img {
+  width: 15px;
+  height: 10px;
+  cursor: pointer;
+}
+
+.payment_info_value {
+  display: flex;
+  justify-content: end;
+  width: 200px;
+  font-weight: 1000;
+  font-size: 32px;
+  color: #2b7638;
+}
+
+.payment_info_unit {
+  display: flex;
+  align-items: center;
+  // width: 200px;
+  font-weight: 1000;
+  font-size: 25px;
+  color: #2b7638;
+  margin-left: 15px;
+}
+
+//결제 방법
+.payment_method_container {
+  display: flex;
+  // width: 1200px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px 0 30px 50px;
+}
+
+.payment_method_section {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.payment_method_section:not(:last-child) {
+  margin-left: 0px;
+}
+
+.payment_method_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+//이용자 약관동의
+.terms_container {
+  // display: flex;
+  // width: 1200px;
+  background: #ffffff;
+  border-radius: 15px;
+  // padding: 30px 0 30px 50px;
+}
+
+.terms_item_container {
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.terms_section {
+  display: flex;
+  align-items: center;
+  // width: 1060px;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 500;
+  gap: 20px;
+}
+
+.terms_underline {
+  // width: 1060px;
+  border: 1px solid #d9d9d9;
+  margin-top: 20px;
+}
+
+.terms_wrap {
+  // width: 1000px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.terms_item_section {
+  display: flex;
+  align-items: center;
+}
+
+.terms_item_title {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.terms_item_img {
+  width: 15px;
+  height: 10px;
+  cursor: pointer;
+}
+
+.terms_toggle_container {
+  display: flex;
+  justify-content: center;
+  // width: 1000px;
+  height: 320px;
+  background: #f8f8f8;
+  font-size: 14px;
+  font-weight: 300;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.terms_toggle_section {
+  width: 900px;
+  height: 220px;
+  margin: auto;
+  line-height: 20px;
+}
+
+//결제하기
+.payment_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 78px;
+  // background: #203d1e;
+  border: none;
+  border-radius: 15px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 50px 0 100px 0;
   cursor: pointer;
 }
