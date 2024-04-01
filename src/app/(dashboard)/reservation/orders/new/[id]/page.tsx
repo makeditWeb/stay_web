@@ -1,10 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Script from "next/script";
+import moment from "moment";
+import CryptoJS from "crypto-js";
 
 export default function OrdersContainer() {
+  const { form, setForm } = useState({});
+  const formRef = useRef();
+
   const searchParams = useSearchParams();
   const roomId: any = searchParams.get("roomId");
   const roomName: any = searchParams.get("roomName");
@@ -13,11 +18,17 @@ export default function OrdersContainer() {
   const storeName: any = searchParams.get("storeName");
   const addres: any = searchParams.get("addres");
   const englishStoreName: any = searchParams.get("englishStoreName");
+  const [isMobile, setIsMobile] = useState(false);
+
+  const returnUrl = process.env.NEXT_PUBLIC_NICEPAY_REDIRECT_URL;
+
+  // const returnUrl = isMobile
+  //   ? process.env.NEXT_PUBLIC_RETUN_Mobile_URL
+  //   : process.env.NEXT_PUBLIC_RETURN_URL;
 
   let diff = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
   diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
   const [stayCount, setStayCount] = useState(diff);
-  console.log("stayCount", stayCount);
 
   const [options, setOptiont] = useState([
     {
@@ -70,7 +81,6 @@ export default function OrdersContainer() {
 
   useEffect(() => {
     // console.log("options", options);
-    console.log("stayCount11", stayCount);
 
     let newOptions = [];
     for (let i = 0; i < stayCount; i++) {
@@ -116,7 +126,7 @@ export default function OrdersContainer() {
   const [discountToggle, setDiscountToggle] = useState(false);
 
   // 결제 방법
-  const [cardPayment, setCardPayment] = useState(false);
+  const [cardPayment, setCardPayment] = useState(true);
   const [bankBookPayment, setBankBookPayment] = useState(false);
 
   // 체크박스
@@ -342,7 +352,45 @@ export default function OrdersContainer() {
   const paymentHandler = () => {
     //TODO 입력값 벨리데이션 체크 추가 (Pia)
 
-    goPay(document.payForm);
+    // goPay(document.payForm);
+
+    const goodsName = "스테이인터뷰, 하늘";
+    const moid = "HN1213";
+    const ediDate = moment().format("YYYYMMDDhhmmss");
+    const mid = process.env.NEXT_PUBLIC_MID;
+    const amt = 1000;
+    const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
+    const TestData = ediDate + mid + amt + merchantKey;
+    const SignData = CryptoJS.SHA256(TestData).toString();
+
+    const payMethod = cardPayment ? "CARD" : "VBANK";
+
+    document.payForm.GoodsName.value = goodsName;
+    document.payForm.Moid.value = moid;
+    document.payForm.Amt.value = amt;
+    document.payForm.MID.value = mid;
+    document.payForm.EdiDate.value = ediDate;
+    document.payForm.PayMethod.value = payMethod;
+    document.payForm.MerchantKey.value = merchantKey;
+    document.payForm.ReturnURL.value = returnUrl;
+
+    document.payForm.SignData.value = SignData;
+
+    if (isMobile) {
+      // 모바일 결제창 진입
+      formRef.current.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
+      formRef.current.acceptCharset = "euc-kr";
+      formRef.current.submit();
+    } else {
+      // PC 결제창 진입
+      if (typeof window !== "undefined") {
+        console.log("formRef.current", formRef.current);
+
+        window.nicepaySubmit = nicepaySubmit;
+        window.nicepayClose = nicepayClose;
+        window.goPay(formRef.current);
+      }
+    }
 
     // if (
     //   (cardPayment || bankBookPayment) &&
@@ -356,6 +404,36 @@ export default function OrdersContainer() {
     // } else {
     //   setPaymentEnabled(false);
     //   alert("약관 동의를 해주세요");
+    // }
+  };
+
+  const nicepaySubmit = async () => {
+    // setAlertType("success");
+    // setAlertMsg("결제에 성공했습니다.");
+
+    document.payForm.submit();
+    sendPaymentResult(true);
+  };
+
+  const nicepayClose = async () => {
+    // TODO: 결제 실패시 처리
+    // setAlertType("error");
+    // setAlertMsg("결제를 다시 시도해주세요");
+    alert("결제가 취소 되었습니다");
+    sendPaymentResult(false);
+  };
+
+  const sendPaymentResult = async () => {
+    const body = convertFormToObj(formRef.current);
+    window.deleteLayer();
+
+    alert("결제에 성공했습니다.");
+
+    // body.success = success;
+
+    // if (success) {
+    //   window.deleteLayer();
+    //   router.push("/payment/complete");
     // }
   };
 
@@ -832,40 +910,26 @@ export default function OrdersContainer() {
         결제하기
       </button>
       <Script
-        src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
+        src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"
         type="text/javascript"
       />
       {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
-      <form name="payForm" method="post" acceptCharset="euc-kr">
-        <input
-          type="hidden"
-          name="GoodsName"
-          value={"스테이인터뷰, 하늘"}
-        ></input>
-        <input type="hidden" name="Amt" value={"1000"}></input>
-        <input type="hidden" name="MID" value="Kwonstay1m"></input>
-        <input type="hidden" name="EdiDate" value={"20240326101200"}></input>
-        <input type="hidden" name="Moid" value={"HN1213"}></input>
-        <input
-          type="hidden"
-          name="SignData"
-          value={
-            "4A87F00CA9284114B8F3EC6D9FA65D56D62EAD079735ACEDD7F0D36A7CA93D9E"
-          }
-        ></input>
-        <input type="hidden" name="PayMethod" value={"CARD"}></input>
-        <input
-          type="hidden"
-          name="ReturnURL"
-          value={"http://localhost:9000/api/v1/nice-pay"}
-        ></input>
-        <input
-          type="hidden"
-          name="MerchantKey"
-          value={
-            "VEssZGW19yqVwVXhJ5x4VdzDRtAxBkAE7ZratupXmYglgn2jjCatUduvIlk9J1fXMo9VSDye/qGGnnJr+RrKdA=="
-          }
-        ></input>
+      <form
+        name="payForm"
+        action={returnUrl}
+        method="post"
+        acceptCharset="euc-kr"
+        ref={formRef}
+      >
+        <input type="hidden" name="GoodsName"></input>
+        <input type="hidden" name="Amt"></input>
+        <input type="hidden" name="MID"></input>
+        <input type="hidden" name="EdiDate"></input>
+        <input type="hidden" name="Moid"></input>
+        <input type="hidden" name="SignData"></input>
+        <input type="hidden" name="PayMethod"></input>
+        <input type="hidden" name="ReturnURL"></input>
+        <input type="hidden" name="MerchantKey"></input>
       </form>
     </div>
   );
