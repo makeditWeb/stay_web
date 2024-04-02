@@ -815,7 +815,7 @@
       border: 1px solid #203d1e;
       border-radius: 15px;
       padding-left: 10px;
-      color: #c8cdc6;
+      // color: #c8cdc6;
     }
 
     .options_content_wrap {
@@ -1970,14 +1970,15 @@
   align-items: center;
   justify-content: center;
   width: 340px;
-  height: 290px;
+  // height: 290px;
   background: rgba(255, 255, 255, 0.8);
   color: #203d1e;
   border-radius: 15px;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   position: absolute;
   top: 40px;
   left: 60px;
+  z-index: 1;
 }
 
 .personnel_modify_section {
@@ -2045,8 +2046,9 @@
   font-size: 20px;
   font-weight: 600;
   border-radius: 15px;
-  margin: auto;
-  margin-top: 10px;
+  margin: 10px auto;
+  // margin: auto;
+  // margin-top: 10px;
   cursor: pointer;
 }
 
@@ -2132,7 +2134,7 @@
   border: 1px solid #203d1e;
   border-radius: 15px;
   padding-left: 10px;
-  color: #c8cdc6;
+  // color: #c8cdc6;
 }
 
 .reservation_person_2row_select {
@@ -2142,7 +2144,7 @@
   border: 1px solid #203d1e;
   border-radius: 15px;
   padding-left: 10px;
-  color: #c8cdc6;
+  // color: #c8cdc6;
 }
 
 .reservation_person_text_section {

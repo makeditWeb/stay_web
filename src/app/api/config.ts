@@ -5,6 +5,7 @@ export const API = {
   OPTION_PRODUCT: "/option-product",
   TOURIST_SPOT: "/tourist-spot",
   STORE_TERMS: "/store-terms",
+  RESETVATION: "/reservation",
   ADMIN: "/admin",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",

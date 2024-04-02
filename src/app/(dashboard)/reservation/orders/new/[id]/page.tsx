@@ -4,17 +4,48 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Script from "next/script";
 import moment from "moment";
+import { Region } from "@/data/region/Region";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
+import SweetAlert from "sweetalert2";
 import CryptoJS from "crypto-js";
 
 export default function OrdersContainer() {
-  const { form, setForm } = useState({});
   const formRef = useRef();
+  const router = useRouter();
+
+  const yearList = Array.from(
+    { length: 80 },
+    (v, i) => new Date().toISOString().slice(0, 4) - i
+  );
+  const monthList = Array.from({ length: 12 }, (v, i) => i + 1);
+  const [dayList, setDayList] = useState(
+    Array.from({ length: 31 }, (v, i) => i + 1)
+  );
+
+  const [reservationData, setReservationData] = useState({
+    clientName: "",
+    clientRegion: "",
+    clientGender: "",
+    clientPhone: "",
+    clientEmail: "",
+    clientBirthday: "",
+    adultCount: 0,
+    childCount: 0,
+    petCount: 0,
+    reservationMemo: "",
+  }); //예약정보
+  const [birthDay, setBirthDay] = useState({
+    year: 0,
+    month: 0,
+    day: 0,
+  });
 
   const searchParams = useSearchParams();
   const roomId: any = searchParams.get("roomId");
   const roomName: any = searchParams.get("roomName");
-  const checkInDate: any = new Date(searchParams.get("checkInDate"));
-  const checkOutDate: any = new Date(searchParams.get("checkOutDate"));
+  const checkInDate: any = new Date(searchParams.get("checkInDate") || "");
+  const checkOutDate: any = new Date(searchParams.get("checkOutDate") || "");
   const storeName: any = searchParams.get("storeName");
   const addres: any = searchParams.get("addres");
   const englishStoreName: any = searchParams.get("englishStoreName");
@@ -32,52 +63,73 @@ export default function OrdersContainer() {
 
   const [options, setOptiont] = useState([
     {
+      id: 1,
       title: "침구추가",
       content: "성인 인원 추가시 기본 제공됩니다.",
+      isCheck: false,
     },
     {
+      id: 2,
       title: "그릴대여",
       content: "그릴대여 서비스입니다.",
+      isCheck: false,
     },
     {
+      id: 3,
       title: "커피 & 토스트 세트",
       content: "커피 & 토스트 조직 세트(팥, 바질 선택 가능) 입실 전 예약 가능.",
+      isCheck: false,
     },
     {
+      id: 4,
       title: "커피 & 크림치즈베이글 세트",
       content: "커피 & 크림치느베이글 조식 세트. 입실 전 예약 가능.",
+      isCheck: false,
     },
   ]);
   const [terms, setTerms] = useState([
     {
+      id: 0,
       title: "주문 상품정보에 동의 (필수)",
       content: "주문 상품정보에 대한 동의를 해주세요.",
       toggleImage: "/topVector.png",
       isToggle: false,
+      isAgree: false,
     },
     {
+      id: 1,
       title:
         "결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의 (필수)",
       content:
         "결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의 (필수)",
       toggleImage: "/topVector.png",
       isToggle: false,
+      isAgree: false,
     },
     {
+      id: 2,
       title: "코로나 19로 인한 방역지침 약관 (필수)",
       content: "코로나 19로 인한 방역지침 약관 (필수)",
       toggleImage: "/topVector.png",
       isToggle: false,
+      isAgree: false,
     },
     {
+      id: 3,
       title: "비회원 정보수집 약관 (필수)",
       content: "비회원 정보수집 약관 (필수)",
       toggleImage: "/topVector.png",
       isToggle: false,
+      isAgree: false,
     },
   ]);
+
   const [optionsList, setOptionsList] = useState<any>([]);
   const [termsList, setTermsList] = useState<any>(terms);
+
+  console.log("reservationData", reservationData);
+  console.log("optionsList", optionsList);
+  console.log("termsList", termsList);
 
   useEffect(() => {
     // console.log("options", options);
@@ -89,6 +141,27 @@ export default function OrdersContainer() {
 
     setOptionsList(newOptions);
   }, []);
+
+  const onChangeReservationData = (e) => {
+    const { name, value } = e.target;
+
+    setReservationData({ ...reservationData, [name]: value });
+  };
+
+  const onChangeBirthDay = (e) => {
+    const { name, value } = e.target;
+
+    setBirthDay({ ...birthDay, [name]: value });
+
+    if (name === "month") {
+      setDayList(
+        Array.from(
+          { length: new Date(birthDay.year, value, 0).getDate() },
+          (v, i) => i + 1
+        )
+      );
+    }
+  };
 
   const daySearch = (dayNumber: any) => {
     if (dayNumber === 0) {
@@ -108,38 +181,24 @@ export default function OrdersContainer() {
     }
   };
 
-  // Day-1
-  const [oneBed, setOneBad] = useState(false);
-  const [oneGrill, setOneGrill] = useState(false);
-  const [oneCoffeeToast, setOneCoffeeToast] = useState(false);
-  const [oneCoffeeCream, setOneCoffeeCream] = useState(false);
-
-  // Day-2
-  const [twoBed, setTwoBad] = useState(false);
-  const [twoGrill, setTwoGrill] = useState(false);
-  const [twoCoffeeToast, setTwoCoffeeToast] = useState(false);
-  const [twoCoffeeCream, setTwoCoffeeCream] = useState(false);
-
   const [rateByDate, setRateByDate] = useState("/topVector.png");
   const [discount, setDiscount] = useState("/topVector.png");
   const [rateByDateToggle, setRateByDateToggle] = useState(false);
   const [discountToggle, setDiscountToggle] = useState(false);
 
-  // 결제 방법
-  const [cardPayment, setCardPayment] = useState(true);
-  const [bankBookPayment, setBankBookPayment] = useState(false);
-
   // 체크박스
   const [allChecked, setAllChecked] = useState(false);
-  const [orderProductChecked, setOrderProductChecked] = useState(false);
-  const [trustChecked, setTrustChecked] = useState(false);
-  const [covidChecked, setCovidChecked] = useState(false);
-  const [nonMemberChecked, setNonMemberChecked] = useState(false);
 
   // 카운팅 숫자
-  const [adultCount, setAdultCount] = useState(searchParams.get("adultCount"));
-  const [kidCount, setKidCount] = useState(searchParams.get("kidCount"));
-  const [petCount, setPetCount] = useState(searchParams.get("petCount"));
+  const [adultCount, setAdultCount] = useState(
+    Number(searchParams.get("adultCount"))
+  );
+  const [childCount, setChildCount] = useState(
+    Number(searchParams.get("kidCount"))
+  );
+  const [petCount, setPetCount] = useState(
+    Number(searchParams.get("petCount"))
+  );
   const [showEditBox, setShowEditBox] = useState(false);
 
   // 결제하기 버튼
@@ -194,13 +253,13 @@ export default function OrdersContainer() {
   };
 
   const kidPlusCountHandler = () => {
-    setKidCount((prevkidCount) => prevkidCount + 1);
+    setChildCount((prevkidCount) => prevkidCount + 1);
   };
 
   const kidMinusCountHandler = () => {
-    if (kidCount > 0) {
+    if (childCount > 0) {
       // 음수로 가지 않도록 확인합니다.
-      setKidCount((prevkidCount) => prevkidCount - 1);
+      setChildCount((prevkidCount) => prevkidCount - 1);
     }
   };
 
@@ -256,43 +315,33 @@ export default function OrdersContainer() {
     setPhoneNumber(inputPhoneNumber);
   };
 
-  // 결제 방법 함수
-  const cardPaymentHandler = () => {
-    setCardPayment(!cardPayment);
-  };
-
-  const bankBookPaymentHandler = () => {
-    setBankBookPayment(!bankBookPayment);
-  };
-
   // 토글 함수
-  const handleSelectAllChange = (event) => {
-    const { checked } = event.target;
+  const handleSelectAllChange = (e) => {
+    const { checked } = e.target;
+
+    const newTermsList = termsList.map((term) => {
+      term.isAgree = checked;
+      return term;
+    });
+
+    setTermsList(newTermsList);
     setAllChecked(checked);
-    setOrderProductChecked(checked);
-    setTrustChecked(checked);
-    setCovidChecked(checked);
-    setNonMemberChecked(checked);
   };
 
-  const orderProductCheckedHandler = () => {
-    setOrderProductChecked(!orderProductChecked);
-    setAllChecked(false);
-  };
+  const termsAgreeHandler = (e) => {
+    const { id } = e.target;
+    const termsId = id.replace("terms", "");
 
-  const trustCheckedHandler = () => {
-    setTrustChecked(!trustChecked);
-    setAllChecked(false);
-  };
+    const newTermsList = termsList.map((term: any, index: number) =>
+      term.id === Number(termsId)
+        ? {
+            ...term,
+            isAgree: !term.isAgree,
+          }
+        : term
+    );
 
-  const covidCheckedHandler = () => {
-    setCovidChecked(!covidChecked);
-    setAllChecked(false);
-  };
-
-  const nonMemberCheckedHandler = () => {
-    setNonMemberChecked(!nonMemberChecked);
-    setAllChecked(false);
+    setTermsList(newTermsList);
   };
 
   const termsToggleHandler = (e) => {
@@ -315,37 +364,27 @@ export default function OrdersContainer() {
   };
 
   // 옵션 선택
-  const oneBedCheckHandler = () => {
-    setOneBad(!oneBed);
-  };
+  const optionHandler = (e) => {
+    const { id } = e.target;
 
-  const oneGrillCheckHandler = () => {
-    setOneGrill(!oneGrill);
-  };
+    const day = id.split("/")[0];
+    const optionId = id.split("/")[1];
 
-  const oneCoffeeToastCheckHandler = () => {
-    setOneCoffeeToast(!oneCoffeeToast);
-  };
+    console.log("day", day);
+    console.log("optionId", optionId);
 
-  const oneCoffeeCreamCheckHandler = () => {
-    setOneCoffeeCream(!oneCoffeeCream);
-  };
+    const newOptionsList = optionsList.map((option, index) =>
+      index === Number(day)
+        ? option.map((item) =>
+            item.id === Number(optionId)
+              ? { ...item, isCheck: !item.isCheck }
+              : item
+          )
+        : option
+    );
 
-  // Day - 2
-  const twoBedCheckHandler = () => {
-    setTwoBad(!twoBed);
-  };
-
-  const twoGrillCheckHandler = () => {
-    setTwoGrill(!twoGrill);
-  };
-
-  const twoCoffeeToastCheckHandler = () => {
-    setTwoCoffeeToast(!twoCoffeeToast);
-  };
-
-  const twoCoffeeCreamCheckHandler = () => {
-    setTwoCoffeeCream(!twoCoffeeCream);
+    setOptionsList(newOptionsList);
+    console.log("newOptionsList", newOptionsList);
   };
 
   // 결제하기 버튼 함수
@@ -354,7 +393,7 @@ export default function OrdersContainer() {
 
     // goPay(document.payForm);
 
-    const goodsName = "스테이인터뷰, 하늘";
+    const goodsName = roomName;
     const moid = "HN1213";
     const ediDate = moment().format("YYYYMMDDhhmmss");
     const mid = process.env.NEXT_PUBLIC_MID;
@@ -363,7 +402,8 @@ export default function OrdersContainer() {
     const TestData = ediDate + mid + amt + merchantKey;
     const SignData = CryptoJS.SHA256(TestData).toString();
 
-    const payMethod = cardPayment ? "CARD" : "VBANK";
+    const payMethod =
+      reservationData.paymentMethod === "CREDIT_CARD" ? "CARD" : "VBANK";
 
     document.payForm.GoodsName.value = goodsName;
     document.payForm.Moid.value = moid;
@@ -376,10 +416,82 @@ export default function OrdersContainer() {
 
     document.payForm.SignData.value = SignData;
 
+    document.payForm.clientName.value = reservationData.clientName;
+    document.payForm.clientPhone.value = reservationData.clientPhone;
+    document.payForm.clientEmail.value = reservationData.clientEmail;
+    document.payForm.clientBirthday.value =
+      birthDay.year + birthDay.month + birthDay.day;
+    document.payForm.clientGender.value = reservationData.clientGender;
+    document.payForm.clientRegion.value = reservationData.clientRegion;
+
+    document.payForm.roomId.value = roomId;
+    document.payForm.roomName.value = roomName;
+    let checkInMonth = checkInDate.getMonth() + 1;
+    let checkInDay = checkInDate.getDate();
+
+    if (checkInMonth < 10) {
+      checkInMonth = "0" + checkInMonth;
+    }
+
+    if (checkInDay < 10) {
+      checkInDay = "0" + checkInDay;
+    }
+
+    document.payForm.checkIn.value =
+      checkInDate.getFullYear() + "-" + checkInMonth + "-" + checkInDay;
+
+    let checkOutMonth = checkOutDate.getMonth() + 1;
+    let checkOutDay = checkOutDate.getDate();
+
+    if (checkOutMonth < 10) {
+      checkOutMonth = "0" + checkOutMonth;
+    }
+
+    if (checkOutDay < 10) {
+      checkOutDay = "0" + checkOutDay;
+    }
+
+    document.payForm.checkOut.value =
+      checkOutDate.getFullYear() + "-" + checkOutMonth + "-" + checkOutDay;
+
+    document.payForm.adultCount.value = adultCount;
+    document.payForm.childCount.value = childCount;
+    document.payForm.petCount.value = petCount;
+
+    let optionProductList = "";
+
+    optionsList.map((option, index) => {
+      optionProductList += index + "-";
+      option.map((item) => {
+        if (item.isCheck) {
+          optionProductList += item.id + ",";
+        }
+      });
+
+      optionProductList = optionProductList.slice(0, -1);
+
+      optionProductList += "/";
+    });
+
+    optionProductList = optionProductList.slice(0, -1);
+
+    document.payForm.addOptionProductList.value = optionProductList;
+    document.payForm.datePriceList.value = "최하늘";
+    document.payForm.reservationMemo.value =
+      reservationData?.reservationMemo || "";
+
+    let termsAgreeList = "";
+    termsList.map((term) => {
+      if (term.isAgree) {
+        termsAgreeList += term.id + ",";
+      }
+    });
+    document.payForm.termsAgreeList.value = termsAgreeList;
+
     if (isMobile) {
       // 모바일 결제창 진입
       formRef.current.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
-      formRef.current.acceptCharset = "euc-kr";
+      formRef.current.acceptCharset = "utf-8";
       formRef.current.submit();
     } else {
       // PC 결제창 진입
@@ -425,8 +537,12 @@ export default function OrdersContainer() {
 
   const sendPaymentResult = async () => {
     const body = convertFormToObj(formRef.current);
-    window.deleteLayer();
 
+    console.log("body", body);
+
+    body.success = success;
+
+    window.deleteLayer();
     alert("결제에 성공했습니다.");
 
     // body.success = success;
@@ -435,6 +551,17 @@ export default function OrdersContainer() {
     //   window.deleteLayer();
     //   router.push("/payment/complete");
     // }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    await customAxios
+      .post(`${API.RESETVATION}`, reservationData)
+      .then((res) => {
+        if (res?.status === 200) {
+          SweetAlert.fire({ text: "예약이 완료되었습니다." });
+          router.push(`/partner/store`);
+        }
+      });
   };
 
   return (
@@ -461,11 +588,11 @@ export default function OrdersContainer() {
               <div className="order_room_item_content_div">
                 <div className="info_title">{stayCount}박</div>
                 <div className="info_text">
-                  {checkInDate.getFullYear()}년 {checkInDate.getMonth()}월{" "}
+                  {checkInDate.getFullYear()}년 {checkInDate.getMonth() + 1}월{" "}
                   {checkInDate.getDate()}일 ({daySearch(checkInDate.getDay())})
-                  ~ {checkOutDate.getFullYear()}년 {checkOutDate.getMonth()}월{" "}
-                  {checkOutDate.getDate()}일 ({daySearch(checkOutDate.getDay())}
-                  )
+                  ~ {checkOutDate.getFullYear()}년 {checkOutDate.getMonth() + 1}
+                  월 {checkOutDate.getDate()}일 (
+                  {daySearch(checkOutDate.getDay())})
                 </div>
               </div>
             </div>
@@ -491,7 +618,8 @@ export default function OrdersContainer() {
               <div className="info_personnel_container2">
                 <div className="info_personnel_title_wrap">
                   <div className="info_title">
-                    성인 {adultCount}인 / 아동 {kidCount}인 / 반려견 {petCount}
+                    성인 {adultCount}인 / 아동 {childCount}인 / 반려견{" "}
+                    {petCount}
                     마리
                   </div>
                   <div
@@ -548,7 +676,9 @@ export default function OrdersContainer() {
                                 className="personnel_number_btn_img"
                               />
                             </div>
-                            <p className="personnel_number_text">{kidCount}</p>
+                            <p className="personnel_number_text">
+                              {childCount}
+                            </p>
                             <div
                               className="personnel_number_btn"
                               onClick={kidPlusCountHandler}
@@ -614,6 +744,8 @@ export default function OrdersContainer() {
             <div className="reservation_person_text_section">
               <input
                 className="reservation_person_text"
+                name="clientName"
+                onChange={onChangeReservationData}
                 placeholder="이름을 입력해주세요."
               />
             </div>
@@ -623,23 +755,59 @@ export default function OrdersContainer() {
               <div className="reservation_person_title">생년월일</div>
             </div>
             <div className="reservation_person_select_wrap">
-              <select className="reservation_person_select">
+              <select
+                className="reservation_person_select"
+                name="year"
+                onChange={onChangeBirthDay}
+              >
                 <option value="년도">년도</option>
-                <option value="2024">2024년</option>
-                <option value="2023">2023년</option>
-                <option value="2022">2022년</option>
+                {yearList.map((year, index) => {
+                  return (
+                    <option key={index} value={year}>
+                      {year}년
+                    </option>
+                  );
+                })}
               </select>
-              <select className="reservation_person_select">
+              <select
+                className="reservation_person_select"
+                name="month"
+                onChange={onChangeBirthDay}
+                disabled={birthDay.year === 0}
+                style={
+                  birthDay.year === 0
+                    ? { background: "#bfbfbf", color: "black" }
+                    : {}
+                }
+              >
                 <option value="월">월</option>
-                <option value="2024">2024년</option>
-                <option value="2023">2023년</option>
-                <option value="2022">2022년</option>
+                {monthList.map((month, index) => {
+                  return (
+                    <option key={index} value={month}>
+                      {month}월
+                    </option>
+                  );
+                })}
               </select>
-              <select className="reservation_person_select">
+              <select
+                className="reservation_person_select"
+                name="day"
+                onChange={onChangeBirthDay}
+                disabled={birthDay.month === 0}
+                style={
+                  birthDay.month === 0
+                    ? { background: "#bfbfbf", color: "black" }
+                    : {}
+                }
+              >
                 <option value="일">일</option>
-                <option value="2024">2024년</option>
-                <option value="2023">2023년</option>
-                <option value="2022">2022년</option>
+                {dayList.map((day, index) => {
+                  return (
+                    <option key={index} value={day}>
+                      {day}일
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -648,20 +816,33 @@ export default function OrdersContainer() {
               <div className="reservation_person_title_2row_wrap">
                 <div className="reservation_person_title">거주지</div>
               </div>
-              <select className="reservation_person_2row_select">
+              <select
+                className="reservation_person_2row_select"
+                name="clientRegion"
+                onChange={onChangeReservationData}
+              >
                 <option value="시 / 도 선택">시 / 도 선택</option>
-                <option value="서울시">서울시</option>
-                <option value="인천광역시">인천광역시</option>
+                {Region.map((region, index) => {
+                  return (
+                    <option key={region.code} value={region.code}>
+                      {region.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="rev_person_section_ml">
               <div className="reservation_person_title_2row_wrap">
                 <div className="reservation_person_title">성별</div>
               </div>
-              <select className="reservation_person_2row_select">
-                <option value="성별">성별</option>
-                <option value="남자">남자</option>
-                <option value="여자">여자</option>
+              <select
+                className="reservation_person_2row_select"
+                name="clientGender"
+                onChange={onChangeReservationData}
+              >
+                <option value="NONE">성별</option>
+                <option value="MALE">남자</option>
+                <option value="FEMALE">여자</option>
               </select>
             </div>
           </div>
@@ -672,10 +853,11 @@ export default function OrdersContainer() {
             <div className="reservation_person_text_section">
               <input
                 className="reservation_person_text"
+                name="clientPhone"
                 type="text"
                 placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요)"
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
+                // onChange={handlePhoneNumberChange}
+                onChange={onChangeReservationData}
               />
             </div>
           </div>
@@ -686,7 +868,9 @@ export default function OrdersContainer() {
             <div className="reservation_person_text_section">
               <input
                 className="reservation_person_text"
+                name="clientEmail"
                 placeholder="이메일을 입력해주세요."
+                onChange={onChangeReservationData}
               />
             </div>
           </div>
@@ -694,12 +878,14 @@ export default function OrdersContainer() {
       </div>
       <div className="order_new_title">추가옵션 선택</div>
       <div className="additional_options_section">
-        {optionsList.map((option, index) => {
+        {optionsList.map((option, optionIndex) => {
           return (
             <>
               <div className="additional_options_wrap">
                 <div className="options_badge_section">
-                  <div className="options_badge_wrap">DAY-{index + 1}</div>
+                  <div className="options_badge_wrap">
+                    DAY-{optionIndex + 1}
+                  </div>
                 </div>
                 <div className="options_content_container">
                   <div className="options_content_section">
@@ -709,14 +895,16 @@ export default function OrdersContainer() {
                           <div className="options_content_wrap">
                             <CheckBox
                               type="checkbox"
-                              id="ckbox"
-                              checked={oneBed}
-                              onChange={oneBedCheckHandler}
+                              id={optionIndex + "/" + item.id}
+                              checked={item.isCheck}
+                              onChange={optionHandler}
                             ></CheckBox>
                             <CheckBoxLabel
-                              htmlFor="ckbox"
+                              htmlFor={optionIndex + "/" + item.id}
                               style={{
-                                background: oneBed ? "#2b7638" : "initial",
+                                background: item.isCheck
+                                  ? "#2b7638"
+                                  : "initial",
                               }}
                             ></CheckBoxLabel>
                             <div className="option_info_section">
@@ -741,7 +929,12 @@ export default function OrdersContainer() {
       <div className="order_new_title">예약자 요청사항</div>
       <div className="request_content_section">
         <div className="request_content_wrap" onClick={handleClick}>
-          <input id="requestedTermInput" className="request_content" />
+          <input
+            className="request_content"
+            id="requestedTermInput"
+            name="reservationMemo"
+            onChange={onChangeReservationData}
+          />
         </div>
       </div>
       <div className="order_new_title">결제 정보</div>
@@ -832,12 +1025,19 @@ export default function OrdersContainer() {
           <CheckBox
             type="checkbox"
             id="paymentckbox"
-            checked={cardPayment}
-            onChange={cardPaymentHandler}
+            name="paymentMethod"
+            checked={reservationData?.paymentMethod === "CREDIT_CARD"}
+            value={"CREDIT_CARD"}
+            onChange={onChangeReservationData}
           ></CheckBox>
           <CheckBoxLabel
             htmlFor="paymentckbox"
-            style={{ background: cardPayment ? "#2b7638" : "initial" }}
+            style={{
+              background:
+                reservationData?.paymentMethod === "CREDIT_CARD"
+                  ? "#2b7638"
+                  : "initial",
+            }}
           ></CheckBoxLabel>
           <div className="payment_method_title">카드 결제</div>
         </div>
@@ -845,12 +1045,19 @@ export default function OrdersContainer() {
           <CheckBox
             type="checkbox"
             id="paymentckbox2"
-            checked={bankBookPayment}
-            onChange={bankBookPaymentHandler}
+            name="paymentMethod"
+            checked={reservationData?.paymentMethod === "BANK_TRANSFER"}
+            value={"BANK_TRANSFER"}
+            onChange={onChangeReservationData}
           ></CheckBox>
           <CheckBoxLabel
             htmlFor="paymentckbox2"
-            style={{ background: bankBookPayment ? "#2b7638" : "initial" }}
+            style={{
+              background:
+                reservationData?.paymentMethod === "BANK_TRANSFER"
+                  ? "#2b7638"
+                  : "initial",
+            }}
           ></CheckBoxLabel>
           <div className="payment_method_title">무통장 입금</div>
         </div>
@@ -869,18 +1076,18 @@ export default function OrdersContainer() {
             전체동의
           </div>
           <div className="terms_underline"></div>
-          {termsList.map((term, index) => {
+          {termsList.map((term: any, index: number) => {
             return (
               <>
                 <div className="terms_wrap">
                   <div className="terms_item_section">
                     <CheckBox
                       type="checkbox"
-                      id="productckbox"
-                      checked={orderProductChecked}
-                      onChange={orderProductCheckedHandler}
+                      id={`terms${term.id}`}
+                      checked={term.isAgree}
+                      onChange={termsAgreeHandler}
                     ></CheckBox>
-                    <CheckBoxLabel htmlFor="productckbox"></CheckBoxLabel>
+                    <CheckBoxLabel htmlFor={`terms${term.id}`}></CheckBoxLabel>
                     <div className="terms_item_title">{term.title}</div>
                     <img
                       src={term.toggleImage}
@@ -918,7 +1125,7 @@ export default function OrdersContainer() {
         name="payForm"
         action={returnUrl}
         method="post"
-        acceptCharset="euc-kr"
+        acceptCharset="utf-8"
         ref={formRef}
       >
         <input type="hidden" name="GoodsName"></input>
@@ -930,6 +1137,26 @@ export default function OrdersContainer() {
         <input type="hidden" name="PayMethod"></input>
         <input type="hidden" name="ReturnURL"></input>
         <input type="hidden" name="MerchantKey"></input>
+        <input type="hidden" name="clientName"></input>
+        <input type="hidden" name="clientPhone"></input>
+        <input type="hidden" name="clientEmail"></input>
+        <input type="hidden" name="clientBirthday"></input>
+        <input type="hidden" name="clientGender"></input>
+        <input type="hidden" name="clientRegion"></input>
+
+        <input type="hidden" name="roomId"></input>
+        <input type="hidden" name="roomName"></input>
+        <input type="hidden" name="checkIn"></input>
+        <input type="hidden" name="checkOut"></input>
+
+        <input type="hidden" name="adultCount"></input>
+        <input type="hidden" name="childCount"></input>
+        <input type="hidden" name="petCount"></input>
+
+        <input type="hidden" name="addOptionProductList"></input>
+        <input type="hidden" name="datePriceList"></input>
+        <input type="hidden" name="reservationMemo"></input>
+        <input type="hidden" name="termsAgreeList"></input>
       </form>
     </div>
   );
