@@ -5,8 +5,6 @@ import styled from "styled-components";
 import Script from "next/script";
 import moment from "moment";
 import { Region } from "@/data/region/Region";
-import { API } from "@/app/api/config";
-import { customAxios } from "@/modules/common/api";
 import SweetAlert from "sweetalert2";
 import CryptoJS from "crypto-js";
 
@@ -536,6 +534,7 @@ export default function OrdersContainer() {
   };
 
   const sendPaymentResult = async () => {
+    alert("결제에 성공했습니다.");
     const body = convertFormToObj(formRef.current);
 
     console.log("body", body);
@@ -544,24 +543,6 @@ export default function OrdersContainer() {
 
     window.deleteLayer();
     alert("결제에 성공했습니다.");
-
-    // body.success = success;
-
-    // if (success) {
-    //   window.deleteLayer();
-    //   router.push("/payment/complete");
-    // }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    await customAxios
-      .post(`${API.RESETVATION}`, reservationData)
-      .then((res) => {
-        if (res?.status === 200) {
-          SweetAlert.fire({ text: "예약이 완료되었습니다." });
-          router.push(`/partner/store`);
-        }
-      });
   };
 
   return (
@@ -1123,6 +1104,7 @@ export default function OrdersContainer() {
       {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
       <form
         name="payForm"
+        id="payForm"
         action={returnUrl}
         method="post"
         acceptCharset="utf-8"
