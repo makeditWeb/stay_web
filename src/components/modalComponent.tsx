@@ -9,7 +9,7 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
-const ModalComponent = ({ isOpen, closeModal }) => {
+const ModalComponent = ({ isOpen, closeModal, roomData }) => {
   const settings = {
     dots: true,
     infintie: true,
@@ -20,6 +20,9 @@ const ModalComponent = ({ isOpen, closeModal }) => {
   };
 
   const [activeTab, setActiveTab] = useState(1);
+  const [roomDetail, setRoomDetail] = useState(roomData);
+
+  console.log("roomData", roomData);
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
@@ -60,7 +63,9 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               alignItems: "center",
             }}
           >
-            <div style={{ fontSize: "30px", fontWeight: "700" }}>디럭스 룸</div>
+            <div style={{ fontSize: "30px", fontWeight: "700" }}>
+              {roomDetail.name}
+            </div>
             <div
               style={{
                 display: "flex",
@@ -73,7 +78,8 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 borderRadius: "4px",
               }}
             >
-              기준 3인 (최대 4인)
+              기준 {roomDetail.roomTypeVo.standardPeopleCount}인 (최대{" "}
+              {roomDetail.roomTypeVo.maximumPersonnelCount}인)
             </div>
           </div>
           <div
@@ -84,8 +90,7 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               marginTop: "10px",
             }}
           >
-            아름다운 동해바다를 배경으로 멋진사진을 남길 수 있는 곳입니다.
-            <br /> 사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
+            {roomData.description}
           </div>
         </div>
         <div
@@ -98,7 +103,18 @@ const ModalComponent = ({ isOpen, closeModal }) => {
           }}
         >
           <SlickSlider {...settings}>
-            <div>
+            {roomData.imageList.map((item, index) => {
+              return (
+                <div>
+                  <img
+                    src={item.imageUrl}
+                    alt={item.imageName}
+                    // style={{ borderRadius: "15px 15px 0 0" }}
+                  />
+                </div>
+              );
+            })}
+            {/* <div>
               <Image
                 src="/roomDetailImg2.png"
                 alt="슬라이더1"
@@ -124,7 +140,7 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 height={500}
                 // style={{ borderRadius: "15px 15px 0 0" }}
               />
-            </div>
+            </div> */}
           </SlickSlider>
         </div>
         <div
@@ -158,7 +174,10 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               >
                 체크인
               </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>15:30</div>
+              <div style={{ fontSize: "16px", fontWeight: "200" }}>
+                {roomDetail.checkIn.substring(0, 2)}:
+                {roomDetail.checkIn.substring(2, 4)}
+              </div>
             </div>
             <div
               style={{
@@ -184,7 +203,10 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               >
                 체크아웃
               </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>15:30</div>
+              <div style={{ fontSize: "16px", fontWeight: "200" }}>
+                {roomDetail.checkOut.substring(0, 2)}:
+                {roomDetail.checkOut.substring(2, 4)}
+              </div>
             </div>
             <div
               style={{
@@ -219,7 +241,8 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                     marginBottom: "4px",
                   }}
                 >
-                  3인 (최대인원 4인)
+                  {roomDetail.roomTypeVo.standardPeopleCount}인 (최대인원
+                  {roomDetail.roomTypeVo.maximumPersonnelCount}인)
                 </div>
                 <div
                   style={{
@@ -360,7 +383,7 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 면적
               </div>
               <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                11.00 ㎡
+                {roomDetail.roomTypeVo.size}.00 ㎡
               </div>
             </div>
             <div
@@ -388,7 +411,15 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 침대
               </div>
               <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                퀸 사이즈 2 / 싱글 사이즈 1
+                {roomDetail.roomTypeVo.bedDoubleSizeCount != 0
+                  ? "퀸 사이즈 " + roomDetail.roomTypeVo.bedDoubleSizeCount
+                  : ""}
+                {roomDetail.roomTypeVo.bedKingSizeCount != 0
+                  ? " / 킹 사이즈 " + roomDetail.roomTypeVo.bedKingSizeCount
+                  : ""}
+                {roomDetail.roomTypeVo.bedSingleSizeCount != 0
+                  ? " / 싱글 사이즈 " + roomDetail.roomTypeVo.bedSingleSizeCount
+                  : ""}
               </div>
             </div>
           </div>
@@ -416,56 +447,29 @@ const ModalComponent = ({ isOpen, closeModal }) => {
             공용시설
           </div>
           <div style={{ display: "flex", gap: "100px" }}>
-            <div style={{ width: "50px" }}>
-              <div>
-                <Image
-                  src="/parkinglot.png"
-                  alt="주차장"
-                  width={50}
-                  height={50}
-                />
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                  marginTop: "10px",
-                }}
-              >
-                주차장
-              </div>
-            </div>
-            <div style={{ width: "50px" }}>
-              <div>
-                <Image src="/walking.png" alt="산책로" width={50} height={50} />
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                  marginTop: "10px",
-                }}
-              >
-                산책로
-              </div>
-            </div>
-            <div style={{ width: "50px" }}>
-              <div>
-                <Image src="/garden.png" alt="정원" width={50} height={50} />
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                  marginTop: "10px",
-                }}
-              >
-                정원
-              </div>
-            </div>
+            {roomDetail.publicFacilityList?.map((item, index) => {
+              return (
+                <div style={{ width: "50px" }}>
+                  <div>
+                    <img
+                      src={item.image.imageUrl}
+                      alt={item.image.imageName}
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      textAlign: "center",
+                      fontSize: "16px",
+                      fontWeight: "200",
+                      marginTop: "10px",
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div
@@ -492,335 +496,29 @@ const ModalComponent = ({ isOpen, closeModal }) => {
           </div>
           <div>
             <div style={{ display: "flex", gap: "90px", marginBottom: "20px" }}>
-              <div style={{ width: "80px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Image
-                    src="/bedding.png"
-                    alt="호텔식 침구"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  호텔식 침구
-                </div>
-              </div>
-              <div style={{ width: "70px" }}>
-                <div style={{ width: "50px", margin: "auto" }}>
-                  <Image
-                    src="/terrace.png"
-                    alt="테라스"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  테라스
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/bath.png" alt="욕실" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  욕실
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/tv.png" alt="TV" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  TV
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/wifi.png" alt="wifi" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  wifi
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/air.png" alt="에어컨" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  에어컨
-                </div>
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: "90px", marginBottom: "20px" }}>
-              <div style={{ width: "80px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Image
-                    src="/hotpot.png"
-                    alt="전기포트"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  전기포트
-                </div>
-              </div>
-              <div style={{ width: "70px" }}>
-                <div style={{ width: "50px", margin: "auto" }}>
-                  <Image src="/cup.png" alt="컵" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  컵
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image
-                    src="/slipper.png"
-                    alt="슬리퍼"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  슬리퍼
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image
-                    src="/dryer.png"
-                    alt="헤어드라이기"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    width: "70px",
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  드라이기
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image
-                    src="/induction.png"
-                    alt="인덕션"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  인덕션
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image
-                    src="/cookingtool.png"
-                    alt="조리도구"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  조리도구
-                </div>
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: "90px", marginBottom: "20px" }}>
-              <div style={{ width: "80px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Image
-                    src="/cooker.png"
-                    alt="전기밥솥"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  전기밥솥
-                </div>
-              </div>
-              <div style={{ width: "70px" }}>
-                <div style={{ margin: "auto", width: "50px" }}>
-                  <Image
-                    src="/microwave.png"
-                    alt="전자레인지"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  전자레인지
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/ref.png" alt="냉장고" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  냉장고
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/table.png" alt="테이블" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  테이블
-                </div>
-              </div>
-              <div style={{ width: "50px" }}>
-                <div>
-                  <Image src="/chair.png" alt="의자" width={50} height={50} />
-                </div>
-                <div
-                  style={{
-                    textAlign: "center",
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    marginTop: "10px",
-                  }}
-                >
-                  의자
-                </div>
-              </div>
+              {roomDetail.facilitiesList?.map((item, index) => {
+                return (
+                  <div style={{ width: "50px" }}>
+                    <div>
+                      <img
+                        src={item.image.imageUrl}
+                        alt={item.image.imageName}
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "center",
+                        fontSize: "16px",
+                        fontWeight: "200",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {item.name}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -839,109 +537,33 @@ const ModalComponent = ({ isOpen, closeModal }) => {
           <div style={{ fontSize: "20px", fontWeight: "500", width: "200px" }}>
             어메니티
           </div>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "22px",
-                  marginRight: "80px",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                }}
-              >
-                샴푸
-              </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                칫솔&치약
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "22px",
-                  marginRight: "80px",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                }}
-              >
-                컨디셔너
-              </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                바스타올
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "22px",
-                  marginRight: "80px",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                }}
-              >
-                바디워시
-              </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>가운</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "22px",
-                  marginRight: "80px",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                }}
-              >
-                바디로션
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "15px",
-              }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "22px",
-                  marginRight: "80px",
-                  fontSize: "16px",
-                  fontWeight: "200",
-                }}
-              >
-                페이스타월
-              </div>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: "100%",
+            }}
+          >
+            {roomDetail.amenitiesList?.map((item, index) => {
+              return (
+                <>
+                  <div>
+                    <div
+                      style={{
+                        width: "80px",
+                        height: "22px",
+                        marginRight: "80px",
+                        fontSize: "16px",
+                        fontWeight: "200",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      {item.name}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
           </div>
         </div>
         <div
@@ -984,8 +606,33 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               >
                 서비스
               </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                서비스 내용 출력
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  fontSize: "16px",
+                  fontWeight: "200",
+                }}
+              >
+                {roomDetail.serviceList?.map((item, index) => {
+                  return (
+                    <>
+                      <div>
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "22px",
+                            marginRight: "80px",
+                            fontSize: "16px",
+                            fontWeight: "200",
+                          }}
+                        >
+                          {item.name}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
               </div>
             </div>
             <div
@@ -1014,26 +661,22 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 옵션
               </div>
               <div>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    height: "22px",
-                    marginBottom: "5px",
-                  }}
-                >
-                  침구 추가 (유아 및 아동 침구 필요 시, 침구 추가 옵션(20,000원
-                  / 선택 시에만 제공))
-                </div>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "200",
-                    height: "22px",
-                  }}
-                >
-                  그릴대여
-                </div>
+                {roomDetail.roomOptionList?.map((item, index) => {
+                  return (
+                    <>
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: "200",
+                          height: "22px",
+                          marginBottom: "5px",
+                        }}
+                      >
+                        {item.optionName} ({item.price} 원 / 선택 시에만 제공)
+                      </div>
+                    </>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -1078,7 +721,9 @@ const ModalComponent = ({ isOpen, closeModal }) => {
               >
                 대표자
               </div>
-              <div style={{ fontSize: "16px", fontWeight: "200" }}>권순창</div>
+              <div style={{ fontSize: "16px", fontWeight: "200" }}>
+                {roomDetail.ceoName}
+              </div>
             </div>
             <div
               style={{
@@ -1105,7 +750,10 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 연락처
               </div>
               <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                010-2547-2160 / 010-2517-2160
+                {String(roomDetail.ceoPhone).replace(
+                  /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                  `$1-$2-$3`
+                )}
               </div>
             </div>
             <div
@@ -1134,7 +782,7 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 소재지
               </div>
               <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                충남 태안군 소원면 모항파도로 490-78
+                {roomDetail.address} {roomDetail.addressDetail}
               </div>
             </div>
             <div
@@ -1162,7 +810,7 @@ const ModalComponent = ({ isOpen, closeModal }) => {
                 이메일
               </div>
               <div style={{ fontSize: "16px", fontWeight: "200" }}>
-                coffeienterview@naver.com
+                {roomDetail.email}
               </div>
             </div>
           </div>
@@ -1203,14 +851,17 @@ const ModalComponent = ({ isOpen, closeModal }) => {
         <div
           style={{
             width: "900px",
-            height: "1100px",
+            height: "100%",
             margin: "auto",
-            background: "gray",
+            background: "#f0f0f0",
             borderRadius: "15px",
             padding: "30px",
           }}
         >
-          <ModalTabContents tabNumber={activeTab} />
+          <ModalTabContents
+            tabNumber={activeTab}
+            guideList={roomDetail.guideList}
+          />
         </div>
       </ModalContents>
     </ModalContainer>

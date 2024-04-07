@@ -8,31 +8,45 @@ import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import "moment/locale/ko";
 import ModalComponent from "@/components/modalComponent";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function ReservationPage(props: any) {
   const router = useRouter();
   const pathname = usePathname();
 
   const searchParams = useSearchParams();
+
   const storeId: any = searchParams.get("storeId");
   const storeName: any = searchParams.get("storeName");
   const englishStoreName: any = searchParams.get("englishStoreName");
+
   const addres: any = searchParams.get("address");
   const [roomId, setRoomId] = useState(1);
 
   moment.locale("ko");
   const [value, onChange] = useState([new Date(), new Date()]);
   const [nowDate, setNowDate] = useState("날짜");
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState(searchParams.get("checkInDate"));
+  const [endDate, setEndDate] = useState(searchParams.get("checkOutDate"));
+  const [roomList, setRoomList] = useState([]); // 객실 목록
 
   // 카운팅 숫자
-  const [adultCount, setAdultCount] = useState(0);
-  const [kidCount, setKidCount] = useState(0);
-  const [petCount, setPetCount] = useState(0);
+  const [adultCount, setAdultCount] = useState(searchParams.get("adultCount"));
+  const [kidCount, setKidCount] = useState(searchParams.get("kidCount"));
+  const [petCount, setPetCount] = useState(searchParams.get("petCount"));
 
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    //TODO 객실 목록 조회 API 호출
+
+    customAxios.get(`${API.ROOM}/${storeId}`).then((res) => {
+      console.log("res", res.data.response.data);
+      setRoomList(res.data.response.data);
+    });
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -213,15 +227,16 @@ export default function ReservationPage(props: any) {
                 <div className="calendar_container">
                   <CalendarContents
                     onChange={changeDate}
-                    // value={value}
-                    // minDetail="month"
-                    // maxDetail="month"
+                    value={[new Date(startDate), new Date(endDate)]}
+                    minDetail="month"
+                    maxDetail="month"
+                    // selectDates={selectDates}
                     selectRange={true}
                     showNeighboringMonth={false}
                     // calendarType="hebrew"
                     calendarType="gregory"
                     minDate={new Date()}
-                    formatDay={(locale, date) => moment(date).format("D")}
+                    formatDay={(locale, date) => moment(date).format("DD")}
                     formatMonthYear={(locale, date) =>
                       moment(date).format("M월")
                     }
@@ -234,57 +249,65 @@ export default function ReservationPage(props: any) {
 
             <div>
               <div className="room_title">객실 선택</div>
-              <div>
-                <div className="room_info_conatiner">
-                  <div className="room_image_container">
-                    <div>
-                      <img src="/reservationImg2.png" alt="객실 이미지" />
-                    </div>
-                    <div className="room_image_div">
-                      <div className="room_detail_btn" onClick={openModal}>
-                        상세보기
+              {roomList.map((item, index) => {
+                return (
+                  <div>
+                    <div className="room_info_conatiner">
+                      <div className="room_image_container">
+                        <div>
+                          <img
+                            src={item.image?.imageUrl}
+                            alt={item.image?.imageName}
+                          />
+                        </div>
+                        <div className="room_image_div">
+                          <div className="room_detail_btn" onClick={openModal}>
+                            상세보기
+                          </div>
+                          <ModalComponent
+                            isOpen={isModalOpen}
+                            closeModal={closeModal}
+                            roomData={item}
+                          />
+                        </div>
                       </div>
-                      <ModalComponent
-                        isOpen={isModalOpen}
-                        closeModal={closeModal}
-                      />
+                      <div className="room_cotent_container">
+                        <div className="room_info_title">{item.name}</div>
+                        <div className="room_info_content">
+                          {item.description}
+                        </div>
+                        <div className="room_badge">
+                          <div style={{ fontWeight: "700" }}>
+                            기준 {item.roomTypeVo.standardPeopleCount}인
+                          </div>
+                          (최대 {item.roomTypeVo.maximumPersonnelCount}인)
+                        </div>
+                        <Link
+                          href={{
+                            pathname: `/reservation/orders/new/${roomId}`,
+                            query: {
+                              storeId: storeId,
+                              roomId: 1,
+                              roomName: `${item.name}`,
+                              storeName: storeName,
+                              addres: addres,
+                              englishStoreName: englishStoreName,
+                              adultCount: adultCount || 0,
+                              kidCount: kidCount || 0,
+                              petCount: petCount || 0,
+                              checkInDate: startDate,
+                              checkOutDate: endDate,
+                            },
+                          }}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <div className="room_reservation_btn">예약하기</div>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                  <div className="room_cotent_container">
-                    <div className="room_info_title">디럭스 룸</div>
-                    <div className="room_info_content">
-                      아름다운 동해바다를 배경으로 멋진 사진을 남길 수 있는
-                      곳입니다.
-                      <br />
-                      사랑하는 사람과 함께 예쁘고 행복한 추억을 남겨보세요.
-                    </div>
-                    <div className="room_badge">
-                      <div style={{ fontWeight: "700" }}>기준 3인</div>
-                      (최대 4인)
-                    </div>
-                    <Link
-                      href={{
-                        pathname: `/reservation/orders/new/${roomId}`,
-                        query: {
-                          roomId: 1,
-                          roomName: "디럭스 룸",
-                          storeName: storeName,
-                          addres: addres || "강원도 양양군 현남면 현남로 1",
-                          englishStoreName: englishStoreName,
-                          adultCount: adultCount || 2,
-                          kidCount: kidCount || 0,
-                          petCount: petCount || 0,
-                          checkInDate: "2024-03-30",
-                          checkOutDate: "2024-04-01",
-                        },
-                      }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <div className="room_reservation_btn">예약하기</div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -353,7 +376,7 @@ const CalendarContents = styled(Calendar)`
   // 선택된 날짜들의 배경
   .react-calendar__tile--active {
     background-color: rgba(43, 118, 56, 0.3);
-    color: #ffffff;
+    color: #76baff;
     font-size: 16px;
   }
 
@@ -408,7 +431,7 @@ const CalendarContents = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     //hover 했을 때 색상 변경
     background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
-    color: #ffffff;
+    color: #76baff;
   }
 
   .react-calendar__tile--rangeStart {

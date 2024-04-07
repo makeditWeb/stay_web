@@ -12,6 +12,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 export default function RoomDetailPage({ location }: { location: string }) {
   const router = useRouter();
+  const [isValid, setIsValid] = useState(false);
 
   const pathname = usePathname();
   const partnerStoreId = pathname.split("/")[3];
@@ -25,7 +26,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
   const [touristSpotData, setTouristSpotData] = useState<any>([]);
   const [noticeData, setNoticeData] = useState<any>([{}, {}, {}]);
 
-  const [reservationInfoData, setReservationInfoData] = useState<any>({}); // 예약 정보 데이터
+  const [reservationInfoData, setReservationInfoData] = useState<any>({
+    checkInDate: "",
+    checkOutDate: "",
+    adultCount: 0,
+    kidCount: 0,
+    petCount: 0,
+  }); // 예약 정보 데이터
 
   // 카운팅 숫자
   const [adultCount, setAdultCount] = useState(0);
@@ -93,8 +100,8 @@ export default function RoomDetailPage({ location }: { location: string }) {
         setFeatureData(res.data.response.storeFeatureList.data);
         setTouristSpotData(res.data.response.touristSpotList.data);
 
-        document.getElementById("storyContent").innerHTML =
-          res.data.response.storyContent;
+        // document.getElementById("storyContent").innerHTML =
+        //   res.data.response.storyContent;
       }
     });
   }, []);
@@ -158,6 +165,29 @@ export default function RoomDetailPage({ location }: { location: string }) {
     nextArrow: (
       <StyledImage src="/rightVector.png" alt="Next" width={20} height={40} />
     ),
+  };
+
+  const onClickReservation = (e) => {
+    e.preventDefault();
+
+    if (reservationInfoData.checkInDate === "") {
+      alert("입실일을 선택해주세요.");
+      return;
+    }
+
+    if (reservationInfoData.checkOutDate === "") {
+      alert("퇴실일를 선택해주세요.");
+      return;
+    }
+
+    if (adultCount == 0) {
+      alert("인원을 선택해주세요.");
+      return;
+    }
+
+    router.push(
+      `/reservation/${partnerStoreData?.id}?storeId=${partnerStoreData?.id}&storeName=${partnerStoreData?.storeName}&englishStoreName=${partnerStoreData?.storeEnglishName}&checkInDate=${reservationInfoData.checkInDate}&checkOutDate=${reservationInfoData.checkOutDate}&adultCount=${adultCount}&kidCount=${kidCount}&petCount=${petCount}`
+    );
   };
 
   return (
@@ -272,9 +302,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                 paddingLeft: "20px",
                                 position: "relative",
                               }}
+                              onClick={handleEditClick}
                             >
-                              인원 입력하기
-                              <div onClick={handleEditClick}>
+                              {adultCount == 0 && kidCount == 0 && petCount == 0
+                                ? "인원 입력하기"
+                                : `성인 ${adultCount}명 / 어린이 ${kidCount}명 / 반려견 ${petCount}마리`}
+
+                              <div>
                                 <Image
                                   src="/editorVector.png"
                                   alt="수정버튼"
@@ -286,6 +320,8 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                   }}
                                 />
                               </div>
+                            </div>
+                            <div>
                               {showEditBox && (
                                 <div
                                   style={{
@@ -298,7 +334,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                     background: "rgba(255, 255, 255, 0.75)",
                                     borderRadius: "15px",
                                     bottom: "120px",
-                                    left: "-535px",
+                                    left: "27.5%",
                                   }}
                                 >
                                   <div
@@ -560,25 +596,44 @@ export default function RoomDetailPage({ location }: { location: string }) {
                         </div>
                       </div>
                       <div className="reservation_info_item_btn_div">
-                        <Link
-                          href={{
-                            pathname: `/reservation/${partnerStoreData?.id}`,
-                            query: {
-                              storeId: partnerStoreData?.id,
-                              storeName: partnerStoreData?.storeName,
-                              englishStoreName:
-                                partnerStoreData?.storeEnglishName,
-                              checkInDate: reservationInfoData.checkInDate,
-                              checkOutDate: reservationInfoData.checkOutDate,
-                            },
-                          }}
+                        <div
+                          className="reservation_info_item_btn"
+                          onClick={onClickReservation}
+                        >
+                          예약하기
+                        </div>
+                        {/* <Link
+                          href={
+                            isValid
+                              ? {
+                                  pathname: `/reservation/${partnerStoreData?.id}`,
+                                  query: {
+                                    storeId: partnerStoreData?.id,
+                                    storeName: partnerStoreData?.storeName,
+                                    englishStoreName:
+                                      partnerStoreData?.storeEnglishName,
+                                    checkInDate:
+                                      reservationInfoData.checkInDate,
+                                    checkOutDate:
+                                      reservationInfoData.checkOutDate,
+                                    adultCount: adultCount,
+                                    kidCount: kidCount,
+                                    petCount: petCount,
+                                  },
+                                }
+                              : "#"
+                          }
+                          // onClick={onClickReservation}
                           // as={`/reservation/${partnerStoreData?.id}`}
                           style={{ textDecoration: "none" }}
                         >
-                          <div className="reservation_info_item_btn">
+                          <div
+                            className="reservation_info_item_btn"
+                            onClick={onClickReservation}
+                          >
                             예약하기
                           </div>
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
@@ -633,7 +688,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
             <div className="story_content_haed_title">
               {partnerStoreData?.storeName}
             </div>
-            <div id="storyContent" className="story_item_content"></div>
+            <div
+              id="storyContent"
+              className="story_item_content"
+              dangerouslySetInnerHTML={{
+                __html: storyData?.storyContent,
+              }}
+            ></div>
           </div>
         </div>
         <div style={{ position: "relative" }}>

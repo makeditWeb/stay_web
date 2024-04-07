@@ -7,6 +7,8 @@ import moment from "moment";
 import { Region } from "@/data/region/Region";
 import SweetAlert from "sweetalert2";
 import CryptoJS from "crypto-js";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function OrdersContainer() {
   const formRef = useRef();
@@ -40,6 +42,7 @@ export default function OrdersContainer() {
   });
 
   const searchParams = useSearchParams();
+  const storeId: any = searchParams.get("storeId");
   const roomId: any = searchParams.get("roomId");
   const roomName: any = searchParams.get("roomName");
   const checkInDate: any = new Date(searchParams.get("checkInDate") || "");
@@ -130,14 +133,21 @@ export default function OrdersContainer() {
   console.log("termsList", termsList);
 
   useEffect(() => {
-    // console.log("options", options);
+    //TODO 추가옵션, 약관 동의 리스트 추가 (Pia)
+    let getOptionProductList = null;
+    customAxios.get(`${API.OPTION_PRODUCT}/${storeId}`).then((res) => {
+      console.log("res", res.data.response.data);
+      getOptionProductList = res.data.response.data;
 
-    let newOptions = [];
-    for (let i = 0; i < stayCount; i++) {
-      newOptions.push(options);
-    }
+      let newOptions = [];
+      for (let i = 0; i < stayCount; i++) {
+        newOptions.push(getOptionProductList);
+      }
 
-    setOptionsList(newOptions);
+      // console.log("newOptions", newOptions);
+
+      setOptionsList(newOptions);
+    });
   }, []);
 
   const onChangeReservationData = (e) => {
@@ -859,7 +869,7 @@ export default function OrdersContainer() {
       </div>
       <div className="order_new_title">추가옵션 선택</div>
       <div className="additional_options_section">
-        {optionsList.map((option, optionIndex) => {
+        {optionsList?.map((option, optionIndex) => {
           return (
             <>
               <div className="additional_options_wrap">
@@ -870,7 +880,7 @@ export default function OrdersContainer() {
                 </div>
                 <div className="options_content_container">
                   <div className="options_content_section">
-                    {option.map((item, index) => {
+                    {option?.map((item, index) => {
                       return (
                         <>
                           <div className="options_content_wrap">
@@ -889,7 +899,9 @@ export default function OrdersContainer() {
                               }}
                             ></CheckBoxLabel>
                             <div className="option_info_section">
-                              <div className="option_title">{item.title}</div>
+                              <div className="option_title">
+                                {item.optionName}
+                              </div>
                               <div className="option_content">
                                 {item.content}
                               </div>

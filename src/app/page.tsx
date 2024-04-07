@@ -105,7 +105,7 @@ export default function Mainpage() {
           alt="main_top"
         />
       </div>
-      <button onClick={() => serverAuth()}>serverAuth 결제하기</button>
+      {/* <button onClick={() => serverAuth()}>serverAuth 결제하기</button> */}
 
       <div className="slider_container">
         <SlickSlider {...settings}>
