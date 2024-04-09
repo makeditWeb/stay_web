@@ -1,9 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import styled from "styled-components";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function ReservationComplete() {
+  const searchParams = useSearchParams();
+  const TID = searchParams.get("TID");
+  const [reservationData, setReservationData] = useState({
+    checkIn: "",
+    checkOut: "",
+    storeName: "",
+    roomName: "",
+    adultCount: 0,
+    childCount: 0,
+    vbankBankName: "",
+    vbankNum: "",
+    accountHolder: "",
+    paymentMethod: "",
+  });
+
+  console.log("TID: ", TID);
+
+  useEffect(() => {
+    //TODO : TID로 예약 정보 조회
+    customAxios.get(`${API.RESERVATION}/${TID}`).then((res) => {
+      console.log("res", res.data.response);
+      setReservationData(res.data.response);
+    });
+  }, []);
+
   return (
     <div className="reservation_completed_container">
       <div className="reservation_completed_headtitle">
@@ -30,14 +58,44 @@ export default function ReservationComplete() {
               marginBottom: "10px",
             }}
           >
-            2024-02-29 ~ 2024-03-01
+            {reservationData.checkIn} ~ {reservationData.checkOut}
           </div>
           <div className="reservation_completed_content">
-            스테이인터뷰, 영동 / 디럭스 룸 / 어른 2인, 아이 2인
+            {reservationData.storeName} / {reservationData.roomName} / 어른{" "}
+            {reservationData.adultCount}인, 아이 {reservationData.childCount}인
           </div>
         </div>
       </div>
-      <div className="virtual_account_container">
+      {reservationData.paymentMethod === "BANK_TRANSFER" ? (
+        <>
+          <div className="virtual_account_container">
+            <div className="virtual_account_headtitle">입금 계좌</div>
+            <div className="virtual_account_subtitle">
+              아래 계좌로 입금해주세요.
+            </div>
+            <div className="virtual_account_description">
+              ※ 8시간 내 미입금시 예약은 자동 취소됩니다.
+            </div>
+          </div>
+          <div className="virtual_account_section">
+            <div className="virtual_account_wrap">
+              <div className="virtual_account_title">계좌번호</div>
+              <div className="virtual_account_content">
+                {reservationData.vbankBankName} {reservationData.vbankNum}
+              </div>
+            </div>
+            <div className="virtual_account_wrap">
+              <div className="virtual_account_title">예금주</div>
+              <div className="virtual_account_content">
+                {reservationData.accountHolder}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      {/* <div className="virtual_account_container">
         <div className="virtual_account_headtitle">입금 계좌</div>
         <div className="virtual_account_subtitle">
           아래 계좌로 입금해주세요.
@@ -45,19 +103,21 @@ export default function ReservationComplete() {
         <div className="virtual_account_description">
           ※ 8시간 내 미입금시 예약은 자동 취소됩니다.
         </div>
-      </div>
-      <div className="virtual_account_section">
+      </div> */}
+      {/* <div className="virtual_account_section">
         <div className="virtual_account_wrap">
           <div className="virtual_account_title">계좌번호</div>
           <div className="virtual_account_content">
-            농협중앙회 3521719679693
+            {reservationData.vbankBankName} {reservationData.vbankNum}
           </div>
         </div>
         <div className="virtual_account_wrap">
-          <div className="virtual_account_title">계좌번호</div>
-          <div className="virtual_account_content">이석현</div>
+          <div className="virtual_account_title">예금주</div>
+          <div className="virtual_account_content">
+            {reservationData.accountHolder}
+          </div>
         </div>
-      </div>
+      </div> */}
       <div className="reservation_completed_btn">확인</div>
     </div>
   );

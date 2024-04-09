@@ -10,6 +10,7 @@ import "moment/locale/ko";
 import ModalComponent from "@/components/modalComponent";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
+import Skeleton from "@/components/Skeleton";
 
 export default function ReservationPage(props: any) {
   const router = useRouter();
@@ -31,10 +32,14 @@ export default function ReservationPage(props: any) {
   const [endDate, setEndDate] = useState(searchParams.get("checkOutDate"));
   const [roomList, setRoomList] = useState([]); // 객실 목록
 
+  console.log("startDate", startDate);
+  console.log("endDate", endDate);
+
   // 카운팅 숫자
   const [adultCount, setAdultCount] = useState(searchParams.get("adultCount"));
   const [kidCount, setKidCount] = useState(searchParams.get("kidCount"));
   const [petCount, setPetCount] = useState(searchParams.get("petCount"));
+  const [loading, setLoading] = useState(false);
 
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,9 +47,11 @@ export default function ReservationPage(props: any) {
   useEffect(() => {
     //TODO 객실 목록 조회 API 호출
 
+    setLoading(true);
     customAxios.get(`${API.ROOM}/${storeId}`).then((res) => {
       console.log("res", res.data.response.data);
       setRoomList(res.data.response.data);
+      setLoading(false);
     });
   }, []);
 
@@ -58,8 +65,8 @@ export default function ReservationPage(props: any) {
 
   // 달력
   const changeDate = (e) => {
-    const startDateFormat = moment(e[0]).format("YYYY/MM/DD");
-    const endDateFormat = moment(e[1]).format("YYYY/MM/DD");
+    const startDateFormat = moment(e[0]).format("YYYY-MM-DD");
+    const endDateFormat = moment(e[1]).format("YYYY-MM-DD");
     setStartDate(startDateFormat);
     setEndDate(endDateFormat);
   };
@@ -249,65 +256,88 @@ export default function ReservationPage(props: any) {
 
             <div>
               <div className="room_title">객실 선택</div>
-              {roomList.map((item, index) => {
-                return (
-                  <div>
-                    <div className="room_info_conatiner">
-                      <div className="room_image_container">
-                        <div>
-                          <img
-                            src={item.image?.imageUrl}
-                            alt={item.image?.imageName}
-                          />
-                        </div>
-                        <div className="room_image_div">
-                          <div className="room_detail_btn" onClick={openModal}>
-                            상세보기
+              {loading ? (
+                <>
+                  <Container>
+                    <ImageWrapper>
+                      <Skeleton width={320} height={220} />
+                    </ImageWrapper>
+                    <Info>
+                      <div style={{ height: "8px" }}></div>
+                      <Skeleton width={150} height={29} rounded />
+                      <div style={{ height: "8px" }}></div>
+                      <Skeleton width={200} height={19} rounded />
+                    </Info>
+                  </Container>
+                </>
+              ) : (
+                <>
+                  {roomList.map((item, index) => {
+                    return (
+                      <div>
+                        <div className="room_info_conatiner">
+                          <div className="room_image_container">
+                            <div>
+                              <img
+                                src={item.image?.imageUrl}
+                                alt={item.image?.imageName}
+                              />
+                            </div>
+                            <div className="room_image_div">
+                              <div
+                                className="room_detail_btn"
+                                onClick={openModal}
+                              >
+                                상세보기
+                              </div>
+                              <ModalComponent
+                                isOpen={isModalOpen}
+                                closeModal={closeModal}
+                                roomData={item}
+                              />
+                            </div>
                           </div>
-                          <ModalComponent
-                            isOpen={isModalOpen}
-                            closeModal={closeModal}
-                            roomData={item}
-                          />
+                          <div className="room_cotent_container">
+                            <div className="room_info_title">{item.name}</div>
+                            <div className="room_info_content">
+                              {item.description}
+                            </div>
+                            <div className="room_badge">
+                              <div style={{ fontWeight: "700" }}>
+                                기준 {item.roomTypeVo.standardPeopleCount}인
+                              </div>
+                              (최대 {item.roomTypeVo.maximumPersonnelCount}인)
+                            </div>
+                            <Link
+                              href={{
+                                pathname: `/reservation/orders/new/${roomId}`,
+                                query: {
+                                  storeId: storeId,
+                                  roomId: 1,
+                                  roomName: `${item.name}`,
+                                  storeName: storeName,
+                                  addres: addres,
+                                  englishStoreName: englishStoreName,
+                                  adultCount: adultCount || 0,
+                                  kidCount: kidCount || 0,
+                                  petCount: petCount || 0,
+                                  checkInDate: startDate,
+                                  checkOutDate: endDate,
+                                },
+                              }}
+                              style={{ textDecoration: "none" }}
+                            >
+                              <div className="room_reservation_btn">
+                                예약하기
+                              </div>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                      <div className="room_cotent_container">
-                        <div className="room_info_title">{item.name}</div>
-                        <div className="room_info_content">
-                          {item.description}
-                        </div>
-                        <div className="room_badge">
-                          <div style={{ fontWeight: "700" }}>
-                            기준 {item.roomTypeVo.standardPeopleCount}인
-                          </div>
-                          (최대 {item.roomTypeVo.maximumPersonnelCount}인)
-                        </div>
-                        <Link
-                          href={{
-                            pathname: `/reservation/orders/new/${roomId}`,
-                            query: {
-                              storeId: storeId,
-                              roomId: 1,
-                              roomName: `${item.name}`,
-                              storeName: storeName,
-                              addres: addres,
-                              englishStoreName: englishStoreName,
-                              adultCount: adultCount || 0,
-                              kidCount: kidCount || 0,
-                              petCount: petCount || 0,
-                              checkInDate: startDate,
-                              checkOutDate: endDate,
-                            },
-                          }}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <div className="room_reservation_btn">예약하기</div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -316,57 +346,49 @@ export default function ReservationPage(props: any) {
   );
 }
 
-const ReservationContainer = styled.div`
+const Base = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 12px;
+  row-gap: 24px;
+`;
+
+const Container = styled.div`
   display: flex;
-  // width: 1920px;
-  padding-bottom: 80px;
+  flex-direction: column;
+  box-shadow: rgb(0 0 0 / 20%) 0px 4px 16px 0px;
+  border-radius: 4px;
+  padding: 1rem;
 `;
 
-const RoomImg = styled.div`
-  position: relative;
-  width: 380px;
-  height: 250px;
-  margin-right: 60px;
+const ImageWrapper = styled.div`
+  width: 320px;
+  height: 220px;
 `;
 
-const RoomDiv = styled.div`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+const Image = styled.img`
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 0.35s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    opacity: 1;
-  }
+  object-fit: cover;
 `;
 
-// 모달
-const ModalContainer = styled.div`
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+const Info = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  flex: 1 1 0%;
 `;
 
-// 달력
-const CalendarContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
+const Title = styled.h4`
+  margin: 8px 0 0 0;
+  padding: 0;
+  font-size: 24px;
+`;
+
+const Description = styled.p`
+  margin: 8px 0 0 0;
+  padding: 0;
+  font-size: 16px;
 `;
 
 const CalendarContents = styled(Calendar)`

@@ -34,6 +34,7 @@ export default function OrdersContainer() {
     childCount: 0,
     petCount: 0,
     reservationMemo: "",
+    paymentMethod: "CREDIT_CARD",
   }); //예약정보
   const [birthDay, setBirthDay] = useState({
     year: 0,
@@ -127,24 +128,35 @@ export default function OrdersContainer() {
 
   const [optionsList, setOptionsList] = useState<any>([]);
   const [termsList, setTermsList] = useState<any>(terms);
-
-  console.log("reservationData", reservationData);
-  console.log("optionsList", optionsList);
-  console.log("termsList", termsList);
+  const [rateList, setRateList] = useState([]); // 객식요금 목록
+  const totalRate = rateList.reduce((acc, cur) => acc + cur.roomRatePrice, 0);
 
   useEffect(() => {
+    //시즌 조회 API 호출
+    const roomRateCond = {
+      partnerStoreId: storeId,
+      roomId: roomId,
+      startDate: searchParams.get("checkInDate"),
+      endDate: searchParams.get("checkOutDate"),
+    };
+
+    customAxios
+      .get(`${API.ROOM_RATE}`, {
+        params: roomRateCond,
+      })
+      .then((res) => {
+        setRateList(res.data.response);
+      });
+
     //TODO 추가옵션, 약관 동의 리스트 추가 (Pia)
     let getOptionProductList = null;
     customAxios.get(`${API.OPTION_PRODUCT}/${storeId}`).then((res) => {
-      console.log("res", res.data.response.data);
       getOptionProductList = res.data.response.data;
 
       let newOptions = [];
       for (let i = 0; i < stayCount; i++) {
         newOptions.push(getOptionProductList);
       }
-
-      // console.log("newOptions", newOptions);
 
       setOptionsList(newOptions);
     });
@@ -378,9 +390,6 @@ export default function OrdersContainer() {
     const day = id.split("/")[0];
     const optionId = id.split("/")[1];
 
-    console.log("day", day);
-    console.log("optionId", optionId);
-
     const newOptionsList = optionsList.map((option, index) =>
       index === Number(day)
         ? option.map((item) =>
@@ -392,7 +401,21 @@ export default function OrdersContainer() {
     );
 
     setOptionsList(newOptionsList);
-    console.log("newOptionsList", newOptionsList);
+  };
+
+  const generateOrderNumber = () => {
+    // 오늘 날짜
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
+
+    const prefix = "stay";
+    const randomNumber = Math.floor(Math.random() * 10000000000); // 10자리 랜덤 숫자 생성
+    const paddedRandomNumber = randomNumber.toString().padStart(10, "0"); // 10자리로 패딩
+
+    return prefix + paddedRandomNumber + `${year}${month}${day}`;
   };
 
   // 결제하기 버튼 함수
@@ -401,17 +424,41 @@ export default function OrdersContainer() {
 
     // goPay(document.payForm);
 
+    // 현재 시간 구하기
+    var currentTime = new Date();
+
+    // 8시간 뒤의 시간 계산
+    var validTime = new Date(currentTime.getTime() + 8 * 60 * 60 * 1000);
+
+    // 시간을 보기 좋은 형태로 포맷팅
+    let year = validTime.getFullYear();
+    let month = validTime.getMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+
+    let day = validTime.getDate();
+    day = day < 10 ? "0" + day : day;
+
+    let hours = validTime.getHours();
+    hours = hours < 10 ? "0" + hours : hours;
+
+    let minutes = validTime.getMinutes();
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+    console.log("minutes", minutes);
+
     const goodsName = roomName;
-    const moid = "HN1213";
+    const moid = generateOrderNumber();
     const ediDate = moment().format("YYYYMMDDhhmmss");
     const mid = process.env.NEXT_PUBLIC_MID;
-    const amt = 1000;
+    const amt = totalRate;
     const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
     const TestData = ediDate + mid + amt + merchantKey;
     const SignData = CryptoJS.SHA256(TestData).toString();
-
     const payMethod =
       reservationData.paymentMethod === "CREDIT_CARD" ? "CARD" : "VBANK";
+    const VbankExpDate =
+      year + "" + month + "" + day + "" + hours + "" + minutes; //YYYYMMDDHHMM
+    console.log("VbankExpDate", VbankExpDate);
 
     document.payForm.GoodsName.value = goodsName;
     document.payForm.Moid.value = moid;
@@ -419,6 +466,7 @@ export default function OrdersContainer() {
     document.payForm.MID.value = mid;
     document.payForm.EdiDate.value = ediDate;
     document.payForm.PayMethod.value = payMethod;
+    document.payForm.VbankExpDate.value = VbankExpDate;
     document.payForm.MerchantKey.value = merchantKey;
     document.payForm.ReturnURL.value = returnUrl;
 
@@ -431,6 +479,8 @@ export default function OrdersContainer() {
       birthDay.year + birthDay.month + birthDay.day;
     document.payForm.clientGender.value = reservationData.clientGender;
     document.payForm.clientRegion.value = reservationData.clientRegion;
+    document.payForm.paymentMethod.value = reservationData.paymentMethod;
+    document.payForm.partnerStoreId.value = storeId;
 
     document.payForm.roomId.value = roomId;
     document.payForm.roomName.value = roomName;
@@ -544,7 +594,7 @@ export default function OrdersContainer() {
   };
 
   const sendPaymentResult = async () => {
-    alert("결제에 성공했습니다.");
+    // alert("결제에 성공했습니다.");
     const body = convertFormToObj(formRef.current);
 
     console.log("body", body);
@@ -935,7 +985,7 @@ export default function OrdersContainer() {
         <div className="payment_info_section">
           <div className="payment_info_title">총 결제금액</div>
           <div className="payment_info_value">
-            150,000
+            {totalRate.toLocaleString()}
             <div className="payment_info_unit">원</div>
           </div>
         </div>
@@ -954,37 +1004,35 @@ export default function OrdersContainer() {
           </div>
           {rateByDateToggle && (
             <>
-              <div className="payment_info_toggle_container">
-                <div className="payment_info_toggle_section">
-                  <div className="payment_info_toggle_date_title">
-                    {checkInDate.getFullYear()}년 {checkInDate.getMonth()}월{" "}
-                    {checkInDate.getDate()}일
+              {rateList.map((rate: any, index: number) => {
+                return (
+                  <div className="payment_info_toggle_container">
+                    <div className="payment_info_toggle_section">
+                      <div className="payment_info_toggle_date_title">
+                        {rate.date}
+                      </div>
+                      <div className="payment_info_toggle_date_value">
+                        {rate.roomRatePrice.toLocaleString()}원
+                      </div>
+                    </div>
+                    <div className="payment_info_toggle_section">
+                      <div className="payment_info_toggle_title">
+                        {rate.dayCategory === "WEEKDAY"
+                          ? "주중"
+                          : rate.dayCategory === "FRIDAY"
+                          ? "금요일"
+                          : rate.dayCategory === "WEEKEND"
+                          ? "주말"
+                          : ""}
+                        요금
+                      </div>
+                      <div className="payment_info_toggle_value">
+                        {rate.roomRatePrice.toLocaleString()}원
+                      </div>
+                    </div>
                   </div>
-                  <div className="payment_info_toggle_date_value">
-                    150,000원
-                  </div>
-                </div>
-                <div className="payment_info_toggle_section">
-                  <div className="payment_info_toggle_title">주중요금</div>
-                  <div className="payment_info_toggle_value">150,000원</div>
-                </div>
-              </div>
-
-              <div className="payment_info_toggle_container">
-                <div className="payment_info_toggle_section">
-                  <div className="payment_info_toggle_date_title">
-                    {checkInDate.getFullYear()}년 {checkInDate.getMonth()}월{" "}
-                    {checkInDate.getDate()}일
-                  </div>
-                  <div className="payment_info_toggle_date_value">
-                    150,000원
-                  </div>
-                </div>
-                <div className="payment_info_toggle_section">
-                  <div className="payment_info_toggle_title">주중요금</div>
-                  <div className="payment_info_toggle_value">150,000원</div>
-                </div>
-              </div>
+                );
+              })}
             </>
           )}
         </div>
@@ -1129,6 +1177,7 @@ export default function OrdersContainer() {
         <input type="hidden" name="Moid"></input>
         <input type="hidden" name="SignData"></input>
         <input type="hidden" name="PayMethod"></input>
+        <input type="hidden" name="VbankExpDate"></input>
         <input type="hidden" name="ReturnURL"></input>
         <input type="hidden" name="MerchantKey"></input>
         <input type="hidden" name="clientName"></input>
@@ -1137,6 +1186,8 @@ export default function OrdersContainer() {
         <input type="hidden" name="clientBirthday"></input>
         <input type="hidden" name="clientGender"></input>
         <input type="hidden" name="clientRegion"></input>
+        <input type="hidden" name="paymentMethod"></input>
+        <input type="hidden" name="partnerStoreId"></input>
 
         <input type="hidden" name="roomId"></input>
         <input type="hidden" name="roomName"></input>

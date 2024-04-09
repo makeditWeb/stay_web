@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled.macro": "^0.10.6",
     "@types/react-slick": "^0.23.13",
     "axios": "^1.6.8",
     "babel-plugin-styled-components": "^2.1.4",
