@@ -111,6 +111,15 @@
       color: #ffffff;
     }
 
+    .box_banner_container {
+      height: 850px;
+    }
+
+    .box_banner_container img {
+      width: 100%;
+      height: 600px;
+    }
+
     .detail_main_container {
       width: 100%;
       padding: 0;
@@ -1277,7 +1286,7 @@
 .slick-slide img {
   margin: 0px;
   width: 100%;
-  height: 520px;
+  // height: 520px;
   object-fit: contain;
 }
 
@@ -1324,6 +1333,10 @@
 //   justify-content: center;
 //   align-items: center;
 // }
+
+.box_banner_container {
+  height: 850px;
+}
 
 .banner_container {
   margin: auto;

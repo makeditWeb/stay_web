@@ -193,7 +193,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
   return (
     <RoomDetailContainer>
       <div style={{ position: "relative" }}>
-        <div style={{ height: "850px" }}>
+        <div className="box_banner_container">
           <Image
             src="/DetailPageImg.png"
             alt="상세 페이지 메인 이미지"
@@ -221,7 +221,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                     {partnerStoreData?.storeName}
                   </div>
                   <div>
-                    <div className="reservation_status_btn">예약현황 보기</div>
+                    {/* <div className="reservation_status_btn">예약현황 보기</div> */}
                   </div>
                 </div>
                 <div className="partner_store_description_container">
