@@ -9,7 +9,7 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
-const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
+const ModalComponent = ({ isOpen, closeModal, roomData }) => {
   const settings = {
     dots: true,
     infintie: true,
@@ -27,10 +27,6 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
   };
 
   useEffect(() => {
-    console.log("id", id);
-    console.log("roomData", roomData);
-    // setRoomDetail(roomData);
-
     if (isOpen) {
       document.body.style.overflow = "hidden"; // 모달이 열릴 때 스크롤 방지
     } else {
@@ -51,16 +47,14 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
       contentLabel="상세 보기 모달"
     >
       <div className="r_dm_content">
-        <div className="box_colse_btn">
-          <div className="close_btn_section" onClick={closeModal}>
-            <img
-              className="close_btn_img"
-              src="/closeBtn.png"
-              alt="닫기버튼"
-              width={60}
-              height={60}
-            />
-          </div>
+        <div className="close_btn_section" onClick={closeModal}>
+          <img
+            className="close_btn_img"
+            src="/closeBtn.png"
+            alt="닫기버튼"
+            width={60}
+            height={60}
+          />
         </div>
         <div className="container_room_detail_top">
           <div className="box_title_top">
@@ -118,22 +112,20 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             </div>
             <div className="box_additional_person_fee">
               <div className="title_additional_person_fee">추가 인원 요금</div>
-              <div className="container_additional_rate">
-                <div className="box_rate">
-                  <div className="title_additional_target">성인(14세 이상)</div>
-                  <div className="title_additional_target">아동</div>
-                  <div className="title_additional_target">유아</div>
+              <div className="box_rate">
+                <div className="title_additional_target">성인(14세 이상)</div>
+                <div className="title_additional_target">아동</div>
+                <div className="title_additional_target">유아</div>
+              </div>
+              <div className="box_additional_amount">
+                <div className="content_additional_amount">
+                  30,000 (침구 제공)
                 </div>
-                <div className="box_additional_amount">
-                  <div className="content_additional_amount">
-                    30,000 (침구 제공)
-                  </div>
-                  <div className="content_additional_amount">
-                    무료 (이불 미포함)
-                  </div>
-                  <div className="content_additional_amount">
-                    무료 (이불 미포함)
-                  </div>
+                <div className="content_additional_amount">
+                  무료 (이불 미포함)
+                </div>
+                <div className="content_additional_amount">
+                  무료 (이불 미포함)
                 </div>
               </div>
             </div>
@@ -212,7 +204,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
               return (
                 <>
                   <div>
-                    <div className="text_room_facilities">{item.name}</div>
+                    <div className="text_room_amenities">{item.name}</div>
                   </div>
                 </>
               );
@@ -286,32 +278,16 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
         </div>
         <div className="box_line"></div>
         <div className="box_guide">
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 1}
-            onClick={() => handleTabClick(1)}
-          >
+          <TabBtn active={activeTab === 1} onClick={() => handleTabClick(1)}>
             인원 및 금액
           </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 2}
-            onClick={() => handleTabClick(2)}
-          >
+          <TabBtn active={activeTab === 2} onClick={() => handleTabClick(2)}>
             예약 및 결제
           </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 3}
-            onClick={() => handleTabClick(3)}
-          >
+          <TabBtn active={activeTab === 3} onClick={() => handleTabClick(3)}>
             시설 안내
           </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 4}
-            onClick={() => handleTabClick(4)}
-          >
+          <TabBtn active={activeTab === 4} onClick={() => handleTabClick(4)}>
             서비스 안내
           </TabBtn>
         </div>
@@ -368,7 +344,7 @@ const TabBtn = styled.div<TabBtnProps>`
   border: ${(props) => (props.active ? "none" : "3px solid #f2f2f2")};
   border-radius: 15px;
   background: ${(props) => (props.active ? "#203D1E" : "#ffffff")};
-  // font-size: 20px;
+  font-size: 20px;
   font-weight: ${(props) => (props.active ? "800" : "500")};
   color: ${(props) => (props.active ? "#ffffff" : "#C3C3C3")};
   cursor: pointer;

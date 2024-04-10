@@ -24,21 +24,32 @@ export default function ReservationPage(props: any) {
 
   const addres: any = searchParams.get("address");
   const [roomId, setRoomId] = useState(1);
+  const [roomData, setRoomData] = useState();
 
   moment.locale("ko");
   const [value, onChange] = useState([new Date(), new Date()]);
   const [nowDate, setNowDate] = useState("날짜");
-  const [startDate, setStartDate] = useState(searchParams.get("checkInDate"));
-  const [endDate, setEndDate] = useState(searchParams.get("checkOutDate"));
+  const [startDate, setStartDate] = useState(
+    String(searchParams.get("checkInDate"))
+  );
+  const [endDate, setEndDate] = useState(
+    String(searchParams.get("checkOutDate"))
+  );
   const [roomList, setRoomList] = useState([]); // 객실 목록
 
   console.log("startDate", startDate);
   console.log("endDate", endDate);
 
   // 카운팅 숫자
-  const [adultCount, setAdultCount] = useState(searchParams.get("adultCount"));
-  const [kidCount, setKidCount] = useState(searchParams.get("kidCount"));
-  const [petCount, setPetCount] = useState(searchParams.get("petCount"));
+  const [adultCount, setAdultCount] = useState(
+    Number(searchParams.get("adultCount"))
+  );
+  const [kidCount, setKidCount] = useState(
+    Number(searchParams.get("kidCount"))
+  );
+  const [petCount, setPetCount] = useState(
+    Number(searchParams.get("petCount"))
+  );
   const [loading, setLoading] = useState(false);
 
   //모달
@@ -49,13 +60,19 @@ export default function ReservationPage(props: any) {
 
     setLoading(true);
     customAxios.get(`${API.ROOM}/${storeId}`).then((res) => {
-      console.log("res", res.data.response.data);
       setRoomList(res.data.response.data);
       setLoading(false);
     });
   }, []);
 
-  const openModal = () => {
+  const openModal = (e: any) => {
+    roomList.filter((item) => {
+      if (item.id === Number(e.target.id)) {
+        console.log("item", item);
+        setRoomData(item);
+      }
+    });
+
     setIsModalOpen(true);
   };
 
@@ -64,7 +81,7 @@ export default function ReservationPage(props: any) {
   };
 
   // 달력
-  const changeDate = (e) => {
+  const changeDate = (e: any) => {
     const startDateFormat = moment(e[0]).format("YYYY-MM-DD");
     const endDateFormat = moment(e[1]).format("YYYY-MM-DD");
     setStartDate(startDateFormat);
@@ -106,6 +123,11 @@ export default function ReservationPage(props: any) {
     }
   };
 
+  const selectRoomDetailModal = (e: any) => {
+    console.log("e", e);
+    console.log("e.target.id", e.target.id);
+  };
+
   return (
     <div className="reservation_containter">
       <div className="reservation_left_container">
@@ -119,7 +141,7 @@ export default function ReservationPage(props: any) {
           <div className="reservation_korean_name">{storeName}</div>
           <div className="reservation_select_people_title">인원 선택</div>
           <div className="reservation_select_people_container">
-            <div>
+            <div className="box_reservation_people">
               <div className="reservation_select_people_div">
                 <div className="reservation_adult_title">성인</div>
                 <div className="reservation_adult_input_container">
@@ -286,15 +308,18 @@ export default function ReservationPage(props: any) {
                             <div className="room_image_div">
                               <div
                                 className="room_detail_btn"
+                                id={item.id}
                                 onClick={openModal}
                               >
                                 상세보기
                               </div>
-                              <ModalComponent
-                                isOpen={isModalOpen}
-                                closeModal={closeModal}
-                                roomData={item}
-                              />
+                              {isModalOpen && (
+                                <ModalComponent
+                                  isOpen={isModalOpen}
+                                  closeModal={closeModal}
+                                  roomData={roomData}
+                                />
+                              )}
                             </div>
                           </div>
                           <div className="room_cotent_container">
