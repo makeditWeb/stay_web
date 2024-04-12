@@ -323,71 +323,16 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             </div>
                             <div>
                               {showEditBox && (
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    width: "980px",
-                                    height: "84px",
-                                    position: "absolute",
-                                    background: "rgba(255, 255, 255, 0.75)",
-                                    borderRadius: "15px",
-                                    bottom: "120px",
-                                    left: "27.5%",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          textAlign: "center",
-                                          width: "45px",
-                                          fontSize: "25px",
-                                          fontWeight: "500",
-                                          marginLeft: "20px",
-                                          marginRight: "20px",
-                                        }}
-                                      >
+                                <div className="box_outer_select_people">
+                                  <div className="box_select_people">
+                                    <div className="content_select_people">
+                                      <div className="title_select_people">
                                         성인
                                       </div>
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          width: "200px",
-                                          height: "55px",
-                                          background: "#ffffff",
-                                          border: "1px solid #203d1e",
-                                          borderRadius: "10px",
-                                          padding: "0 10px 0 10px",
-                                        }}
-                                      >
-                                        <div
-                                          style={{
-                                            margin: "auto",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            width: "250px",
-                                          }}
-                                        >
+                                      <div className="div_number_people">
+                                        <div className="container_number_poeple">
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={adultMinusCountHandler}
                                           >
                                             <Image
@@ -398,19 +343,11 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                               style={{ cursor: "pointer" }}
                                             />
                                           </div>
-                                          <div
-                                            style={{
-                                              fontSize: "25px",
-                                              fontWeight: "600",
-                                            }}
-                                          >
+                                          <div className="text_number_people">
                                             {adultCount}
                                           </div>
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={adultPlusCountHandler}
                                           >
                                             <Image
@@ -424,51 +361,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                         </div>
                                       </div>
                                     </div>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          textAlign: "center",
-                                          width: "55px",
-                                          fontSize: "20px",
-                                          fontWeight: "500",
-                                          marginLeft: "20px",
-                                          marginRight: "20px",
-                                        }}
-                                      >
+                                    <div className="content_select_people">
+                                      <div className="title_select_people">
                                         어린이
                                       </div>
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          width: "200px",
-                                          height: "55px",
-                                          background: "#ffffff",
-                                          border: "1px solid #203d1e",
-                                          borderRadius: "10px",
-                                          padding: "0 10px 0 10px",
-                                        }}
-                                      >
-                                        <div
-                                          style={{
-                                            margin: "auto",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            width: "250px",
-                                          }}
-                                        >
+                                      <div className="div_number_people">
+                                        <div className="container_number_poeple">
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={kidMinusCountHandler}
                                           >
                                             <Image
@@ -479,19 +379,11 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                               style={{ cursor: "pointer" }}
                                             />
                                           </div>
-                                          <div
-                                            style={{
-                                              fontSize: "25px",
-                                              fontWeight: "600",
-                                            }}
-                                          >
+                                          <div className="text_number_people">
                                             {kidCount}
                                           </div>
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={kidPlusCountHandler}
                                           >
                                             <Image
@@ -505,53 +397,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                         </div>
                                       </div>
                                     </div>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          width: "55px",
-                                          fontSize: "20px",
-                                          fontWeight: "500",
-                                          marginLeft: "20px",
-                                          marginRight: "20px",
-                                        }}
-                                      >
+                                    <div className="content_select_people">
+                                      <div className="title_select_people">
                                         반려견
                                       </div>
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          width: "200px",
-                                          height: "55px",
-                                          background: "#ffffff",
-                                          border: "1px solid #203d1e",
-                                          borderRadius: "10px",
-                                          padding: "0 10px 0 10px",
-                                        }}
-                                      >
-                                        <div
-                                          style={{
-                                            margin: "auto",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            width: "250px",
-                                          }}
-                                        >
+                                      <div className="div_number_people">
+                                        <div className="container_number_poeple">
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={petMinusCountHandler}
                                           >
                                             <Image
@@ -562,19 +415,11 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                               style={{ cursor: "pointer" }}
                                             />
                                           </div>
-                                          <div
-                                            style={{
-                                              fontSize: "25px",
-                                              fontWeight: "600",
-                                            }}
-                                          >
+                                          <div className="text_number_people">
                                             {petCount}
                                           </div>
                                           <div
-                                            style={{
-                                              width: "45px",
-                                              height: "45px",
-                                            }}
+                                            className="btn_number_people"
                                             onClick={petPlusCountHandler}
                                           >
                                             <Image
