@@ -24,7 +24,11 @@ export default function RoomDetailPage({ location }: { location: string }) {
   const [storeImageData, setStoreImageData] = useState<any>([]);
   const [featureData, setFeatureData] = useState<any>([]);
   const [touristSpotData, setTouristSpotData] = useState<any>([]);
-  const [noticeData, setNoticeData] = useState<any>([{}, {}, {}]);
+  const [noticeData, setNoticeData] = useState<any>([]);
+  const [defaultNoticeData, setDefaultNoticeData] = useState<any>([]);
+
+  console.log("noticeData :: ", noticeData.length);
+  console.log("defaultNoticeData :: ", defaultNoticeData);
 
   const [reservationInfoData, setReservationInfoData] = useState<any>({
     checkInDate: "",
@@ -86,13 +90,30 @@ export default function RoomDetailPage({ location }: { location: string }) {
   useEffect(() => {
     customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
       if (res !== undefined && res?.status === 200) {
-        console.log("res.data.response   :   ", res.data.response);
-
         setPartnerStoreData(res.data.response);
         setLongitude(res.data.response.longitude);
         setLatitude(res.data.response.latitude);
         setStoreImageData(res.data.response.storeImages);
-        // setNoticeData(res.data.response.noticeList?.data);
+
+        console.log("res.data.response :: ", res.data.response);
+        console.log(
+          "res.data.response.partnerStoreNoticeList :: ",
+          res.data.response.partnerStoreNoticeList
+        );
+
+        if (res.data.response.partnerStoreNoticeList != null) {
+          setNoticeData(res.data.response.partnerStoreNoticeList?.data);
+        } else {
+          setDefaultNoticeData([
+            {
+              content: "등록된 공지사항이 없습니다.",
+              createdAt: "-",
+              id: 1,
+              title: "등록된 공지사항이 없습니다.",
+            },
+          ]);
+        }
+
         setStoryData({
           storyTitle: res.data.response.storyTitle,
           storyContent: res.data.response.storyContent,
@@ -500,23 +521,50 @@ export default function RoomDetailPage({ location }: { location: string }) {
             <div className="notice_container_div">
               <div className="notice_title_container">
                 <div className="notice_title">공지사항</div>
-                <div className="notice_btn">more</div>
+                {noticeData.length > 0 ? (
+                  <div className="notice_btn">more</div>
+                ) : (
+                  ""
+                )}
               </div>
-              {noticeData.map((item, index) => {
+
+              {noticeData.length > 0 ? (
+                <>
+                  {noticeData.map((item, index) => {
+                    return (
+                      <div style={{ marginBottom: "10px" }} key={index}>
+                        <div className="notice_content_container">
+                          <div className="notice_content">{item.title}</div>
+                          <div className="notice_content_date">
+                            {item.createdDate}
+                          </div>
+                        </div>
+                        <div className="notice_content_line"></div>
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <div className="notice_content_container">
+                  <div className="notice_content">
+                    등록된 공지사항이 없습니다.
+                  </div>
+                  <div className="notice_content_date">-</div>
+                </div>
+              )}
+              {/* {defaultNoticeData.map((item, index) => {
                 return (
                   <div style={{ marginBottom: "10px" }} key={index}>
                     <div className="notice_content_container">
-                      <div className="notice_content">
-                        숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
-                        숙소 공지사항 내용 제목 출력 숙소 공지사항 내용 제목
-                        출력
+                      <div className="notice_content">{item.title}</div>
+                      <div className="notice_content_date">
+                        {item.createdDate}
                       </div>
-                      <div className="notice_content_date">2024.02.19</div>
                     </div>
                     <div className="notice_content_line"></div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
         </div>

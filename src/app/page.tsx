@@ -66,75 +66,32 @@ export default function Mainpage() {
         src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
         type="text/javascript"
       />
-      {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
-      <form name="payForm" method="post" acceptCharset="euc-kr">
-        <input
-          type="hidden"
-          name="GoodsName"
-          value={"스테이인터뷰, 하늘"}
-        ></input>
-        <input type="hidden" name="Amt" value={"1000"}></input>
-        <input type="hidden" name="MID" value="Kwonstay1m"></input>
-        <input type="hidden" name="EdiDate" value={"20240326101200"}></input>
-        <input type="hidden" name="Moid" value={"HN1213"}></input>
-        <input
-          type="hidden"
-          name="SignData"
-          value={
-            "4A87F00CA9284114B8F3EC6D9FA65D56D62EAD079735ACEDD7F0D36A7CA93D9E"
-          }
-        ></input>
-        <input type="hidden" name="PayMethod" value={"CARD"}></input>
-        <input
-          type="hidden"
-          name="ReturnURL"
-          value={"http://localhost:9000/api/v1/nice-pay"}
-        ></input>
-        <input
-          type="hidden"
-          name="MerchantKey"
-          value={
-            "VEssZGW19yqVwVXhJ5x4VdzDRtAxBkAE7ZratupXmYglgn2jjCatUduvIlk9J1fXMo9VSDye/qGGnnJr+RrKdA=="
-          }
-        ></input>
-      </form>
       <div className="main_banner_ctn">
         <img
           className="main_banner_img"
           src="/image/main/main.png"
           alt="main_top"
         />
+        <div className="container_banner_top">
+          <div className="box_banner_top">
+            <div className="box_banner_title">
+              <div className="main_banner_title">STAY INTERVIEW</div>
+              <div className="main_banner_sub_title">STAY INTERVIEW</div>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* <button onClick={() => serverAuth()}>serverAuth 결제하기</button> */}
 
       <div className="slider_container">
         <SlickSlider {...settings}>
           <div>
-            <img
-              src="/roomDetailImg3.png"
-              alt="슬라이더1"
-              // width={1200}
-              height={600}
-              style={{ borderRadius: "15px" }}
-            />
+            <img src="/roomDetailImg3.png" alt="슬라이더1" />
           </div>
           <div>
-            <img
-              src="/roomDetailImg4.png"
-              alt="슬라이더1"
-              // width={1200}
-              height={600}
-              style={{ borderRadius: "15px" }}
-            />
+            <img src="/roomDetailImg4.png" alt="슬라이더1" />
           </div>
           <div>
-            <img
-              src="/roomDetailImg4.png"
-              alt="슬라이더1"
-              // width={1200}
-              height={600}
-              style={{ borderRadius: "15px" }}
-            />
+            <img src="/roomDetailImg4.png" alt="슬라이더1" />
           </div>
         </SlickSlider>
       </div>
@@ -156,11 +113,10 @@ export default function Mainpage() {
                 <>
                   <div className="out_stay_container" key={index}>
                     <div style={{ width: "370px", height: "230px" }}>
-                      <Image
-                        src="/hotelListImg.png"
-                        alt="임시 이미지"
-                        width={370}
-                        height={230}
+                      <img
+                        src={item?.storeImage?.imageUrl}
+                        alt={item?.storeImage?.imageName}
+                        style={{ width: "370px", height: "230px" }}
                       />
                     </div>
                     <div style={{ display: "flex", marginTop: "45px" }}>

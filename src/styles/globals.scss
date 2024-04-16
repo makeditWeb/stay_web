@@ -1817,6 +1817,7 @@
 
 .notice_container_div {
   margin-top: 110px;
+  height: 250px;
 }
 
 .notice_container_div :nth-child(4) {
@@ -3061,7 +3062,7 @@
 
 .title_select_people {
   text-align: center;
-  width: 55px;
+  // width: 55px;
   font-size: 25px;
   font-weight: 500;
   margin-left: 20px;
@@ -3095,4 +3096,8 @@
 .text_number_people {
   font-size: 25px;
   font-weight: 600;
+}
+
+.notice_container {
+  width: 63.5%;
 }

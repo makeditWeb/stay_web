@@ -450,7 +450,8 @@ export default function OrdersContainer() {
     const moid = generateOrderNumber();
     const ediDate = moment().format("YYYYMMDDhhmmss");
     const mid = process.env.NEXT_PUBLIC_MID;
-    const amt = totalRate;
+    // const amt = totalRate;
+    const amt = 1000;
     const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
     const TestData = ediDate + mid + amt + merchantKey;
     const SignData = CryptoJS.SHA256(TestData).toString();

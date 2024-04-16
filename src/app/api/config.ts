@@ -9,9 +9,11 @@ export const API = {
   ROOM: "/room",
   SEASON: "/season",
   ROOM_RATE: "/room-rate",
-  RESERVATION: "/reservation",
   CODE: "/code",
   ADMIN: "/admin",
+  MAIN_BANNER: "/main-banner",
+  NOTICE: "/notice",
+  OUR_NEWS: "our_news",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",
 };

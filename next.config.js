@@ -3,7 +3,7 @@ const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
@@ -12,7 +12,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "img.pokemondb.net",
+        hostname: "stay-interview.s3.amazonaws.com",
         port: "",
       },
     ],
