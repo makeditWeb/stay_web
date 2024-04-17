@@ -271,7 +271,12 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
           <div className="title_room_facilities">서비스 및 옵션</div>
           <div>
             <div className="content_room_service">
-              <div className="title_room_badge">서비스</div>
+              {roomDetail.serviceList?.length > 0 ? (
+                <div className="title_room_badge">서비스</div>
+              ) : (
+                <> </>
+              )}
+
               <div className="box_room_service">
                 {roomDetail.serviceList?.map((item, index) => {
                   return (
