@@ -6,6 +6,7 @@ import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import moment from "moment";
 import "moment/locale/ko";
+import Link from "next/link";
 
 export default function OurNewsPage() {
   const [ourNewsList, setOurNewList] = useState([]);
@@ -22,72 +23,37 @@ export default function OurNewsPage() {
   }, []);
 
   return (
-    <OurNewsContainer>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "50px",
-          fontWeight: "700",
-          color: "#162318",
-          marginTop: "85px",
-        }}
-      >
-        Our News
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "19px",
-          fontWeight: "300",
-          color: "#162318",
-          margin: "30px 0 30px 0",
-        }}
-      >
-        스테이인터뷰 소식을 전해드립니다.
-      </div>
+    <div className="container_our_news_list">
+      <div className="box_title_our_news_list">Our News</div>
+      <div className="box_st_news_list">스테이인터뷰 소식을 전해드립니다.</div>
       {ourNewsList.map((item) => {
         return (
-          <NewsContents key={item.id}>
-            <div
-              style={{
-                width: "280px",
-                height: "155px",
-                marginLeft: "30px",
-                marginRight: "50px",
-              }}
-            >
-              <Image
-                src={item.image?.imageUrl}
-                alt={item.image?.imageName}
-                width={280}
-                height={155}
-              />
-            </div>
-            <div>
-              <div
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "300",
-                  color: "#162318",
-                  marginBottom: "15px",
-                }}
-              >
-                {moment(item.createdDate).format("YYYY-MM-DD")}
+          <div className="container_our_news_content">
+            <div className="box_our_news_content" key={item.id}>
+              <div className="box_news_image_list">
+                <img
+                  src={item.image?.imageUrl}
+                  alt={item.image?.imageName}
+                  // style={{ width: "280px", height: "155px" }}
+                />
               </div>
-              <div
-                style={{
-                  fontSize: "19px",
-                  fontWeight: "500",
-                  color: "#162318",
-                }}
-              >
-                {item.title}
+              <div className="box_our_news_info">
+                <Link
+                  href={{ pathname: `/ourNews/${item.id}` }}
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="box_news_day_list">
+                    {moment(item.createdDate).format("YYYY-MM-DD")}
+                  </div>
+
+                  <div className="box_news_title_list">{item.title}</div>
+                </Link>
               </div>
             </div>
-          </NewsContents>
+          </div>
         );
       })}
-    </OurNewsContainer>
+    </div>
   );
 }
 
