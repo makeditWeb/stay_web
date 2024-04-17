@@ -7,12 +7,11 @@ import { customAxios } from "@/modules/common/api";
 import moment from "moment";
 import "moment/locale/ko";
 import Link from "next/link";
+import Loading from "@/components/common/loading";
 
 export default function OurNewsPage() {
   const [ourNewsList, setOurNewList] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  console.log("ourNewsList", ourNewsList);
 
   useEffect(() => {
     setLoading(true);
@@ -23,37 +22,42 @@ export default function OurNewsPage() {
   }, []);
 
   return (
-    <div className="container_our_news_list">
-      <div className="box_title_our_news_list">Our News</div>
-      <div className="box_st_news_list">스테이인터뷰 소식을 전해드립니다.</div>
-      {ourNewsList.map((item) => {
-        return (
-          <div className="container_our_news_content">
-            <div className="box_our_news_content" key={item.id}>
-              <div className="box_news_image_list">
-                <img
-                  src={item.image?.imageUrl}
-                  alt={item.image?.imageName}
-                  // style={{ width: "280px", height: "155px" }}
-                />
-              </div>
-              <div className="box_our_news_info">
-                <Link
-                  href={{ pathname: `/ourNews/${item.id}` }}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className="box_news_day_list">
-                    {moment(item.createdDate).format("YYYY-MM-DD")}
-                  </div>
+    <>
+      {loading === true ? <Loading /> : null}
+      <div className="container_our_news_list">
+        <div className="box_title_our_news_list">Our News</div>
+        <div className="box_st_news_list">
+          스테이인터뷰 소식을 전해드립니다.
+        </div>
+        {ourNewsList.map((item) => {
+          return (
+            <div className="container_our_news_content">
+              <div className="box_our_news_content" key={item.id}>
+                <div className="box_news_image_list">
+                  <img
+                    src={item.image?.imageUrl}
+                    alt={item.image?.imageName}
+                    // style={{ width: "280px", height: "155px" }}
+                  />
+                </div>
+                <div className="box_our_news_info">
+                  <Link
+                    href={{ pathname: `/ourNews/${item.id}` }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className="box_news_day_list">
+                      {moment(item.createdDate).format("YYYY-MM-DD")}
+                    </div>
 
-                  <div className="box_news_title_list">{item.title}</div>
-                </Link>
+                    <div className="box_news_title_list">{item.title}</div>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

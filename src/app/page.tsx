@@ -8,11 +8,16 @@ import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import Script from "next/script";
+import Loading from "@/components/common/loading";
 
 export default function Mainpage() {
   const [partnerStoreList, setPartnerStoreList] = useState([]);
+  const [mainBannerList, setMainBannerList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
+
+  console.log("mainBannerList", mainBannerList);
 
   const settings = {
     dots: true,
@@ -27,12 +32,21 @@ export default function Mainpage() {
     draggable: false,
   };
 
+  const selectMainBanner = async () => {
+    const mainBanner = await customAxios.get(`${API.MAIN_BANNER}`);
+    setMainBannerList(mainBanner.data.response.data);
+  };
+
   useEffect(() => {
+    setLoading(true);
     customAxios.get(`${API.PARTNER_STORE}`).then((res) => {
       if (res?.status === 200) {
         setPartnerStoreList(res.data.response.data);
       }
     });
+
+    selectMainBanner();
+    setLoading(false);
   }, []);
 
   const serverAuth = () => {
@@ -84,15 +98,13 @@ export default function Mainpage() {
 
       <div className="slider_container">
         <SlickSlider {...settings}>
-          <div>
-            <img src="/roomDetailImg3.png" alt="슬라이더1" />
-          </div>
-          <div>
-            <img src="/roomDetailImg4.png" alt="슬라이더1" />
-          </div>
-          <div>
-            <img src="/roomDetailImg4.png" alt="슬라이더1" />
-          </div>
+          {mainBannerList?.map((item, index) => {
+            return (
+              <div>
+                <img src={item?.image?.imageUrl} alt={item?.image?.imageName} />
+              </div>
+            );
+          })}
         </SlickSlider>
       </div>
       <div>
@@ -149,114 +161,6 @@ export default function Mainpage() {
     </div>
   );
 }
-
-const IndexContainter = styled.div`
-  // width: 1920px;
-  width: 100vw;
-  margin: auto;
-`;
-
-const IndexBottomContainer = styled.div``;
-
-const MainImgDiv = styled.div`
-  display: flex;
-  width: 1200px;
-  height: 600px;
-  border-radius: 20px;
-`;
-
-const HotelListText = styled.div`
-  display: flex;
-  margin-left: 30px;
-  font-size: 19px;
-  font-weight: 300;
-  color: #162318;
-  align-items: center;
-`;
-
-const HotelListContainer = styled.div`
-  display: flex;
-  gap: 45px;
-  flex-wrap: wrap;
-  margin-bottom: 150px;
-`;
-
-const HotelContainer = styled.div`
-  width: 370px;
-  height: 350px;
-  border: 1px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
-`;
-
-const HotelContents = styled.div`
-  display: flex;
-  width: 300px;
-  margin: auto;
-  justify-content: space-between;
-`;
-
-const DetailPostButton = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 8px;
-  width: 74px;
-  height: 27px;
-  border: 0.5px solid #000000;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 300;
-  color: #000000;
-  cursor: pointer;
-`;
-
-const SubImgDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const BigImgDiv = styled.div`
-  width: 500px;
-  position: relative;
-`;
-
-const ReservationStatus = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 109px;
-  bottom: 45px;
-  width: 280px;
-  height: 45px;
-  border: 1px solid #ffffff;
-  border-radius: 6px;
-  color: #ffffff;
-  cursor: pointer;
-`;
-
-const SmallImgDiv = styled.div`
-  width: 350px;
-  height: 200px;
-`;
-
-const StyledSlider = styled(Slider)`
-  .slick-list {
-    // width: 1200px;
-    margin: auto;
-  }
-`;
-
-const SliderContainer = styled.div`
-  // width: 1200px;
-  height: 600px;
-  margin: auto;
-  border-radius: 15px;
-  margin-top: 100px;
-`;
 
 const SlickSlider = styled(Slider)`
   border-radius: 15px;

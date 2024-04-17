@@ -14,6 +14,10 @@ export default function LoginPage() {
     window.location.href = kakaoURL;
   };
 
+  const onClickLogin = () => {
+    location.href = "/";
+  };
+
   return (
     <div style={{ height: "100%", background: "#f6f5f1" }}>
       <LoginContainer>
@@ -44,7 +48,7 @@ export default function LoginPage() {
             <IdPasswardFindDiv>비밀번호 찾기</IdPasswardFindDiv>
           </AccountFind>
         </SignDiv>
-        <GeneralLoginButton>로그인</GeneralLoginButton>
+        <GeneralLoginButton onClick={onClickLogin}>로그인</GeneralLoginButton>
         {/* <KakaoLogin
           token={kakaoClientId}
           onSuccess={kakaoOnSuccess}

@@ -17,8 +17,6 @@ export default function OurNewsDetailpage() {
   const [ourNewsData, setOurNewsData] = useState({});
   const [peopleAndAmounQuillValue, setPeopleAndAmounQuillValue] = useState("");
 
-  console.log("ourNewsData", ourNewsData);
-
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
