@@ -27,8 +27,8 @@ export default function RoomDetailPage({ location }: { location: string }) {
   const [noticeData, setNoticeData] = useState<any>([]);
   const [defaultNoticeData, setDefaultNoticeData] = useState<any>([]);
 
-  console.log("noticeData :: ", noticeData.length);
-  console.log("defaultNoticeData :: ", defaultNoticeData);
+  console.log("latitude", latitude);
+  console.log("longitude", longitude);
 
   const [reservationInfoData, setReservationInfoData] = useState<any>({
     checkInDate: "",
@@ -233,21 +233,23 @@ export default function RoomDetailPage({ location }: { location: string }) {
             }}
           >
             <div className="detail_main_container">
-              <div className="detail_partner_store_container">
-                <div className="english_name_container">
-                  {partnerStoreData?.storeEnglishName}
-                </div>
-                <div className="korean_name_container">
-                  <div className="korean_name_title">
-                    {partnerStoreData?.storeName}
+              <div className="box_detail_slider_container">
+                <div className="detail_partner_store_container">
+                  <div className="english_name_container">
+                    {partnerStoreData?.storeEnglishName}
                   </div>
-                  <div>
-                    {/* <div className="reservation_status_btn">예약현황 보기</div> */}
+                  <div className="korean_name_container">
+                    <div className="korean_name_title">
+                      {partnerStoreData?.storeName}
+                    </div>
+                    <div>
+                      {/* <div className="reservation_status_btn">예약현황 보기</div> */}
+                    </div>
                   </div>
-                </div>
-                <div className="partner_store_description_container">
-                  동해에서 가장 먼저 태양과 마주할 수 있는 곳, 스테이 인터뷰
-                  강릉 나만의 스테이에엇 바다와 산이 열립니다.
+                  <div className="partner_store_description_container">
+                    동해에서 가장 먼저 태양과 마주할 수 있는 곳, 스테이 인터뷰
+                    강릉 나만의 스테이에엇 바다와 산이 열립니다.
+                  </div>
                 </div>
               </div>
               <div className="banner_container">
@@ -309,20 +311,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                           <div className="reservation_info_item_div">인원</div>
                           <div>
                             <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                width: "250px",
-                                height: "55px",
-                                border: "1px solid #203d1e",
-                                borderRadius: "7px",
-                                fontSize: "18px",
-                                fontWeight: "600",
-                                color: "#203d1e",
-                                paddingLeft: "20px",
-                                position: "relative",
-                              }}
+                              className="box_reservation_count"
                               onClick={handleEditClick}
                             >
                               {adultCount == 0 && kidCount == 0 && petCount == 0
@@ -341,122 +330,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                   }}
                                 />
                               </div>
-                            </div>
-                            <div>
-                              {showEditBox && (
-                                <div className="box_outer_select_people">
-                                  <div className="box_select_people">
-                                    <div className="content_select_people">
-                                      <div className="title_select_people">
-                                        성인
-                                      </div>
-                                      <div className="div_number_people">
-                                        <div className="container_number_poeple">
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={adultMinusCountHandler}
-                                          >
-                                            <Image
-                                              src="/minusIcon.png"
-                                              alt="마이너스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                          <div className="text_number_people">
-                                            {adultCount}
-                                          </div>
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={adultPlusCountHandler}
-                                          >
-                                            <Image
-                                              src="/plusIcon.png"
-                                              alt="플러스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="content_select_people">
-                                      <div className="title_select_people">
-                                        어린이
-                                      </div>
-                                      <div className="div_number_people">
-                                        <div className="container_number_poeple">
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={kidMinusCountHandler}
-                                          >
-                                            <Image
-                                              src="/minusIcon.png"
-                                              alt="마이너스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                          <div className="text_number_people">
-                                            {kidCount}
-                                          </div>
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={kidPlusCountHandler}
-                                          >
-                                            <Image
-                                              src="/plusIcon.png"
-                                              alt="플러스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="content_select_people">
-                                      <div className="title_select_people">
-                                        반려견
-                                      </div>
-                                      <div className="div_number_people">
-                                        <div className="container_number_poeple">
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={petMinusCountHandler}
-                                          >
-                                            <Image
-                                              src="/minusIcon.png"
-                                              alt="마이너스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                          <div className="text_number_people">
-                                            {petCount}
-                                          </div>
-                                          <div
-                                            className="btn_number_people"
-                                            onClick={petPlusCountHandler}
-                                          >
-                                            <Image
-                                              src="/plusIcon.png"
-                                              alt="플러스 아이콘"
-                                              width={45}
-                                              height={45}
-                                              style={{ cursor: "pointer" }}
-                                            />
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
                             </div>
                           </div>
                         </div>
@@ -500,6 +373,120 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             예약하기
                           </div>
                         </Link> */}
+                      </div>
+                      <div>
+                        {showEditBox && (
+                          <div className="box_outer_select_people">
+                            <div className="box_select_people">
+                              <div className="content_select_people">
+                                <div className="title_select_people">성인</div>
+                                <div className="div_number_people">
+                                  <div className="container_number_poeple">
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={adultMinusCountHandler}
+                                    >
+                                      <Image
+                                        src="/minusIcon.png"
+                                        alt="마이너스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                    <div className="text_number_people">
+                                      {adultCount}
+                                    </div>
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={adultPlusCountHandler}
+                                    >
+                                      <Image
+                                        src="/plusIcon.png"
+                                        alt="플러스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="content_select_people">
+                                <div className="title_select_people">
+                                  어린이
+                                </div>
+                                <div className="div_number_people">
+                                  <div className="container_number_poeple">
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={kidMinusCountHandler}
+                                    >
+                                      <Image
+                                        src="/minusIcon.png"
+                                        alt="마이너스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                    <div className="text_number_people">
+                                      {kidCount}
+                                    </div>
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={kidPlusCountHandler}
+                                    >
+                                      <Image
+                                        src="/plusIcon.png"
+                                        alt="플러스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="content_select_people">
+                                <div className="title_select_people">
+                                  반려견
+                                </div>
+                                <div className="div_number_people">
+                                  <div className="container_number_poeple">
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={petMinusCountHandler}
+                                    >
+                                      <Image
+                                        src="/minusIcon.png"
+                                        alt="마이너스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                    <div className="text_number_people">
+                                      {petCount}
+                                    </div>
+                                    <div
+                                      className="btn_number_people"
+                                      onClick={petPlusCountHandler}
+                                    >
+                                      <Image
+                                        src="/plusIcon.png"
+                                        alt="플러스 아이콘"
+                                        width={45}
+                                        height={45}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -549,7 +536,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   <div className="notice_content">
                     등록된 공지사항이 없습니다.
                   </div>
-                  <div className="notice_content_date">-</div>
+                  <div className="notice_content_date"></div>
                 </div>
               )}
               {/* {defaultNoticeData.map((item, index) => {
@@ -569,7 +556,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
           </div>
         </div>
         <div className="story_container">
-          <div style={{ marginTop: "50px", marginBottom: "80px" }}>
+          <div className="box_story_img">
             <div className="story_img_container">
               <img src="/roomDetailImg2.png" alt="서브 이미지" height={450} />
             </div>
@@ -721,10 +708,12 @@ export default function RoomDetailPage({ location }: { location: string }) {
               className="partenrs_store_contact_content_container"
               style={{ fontWeight: "700" }}
             >
-              {String(partnerStoreData?.phone).replace(
-                /^(\d{2,3})(\d{3,4})(\d{4})$/,
-                `$1-$2-$3`
-              )}
+              {partnerStoreData?.phone != null
+                ? String(partnerStoreData?.phone).replace(
+                    /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                    `$1-$2-$3`
+                  )
+                : ""}
             </div>
           </div>
         </div>

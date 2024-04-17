@@ -44,7 +44,7 @@ const Loading = () => {
       >
         잠시만 기다려 주세요.
       </div>
-      <img src={"/assets/spinner_green.gif"} alt="로딩중" width="10%" />
+      <img src={"/assets/loading/spinner_green.gif"} alt="로딩중" width="10%" />
     </div>
   );
 };

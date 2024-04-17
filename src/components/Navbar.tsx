@@ -13,7 +13,7 @@ export default function Navbar() {
       <Link href="/" style={{ textDecoration: "none" }}>
         <img src="/stayinterviewLogo.png" alt="사이트 로고" />
       </Link>
-      <NavbarDiv className="navbar_div" style={{ marginLeft: "15px" }}>
+      <MiddleNavbarDiv className="navbar_div" style={{ marginLeft: "15px" }}>
         <Link
           href={{ pathname: "/ourStay" }}
           style={{ textDecoration: "none" }}
@@ -32,8 +32,8 @@ export default function Navbar() {
         >
           <MenuDiv>OUR NEWS</MenuDiv>
         </Link>
-      </NavbarDiv>
-      <NavbarDiv className="navbar_div">
+      </MiddleNavbarDiv>
+      <RightNavbarDiv className="navbar_div">
         <Link href={{ pathname: "/login" }} style={{ textDecoration: "none" }}>
           <MenuDiv>Login</MenuDiv>
         </Link>
@@ -48,7 +48,7 @@ export default function Navbar() {
             height={36}
           />
         </Link>
-      </NavbarDiv>
+      </RightNavbarDiv>
     </div>
   );
 }
@@ -64,8 +64,15 @@ const NavbarContainer = styled.div`
   align-items: center;
 `;
 
-const NavbarDiv = styled.div`
-  width: 30%;
+const MiddleNavbarDiv = styled.div`
+  width: 32%;
+  display: flex;
+  align-items: center;
+  // justify-content: flex-end;
+`;
+
+const RightNavbarDiv = styled.div`
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -76,4 +83,5 @@ const MenuDiv = styled.div`
   color: #ffffff;
   /* margin-left: 10px; */
   margin-right: 50px;
+  cursor: pointer;
 `;

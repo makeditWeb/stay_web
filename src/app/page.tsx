@@ -32,20 +32,20 @@ export default function Mainpage() {
     draggable: false,
   };
 
-  const selectMainBanner = async () => {
-    const mainBanner = await customAxios.get(`${API.MAIN_BANNER}`);
-    setMainBannerList(mainBanner.data.response.data);
+  const selectMainBannerList = async () => {
+    const mainBannerList = await customAxios.get(`${API.MAIN_BANNER}`);
+    setMainBannerList(mainBannerList.data.response.data);
+  };
+
+  const selectPartnerStoreList = async () => {
+    const partnerStoreList = await customAxios.get(`${API.PARTNER_STORE}`);
+    setPartnerStoreList(partnerStoreList.data.response.data);
   };
 
   useEffect(() => {
     setLoading(true);
-    customAxios.get(`${API.PARTNER_STORE}`).then((res) => {
-      if (res?.status === 200) {
-        setPartnerStoreList(res.data.response.data);
-      }
-    });
-
-    selectMainBanner();
+    selectPartnerStoreList();
+    selectMainBannerList();
     setLoading(false);
   }, []);
 
@@ -86,13 +86,13 @@ export default function Mainpage() {
           src="/image/main/main.png"
           alt="main_top"
         />
-        <div className="container_banner_top">
-          <div className="box_banner_top">
-            <div className="box_banner_title">
-              <div className="main_banner_title">STAY INTERVIEW</div>
-              <div className="main_banner_sub_title">STAY INTERVIEW</div>
-            </div>
+        {/* <div className="container_banner_top"> */}
+        <div className="box_banner_top">
+          <div className="box_banner_title">
+            <div className="main_banner_title">STAY INTERVIEW</div>
+            <div className="main_banner_sub_title">STAY INTERVIEW</div>
           </div>
+          {/* </div> */}
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export default function Mainpage() {
           })}
         </SlickSlider>
       </div>
-      <div>
+      <div className="box_main_our_stay">
         <div className="main_our_stay_container">
           <div className="main_our_stay_title_container">
             <div

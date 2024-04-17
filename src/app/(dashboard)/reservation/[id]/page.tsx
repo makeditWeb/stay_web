@@ -37,9 +37,6 @@ export default function ReservationPage(props: any) {
   );
   const [roomList, setRoomList] = useState([]); // 객실 목록
 
-  console.log("startDate", startDate);
-  console.log("endDate", endDate);
-
   // 카운팅 숫자
   const [adultCount, setAdultCount] = useState(
     Number(searchParams.get("adultCount"))
@@ -56,10 +53,8 @@ export default function ReservationPage(props: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    //TODO 객실 목록 조회 API 호출
-
     setLoading(true);
-    customAxios.get(`${API.ROOM}/${storeId}`).then((res) => {
+    customAxios.get(`${API.ROOM}/partner-store/${storeId}`).then((res) => {
       setRoomList(res.data.response.data);
       setLoading(false);
     });
@@ -300,10 +295,7 @@ export default function ReservationPage(props: any) {
                         <div className="room_info_conatiner">
                           <div className="room_image_container">
                             <div>
-                              <img
-                                src={item.image?.imageUrl}
-                                alt={item.image?.imageName}
-                              />
+                              <img src={item.imageUrl} alt={item.imageName} />
                             </div>
                             <div className="room_image_div">
                               <div
@@ -329,9 +321,9 @@ export default function ReservationPage(props: any) {
                             </div>
                             <div className="room_badge">
                               <div style={{ fontWeight: "700" }}>
-                                기준 {item.roomTypeVo.standardPeopleCount}인
+                                기준 {item.standardPeopleCount}인
                               </div>
-                              (최대 {item.roomTypeVo.maximumPersonnelCount}인)
+                              (최대 {item.maximumPersonnelCount}인)
                             </div>
                             <Link
                               href={{
@@ -423,7 +415,7 @@ const CalendarContents = styled(Calendar)`
   // 선택된 날짜들의 배경
   .react-calendar__tile--active {
     background-color: rgba(43, 118, 56, 0.3);
-    color: #76baff;
+    // color: #76baff;
     font-size: 16px;
   }
 
@@ -440,6 +432,11 @@ const CalendarContents = styled(Calendar)`
   }
 
   // 오늘 날짜 색상
+  .react-calendar__tile--now:focus {
+    background: none;
+    background-color: rgba(43, 118, 56, 0.3);
+  }
+
   .react-calendar__tile--now {
     background: none;
     abbr {
@@ -474,9 +471,19 @@ const CalendarContents = styled(Calendar)`
     color: var(--festie-gray-800, #3a3a3a);
   } */
 
-  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:hover {
+    //hover 했을 때 색상 변경
+    background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
+    color: #76baff;
+  }
+
   .react-calendar__tile:enabled:focus {
     //hover 했을 때 색상 변경
+    background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
+    // color: #76baff;
+  }
+
+  .react-calendar__tile--hasActive {
     background: var(--festie-primary-orange, rgba(43, 118, 56, 0.3));
     color: #76baff;
   }

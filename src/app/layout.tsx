@@ -43,17 +43,17 @@ export default function RootLayout({
         <FooterContainer>
           <Footer />
         </FooterContainer>
-        {/* 
-        <Script src="https://developers.kakao.com/sdk/js/kakao.js" async />
-        <Script
-          // strategy="beforeInteractive"
-          type="text/javascript"
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&libraries=services&autoload=false`}
-        ></Script> */}
 
         <Script src="https://developers.kakao.com/sdk/js/kakao.js" async />
         <Script
-          // strategy="beforeInteractive"
+          strategy="beforeInteractive"
+          type="text/javascript"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&libraries=services&autoload=false`}
+        ></Script>
+
+        <Script src="https://developers.kakao.com/sdk/js/kakao.js" async />
+        <Script
+          strategy="beforeInteractive"
           type="text/javascript"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&libraries=services&autoload=false`}
         ></Script>

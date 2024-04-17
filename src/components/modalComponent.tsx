@@ -5,6 +5,9 @@ import Modal from "react-modal";
 import styled from "styled-components";
 import ModalTabContents from "./ModalTabContents";
 import Slider from "react-slick";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
+import Loading from "@/components/common/loading";
 // import "slick-carousel";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
@@ -21,16 +24,27 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
 
   const [activeTab, setActiveTab] = useState(1);
   const [roomDetail, setRoomDetail] = useState(roomData);
+  const [loading, setLoading] = useState(false);
+  const [roomInfoData, setRoomInfoData] = useState();
+
+  console.log("roomInfoData", roomInfoData);
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
   };
 
   useEffect(() => {
-    console.log("id", id);
-    console.log("roomData", roomData);
-    // setRoomDetail(roomData);
+    setLoading(true);
+    customAxios.get(`${API.ROOM}/${roomDetail.id}`).then((res) => {
+      console.log(`${API.ROOM}/${roomDetail.id} :: 111`, res.data.response);
 
+      setRoomDetail(res.data.response);
+      setRoomInfoData(res.data.response);
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"; // 모달이 열릴 때 스크롤 방지
     } else {
@@ -51,6 +65,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
       contentLabel="상세 보기 모달"
     >
       <div className="r_dm_content">
+        {loading === true ? <Loading /> : null}
         <div className="box_colse_btn">
           <div className="close_btn_section" onClick={closeModal}>
             <img
@@ -66,15 +81,15 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
           <div className="box_title_top">
             <div className="box_title">{roomDetail.name}</div>
             <div className="box_subtitle">
-              기준 {roomDetail.roomTypeVo.standardPeopleCount}인 (최대{" "}
-              {roomDetail.roomTypeVo.maximumPersonnelCount}인)
+              기준 {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대{" "}
+              {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
             </div>
           </div>
           <div className="box_description">{roomData.description}</div>
         </div>
         <div className="box_room_banner">
           <SlickSlider {...settings}>
-            {roomData.imageList.map((item, index) => {
+            {roomDetail.imageList.map((item, index) => {
               return (
                 <div>
                   <img
@@ -93,23 +108,23 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             <div className="box_check_in_out">
               <div className="title_room_badge">체크인</div>
               <div className="time_check_in_out">
-                {roomDetail.checkIn.substring(0, 2)}:
-                {roomDetail.checkIn.substring(2, 4)}
+                {roomDetail.checkIn?.substring(0, 2)}:
+                {roomDetail.checkIn?.substring(2, 4)}
               </div>
             </div>
             <div className="box_check_in_out">
               <div className="title_room_badge">체크아웃</div>
               <div className="time_check_in_out">
-                {roomDetail.checkOut.substring(0, 2)}:
-                {roomDetail.checkOut.substring(2, 4)}
+                {roomDetail.checkOut?.substring(0, 2)}:
+                {roomDetail.checkOut?.substring(2, 4)}
               </div>
             </div>
             <div className="box_standard_person">
               <div className="title_room_badge">기준인원</div>
               <div>
                 <div className="text_standard_person">
-                  {roomDetail.roomTypeVo.standardPeopleCount}인 (최대인원
-                  {roomDetail.roomTypeVo.maximumPersonnelCount}인)
+                  {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대인원
+                  {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
                 </div>
                 <div className="text_add_person">
                   성인 인원 추가(30,000원)시 추가 침구 무료 제공
@@ -140,20 +155,23 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             <div className="box_room_size">
               <div className="title_room_badge">면적</div>
               <div className="content_room_size">
-                {roomDetail.roomTypeVo.size}.00 ㎡
+                {roomDetail.roomTypeVo?.size != null
+                  ? roomDetail.roomTypeVo?.size + ".00 ㎡"
+                  : ""}
               </div>
             </div>
             <div className="box_room_bed">
               <div className="title_room_badge">침대</div>
               <div className="content_room_bed">
-                {roomDetail.roomTypeVo.bedDoubleSizeCount != 0
-                  ? "퀸 사이즈 " + roomDetail.roomTypeVo.bedDoubleSizeCount
+                {roomDetail.roomTypeVo?.bedQueenSizeCount !== undefined
+                  ? "퀸 사이즈 " + roomDetail.roomTypeVo?.bedQueenSizeCount
                   : ""}
-                {roomDetail.roomTypeVo.bedKingSizeCount != 0
-                  ? " / 킹 사이즈 " + roomDetail.roomTypeVo.bedKingSizeCount
+                {roomDetail.roomTypeVo?.bedKingSizeCount !== undefined
+                  ? " / 킹 사이즈 " + roomDetail.roomTypeVo?.bedKingSizeCount
                   : ""}
-                {roomDetail.roomTypeVo.bedSingleSizeCount != 0
-                  ? " / 싱글 사이즈 " + roomDetail.roomTypeVo.bedSingleSizeCount
+                {roomDetail.roomTypeVo?.bedSingleSizeCount !== undefined
+                  ? " / 싱글 사이즈 " +
+                    roomDetail.roomTypeVo?.bedSingleSizeCount
                   : ""}
               </div>
             </div>
@@ -169,11 +187,11 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
                   <div>
                     <img
                       className="img_room_facilities"
-                      src={item.image.imageUrl}
-                      alt={item.image.imageName}
+                      src={item.imageUrl}
+                      alt={item.name}
                     />
                   </div>
-                  <div className="text_room_facilities">{item.name}</div>
+                  <div className="text_room_facilities">{item?.name}</div>
                 </div>
               );
             })}
@@ -183,21 +201,18 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
         <div className="box_room_facilities">
           <div className="title_room_facilities">구비시설</div>
           <div>
-            <div
-              className="content_room_facilities"
-              style={{ marginBottom: "20px" }}
-            >
+            <div className="content_room_facilities">
               {roomDetail.facilitiesList?.map((item, index) => {
                 return (
                   <div className="box_facilities_item">
                     <div>
                       <img
-                        src={item.image.imageUrl}
-                        alt={item.image.imageName}
+                        src={item.imageUrl}
+                        alt={item.name}
                         className="img_room_facilities"
                       />
                     </div>
-                    <div className="text_room_facilities">{item.name}</div>
+                    <div className="text_room_facilities">{item?.name}</div>
                   </div>
                 );
               })}
@@ -212,7 +227,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
               return (
                 <>
                   <div>
-                    <div className="text_room_facilities">{item.name}</div>
+                    <div className="text_room_facilities">{item?.name}</div>
                   </div>
                 </>
               );
@@ -230,7 +245,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
                   return (
                     <>
                       <div>
-                        <div className="text_room_service">{item.name}</div>
+                        <div className="text_room_service">{item?.name}</div>
                       </div>
                     </>
                   );
@@ -244,7 +259,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
                   return (
                     <>
                       <div className="text_room_option">
-                        {item.optionName} ({item.price} 원 / 선택 시에만 제공)
+                        {item?.optionName} ({item.price} 원 / 선택 시에만 제공)
                       </div>
                     </>
                   );
@@ -266,10 +281,12 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             <div className="content_room_service">
               <div className="title_room_badge">연락처</div>
               <div className="text_partner_store_info">
-                {String(roomDetail.ceoPhone).replace(
-                  /^(\d{2,3})(\d{3,4})(\d{4})$/,
-                  `$1-$2-$3`
-                )}
+                {roomDetail.ceoPhone != null
+                  ? String(roomDetail.ceoPhone).replace(
+                      /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                      `$1-$2-$3`
+                    )
+                  : ""}
               </div>
             </div>
             <div className="content_room_service">

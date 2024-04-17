@@ -24,8 +24,9 @@ export default function ConsultingPage() {
             width: "540px",
             height: "500px",
             position: "absolute",
-            left: "690px",
-            top: "250px",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         >
           <div
@@ -86,14 +87,15 @@ export default function ConsultingPage() {
             문의하기 →
           </div>
         </div>
+        {/* <div></div> */}
         <div
           style={{
             display: "flex",
             position: "absolute",
-            // width: "1200px",
             height: "500px",
-            // left: "360px",
-            top: "800px",
+            // top: "90%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             margin: "auto",
           }}
         >
@@ -114,56 +116,63 @@ export default function ConsultingPage() {
       >
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             width: "1200px",
-            fontSize: "50px",
-            fontWeight: "700",
-            color: "#162318",
+            margin: "auto",
           }}
         >
-          Our Partner
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            width: "1200px",
-            fontSize: "19px",
-            fontWeight: "300",
-            marginTop: "80px",
-            lineHeight: "30px",
-            marginBottom: "20px",
-          }}
-        >
-          스테이인터뷰는 가장 자연스러운 휴식에 방향을 두고
-          <br />
-          휴식 공간의 가치에 대한 탐구를 바탕으로 사업의 영역을 확장해 나가고
-          있습니다.
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            width: "1200px",
-            fontSize: "14px",
-            fontWeight: "300",
-            lineHeight: "30px",
-            marginBottom: "50px",
-          }}
-        >
-          파트너란 스테이인터뷰를 함께 만들고 운영해 나갈 파트너점의
-          대표님입니다.
-          <br />
-          코로나 팬데믹 기간동안에도 스테이인터뷰 파트너점에서는 한달 평균
-          예약율 94%를 달성 하였으며,
-          <br />
-          같은 달 28,000 분께서 커피인터뷰를 찾아주셨습니다.
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              // width: "1200px",
+              fontSize: "50px",
+              fontWeight: "700",
+              color: "#162318",
+            }}
+          >
+            Our Partner
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              // width: "1200px",
+              fontSize: "19px",
+              fontWeight: "300",
+              marginTop: "80px",
+              lineHeight: "30px",
+              marginBottom: "20px",
+            }}
+          >
+            스테이인터뷰는 가장 자연스러운 휴식에 방향을 두고
+            <br />
+            휴식 공간의 가치에 대한 탐구를 바탕으로 사업의 영역을 확장해 나가고
+            있습니다.
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              // width: "1200px",
+              fontSize: "14px",
+              fontWeight: "300",
+              lineHeight: "30px",
+              marginBottom: "50px",
+            }}
+          >
+            파트너란 스테이인터뷰를 함께 만들고 운영해 나갈 파트너점의
+            대표님입니다.
+            <br />
+            코로나 팬데믹 기간동안에도 스테이인터뷰 파트너점에서는 한달 평균
+            예약율 94%를 달성 하였으며,
+            <br />
+            같은 달 28,000 분께서 커피인터뷰를 찾아주셨습니다.
+          </div>
         </div>
         <div
           style={{
@@ -354,459 +363,475 @@ export default function ConsultingPage() {
               marginBottom: "10px",
             }}
           >
-            오랫동안 방치된 골조 건물을 카페와 펜션으로 개축하여,
+            오랫동안 방치된 골조 건물을 카페와 펜션으로 개축하여, 2018 강원도
+            건축문화상 대상을 수상하며 강릉 최고의 SNS 사진 명소가 되었습니다.
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginLeft: "100px",
+        }}
+      >
+        <div
+          style={{
+            // width: "1200px",
+            // marginLeft: "400px",
+            paddingTop: "100px",
+          }}
+        >
+          <div>
+            <Image
+              src="/bulbImg.png"
+              alt="전구 아이콘"
+              width={100}
+              height={140}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100px",
+              height: "25px",
+              background: "#203d1e",
+              borderRadius: "4px",
+              color: "#ffffff",
+              fontSize: "20px",
+              fontWeight: "700",
+              margin: "20px 0 20px 0",
+            }}
+          >
+            Point 2
+          </div>
+          <div
+            style={{
+              fontSize: "30px",
+              fontWeight: "600",
+              color: "#162318",
+              marginBottom: "20px",
+            }}
+          >
+            트랜드를 정확히 짚어내는 감각
+          </div>
+          <div
+            style={{
+              fontSize: "19px",
+              fontWeight: "300",
+              color: "#162318",
+              marginBottom: "80px",
+            }}
+          >
+            손님이 끊긴 낡은 펜션을 태국의 휴양지 컨셉으로 리메돌링 하였습니다
+            오픈 직후 예약을 100% 달성 하였으며, 대전 근교의 주말 나들이 명소가
+            되었습니다.
           </div>
           <div style={{ display: "flex" }}>
-            <div style={{ fontSize: "19px", fontWeight: "700" }}>
-              2018 강원도 건축문화상 대상
+            <div
+              style={{
+                width: "420px",
+                height: "400",
+                boxShadow: "5px 0 3px rgba(0, 0, 0, 0.3)",
+                marginRight: "40px",
+              }}
+            >
+              <Image
+                src="/remodelingBeforeImg.png"
+                alt="리모델링 전"
+                width={420}
+                height={400}
+              />
             </div>
-            <div style={{ fontSize: "19px", fontWeight: "300" }}>
-              을 수상하며 강릉 최고의 SNS 사진 명소가 되었습니다.
+            <div
+              style={{
+                // width: "1060px",
+                height: "400px",
+              }}
+            >
+              <img
+                src="/remodelingAfterImg.png"
+                alt="리모델링 후"
+                style={{ width: "100%" }}
+              />
             </div>
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          // width: "1200px",
-          marginLeft: "400px",
-          paddingTop: "100px",
-        }}
-      >
-        <div>
-          <Image
-            src="/bulbImg.png"
-            alt="전구 아이콘"
-            width={100}
-            height={140}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100px",
-            height: "25px",
-            background: "#203d1e",
-            borderRadius: "4px",
-            color: "#ffffff",
-            fontSize: "20px",
-            fontWeight: "700",
-            margin: "20px 0 20px 0",
-          }}
-        >
-          Point 2
-        </div>
-        <div
-          style={{
-            fontSize: "30px",
-            fontWeight: "600",
-            color: "#162318",
-            marginBottom: "20px",
-          }}
-        >
-          트랜드를 정확히 짚어내는 감각
-        </div>
-        <div
-          style={{
-            fontSize: "19px",
-            fontWeight: "300",
-            color: "#162318",
-            marginBottom: "80px",
-          }}
-        >
-          손님이 끊긴 낡은 펜션을 태국의 휴양지 컨셉으로 리메돌링 하였습니다
-          <br />
-          오픈 직후 예약을 100% 달성 하였으며, 대전 근교의 주말 나들이 명소가
-          되었습니다.
-        </div>
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              width: "420px",
-              height: "400",
-              boxShadow: "5px 0 3px rgba(0, 0, 0, 0.3)",
-              marginRight: "40px",
-            }}
-          >
-            <Image
-              src="/remodelingBeforeImg.png"
-              alt="리모델링 전"
-              width={420}
-              height={400}
-            />
           </div>
           <div
-            style={{
-              // width: "1060px",
-              height: "400px",
-            }}
+            style={{ display: "flex", marginTop: "30px", marginBottom: "40px" }}
           >
-            <img
-              src="/remodelingAfterImg.png"
-              alt="리모델링 후"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
-        <div
-          style={{ display: "flex", marginTop: "30px", marginBottom: "40px" }}
-        >
-          <div style={{ marginLeft: "30px" }}>리모델링 전</div>
-          <div style={{ marginLeft: "400px" }}>리모델링 후</div>
-        </div>
-      </div>
-      <div
-        style={{
-          // width: "1920px",
-          background: "#ffffff",
-          paddingTop: "80px",
-          paddingBottom: "50px",
-        }}
-      >
-        <div style={{ margin: "auto", width: "220px", height: "140px" }}>
-          <Image src="/bedImg.png" alt="소파" width={220} height={140} />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "150px",
-            height: "25px",
-            background: "#203d1e",
-            borderRadius: "4px",
-            color: "#ffffff",
-            fontSize: "20px",
-            fontWeight: "700",
-            margin: "30px auto 30px auto",
-          }}
-        >
-          How to Build
-        </div>
-        <div
-          style={{
-            fontSize: "30px",
-            fontWeight: "600",
-            color: "#162318",
-            marginBottom: "20px",
-            textAlign: "center",
-          }}
-        >
-          인테리어 소품 하나까지 세밀하게
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            lineHeight: "30px",
-            marginBottom: "50px",
-          }}
-        >
-          획일화된 인테리어가 아닌 적재적소에 맞는 컨셉을 디자인합니다.
-          <br />
-          컨셉 디자인을 구체화하고 나면 빌드인터뷰팀이 상상을 현실로 구현합니다.
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "250px",
-            height: "50px",
-            borderRadius: "15px",
-            border: "1px solid ",
-            fontSize: "18px",
-            fontWeight: "500",
-            color: "#162318",
-            margin: "auto",
-            marginBottom: "50px",
-          }}
-        >
-          스테이인터뷰 더 보러가기
-        </div>
-        <div
-          style={{
-            display: "flex",
-            // width: "1220px",
-            gap: "40px",
-            margin: "auto",
-          }}
-        >
-          <div>
-            <Image
-              src="/consultingImgBed1.png"
-              alt="스테이인터뷰"
-              width={380}
-              height={460}
-            />
-          </div>
-          <div>
-            <Image
-              src="/consultingImgBed2.png"
-              alt="스테이인터뷰"
-              width={380}
-              height={460}
-            />
-          </div>
-          <div>
-            <Image
-              src="/consultingImgBed3.png"
-              alt="스테이인터뷰"
-              width={380}
-              height={460}
-            />
+            <div style={{ marginLeft: "30px" }}>리모델링 전</div>
+            <div style={{ marginLeft: "400px" }}>리모델링 후</div>
           </div>
         </div>
       </div>
-      <div
-        style={{
-          position: "relative",
-          //  width: "1920px",
-          height: "850px",
-        }}
-      >
+      <div>
         <div
           style={{
             // width: "1920px",
-            height: "850px",
+            background: "#ffffff",
+            paddingTop: "80px",
+            paddingBottom: "50px",
           }}
         >
-          <img
-            src="/consultingBgImg.png"
-            alt="백그라운드 이미지"
-            style={{ width: "100%" }}
-          />
+          <div style={{ margin: "auto", width: "220px", height: "140px" }}>
+            <Image src="/bedImg.png" alt="소파" width={220} height={140} />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "150px",
+              height: "25px",
+              background: "#203d1e",
+              borderRadius: "4px",
+              color: "#ffffff",
+              fontSize: "20px",
+              fontWeight: "700",
+              margin: "30px auto 30px auto",
+            }}
+          >
+            How to Build
+          </div>
+          <div
+            style={{
+              fontSize: "30px",
+              fontWeight: "600",
+              color: "#162318",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            인테리어 소품 하나까지 세밀하게
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              lineHeight: "30px",
+              marginBottom: "50px",
+            }}
+          >
+            획일화된 인테리어가 아닌 적재적소에 맞는 컨셉을 디자인합니다.
+            <br />
+            컨셉 디자인을 구체화하고 나면 빌드인터뷰팀이 상상을 현실로
+            구현합니다.
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "250px",
+              height: "50px",
+              borderRadius: "15px",
+              border: "1px solid ",
+              fontSize: "18px",
+              fontWeight: "500",
+              color: "#162318",
+              margin: "auto",
+              marginBottom: "50px",
+            }}
+          >
+            스테이인터뷰 더 보러가기
+          </div>
+          <div
+            style={{
+              display: "flex",
+              // width: "1220px",
+              gap: "40px",
+              // margin: "auto",
+              justifyContent: "center",
+            }}
+          >
+            <div>
+              <Image
+                src="/consultingImgBed1.png"
+                alt="스테이인터뷰"
+                width={380}
+                height={460}
+              />
+            </div>
+            <div>
+              <Image
+                src="/consultingImgBed2.png"
+                alt="스테이인터뷰"
+                width={380}
+                height={460}
+              />
+            </div>
+            <div>
+              <Image
+                src="/consultingImgBed3.png"
+                alt="스테이인터뷰"
+                width={380}
+                height={460}
+              />
+            </div>
+          </div>
         </div>
+      </div>
+      <div>
         <div
           style={{
-            position: "absolute",
-            display: "flex",
-            gap: "20px",
-            // left: "370px",
-            top: "55px",
+            //  width: "1920px",
+            // height: "850px",
+            position: "relative",
           }}
         >
           <div
-            style={{
-              width: "380px",
-              height: "740px",
-              background: "#ffffff",
-              borderRadius: "15px",
-            }}
+            style={
+              {
+                // width: "1920px",
+                // height: "850px",
+              }
+            }
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "150px",
-                height: "25px",
-                background: "#203d1e",
-                borderRadius: "4px",
-                color: "#ffffff",
-                fontSize: "20px",
-                fontWeight: "700",
-                margin: "30px auto 30px auto",
-              }}
-            >
-              Benefit #1
-            </div>
-            <div
-              style={{
-                fontSize: "30px",
-                fontWeight: "300",
-                color: "#162318",
-                textAlign: "center",
-                marginBottom: "10px",
-              }}
-            >
-              스테이 인터뷰만의
-            </div>
-            <div
-              style={{
-                fontSize: "30px",
-                fontWeight: "600",
-                color: "#162318",
-                textAlign: "center",
-              }}
-            >
-              예약관리 시스템
-            </div>
-            <div style={{ width: "315px", height: "425px", margin: "auto" }}>
-              <Image
-                src="/benefit1.png"
-                alt="베네핏1"
-                width={315}
-                height={425}
-              />
-            </div>
-            <div style={{ textAlign: "center", lineHeight: "30px" }}>
-              스테이에 특화된 예약관리 플랫폼으로
-              <br /> 실시간 예약과 관리에 필요한 다양한 기능들을
-              <br /> 쉽고 간편하게 사용할 수 있습니다.
-            </div>
+            <img
+              src="/consultingBgImg.png"
+              alt="백그라운드 이미지"
+              style={{ width: "100%", height: "850px" }}
+            />
           </div>
-          <div
-            style={{
-              width: "380px",
-              height: "740px",
-              background: "#ffffff",
-              borderRadius: "15px",
-            }}
-          >
+
+          <div>
             <div
               style={{
+                position: "absolute",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "150px",
-                height: "25px",
-                background: "#203d1e",
-                borderRadius: "4px",
-                color: "#ffffff",
-                fontSize: "20px",
-                fontWeight: "700",
-                margin: "30px auto 30px auto",
+                gap: "20px",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
               }}
             >
-              Benefit #2
-            </div>
-            <div
-              style={{
-                fontSize: "30px",
-                fontWeight: "300",
-                color: "#162318",
-                textAlign: "center",
-                marginBottom: "10px",
-              }}
-            >
-              신규 파트너를 위한
-            </div>
-            <div
-              style={{
-                fontSize: "30px",
-                fontWeight: "600",
-                color: "#162318",
-                textAlign: "center",
-              }}
-            >
-              맞춤형 솔루션
-            </div>
-            <div style={{ width: "315px", height: "425px", margin: "auto" }}>
-              <Image
-                src="/benefit2.png"
-                alt="베네핏2"
-                width={315}
-                height={425}
-              />
-            </div>
-            <div style={{ textAlign: "center", lineHeight: "30px" }}>
-              건축, 디자인부터 운영과 마케팅까지
-              <br /> 스테이인터뷰와 한 번에 해결하세요!
-              <br /> 감각적인 디자인과 운영 시스템으로
-              <br /> 최적의 운영 솔루션을 파트너점에 제공합니다.
-            </div>
-          </div>
-          <div
-            style={{
-              width: "380px",
-              height: "740px",
-              background: "#ffffff",
-              borderRadius: "15px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "150px",
-                height: "25px",
-                background: "#203d1e",
-                borderRadius: "4px",
-                color: "#ffffff",
-                fontSize: "20px",
-                fontWeight: "700",
-                margin: "30px auto 30px auto",
-              }}
-            >
-              Benefit #3
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "30px",
-                fontWeight: "300",
-                color: "#162318",
-                textAlign: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <div>광고비</div>
               <div
                 style={{
-                  fontSize: "30px",
-                  fontWeight: "600",
-                  color: "#162318",
-                  textAlign: "center",
-                  marginLeft: "10px",
+                  width: "380px",
+                  height: "740px",
+                  background: "#ffffff",
+                  borderRadius: "15px",
                 }}
               >
-                無
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "150px",
+                    height: "25px",
+                    background: "#203d1e",
+                    borderRadius: "4px",
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    margin: "30px auto 30px auto",
+                  }}
+                >
+                  Benefit #1
+                </div>
+                <div
+                  style={{
+                    fontSize: "30px",
+                    fontWeight: "300",
+                    color: "#162318",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  스테이 인터뷰만의
+                </div>
+                <div
+                  style={{
+                    fontSize: "30px",
+                    fontWeight: "600",
+                    color: "#162318",
+                    textAlign: "center",
+                  }}
+                >
+                  예약관리 시스템
+                </div>
+                <div
+                  style={{ width: "315px", height: "425px", margin: "auto" }}
+                >
+                  <Image
+                    src="/benefit1.png"
+                    alt="베네핏1"
+                    width={315}
+                    height={425}
+                  />
+                </div>
+                <div style={{ textAlign: "center", lineHeight: "30px" }}>
+                  스테이에 특화된 예약관리 플랫폼으로
+                  <br /> 실시간 예약과 관리에 필요한 다양한 기능들을
+                  <br /> 쉽고 간편하게 사용할 수 있습니다.
+                </div>
               </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "30px",
-                fontWeight: "300",
-                color: "#162318",
-                textAlign: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <div>가맹비용</div>
               <div
                 style={{
-                  fontSize: "30px",
-                  fontWeight: "600",
-                  color: "#162318",
-                  textAlign: "center",
-                  marginLeft: "10px",
+                  width: "380px",
+                  height: "740px",
+                  background: "#ffffff",
+                  borderRadius: "15px",
                 }}
               >
-                無
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "150px",
+                    height: "25px",
+                    background: "#203d1e",
+                    borderRadius: "4px",
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    margin: "30px auto 30px auto",
+                  }}
+                >
+                  Benefit #2
+                </div>
+                <div
+                  style={{
+                    fontSize: "30px",
+                    fontWeight: "300",
+                    color: "#162318",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  신규 파트너를 위한
+                </div>
+                <div
+                  style={{
+                    fontSize: "30px",
+                    fontWeight: "600",
+                    color: "#162318",
+                    textAlign: "center",
+                  }}
+                >
+                  맞춤형 솔루션
+                </div>
+                <div
+                  style={{ width: "315px", height: "425px", margin: "auto" }}
+                >
+                  <Image
+                    src="/benefit2.png"
+                    alt="베네핏2"
+                    width={315}
+                    height={425}
+                  />
+                </div>
+                <div style={{ textAlign: "center", lineHeight: "30px" }}>
+                  건축, 디자인부터 운영과 마케팅까지
+                  <br /> 스테이인터뷰와 한 번에 해결하세요!
+                  <br /> 감각적인 디자인과 운영 시스템으로
+                  <br /> 최적의 운영 솔루션을 파트너점에 제공합니다.
+                </div>
               </div>
-            </div>
-            <div
-              style={{
-                width: "315px",
-                height: "330px",
-                margin: "50px auto 50px auto",
-              }}
-            >
-              <Image
-                src="/benefit3.png"
-                alt="베네핏3"
-                width={315}
-                height={330}
-              />
-            </div>
-            <div
-              style={{
-                textAlign: "center",
-                lineHeight: "30px",
-                // marginTop: "40px",
-              }}
-            >
-              스테이인터뷰는 파트너쉽으로 운영하며
-              <br />
-              광고비와 가맹비를 받지 않습니다.
+              <div
+                style={{
+                  width: "380px",
+                  height: "740px",
+                  background: "#ffffff",
+                  borderRadius: "15px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "150px",
+                    height: "25px",
+                    background: "#203d1e",
+                    borderRadius: "4px",
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    margin: "30px auto 30px auto",
+                  }}
+                >
+                  Benefit #3
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "30px",
+                    fontWeight: "300",
+                    color: "#162318",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div>광고비</div>
+                  <div
+                    style={{
+                      fontSize: "30px",
+                      fontWeight: "600",
+                      color: "#162318",
+                      textAlign: "center",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    無
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "30px",
+                    fontWeight: "300",
+                    color: "#162318",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div>가맹비용</div>
+                  <div
+                    style={{
+                      fontSize: "30px",
+                      fontWeight: "600",
+                      color: "#162318",
+                      textAlign: "center",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    無
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "315px",
+                    height: "330px",
+                    margin: "50px auto 50px auto",
+                  }}
+                >
+                  <Image
+                    src="/benefit3.png"
+                    alt="베네핏3"
+                    width={315}
+                    height={330}
+                  />
+                </div>
+                <div
+                  style={{
+                    textAlign: "center",
+                    lineHeight: "30px",
+                    // marginTop: "40px",
+                  }}
+                >
+                  스테이인터뷰는 파트너쉽으로 운영하며
+                  <br />
+                  광고비와 가맹비를 받지 않습니다.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -830,7 +855,8 @@ export default function ConsultingPage() {
         <div
           style={{
             paddingTop: "150px",
-            //  marginLeft: "50px"
+            maxWidth: "700px",
+            marginLeft: "50px",
           }}
         >
           <div
@@ -849,6 +875,7 @@ export default function ConsultingPage() {
               alignItems: "center",
               marginTop: "20px",
               marginBottom: "20px",
+              // width: "830px",
             }}
           >
             <div
@@ -888,7 +915,6 @@ export default function ConsultingPage() {
             style={{
               display: "flex",
               alignItems: "center",
-              width: "830px",
               height: "70px",
               background: "#ffffff",
               borderRadius: "15px",
@@ -907,7 +933,6 @@ export default function ConsultingPage() {
             style={{
               display: "flex",
               alignItems: "center",
-              width: "830px",
               height: "70px",
               background: "#ffffff",
               borderRadius: "15px",
@@ -925,7 +950,7 @@ export default function ConsultingPage() {
           </div>
           <div
             style={{
-              width: "830px",
+              // width: "830px",
               height: "300px",
               background: "#ffffff",
               borderRadius: "15px",
@@ -946,8 +971,8 @@ export default function ConsultingPage() {
               문의내용
             </div>
             <ConsultingInputBox
-              style={{ width: "600px", marginLeft: "10px" }}
-              placeholder="연락받으실 휴대폰 번호를 입력해주세요"
+              style={{ marginLeft: "10px" }}
+              placeholder="상담 내용을 입력해주세요"
             ></ConsultingInputBox>
           </div>
           <div
@@ -962,7 +987,7 @@ export default function ConsultingPage() {
               color: "#ffffff",
               fontSize: "18px",
               fontWeight: "700",
-              margin: "40px 0 0 650px",
+              // margin: "40px 0 0 650px",
               cursor: "pointer",
             }}
           >
@@ -979,7 +1004,8 @@ const ConsultingContainer = styled.div`
 `;
 
 const ConsultingInputBox = styled.input`
-  width: 940px;
+  // width: "830px",
+
   height: 40px;
   border: none;
   border-radius: 15px;

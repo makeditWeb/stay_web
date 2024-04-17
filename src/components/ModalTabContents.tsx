@@ -8,7 +8,7 @@ const ModalTabContents = ({ tabNumber, guideList }) => {
           dangerouslySetInnerHTML={{
             __html: guideList.filter(
               (item) => item.type === "PEOPLE_AND_AMOUNT"
-            )[0].content,
+            )[0]?.content,
           }}
         >
           {/* {
@@ -24,7 +24,7 @@ const ModalTabContents = ({ tabNumber, guideList }) => {
         dangerouslySetInnerHTML={{
           __html: guideList.filter(
             (item) => item.type === "RESERVATION_AND_PAYMENT"
-          )[0].content,
+          )[0]?.content,
         }}
       >
         {/* {
@@ -39,7 +39,7 @@ const ModalTabContents = ({ tabNumber, guideList }) => {
         dangerouslySetInnerHTML={{
           __html: guideList.filter(
             (item) => item.type === "FACILITY_INFORMATION"
-          )[0].content,
+          )[0]?.content,
         }}
       >
         {/* {
@@ -54,7 +54,7 @@ const ModalTabContents = ({ tabNumber, guideList }) => {
         dangerouslySetInnerHTML={{
           __html: guideList.filter(
             (item) => item.type === "SERVICE_INFORMATION"
-          )[0].content,
+          )[0]?.content,
         }}
       >
         {/* {
