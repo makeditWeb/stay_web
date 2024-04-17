@@ -7,7 +7,7 @@ import ModalTabContents from "./ModalTabContents";
 import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-import Loading from "@/components/common/loading";
+// import Loading from "@/components/common/loading";
 // import "slick-carousel";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
@@ -65,7 +65,39 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
       contentLabel="상세 보기 모달"
     >
       <div className="r_dm_content">
-        {loading === true ? <Loading /> : null}
+        {loading === true ? (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                width: "100vw",
+                height: "100vh",
+                top: 0,
+                left: 0,
+                background: "#ffffffb7",
+                zIndex: 99999,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  font: "1rem Noto Sans KR",
+                  textAlign: "center",
+                }}
+              >
+                잠시만 기다려 주세요.
+              </div>
+              <img
+                src={"/assets/loading/spinner_green.gif"}
+                alt="로딩중"
+                width="10%"
+              />
+            </div>
+          </>
+        ) : null}
         <div className="box_colse_btn">
           <div className="close_btn_section" onClick={closeModal}>
             <img
