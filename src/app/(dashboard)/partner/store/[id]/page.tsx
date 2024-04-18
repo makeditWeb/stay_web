@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import Slider from "react-slick";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import "react-kakao-maps-sdk";
@@ -12,10 +12,13 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 export default function RoomDetailPage({ location }: { location: string }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isValid, setIsValid] = useState(false);
 
-  const pathname = usePathname();
   const partnerStoreId = pathname.split("/")[3];
+  const checkInDate: any = searchParams.get("checkInDate");
+  const checkOutDate: any = searchParams.get("checkOutDate");
   const [partnerStoreData, setPartnerStoreData] = useState<any>(null);
   const [longitude, setLongitude] = useState(0); //x좌표
   const [latitude, setLatitude] = useState(0); //y좌표
@@ -27,21 +30,20 @@ export default function RoomDetailPage({ location }: { location: string }) {
   const [noticeData, setNoticeData] = useState<any>([]);
   const [defaultNoticeData, setDefaultNoticeData] = useState<any>([]);
 
-  console.log("latitude", latitude);
-  console.log("longitude", longitude);
-
   const [reservationInfoData, setReservationInfoData] = useState<any>({
-    checkInDate: "",
-    checkOutDate: "",
+    checkInDate: checkInDate || "",
+    checkOutDate: checkOutDate || "",
     adultCount: 0,
     kidCount: 0,
     petCount: 0,
   }); // 예약 정보 데이터
 
   // 카운팅 숫자
-  const [adultCount, setAdultCount] = useState(0);
-  const [kidCount, setKidCount] = useState(0);
-  const [petCount, setPetCount] = useState(0);
+  const [adultCount, setAdultCount] = useState(
+    searchParams.get("adultCount") || 0
+  );
+  const [kidCount, setKidCount] = useState(searchParams.get("kidCount") || 0);
+  const [petCount, setPetCount] = useState(searchParams.get("petCount") || 0);
   const [showEditBox, setShowEditBox] = useState(false);
 
   const handleEditClick = () => {
@@ -162,6 +164,18 @@ export default function RoomDetailPage({ location }: { location: string }) {
   }, [location]);
 
   const onChangeReservationInfo = (e: any) => {
+    //입실일보다 이전날짜 선택 불가
+    if (e.target.name === "checkOutDate") {
+      const checkInDate = new Date(reservationInfoData.checkInDate);
+      const checkOutDate = new Date(e.target.value);
+
+      if (checkInDate > checkOutDate) {
+        alert("입실일보다 이전 날짜를 선택할 수 없습니다.");
+        e.target.value = null;
+        return;
+      }
+    }
+
     setReservationInfoData({
       ...reservationInfoData,
       [e.target.name]: e.target.value,
@@ -285,7 +299,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             id="date"
                             name="checkInDate"
                             onChange={onChangeReservationInfo}
-                            // value={selectedDate}
+                            value={reservationInfoData.checkInDate}
                           />
                         </div>
                       </div>
@@ -298,7 +312,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             id="date"
                             name="checkOutDate"
                             onChange={onChangeReservationInfo}
-                            // value={selectedDate}
+                            value={reservationInfoData.checkOutDate}
                           />
                         </div>
                       </div>
@@ -737,6 +751,14 @@ const MainTitleContainer = styled.div`
 
 const SlickSlider = styled(Slider)`
   border-radius: 15px 0 15px 0;
+
+  .slick-slide img {
+    margin: 0px;
+    // max-width: 1200px;
+    width: 100% !important;
+    // height: 520px;
+    // object-fit: contain;
+  }
 
   .slick-prev:before,
   .slick-next:before {

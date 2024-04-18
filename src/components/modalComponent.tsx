@@ -27,8 +27,6 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
   const [loading, setLoading] = useState(false);
   const [roomInfoData, setRoomInfoData] = useState();
 
-  console.log("roomInfoData", roomInfoData);
-
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
   };

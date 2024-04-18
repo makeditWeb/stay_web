@@ -147,7 +147,7 @@ export default function Mainpage() {
                           id={item.id}
                           onClick={handlePagePartnerStore}
                         >
-                          둘러보기 →
+                          둘러보기
                         </button>
                       </div>
                     </div>

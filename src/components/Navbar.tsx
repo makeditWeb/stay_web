@@ -65,7 +65,7 @@ const NavbarContainer = styled.div`
 `;
 
 const MiddleNavbarDiv = styled.div`
-  width: 32%;
+  width: 35%;
   display: flex;
   align-items: center;
   // justify-content: flex-end;
@@ -83,5 +83,12 @@ const MenuDiv = styled.div`
   color: #ffffff;
   /* margin-left: 10px; */
   margin-right: 50px;
-  cursor: pointer;
+  padding: 5px;
+  box-sizing: border-box;
+
+  &:hover {
+    background: #131d14b3;
+    padding: 5px;
+    box-sizing: border-box;
+  }
 `;

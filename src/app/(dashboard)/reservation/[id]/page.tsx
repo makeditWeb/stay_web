@@ -18,6 +18,7 @@ export default function ReservationPage(props: any) {
 
   const searchParams = useSearchParams();
 
+  const partnerStoreId: any = pathname.split("/").reverse()[0];
   const storeId: any = searchParams.get("storeId");
   const storeName: any = searchParams.get("storeName");
   const englishStoreName: any = searchParams.get("englishStoreName");
@@ -223,7 +224,21 @@ export default function ReservationPage(props: any) {
               </div>
             </div>
           </div>
-          <button className="reservation_previous_btn">이전으로</button>
+          <Link
+            href={{
+              pathname: `/partner/store/${storeId}`,
+              query: {
+                checkInDate: startDate,
+                checkOutDate: endDate,
+                adultCount: adultCount || 0,
+                kidCount: kidCount || 0,
+                petCount: petCount || 0,
+              },
+            }}
+            style={{ textDecoration: "none" }}
+          >
+            <button className="reservation_previous_btn">이전으로</button>
+          </Link>
         </div>
       </div>
       <div className="reservation_right_container">
@@ -329,6 +344,7 @@ export default function ReservationPage(props: any) {
                               href={{
                                 pathname: `/reservation/orders/new/${roomId}`,
                                 query: {
+                                  partnerStoreId: partnerStoreId,
                                   storeId: storeId,
                                   roomId: 1,
                                   roomName: `${item.name}`,

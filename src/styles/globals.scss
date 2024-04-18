@@ -1533,13 +1533,18 @@
   align-items: center;
   justify-content: center;
   margin-top: 8px;
-  width: 100px;
-  height: 27px;
+  width: 90px;
+  height: 40px;
   border: 0.5px solid #000000;
-  border-radius: 16px;
-  font-size: 12px;
+  border-radius: 7px;
+  font-size: 14px;
   font-weight: 300;
   color: #000000;
+}
+
+.our_stay_content_btn:hover {
+  background: #203d1e;
+  color: #ffffff;
 }
 
 //DETAIL
@@ -1694,7 +1699,10 @@
   font-size: 18px;
   font-weight: 600;
   margin-top: 36px;
-  cursor: pointer;
+}
+
+.reservation_info_item_btn:hover {
+  background: #203d1ecc;
 }
 
 //[스토리]
@@ -2129,11 +2137,16 @@
   width: 210px;
   height: 55px;
   background: #f6f5f1;
+  border: #f6f5f1;
   border-radius: 15px;
   color: #203d1e;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.reservation_previous_btn:hover {
+  background: #f6f5f1cc;
 }
 
 .reservation_calendar_container {
@@ -2292,6 +2305,10 @@
   right: 0;
   margin-bottom: 10px;
   margin-right: 10px;
+}
+
+.room_reservation_btn:hover {
+  background: #203d1ecc;
 }
 
 .room_image_container {
