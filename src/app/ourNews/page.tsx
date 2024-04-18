@@ -7,7 +7,7 @@ import { customAxios } from "@/modules/common/api";
 import moment from "moment";
 import "moment/locale/ko";
 import Link from "next/link";
-import Loading from "@/components/common/loading";
+// import Loading from "@/components/common/loading";
 
 export default function OurNewsPage() {
   const [ourNewsList, setOurNewList] = useState([]);
@@ -23,7 +23,37 @@ export default function OurNewsPage() {
 
   return (
     <>
-      {loading === true ? <Loading /> : null}
+      {loading === true ? (
+        <div
+          style={{
+            position: "absolute",
+            width: "100vw",
+            height: "100vh",
+            top: 0,
+            left: 0,
+            background: "#ffffffb7",
+            zIndex: 99999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              font: "1rem Noto Sans KR",
+              textAlign: "center",
+            }}
+          >
+            잠시만 기다려 주세요.
+          </div>
+          <img
+            src={"/assets/loading/spinner_green.gif"}
+            alt="로딩중"
+            width="10%"
+          />
+        </div>
+      ) : null}
       <div className="container_our_news_list">
         <div className="box_title_our_news_list">Our News</div>
         <div className="box_st_news_list">
