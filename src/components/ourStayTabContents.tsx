@@ -3,45 +3,42 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 
-const OurStayTabContents = ({ tabNumber }) => {
+const OurStayTabContents = ({ tabNumber }: any) => {
   if (tabNumber === 1) {
     return (
       <>
-        <HotelContainer>
-          <div style={{ width: "370px", height: "230px" }}>
-            <Image
+        <div className="container_item_our_stay">
+          <div className="wrap_thumb_item_our_stay">
+            <img
               src="/hotelListImg.png"
               alt="임시 이미지"
-              width={370}
-              height={230}
+              className="thumb_item_our_stay"
             />
           </div>
-          <div style={{ display: "flex", marginTop: "45px" }}>
-            <HotelContents>
+          <div className="wrap_list_item_our_stay">
+            <div className="list_item_our_stay">
               <div>
-                <div style={{ fontSize: "18px", fontWeight: "700" }}>
-                  스테이인텁, 영동
-                </div>
-                <div style={{ fontSize: "12px", fontWeight: "300" }}>
+                <div className="title_item_our_stay">스테이인텁, 영동</div>
+                <div className="text_item_our_stay">
                   제주특별자치도 서귀포시 중문관광로 288
                 </div>
               </div>
 
               <Link
-                href={{ pathname: "/roomDetail" }}
+                href={{ pathname: "/partner/store/6" }}
                 style={{ textDecoration: "none" }}
               >
-                <DetailPostButton>둘러보기 →</DetailPostButton>
+                <div className="btn_item_our_stay">둘러보기</div>
               </Link>
-            </HotelContents>
+            </div>
           </div>
-        </HotelContainer>
+        </div>
       </>
     );
   } else if (tabNumber === 2) {
     return (
       <>
-        <HotelContainer>
+        <div className="container_item_our_stay">
           <div style={{ width: "370px", height: "230px" }}>
             <Image
               src="/hotelListImg.png"
@@ -69,36 +66,7 @@ const OurStayTabContents = ({ tabNumber }) => {
               </Link>
             </HotelContents>
           </div>
-        </HotelContainer>
-        <HotelContainer>
-          <div style={{ width: "370px", height: "230px" }}>
-            <Image
-              src="/hotelListImg.png"
-              alt="임시 이미지"
-              width={370}
-              height={230}
-            />
-          </div>
-          <div style={{ display: "flex", marginTop: "45px" }}>
-            <HotelContents>
-              <div>
-                <div style={{ fontSize: "18px", fontWeight: "700" }}>
-                  스테이인텁, 영동
-                </div>
-                <div style={{ fontSize: "12px", fontWeight: "300" }}>
-                  제주특별자치도 서귀포시 중문관광로 288
-                </div>
-              </div>
-
-              <Link
-                href={{ pathname: "/roomDetail" }}
-                style={{ textDecoration: "none" }}
-              >
-                <DetailPostButton>둘러보기 →</DetailPostButton>
-              </Link>
-            </HotelContents>
-          </div>
-        </HotelContainer>
+        </div>
       </>
     );
   } else if (tabNumber === 3) {

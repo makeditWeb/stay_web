@@ -13,138 +13,84 @@ export default function OurStayPage() {
   };
 
   return (
-    <OurStayContainer>
-      <div style={{ position: "relative", width: "100vw", height: "750px" }}>
-        <Image
+    <div className="container_our_stay">
+      <div className="div_header_our_stay">
+        <img
           src="/ourStayImg.png"
           alt="대표 이미지"
-          style={{ width: "100vw", height: "750px" }}
-          width={1920}
-          height={750}
+          className="img_header_our_stay"
         />
-        <div
-          style={{
-            width: "500px",
-            height: "320px",
-            position: "absolute",
-            left: "42%",
-            top: "225px",
-            borderRadius: "15px",
-            color: "#ffffff",
-            background: "rgba(40, 19, 10, 0.4)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "500px",
-              fontSize: "16px",
-              fontWeight: "300",
-              marginTop: "50px",
-            }}
-          >
+        <div className="container_header_our_stay">
+          <div className="title_header_top_our_stay">
             일상으로 부터의 피신처
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "500px",
-              fontSize: "35px",
-              fontWeight: "700",
-              marginTop: "20px",
-            }}
-          >
-            스테이인터뷰, 태안
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "500px",
-              fontSize: "16px",
-              fontWeight: "300",
-              lineHeight: "30px",
-              marginTop: "20px",
-              marginBottom: "30px",
-            }}
-          >
+          <div className="title_header_mid_our_stay">스테이인터뷰, 태안</div>
+          <div className="title_header_bot_our_stay">
             고요하고 편안함을 주는 풍광속의 스테이인터뷰 태안.
             <br />그 분위기 속에서 쉼의 마침표를 찍어보자.
           </div>
+          <div className="btn_header_our_stay">둘러보기 →</div>
+        </div>
+      </div>
+      <div className="container_content_our_stay">
+        <div className="title_content_our_stay">OUR STAY</div>
+        <div className="tab_content_our_stay">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100px",
-              height: "32px",
-              fontSize: "15px",
-              fontWeight: "700",
-              border: "1px solid #ffffff",
-              borderRadius: "15px",
-              margin: "auto",
-            }}
+            className={
+              activeTab == 1 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(1)}
           >
-            둘러보기 →
+            전체
+          </div>
+          <div
+            className={
+              activeTab == 2 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(2)}
+          >
+            객실
+          </div>
+          <div
+            className={
+              activeTab == 3 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(3)}
+          >
+            방갈로
+          </div>
+          <div
+            className={
+              activeTab == 4 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(4)}
+          >
+            카라반
+          </div>
+          <div
+            className={
+              activeTab == 5 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(5)}
+          >
+            글램핑
+          </div>
+          <div
+            className={
+              activeTab == 6 ? "btn_tab_content_active" : "btn_tab_content"
+            }
+            onClick={() => handleTabClick(6)}
+          >
+            풀카바나
           </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "1200px",
-          margin: "auto",
-          marginTop: "40px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "32px",
-            fontWeight: "700",
-            color: "#203D1E",
-          }}
-        >
-          OUR STAY
-        </div>
-        <div style={{ display: "flex", gap: "15px" }}>
-          <TabBtn active={activeTab === 1} onClick={() => handleTabClick(1)}>
-            전체
-          </TabBtn>
-          <TabBtn active={activeTab === 2} onClick={() => handleTabClick(2)}>
-            객실
-          </TabBtn>
-          <TabBtn active={activeTab === 3} onClick={() => handleTabClick(3)}>
-            방갈로
-          </TabBtn>
-          <TabBtn active={activeTab === 4} onClick={() => handleTabClick(4)}>
-            카라반
-          </TabBtn>
-          <TabBtn active={activeTab === 5} onClick={() => handleTabClick(5)}>
-            글램핑
-          </TabBtn>
-          <TabBtn active={activeTab === 6} onClick={() => handleTabClick(6)}>
-            풀카바나
-          </TabBtn>
-        </div>
-      </div>
-      <div
-        style={{
-          width: "1200px",
-          margin: "auto",
-          marginTop: "40px",
-        }}
-      >
-        <HotelListContainer>
+      <div className="div_content_our_stay">
+        <div className="list_our_stay">
           <OurStayTabContents tabNumber={activeTab} />
-        </HotelListContainer>
+        </div>
       </div>
-    </OurStayContainer>
+    </div>
   );
 }
 
