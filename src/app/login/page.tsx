@@ -19,55 +19,57 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ height: "100%", background: "#f6f5f1" }}>
-      <LoginContainer>
-        <LoginTextDiv>Login</LoginTextDiv>
-        <AccountInput
-          style={{
-            marginBottom: "25px",
-          }}
-        >
-          <LoginInputDiv placeholder="휴대폰 번호를 입력해주세요."></LoginInputDiv>
-        </AccountInput>
-        <AccountInput
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <PasswardInputDiv placeholder="비밀번호를 입력해주세요."></PasswardInputDiv>
-        </AccountInput>
-        <SignDiv>
-          <Link
-            href={{ pathname: "/signUp" }}
-            style={{ textDecoration: "none" }}
-          >
-            <SignUpButton>회원가입</SignUpButton>
-          </Link>
-          <AccountFind>
-            <IdPasswardFindDiv>아이디 찾기</IdPasswardFindDiv>|
-            <IdPasswardFindDiv>비밀번호 찾기</IdPasswardFindDiv>
-          </AccountFind>
-        </SignDiv>
-        <GeneralLoginButton onClick={onClickLogin}>로그인</GeneralLoginButton>
-        {/* <KakaoLogin
+    <div className="container_login">
+      <div className="wrap_login">
+        <div className="header_title_login">Login</div>
+        <div className="section_login">
+          <input
+            className="inp_login"
+            placeholder="휴대폰 번호를 입력해주세요."
+          ></input>
+        </div>
+        <div className="section_login">
+          <input
+            className="inp_login"
+            placeholder="비밀번호를 입력해주세요."
+          ></input>
+        </div>
+        <div className="section_sign_in">
+          <div className="inner_sign_in">
+            <Link
+              href={{ pathname: "/signUp" }}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="btn_sign_in">회원가입</div>
+            </Link>
+          </div>
+
+          <div className="inner_find_account">
+            <div className="btn_find_account">아이디 찾기</div>|
+            <div className="btn_find_account">비밀번호 찾기</div>
+          </div>
+        </div>
+        <div className="section_btn">
+          <div className="btn_login" onClick={onClickLogin}>
+            로그인
+          </div>
+          {/* <KakaoLogin
           token={kakaoClientId}
           onSuccess={kakaoOnSuccess}
           onFail={kakaoOnFailure}
         /> */}
 
-        <KakaoLoginButton onClick={handleLogin}>
-          <Image
-            src="/kakaoIcon.png"
-            alt="카카오 로그인 버튼"
-            width={20}
-            height={18}
-          />
-          <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-            카카오 로그인
+          <div className="btn_kakao" onClick={handleLogin}>
+            <img
+              src="/kakaoIcon.png"
+              alt="카카오 로그인 버튼"
+              className="img_btn_kakao"
+            />
+            <div className="title_kakao_login">카카오 로그인</div>
           </div>
-        </KakaoLoginButton>
-        <ReservationInquiryButton>비회원 예약조회</ReservationInquiryButton>
-      </LoginContainer>
+          <div className="btn_reservation_non_member">비회원 예약조회</div>
+        </div>
+      </div>
     </div>
   );
 }

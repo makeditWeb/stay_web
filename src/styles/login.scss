@@ -1,0 +1,177 @@
+@media screen and (max-width: 1199px) {
+  body {
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    // width: 755px;
+  }
+
+  body {
+    .wrap_login {
+      width: 100%;
+      padding: 0 20px;
+      padding-top: 100px;
+      box-sizing: border-box;
+    }
+
+    .section_login {
+      width: 100%;
+    }
+
+    .btn_login {
+      width: 100%;
+    }
+
+    .btn_kakao {
+      width: 100%;
+    }
+
+    .btn_reservation_non_member {
+      width: 100%;
+    }
+  }
+}
+
+.container_login {
+  height: 100%;
+  background: #f6f5f1;
+}
+
+.wrap_login {
+  width: 500px;
+  height: 700px;
+  margin: auto;
+  padding-top: 100px;
+}
+
+.header_title_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 150px;
+  font-size: 50px;
+  font-weight: 700;
+  color: #162318;
+}
+
+.section_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 76px;
+  background: #ffffff;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.inp_login {
+  width: 450px;
+  height: 35px;
+  range: 15px;
+  border: none;
+  border-radius: 15px;
+  background: #ffffff;
+
+  &::placeholder {
+    font-size: 15px;
+    font-weight: 300;
+    color: #d4d4d4;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.section_sign_in {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.inner_sign_in {
+}
+
+.section_btn {
+}
+
+.btn_sign_in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 82px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #162318;
+  cursor: pointer;
+}
+
+.inner_find_account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 15px;
+  color: #162318;
+}
+
+.btn_find_account {
+  font-size: 18px;
+  font-weight: 300;
+  color: #162318;
+  cursor: pointer;
+}
+
+.btn_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 52px;
+  border-radius: 15px;
+  background: #203d1e;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.btn_kakao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 52px;
+  border-radius: 15px;
+  background: #fee500;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.img_btn_kakao {
+  width: 20px;
+  height: 18px;
+}
+
+.title_kakao_login {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.btn_reservation_non_member {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 52px;
+  font-size: 18px;
+  border-radius: 15px;
+  background: #c2bfb3;
+  color: #ffffff;
+  cursor: pointer;
+}

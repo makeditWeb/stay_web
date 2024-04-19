@@ -6,6 +6,7 @@ import "@/styles/globals.scss";
 import "@/styles/roomDetailModal.scss";
 import "@/styles/consulting.scss";
 import "@/styles/ourStay.scss";
+import "@/styles/login.scss";
 import "slick-carousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
