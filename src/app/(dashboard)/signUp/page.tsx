@@ -114,281 +114,162 @@ export default function SignUpPage() {
   };
 
   return (
-    <SignUpContainer>
-      <SignUpTextContainer>
+    <div className="container_sign_up">
+      <div className="header_title_sign_up">
         <div>
-          <SignUpText>Sign Up</SignUpText>
-          <SignUpWords>스테이인터뷰의 회원이 되어주세요.</SignUpWords>
+          <div className="header_title_sign_up">Sign Up</div>
+          <div className="header_subtitle_sign_up">
+            스테이인터뷰의 회원이 되어주세요.
+          </div>
         </div>
-      </SignUpTextContainer>
-      <InformationContainer>
-        <div
-          style={{
-            height: "390px",
-          }}
-        >
-          <InformationInputContainer>
-            <InformationText>이름</InformationText>
-            <InformationInputDiv>
-              <InformationInput placeholder="이름을 입력해주세요." />
-            </InformationInputDiv>
-          </InformationInputContainer>
-          <InformationInputContainer>
-            <InformationText>이메일</InformationText>
-            <InformationInputDiv>
-              <InformationInput placeholder="이메일을 입력해주세요." />
-            </InformationInputDiv>
-          </InformationInputContainer>
-          <InformationInputContainer>
-            <InformationText>비밀번호</InformationText>
-            <InformationInputDiv>
-              <InformationInput
+      </div>
+      <div className="section_information">
+        <div className="wrap_information">
+          <div className="inner_information">
+            <div className="title_information">이름</div>
+            <div className="div_input_information">
+              <input
+                className="inp_information"
+                type="text"
+                placeholder="이름을 입력해주세요."
+              />
+            </div>
+          </div>
+          <div className="inner_information">
+            <div className="title_information">이메일</div>
+            <div className="div_input_information">
+              <input
+                className="inp_information"
+                type="text"
+                placeholder="이메일을 입력해주세요."
+              />
+            </div>
+          </div>
+          <div className="inner_information">
+            <div className="title_information">비밀번호</div>
+            <div className="div_input_information">
+              <input
+                className="inp_information"
                 type="password"
                 placeholder="비밀번호를 입력해주세요."
               />
-            </InformationInputDiv>
-          </InformationInputContainer>
-          <InformationInputContainer>
-            <InformationText style={{ background: "none" }}></InformationText>
-            <InformationInputDiv>
-              <InformationInput
+            </div>
+          </div>
+          <div className="inner_information">
+            <div className="title_information_none"></div>
+            <div className="div_input_information">
+              <input
+                className="inp_information"
                 type="password"
                 placeholder="비밀번호 확인을 위해 재입력해주세요."
               />
-            </InformationInputDiv>
-          </InformationInputContainer>
-          <InformationInputContainer>
-            <InformationText>연락처</InformationText>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <InformationInputDiv style={{ width: "800px" }}>
-                <InformationInput
+            </div>
+          </div>
+          <div className="inner_information">
+            <div className="title_information">연락처</div>
+            <div className="div_check_input_information">
+              <div className="div_input_information_phone">
+                <input
+                  className="inp_check_information"
                   type="text"
                   value={phoneNumber}
                   onChange={handlePhoneNumberChange}
-                  style={{ width: "770px" }}
                   placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요. )"
                 />
-              </InformationInputDiv>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "150px",
-                  height: "50px",
-                  background: "#203d1e",
-                  borderRadius: "15px",
-                  color: "#ffffff",
-                  marginLeft: "20px",
-                  cursor: "pointer",
-                }}
-              >
-                인증번호 받기
               </div>
+              <div className="btn_get_verification_code">인증번호 받기</div>
             </div>
-          </InformationInputContainer>
-          <InformationInputContainer>
-            <InformationText style={{ background: "none" }}></InformationText>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <InformationInputDiv style={{ width: "800px" }}>
-                <InformationInput
-                  style={{ width: "770px" }}
+          </div>
+          <div className="inner_information_phone">
+            <div className="title_information_none"></div>
+            <div className="div_check_input_information">
+              <div className="div_input_information_phone">
+                <input
+                  className="inp_check_information"
+                  type="text"
                   placeholder="인증번호를 입력해주세요."
                 />
-              </InformationInputDiv>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "150px",
-                  height: "50px",
-                  background: "#9bac9a",
-                  borderRadius: "15px",
-                  color: "#ffffff",
-                  marginLeft: "20px",
-                  cursor: "pointer",
-                }}
-              >
-                인증하기
               </div>
+              <div className="btn_authenticate">인증하기</div>
             </div>
-          </InformationInputContainer>
+          </div>
         </div>
-      </InformationContainer>
-      <div>
-        <div
-          style={{
-            height: "50px",
-            fontSize: "32px",
-            fontWeight: "700",
-            color: "#162318",
-          }}
-        >
-          사용자 이용약관
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "1200px",
-            height: "100%",
-            borderRadius: "15px",
-            background: "#ffffff",
-          }}
-        >
-          <div style={{ height: "100%", padding: "50px" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "1060px",
-                margin: " auto",
-                fontSize: "20px",
-                fontWeight: "500",
-                gap: "20px",
-              }}
-            >
-              <CheckBox
+      </div>
+      <div className="section_terms_use">
+        <div className="title_terms_use">사용자 이용약관</div>
+        <div className="content_terms_use">
+          <div className="box_terms_use">
+            <div className="wrap_temrs_use">
+              <input
+                className="inp_checkbox_terms_use"
                 type="checkbox"
                 id="ckbox"
                 checked={isChecked}
                 onChange={handleSelectAllChange}
-              ></CheckBox>
-              <CheckBoxLabel htmlFor="ckbox"></CheckBoxLabel>
+              ></input>
+              <label
+                className="lebel_checkbox_terms_use"
+                htmlFor="ckbox"
+              ></label>
               전체동의
             </div>
-            <div
-              style={{
-                width: "1060px",
-                border: "1px solid #d9d9d9",
-                marginTop: "20px",
-              }}
-            ></div>
-            <div style={{ width: "1000px", margin: "auto", marginTop: "30px" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <CheckBox
+            <div className="line_terms_use"></div>
+            <div className="wrap_content_terms_use">
+              <div className="inner_content_terms_use">
+                <input
+                  className="inp_checkbox_terms_use"
                   type="checkbox"
                   id="ckbox1"
                   checked={isTermsOfUseChecked}
                   onChange={termsOfUseCheckedHandler}
-                ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox1"></CheckBoxLabel>
-                <div style={{ marginLeft: "20px", width: "930px" }}>
+                ></input>
+                <label
+                  className="lebel_checkbox_terms_use"
+                  htmlFor="ckbox1"
+                ></label>
+                <div className="title_content_terms_use">
                   스테이 인터뷰 이용약관 동의 (필수)
                 </div>
-                <Image
+                <img
                   src={termsOfUse}
                   alt="화살표"
-                  width={15}
-                  height={10}
-                  style={{ cursor: "pointer" }}
+                  className="img_checkbox_terms_use"
                   onClick={termsOfUseHandler}
                 />
               </div>
             </div>
             {termsOfUseToggle && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "1000px",
-                  height: "320px",
-                  background: "#f8f8f8",
-                  fontSize: "14px",
-                  fontWeight: "300",
-                  margin: "auto",
-                  marginTop: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "900px",
-                    height: "220px",
-                    margin: "auto",
-                    lineHeight: "20px",
-                  }}
-                >
-                  커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                  가능커피트 조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능
-                </div>
+              <div className="section_terms_conditions">
+                <div className="content_terms_conditions"></div>
               </div>
             )}
-            <div style={{ width: "1000px", margin: "auto", marginTop: "30px" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <CheckBox
+            <div className="wrap_content_terms_use">
+              <div className="inner_content_terms_use">
+                <input
+                  className="inp_checkbox_terms_use"
                   type="checkbox"
                   id="ckbox2"
                   checked={isCollectionChecked}
                   onChange={collectionCheckedHandler}
-                ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox2"></CheckBoxLabel>
-                <div style={{ marginLeft: "20px", width: "930px" }}>
+                ></input>
+                <label
+                  className="lebel_checkbox_terms_use"
+                  htmlFor="ckbox2"
+                ></label>
+                <div className="title_content_terms_use">
                   개인정보 수집 및 이용 동의 (필수)
                 </div>
-                <Image
+                <img
+                  className="img_checkbox_terms_use"
                   src={collectionInformation}
                   alt="화살표"
-                  width={15}
-                  height={10}
-                  style={{ cursor: "pointer" }}
                   onClick={collectionHandler}
                 />
               </div>
             </div>
             {collectionInformationToggle && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "1000px",
-                  height: "320px",
-                  background: "#f8f8f8",
-                  fontSize: "14px",
-                  fontWeight: "300",
-                  margin: "auto",
-                  marginTop: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "900px",
-                    height: "220px",
-                    margin: "auto",
-                    lineHeight: "20px",
-                  }}
-                >
+              <div className="section_terms_conditions">
+                <div className="content_terms_conditions">
                   커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
@@ -412,50 +293,33 @@ export default function SignUpPage() {
                 </div>
               </div>
             )}
-            <div style={{ width: "1000px", margin: "auto", marginTop: "30px" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <CheckBox
+            <div className="wrap_content_terms_use">
+              <div className="inner_content_terms_use">
+                <input
+                  className="inp_checkbox_terms_use"
                   type="checkbox"
                   id="ckbox3"
                   checked={isAgeChecked}
                   onChange={ageCheckedHandler}
-                ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox3"></CheckBoxLabel>
-                <div style={{ marginLeft: "20px", width: "930px" }}>
+                ></input>
+                <label
+                  className="lebel_checkbox_terms_use"
+                  htmlFor="ckbox3"
+                ></label>
+                <div className="title_content_terms_use">
                   만 14세 이상 확인 (필수)
                 </div>
-                <Image
+                <img
                   src={ageCheck}
                   alt="화살표"
-                  width={15}
-                  height={10}
-                  style={{ cursor: "pointer" }}
+                  className="img_checkbox_terms_use"
                   onClick={ageCheckHandler}
                 />
               </div>
             </div>
             {ageCheckToggle && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "1000px",
-                  height: "320px",
-                  background: "#f8f8f8",
-                  fontSize: "14px",
-                  fontWeight: "300",
-                  margin: "auto",
-                  marginTop: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "900px",
-                    height: "220px",
-                    margin: "auto",
-                    lineHeight: "20px",
-                  }}
-                >
+              <div className="section_terms_conditions">
+                <div className="content_terms_conditions">
                   커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
@@ -479,50 +343,33 @@ export default function SignUpPage() {
                 </div>
               </div>
             )}
-            <div style={{ width: "1000px", margin: "auto", marginTop: "30px" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <CheckBox
+            <div className="wrap_content_terms_use">
+              <div className="inner_content_terms_use">
+                <input
+                  className="inp_checkbox_terms_use"
                   type="checkbox"
                   id="ckbox4"
                   checked={isReceivingChecked}
                   onChange={receivingCheckedHandler}
-                ></CheckBox>
-                <CheckBoxLabel htmlFor="ckbox4"></CheckBoxLabel>
-                <div style={{ marginLeft: "20px", width: "930px" }}>
+                ></input>
+                <label
+                  className="lebel_checkbox_terms_use"
+                  htmlFor="ckbox4"
+                ></label>
+                <div className="title_content_terms_use">
                   마케팅 정보 수신 (선택)
                 </div>
-                <Image
+                <img
                   src={receivingInformation}
                   alt="화살표"
-                  width={15}
-                  height={10}
-                  style={{ cursor: "pointer" }}
+                  className="img_checkbox_terms_use"
                   onClick={receivingHandler}
                 />
               </div>
             </div>
             {receivingInformationToggle && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "1000px",
-                  height: "320px",
-                  background: "#f8f8f8",
-                  fontSize: "14px",
-                  fontWeight: "300",
-                  margin: "auto",
-                  marginTop: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "900px",
-                    height: "220px",
-                    margin: "auto",
-                    lineHeight: "20px",
-                  }}
-                >
+              <div className="section_terms_conditions">
+                <div className="content_terms_conditions">
                   커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
                   가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
@@ -549,24 +396,8 @@ export default function SignUpPage() {
           </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "1200px",
-          height: "78px",
-          background: "#203d1e",
-          borderRadius: "15px",
-          color: "#ffffff",
-          fontSize: "25px",
-          fontWeight: "600",
-          margin: " 75px 0 75px 0",
-        }}
-      >
-        회원 가입하기
-      </div>
-    </SignUpContainer>
+      <div className="btn_sign_up">회원 가입하기</div>
+    </div>
   );
 }
 
