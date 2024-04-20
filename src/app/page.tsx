@@ -17,8 +17,6 @@ export default function Mainpage() {
   const router = useRouter();
   const pathName = usePathname();
 
-  console.log("mainBannerList", mainBannerList);
-
   const settings = {
     dots: true,
     infintie: true,

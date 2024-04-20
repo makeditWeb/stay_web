@@ -1,16 +1,31 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function Navbar() {
   const pathName = usePathname();
 
-  const toggleSidebar = () => {
-    console.log("toggleSidebar");
+  const accessToken = localStorage.getItem("accessToken");
+  const [acName, setAcName] = useState("");
 
+  useEffect(() => {
+    if (accessToken !== null) {
+      customAxios.get(`${API.USER_WEB}/info`).then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.response));
+        localStorage.setItem("acName", res.data.response.acName);
+        setAcName(res.data.response.acName);
+      });
+    }
+
+    setAcName(localStorage.getItem("acName"));
+  }, [pathName]);
+
+  const toggleSidebar = () => {
     // const menu = document.querySelector(".menu");
     document
       .getElementsByClassName("section_bar")[0]
@@ -18,6 +33,14 @@ export default function Navbar() {
     document
       .getElementsByClassName("navbar_container")[0]
       .classList.toggle("active");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    localStorage.removeItem("acName");
+    window.location.href = "/";
   };
 
   return (
@@ -47,12 +70,22 @@ export default function Navbar() {
           </Link>
         </MiddleNavbarDiv>
         <RightNavbarDiv className="navbar_div">
-          <Link
-            href={{ pathname: "/login" }}
-            style={{ textDecoration: "none" }}
-          >
-            <MenuDiv>Login</MenuDiv>
-          </Link>
+          {accessToken === null ? (
+            <Link
+              href={{ pathname: "/login" }}
+              style={{ textDecoration: "none" }}
+            >
+              <MenuDiv>Login</MenuDiv>
+            </Link>
+          ) : (
+            <>
+              <div>
+                <HeaderUserName>{acName}</HeaderUserName>
+                <MenuDiv onClick={logout}>Logout</MenuDiv>
+              </div>
+            </>
+          )}
+
           <Link
             href="https://www.instagram.com/stay.interview"
             style={{ width: "36px", height: "36px" }}
@@ -146,6 +179,14 @@ const RightNavbarDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const HeaderUserName = styled.div`
+  font-size: 18px;
+  color: #ffffff;
+  padding: 5px;
+  box-sizing: border-box;
+  // margin-right: 10px;
 `;
 
 const MenuDiv = styled.div`

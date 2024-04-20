@@ -14,6 +14,7 @@ export const API = {
   MAIN_BANNER: "/main-banner",
   NOTICE: "/notice",
   OUR_NEWS: "our_news",
+  USER_WEB: "/user-web",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",
 };
