@@ -1,0 +1,77 @@
+@media screen and (max-width: 1199px) {
+  body {
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    // width: 755px;
+  }
+
+  body {
+    .menu {
+      /* 햄버거 메뉴 아이콘 스타일 */
+      display: block;
+      cursor: pointer;
+      width: 25px;
+      height: 30px;
+      position: relative;
+    }
+
+    .menu.active .bar {
+      /* 햄버거 메뉴 활성화 상태일 때 바의 위치를 조정 */
+      position: absolute;
+    }
+
+    .menu.active .bar:nth-child(2) {
+      /* 햄버거 메뉴 활성화 상태일 때 중간 바를 투명하게 만들어 숨김 */
+      opacity: 0;
+    }
+
+    .menu.active .bar:first-child {
+      /* 햄버거 메뉴 활성화 상태일 때 상단 바를 45도 회전 */
+      top: 25%;
+      transform: rotate(45deg);
+    }
+
+    .menu.active .bar:last-child {
+      /* 햄버거 메뉴 활성화 상태일 때 하단 바를 -45도 회전 */
+      top: 25%;
+      transform: rotate(-45deg);
+    }
+
+    .bar {
+      /* 햄버거 바 스타일 */
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 6px 0;
+      transition: 1s; /* 트랜지션 효과로 부드러운 애니메이션 적용 */
+    }
+
+    .section_bar {
+      background: rgba(22, 35, 24, 0.8);
+      padding: 0 14px;
+      display: none;
+    }
+
+    .section_bar.active {
+      background: rgba(22, 35, 24, 0.8);
+      padding: 0 14px;
+      display: block;
+    }
+
+    .navbar_container.active {
+      background: rgba(22, 35, 24, 0.8);
+    }
+  }
+}
+
+.menu {
+  /* 햄버거 메뉴 아이콘 스타일 */
+  display: none;
+}
+
+.section_bar {
+  display: none;
+}
