@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import styled from "styled-components";
 
 export default function SignUpPage() {
@@ -111,6 +110,13 @@ export default function SignUpPage() {
         : "/topVector.png"
     );
     setReceivingInformationToggle(!receivingInformationToggle);
+  };
+
+  const termsOfUseContent = () => {
+    return {
+      __html:
+        '<iframe src="@/app/TermsOfUse" width="100%" height="100%"></iframe>',
+    };
   };
 
   return (
@@ -240,7 +246,10 @@ export default function SignUpPage() {
             </div>
             {termsOfUseToggle && (
               <div className="section_terms_conditions">
-                <div className="content_terms_conditions"></div>
+                <div
+                  className="content_terms_conditions"
+                  // dangerouslySetInnerHTML={}
+                ></div>
               </div>
             )}
             <div className="wrap_content_terms_use">

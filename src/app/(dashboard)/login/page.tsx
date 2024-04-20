@@ -67,7 +67,12 @@ export default function LoginPage() {
             />
             <div className="title_kakao_login">카카오 로그인</div>
           </div>
-          <div className="btn_reservation_non_member">비회원 예약조회</div>
+          <Link
+            href={{ pathname: "/reservation/check" }}
+            style={{ textDecoration: "none" }}
+          >
+            <div className="btn_reservation_non_member">비회원 예약조회</div>
+          </Link>
         </div>
       </div>
     </div>

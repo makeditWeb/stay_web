@@ -1,0 +1,89 @@
+@media screen and (max-width: 1199px) {
+  body {
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    // width: 755px;
+  }
+
+  body {
+    .container_reservation_check {
+      width: 100%;
+      padding: 30px 20px 150px 20px;
+      box-sizing: border-box;
+    }
+
+    .inp_reservation_check {
+      width: 100%;
+      height: 65px;
+      box-sizing: border-box;
+    }
+
+    .btn_reservation_check {
+      width: 100%;
+    }
+  }
+}
+
+.container_reservation_check {
+  width: 500px;
+  margin: auto;
+  margin-top: 150px;
+  padding-top: 30px;
+  padding-bottom: 150px;
+}
+
+.section_reservation_check {
+  width: 100%;
+}
+
+.title_reservation_check {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  color: #162318;
+  margin-bottom: 20px;
+}
+
+.sub_title_reservation_check {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 300;
+  color: #162318;
+  margin-bottom: 100px;
+}
+
+.inp_reservation_check {
+  width: 475px;
+  height: 75px;
+  border: none;
+  border-radius: 15px;
+  padding-left: 25px;
+  margin: 10px 0;
+
+  &::placeholder {
+    font-size: 15px;
+    font-weight: 300;
+    color: #c8cdc6;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn_reservation_check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 72px;
+  background: #203d1e;
+  border-radius: 15px;
+  font-size: 25px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 40px;
+}

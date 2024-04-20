@@ -26,43 +26,30 @@ export default function ReservationCheckPage() {
   };
 
   return (
-    <ReservatioonCheckContainer>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "50px",
-          fontWeight: "700",
-          color: "#162318",
-          marginBottom: "20px",
-        }}
-      >
-        Reservation Check
+    <div className="container_reservation_check">
+      <div className="title_reservation_check">Reservation Check</div>
+      <div className="sub_title_reservation_check">비회원 예약조회</div>
+      <div className="section_reservation_check">
+        <input
+          className="inp_reservation_check"
+          placeholder="이름을 입력해주세요"
+        ></input>
+        <input
+          className="inp_reservation_check"
+          type="text"
+          // style={{ margin: "20px 0 20px 0" }}
+          value={phoneNumber}
+          onChange={handlePhoneNumberChange}
+          placeholder="휴대폰 번호를 입력해주세요"
+        ></input>
+        <input
+          className="inp_reservation_check"
+          // style={{ margin: "0 0 50px 0" }}
+          placeholder="예약번호를 입력해주세요"
+        ></input>
+        <div className="btn_reservation_check">예약 조회</div>
       </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "19px",
-          fontWeight: "300",
-          color: "#162318",
-          marginBottom: "100px",
-        }}
-      >
-        비회원 예약조회
-      </div>
-      <ReservationInputBox placeholder="이름을 입력해주세요"></ReservationInputBox>
-      <ReservationInputBox
-        type="text"
-        style={{ margin: "20px 0 20px 0" }}
-        value={phoneNumber}
-        onChange={handlePhoneNumberChange}
-        placeholder="휴대폰 번호를 입력해주세요"
-      ></ReservationInputBox>
-      <ReservationInputBox
-        style={{ margin: "0 0 50px 0" }}
-        placeholder="예약번호를 입력해주세요"
-      ></ReservationInputBox>
-      <CheckBtn>예약 조회</CheckBtn>
-    </ReservatioonCheckContainer>
+    </div>
   );
 }
 
