@@ -43,7 +43,7 @@ customAxios.interceptors.response.use(
         console.log("500 error");
 
         SweetAlert.fire({
-          title: "요청하신 작업을 수행하지 못했습니다.",
+          // title: "요청하신 작업을 수행하지 못했습니다.",
           text: `${
             data.message != null
               ? data.message
