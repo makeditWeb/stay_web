@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { customAxios } from "@/modules/common/api";
 import { API } from "@/app/api/config";
-import SweetAlert from "sweetalert2";
 import KakaoLogin from "react-kakao-login";
 
 export default function LoginPage() {
@@ -20,32 +19,13 @@ export default function LoginPage() {
 
   const code = new URL(window.location.href).searchParams.get("code");
 
-  const [loginParam, setLoginParam] = useState({});
-
-  const onChangeLoginParam = (e) => {
-    const { name, value } = e.target;
-    setLoginParam({ ...loginParam, [name]: value });
-  };
-
   const handleLogin = () => {
     // window.location.href = kakaoURL;
     window.open(kakaoURL, "_self");
   };
 
-  //로그인 기능
-  const onClickLogin = async () => {
-    await customAxios.post(`${API.LOGIN}`, loginParam).then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem("accessToken", res.data.response.accessToken);
-        localStorage.setItem("refreshToken", res.data.response.refreshToken);
-        customAxios.get(`${API.USER_WEB}/info`).then((res) => {
-          console.log(`${API.USER_WEB}/info ::`, res);
-          localStorage.setItem("user", JSON.stringify(res.data.response));
-          localStorage.setItem("acName", res.data.response.acName);
-        });
-        router.push("/");
-      }
-    });
+  const onClickLogin = () => {
+    location.href = "/";
   };
 
   useEffect(() => {
@@ -60,6 +40,12 @@ export default function LoginPage() {
           localStorage.setItem("accessToken", res.data.response.accessToken);
           localStorage.setItem("refreshToken", res.data.response.refreshToken);
 
+          // customAxios.get(`${API.USER_WEB}/info`).then((res) => {
+          //   console.log(`${API.USER_WEB}/info ::`, res);
+          //   localStorage.setItem("user", JSON.stringify(res.data.response));
+          //   localStorage.setItem("acName", res.data.response.acName);
+          // });
+
           router.push("/");
         });
     }
@@ -68,21 +54,17 @@ export default function LoginPage() {
   return (
     <div className="container_login">
       <div className="wrap_login">
-        <div className="header_title_login">Login</div>
+        <div className="header_title_login">아이디 찾기</div>
         <div className="section_login">
           <input
             className="inp_login"
             placeholder="휴대폰 번호를 입력해주세요."
-            name="acPhone"
-            onChange={onChangeLoginParam}
           ></input>
         </div>
         <div className="section_login">
           <input
             className="inp_login"
             placeholder="비밀번호를 입력해주세요."
-            name="acPw"
-            onChange={onChangeLoginParam}
           ></input>
         </div>
         <div className="section_sign_in">

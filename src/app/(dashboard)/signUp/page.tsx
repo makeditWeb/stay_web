@@ -224,7 +224,7 @@ export default function SignUpPage() {
     signUpData.isAgeChecked = isAgeChecked;
     signUpData.isReceivingChecked = isReceivingChecked;
 
-    const response = await customAxios
+    await customAxios
       .post(`${API.USER_WEB}/sign-up`, signUpData)
       .then((res) => {
         if (res.status === 200) {

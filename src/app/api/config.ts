@@ -15,6 +15,7 @@ export const API = {
   NOTICE: "/notice",
   OUR_NEWS: "our_news",
   USER_WEB: "/user-web",
+  LOGIN: "/authentication/login",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",
 };
