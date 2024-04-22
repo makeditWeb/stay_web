@@ -7,7 +7,6 @@ import Link from "next/link";
 import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-import Script from "next/script";
 
 interface PartnerStore {
   id: number;
@@ -30,7 +29,6 @@ export default function Mainpage() {
   const [mainBannerList, setMainBannerList] = useState([] as MainBanner[]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const pathName = usePathname();
 
   const settings = {
     dots: true,
@@ -62,15 +60,6 @@ export default function Mainpage() {
     setLoading(false);
   }, []);
 
-  const serverAuth = () => {
-    if (typeof window !== "undefined") {
-      const pay_obj = window;
-      const { AUTHNICE } = pay_obj;
-
-      goPay(document.payForm);
-    }
-  };
-
   const random = (length = 8) => {
     return Math.random().toString(16).substr(2, length);
   };
@@ -89,10 +78,10 @@ export default function Mainpage() {
 
   return (
     <div className="main_container">
-      <Script
+      {/* <Script
         src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
         type="text/javascript"
-      />
+      /> */}
       <div className="main_banner_ctn">
         <img
           className="main_banner_img"
@@ -113,7 +102,7 @@ export default function Mainpage() {
         <SlickSlider {...settings}>
           {mainBannerList?.map((item, index) => {
             return (
-              <div>
+              <div key={index}>
                 <img src={item?.imageUrl} alt={item?.imageName} />
               </div>
             );
@@ -135,37 +124,35 @@ export default function Mainpage() {
           <div className="main_our_stay_content_container">
             {partnerStoreList?.map((item, index) => {
               return (
-                <>
-                  <div className="out_stay_container" key={index}>
-                    <div style={{ width: "370px", height: "230px" }}>
-                      <img
-                        src={item?.imageUrl}
-                        alt={item?.imageName}
-                        style={{ width: "370px", height: "230px" }}
-                      />
-                    </div>
-                    <div style={{ display: "flex", marginTop: "45px" }}>
-                      <div className="our_stay_content_container">
-                        <div>
-                          <div style={{ fontSize: "18px", fontWeight: "700" }}>
-                            {item?.storeName}
-                          </div>
-                          <div style={{ fontSize: "12px", fontWeight: "300" }}>
-                            {item?.address}
-                          </div>
+                <div className="out_stay_container" key={index}>
+                  <div style={{ width: "370px", height: "230px" }}>
+                    <img
+                      src={item?.imageUrl}
+                      alt={item?.imageName}
+                      style={{ width: "370px", height: "230px" }}
+                    />
+                  </div>
+                  <div style={{ display: "flex", marginTop: "45px" }}>
+                    <div className="our_stay_content_container">
+                      <div>
+                        <div style={{ fontSize: "18px", fontWeight: "700" }}>
+                          {item?.storeName}
                         </div>
-
-                        <button
-                          className="our_stay_content_btn"
-                          id={item.id}
-                          onClick={handlePagePartnerStore}
-                        >
-                          둘러보기
-                        </button>
+                        <div style={{ fontSize: "12px", fontWeight: "300" }}>
+                          {item?.address}
+                        </div>
                       </div>
+
+                      <button
+                        className="our_stay_content_btn"
+                        id={item.id}
+                        onClick={handlePagePartnerStore}
+                      >
+                        둘러보기
+                      </button>
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>

@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import Script from "next/script";
 import Slider from "react-slick";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
