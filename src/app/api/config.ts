@@ -16,6 +16,7 @@ export const API = {
   OUR_NEWS: "our_news",
   USER_WEB: "/user-web",
   LOGIN: "/authentication/login",
+  RESERVATION: "/reservation",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",
 };
