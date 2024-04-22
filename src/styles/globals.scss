@@ -449,13 +449,14 @@
       width: 100%;
       height: 450px;
       margin-bottom: 15px;
+      padding: 0 600px;
     }
 
     .story_img_container img {
       width: 100%;
       height: 450px;
       margin-bottom: 15px;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .box_story_img {
@@ -492,7 +493,29 @@
     }
 
     //[특징]
+    .bg_feature_container {
+      position: relative;
+    }
+
+    .box_bg_feature {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .box_bg_feature img {
+      width: 100%;
+      height: 650px;
+    }
+
     .feature_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box_feature {
       position: absolute;
       top: 80px;
       width: 100%;
@@ -1716,21 +1739,28 @@
 }
 
 .story_img_container {
-  width: 800px;
+  // width: 800px;
+  width: 100%;
   height: 450px;
   margin-bottom: 15px;
+}
+
+.story_img_container img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 0 15px 15px 0;
 }
 
 .box_story_img {
   margin-top: 50px;
   margin-bottom: 80px;
-  width: 100%;
+  width: 50%;
 }
 
 .story_content_container {
   margin-top: 50px;
   margin-left: 150px;
-  width: 100%;
+  width: 50%;
 }
 
 .story_content_haed_title {
@@ -1754,10 +1784,31 @@
 }
 
 //[특징]
+// .feature_container {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   // width: 100%;
+// }
+
 .feature_container {
-  position: absolute;
-  top: 80px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  position: relative;
+}
+
+.box_feature {
+  // position: absolute;
+  // top: 80px;
   // width: 100%;
+  // padding: 0 30px;
+  // box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .feature_container_div {

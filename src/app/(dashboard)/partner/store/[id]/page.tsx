@@ -1,16 +1,22 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import Script from "next/script";
 import Slider from "react-slick";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-import "react-kakao-maps-sdk";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 export default function RoomDetailPage({ location }: { location: string }) {
+  const [level, setLevel] = useState(8); //지도레벨
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -97,11 +103,73 @@ export default function RoomDetailPage({ location }: { location: string }) {
         setLatitude(res.data.response.latitude);
         setStoreImageData(res.data.response.storeImages);
 
-        console.log("res.data.response :: ", res.data.response);
-        console.log(
-          "res.data.response.partnerStoreNoticeList :: ",
-          res.data.response.partnerStoreNoticeList
-        );
+        const kakaoMapScript = document.createElement("script");
+        kakaoMapScript.async = false;
+        // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
+        kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
+        document.head.appendChild(kakaoMapScript);
+
+        const onLoadKakaoAPI = () => {
+          window.kakao.maps.load(() => {
+            var container = document.getElementById("map");
+            var options = {
+              center: new window.kakao.maps.LatLng(
+                res.data.response.latitude,
+                res.data.response.longitude
+              ),
+              level: 3,
+            };
+
+            var map = new window.kakao.maps.Map(container, options);
+            var positions = [];
+            //주변 관광지 마커 좌표
+            res.data.response.touristSpotList.data.forEach((item) => {
+              positions.push({
+                title: item.name,
+                latlng: new window.kakao.maps.LatLng(
+                  item.latitude,
+                  item.longitude
+                ),
+              });
+            });
+
+            // 마커 이미지의 이미지 주소입니다
+            var imageSrc =
+              "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+            for (var i = 0; i < positions.length; i++) {
+              // 마커 이미지의 이미지 크기 입니다
+              var imageSize = new kakao.maps.Size(24, 35);
+
+              // 마커 이미지를 생성합니다
+              var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+              // 마커를 생성합니다
+              var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng, // 마커를 표시할 위치
+                title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                image: markerImage, // 마커 이미지
+              });
+
+              // // 마커가 지도 위에 표시되도록 설정합니다
+              marker.setMap(map);
+            }
+
+            // // 마커가 표시될 위치입니다
+            // var markerPosition = new kakao.maps.LatLng(
+            //   res.data.response.latitude,
+            //   res.data.response.longitude
+            // );
+
+            // // 마커를 생성합니다
+            // var marker = new kakao.maps.Marker({
+            //   position: markerPosition,
+            // });
+          });
+        };
+
+        kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
 
         if (res.data.response.partnerStoreNoticeList != null) {
           setNoticeData(res.data.response.partnerStoreNoticeList?.data);
@@ -130,38 +198,22 @@ export default function RoomDetailPage({ location }: { location: string }) {
   }, []);
 
   useEffect(() => {
-    // 1. 카카오 지도 초기화
-    // kakao.maps.load(() => {
-    //   // 2. 지도 생성 및 설정
-    //   const container = document.getElementById("map");
-    //   const options = {
-    //     center: new kakao.maps.LatLng(33.450701, 126.570667),
-    //     level: 3,
-    //   };
-    //   const map = new kakao.maps.Map(container as HTMLElement, options);
-    //   let geocoder = new kakao.maps.services.Geocoder(); // 3. 주소-좌표 변환 객체 생성
-    //   // 4. 지도 상에 주소를 표시
-    //   geocoder.addressSearch(location, function (result, status) {
-    //     if (status === kakao.maps.services.Status.OK) {
-    //       // 5. 결과값으로 받은 위치를 마커로 표시
-    //       const latitude: number = Number(result[0].y);
-    //       const longitude: number = Number(result[0].x);
-    //       let coords = new kakao.maps.LatLng(latitude, longitude);
-    //       // 결과값으로 받은 위치를 마커로 표시
-    //       let marker = new kakao.maps.Marker({
-    //         map: map,
-    //         position: coords,
-    //       });
-    //       var infowindow = new kakao.maps.InfoWindow({
-    //         content: `<div style="width:300px;text-align:center;padding:6px 0;">${location}</div>`,
-    //       });
-    //       infowindow.open(map, marker);
-    //       // 6. 지도의 중심을 결과값으로 받은 위치로 이동
-    //       map.setCenter(coords);
-    //     }
+    // const kakaoMapScript = document.createElement("script");
+    // kakaoMapScript.async = false;
+    // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
+    // document.head.appendChild(kakaoMapScript);
+    // const onLoadKakaoAPI = () => {
+    //   window.kakao.maps.load(() => {
+    //     var container = document.getElementById("map");
+    //     var options = {
+    //       center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+    //       level: 3,
+    //     };
+    //     var map = new window.kakao.maps.Map(container, options);
     //   });
-    // });
-  }, [location]);
+    // };
+    // kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
+  }, []);
 
   const onChangeReservationInfo = (e: any) => {
     //입실일보다 이전날짜 선택 불가
@@ -591,30 +643,11 @@ export default function RoomDetailPage({ location }: { location: string }) {
             ></div>
           </div>
         </div>
-        <div style={{ position: "relative" }}>
-          <div
-            style={{
-              // width: "1920px",
-              width: "100vw",
-              height: "650px",
-            }}
-          >
-            <Image
-              src="/roomDetailImg4.png"
-              alt="서브 이미지"
-              width={1920}
-              height={650}
-              style={{ width: "100vw" }}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div className="feature_container">
+        <div className="bg_feature_container">
+          <div className="box_bg_feature"></div>
+          <div className="feature_container">
+            <img src="/roomDetailImg4.png" alt="서브 이미지" />
+            <div className="box_feature">
               {featureData.map((item, index) => {
                 return (
                   <div className="feature_container_div">
@@ -652,10 +685,31 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
 
-          <div className="tourist_spot_map_container" id="map">
+          <div
+            id="map"
+            style={{
+              // 지도의 크기
+              width: "100%",
+              height: "350px",
+            }}
+          ></div>
+          {/* <Map
+            center={{ lat: 33.5563, lng: 126.79581 }}
+            style={{
+              // 지도의 크기
+              width: "100%",
+              height: "350px",
+            }}
+          >
+            {LOCATIONS.map((location) => (
+              <MapMarker position={location} key={location.id} />
+            ))}
+          </Map> */}
+          {/* <div className="tourist_spot_map_container" id="map">
             <div className="map_wrap">
               <Map
-                center={{ lat: latitude, lng: longitude }}
+                // center={{ lat: latitude, lng: longitude }}
+                center={{ lat: 33.450701, lng: 126.570667 }}
                 style={{ width: "100%", height: "400px" }}
               >
                 <MapMarker
@@ -665,70 +719,66 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   }}
                 ></MapMarker>
               </Map>
-            </div>
+            </div> */}
 
-            {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
-          </div>
-
-          <div className="tourist_spot_content_container">
-            {touristSpotData.map((item, index) => {
-              return (
-                <div className="tourist_spot_item_container">
-                  <div className="tourist_spot_item_div">
-                    <div className="tourist_spot_no_div">{index + 1}</div>
-                    <div className="tourist_spot_item_content_div">
-                      <div className="tourist_spot_item_content_title">
-                        <div
-                          className="tourist_spot_item_content_title_div"
-                          style={{ fontWeight: 700 }}
-                        >
-                          {item.name}
-                        </div>
-                        <div className="tourist_spot_item_content_title_div2">
-                          {item.address} {item.addressDetail}
-                        </div>
+          {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
+        </div>
+        <div className="tourist_spot_content_container">
+          {touristSpotData.map((item, index) => {
+            return (
+              <div className="tourist_spot_item_container">
+                <div className="tourist_spot_item_div">
+                  <div className="tourist_spot_no_div">{index + 1}</div>
+                  <div className="tourist_spot_item_content_div">
+                    <div className="tourist_spot_item_content_title">
+                      <div
+                        className="tourist_spot_item_content_title_div"
+                        style={{ fontWeight: 700 }}
+                      >
+                        {item.name}
                       </div>
-                      <div className="tourist_spot_item_content_content">
-                        {item.description}
-                        <br />
-                        숙소로부터의 거리 {Math.round(item.distance * 10) /
-                          10}{" "}
-                        km
+                      <div className="tourist_spot_item_content_title_div2">
+                        {item.address} {item.addressDetail}
                       </div>
+                    </div>
+                    <div className="tourist_spot_item_content_content">
+                      {item.description}
+                      <br />
+                      숙소로부터의 거리 {Math.round(item.distance * 10) / 10} km
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="partenrs_store_contact_container">
+        <div className="partenrs_store_contact_container_div mr-b-15">
+          <div
+            className="partenrs_store_contact_content_container"
+            style={{ fontWeight: "700" }}
+          >
+            예약 및 환불 문의
+          </div>
+          <div className="partenrs_store_contact_content_container">
+            RESERVATION
           </div>
         </div>
-        <div className="partenrs_store_contact_container">
-          <div className="partenrs_store_contact_container_div mr-b-15">
-            <div
-              className="partenrs_store_contact_content_container"
-              style={{ fontWeight: "700" }}
-            >
-              예약 및 환불 문의
-            </div>
-            <div className="partenrs_store_contact_content_container">
-              RESERVATION
-            </div>
+        <div className="partenrs_store_contact_container_div">
+          <div className="partenrs_store_contact_content_container ">
+            {partnerStoreData?.storeName}
           </div>
-          <div className="partenrs_store_contact_container_div">
-            <div className="partenrs_store_contact_content_container ">
-              {partnerStoreData?.storeName}
-            </div>
-            <div
-              className="partenrs_store_contact_content_container"
-              style={{ fontWeight: "700" }}
-            >
-              {partnerStoreData?.phone != null
-                ? String(partnerStoreData?.phone).replace(
-                    /^(\d{2,3})(\d{3,4})(\d{4})$/,
-                    `$1-$2-$3`
-                  )
-                : ""}
-            </div>
+          <div
+            className="partenrs_store_contact_content_container"
+            style={{ fontWeight: "700" }}
+          >
+            {partnerStoreData?.phone != null
+              ? String(partnerStoreData?.phone).replace(
+                  /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                  `$1-$2-$3`
+                )
+              : ""}
           </div>
         </div>
       </div>
