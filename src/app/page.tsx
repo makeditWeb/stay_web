@@ -8,11 +8,26 @@ import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import Script from "next/script";
-import Loading from "@/components/common/loading";
+
+interface PartnerStore {
+  id: number;
+  storeName: string;
+  address: string;
+  imageUrl: string;
+  imageName: string;
+}
+
+interface MainBanner {
+  id: number;
+  imageUrl: string;
+  imageName: string;
+}
 
 export default function Mainpage() {
-  const [partnerStoreList, setPartnerStoreList] = useState([]);
-  const [mainBannerList, setMainBannerList] = useState([]);
+  const [partnerStoreList, setPartnerStoreList] = useState(
+    [] as PartnerStore[]
+  );
+  const [mainBannerList, setMainBannerList] = useState([] as MainBanner[]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
@@ -99,7 +114,7 @@ export default function Mainpage() {
           {mainBannerList?.map((item, index) => {
             return (
               <div>
-                <img src={item?.image?.imageUrl} alt={item?.image?.imageName} />
+                <img src={item?.imageUrl} alt={item?.imageName} />
               </div>
             );
           })}
@@ -124,8 +139,8 @@ export default function Mainpage() {
                   <div className="out_stay_container" key={index}>
                     <div style={{ width: "370px", height: "230px" }}>
                       <img
-                        src={item?.storeImage?.imageUrl}
-                        alt={item?.storeImage?.imageName}
+                        src={item?.imageUrl}
+                        alt={item?.imageName}
                         style={{ width: "370px", height: "230px" }}
                       />
                     </div>

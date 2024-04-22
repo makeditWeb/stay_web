@@ -35,6 +35,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
   const [touristSpotData, setTouristSpotData] = useState<any>([]);
   const [noticeData, setNoticeData] = useState<any>([]);
   const [defaultNoticeData, setDefaultNoticeData] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
 
   const [reservationInfoData, setReservationInfoData] = useState<any>({
     checkInDate: checkInDate || "",
@@ -272,13 +273,32 @@ export default function RoomDetailPage({ location }: { location: string }) {
       return;
     }
 
+    setLoading(true);
     router.push(
       `/reservation/${partnerStoreData?.id}?storeId=${partnerStoreData?.id}&storeName=${partnerStoreData?.storeName}&englishStoreName=${partnerStoreData?.storeEnglishName}&checkInDate=${reservationInfoData.checkInDate}&checkOutDate=${reservationInfoData.checkOutDate}&adultCount=${adultCount}&kidCount=${kidCount}&petCount=${petCount}`
     );
+    setLoading(false);
   };
 
   return (
     <RoomDetailContainer>
+      {loading ? (
+        <>
+          <Container>
+            <ImageWrapper>
+              <Skeleton width={320} height={220} />
+            </ImageWrapper>
+            <Info>
+              <div style={{ height: "8px" }}></div>
+              <Skeleton width={150} height={29} rounded />
+              <div style={{ height: "8px" }}></div>
+              <Skeleton width={200} height={19} rounded />
+            </Info>
+          </Container>
+        </>
+      ) : (
+        <></>
+      )}
       <div style={{ position: "relative" }}>
         <div className="box_banner_container">
           <Image
@@ -858,4 +878,23 @@ const StyledImage = styled(Image)`
   position: absolute; /* 원하는 위치로 조정하기 위해 절대 위치 지정 */
   top: 50%; /* 원하는 위치로 조정 */
   transform: translateY(-50%); /* 세로 가운데 정렬 */
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgb(0 0 0 / 20%) 0px 4px 16px 0px;
+  border-radius: 4px;
+  padding: 1rem;
+`;
+
+const ImageWrapper = styled.div`
+  width: 320px;
+  height: 220px;
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
 `;
