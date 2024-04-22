@@ -34,7 +34,7 @@ export default function OrdersContainer() {
     childCount: 0,
     petCount: 0,
     reservationMemo: "",
-    paymentMethod: "CREDIT_CARD",
+    paymentMethod: "CARD",
   }); //예약정보
   const [birthDay, setBirthDay] = useState({
     year: 0,
@@ -455,8 +455,7 @@ export default function OrdersContainer() {
     const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
     const TestData = ediDate + mid + amt + merchantKey;
     const SignData = CryptoJS.SHA256(TestData).toString();
-    const payMethod =
-      reservationData.paymentMethod === "CREDIT_CARD" ? "CARD" : "VBANK";
+    const payMethod = reservationData.paymentMethod;
     const VbankExpDate =
       year + "" + month + "" + day + "" + hours + "" + minutes; //YYYYMMDDHHMM
     console.log("VbankExpDate", VbankExpDate);
@@ -485,6 +484,7 @@ export default function OrdersContainer() {
 
     document.payForm.roomId.value = roomId;
     document.payForm.roomName.value = roomName;
+    document.payForm.stayCount.value = stayCount;
     let checkInMonth = checkInDate.getMonth() + 1;
     let checkInDay = checkInDate.getDate();
 
@@ -608,6 +608,10 @@ export default function OrdersContainer() {
 
   return (
     <div className="order_new_container">
+      {/* <Script
+        src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js"
+        type="text/javascript"
+      /> */}
       <div className="order_new_title">예약정보</div>
       <div className="order_room_content_container">
         <div className="order_room_section">
@@ -781,7 +785,7 @@ export default function OrdersContainer() {
         <div className="reservation_person_section">
           <div className="reservation_person_wrap">
             <div className="reservation_person_title_wrap">
-              <div className="reservation_person_title">이름</div>
+              <div className="reservation_person_title">*이름</div>
             </div>
             <div className="reservation_person_text_section">
               <input
@@ -794,7 +798,7 @@ export default function OrdersContainer() {
           </div>
           <div className="reservation_person_wrap">
             <div className="reservation_person_title_wrap">
-              <div className="reservation_person_title">생년월일</div>
+              <div className="reservation_person_title">*생년월일</div>
             </div>
             <div className="reservation_person_select_wrap">
               <select
@@ -856,7 +860,7 @@ export default function OrdersContainer() {
           <div className="reservation_person_2row_wrap">
             <div className="rev_person_section">
               <div className="reservation_person_title_2row_wrap">
-                <div className="reservation_person_title">거주지</div>
+                <div className="reservation_person_title">*거주지</div>
               </div>
               <select
                 className="reservation_person_2row_select"
@@ -875,7 +879,7 @@ export default function OrdersContainer() {
             </div>
             <div className="rev_person_section_ml">
               <div className="reservation_person_title_2row_wrap">
-                <div className="reservation_person_title">성별</div>
+                <div className="reservation_person_title">*성별</div>
               </div>
               <select
                 className="reservation_person_2row_select"
@@ -890,7 +894,7 @@ export default function OrdersContainer() {
           </div>
           <div className="reservation_person_wrap">
             <div className="reservation_person_title_wrap">
-              <div className="reservation_person_title">연락처</div>
+              <div className="reservation_person_title">*연락처</div>
             </div>
             <div className="reservation_person_text_section">
               <input
@@ -905,7 +909,7 @@ export default function OrdersContainer() {
           </div>
           <div className="reservation_person_wrap">
             <div className="reservation_person_title_wrap">
-              <div className="reservation_person_title">이메일</div>
+              <div className="reservation_person_title">*이메일</div>
             </div>
             <div className="reservation_person_text_section">
               <input
@@ -1068,15 +1072,15 @@ export default function OrdersContainer() {
             type="checkbox"
             id="paymentckbox"
             name="paymentMethod"
-            checked={reservationData?.paymentMethod === "CREDIT_CARD"}
-            value={"CREDIT_CARD"}
+            checked={reservationData?.paymentMethod === "CARD"}
+            value={"CARD"}
             onChange={onChangeReservationData}
           ></CheckBox>
           <CheckBoxLabel
             htmlFor="paymentckbox"
             style={{
               background:
-                reservationData?.paymentMethod === "CREDIT_CARD"
+                reservationData?.paymentMethod === "CARD"
                   ? "#2b7638"
                   : "initial",
             }}
@@ -1088,15 +1092,15 @@ export default function OrdersContainer() {
             type="checkbox"
             id="paymentckbox2"
             name="paymentMethod"
-            checked={reservationData?.paymentMethod === "BANK_TRANSFER"}
-            value={"BANK_TRANSFER"}
+            checked={reservationData?.paymentMethod === "VBANK"}
+            value={"VBANK"}
             onChange={onChangeReservationData}
           ></CheckBox>
           <CheckBoxLabel
             htmlFor="paymentckbox2"
             style={{
               background:
-                reservationData?.paymentMethod === "BANK_TRANSFER"
+                reservationData?.paymentMethod === "VBANK"
                   ? "#2b7638"
                   : "initial",
             }}
@@ -1189,6 +1193,7 @@ export default function OrdersContainer() {
         <input type="hidden" name="clientRegion"></input>
         <input type="hidden" name="paymentMethod"></input>
         <input type="hidden" name="partnerStoreId"></input>
+        <input type="hidden" name="stayCount"></input>
 
         <input type="hidden" name="roomId"></input>
         <input type="hidden" name="roomName"></input>
