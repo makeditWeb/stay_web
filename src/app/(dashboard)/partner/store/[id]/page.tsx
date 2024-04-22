@@ -685,15 +685,19 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
 
-          <div
-            id="map"
-            style={{
-              // 지도의 크기
-              width: "100%",
-              height: "350px",
-            }}
-          ></div>
-          {/* <Map
+          <div className="tourist_spot_map_container" id="map">
+            <div className="map_wrap">
+              <div
+                id="map"
+                style={{
+                  // 지도의 크기
+                  width: "100%",
+                  height: "350px",
+                }}
+              ></div>
+            </div>
+
+            {/* <Map
             center={{ lat: 33.5563, lng: 126.79581 }}
             style={{
               // 지도의 크기
@@ -705,7 +709,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
               <MapMarker position={location} key={location.id} />
             ))}
           </Map> */}
-          {/* <div className="tourist_spot_map_container" id="map">
+            {/* <div className="tourist_spot_map_container" id="map">
             <div className="map_wrap">
               <Map
                 // center={{ lat: latitude, lng: longitude }}
@@ -721,36 +725,39 @@ export default function RoomDetailPage({ location }: { location: string }) {
               </Map>
             </div> */}
 
-          {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
-        </div>
-        <div className="tourist_spot_content_container">
-          {touristSpotData.map((item, index) => {
-            return (
-              <div className="tourist_spot_item_container">
-                <div className="tourist_spot_item_div">
-                  <div className="tourist_spot_no_div">{index + 1}</div>
-                  <div className="tourist_spot_item_content_div">
-                    <div className="tourist_spot_item_content_title">
-                      <div
-                        className="tourist_spot_item_content_title_div"
-                        style={{ fontWeight: 700 }}
-                      >
-                        {item.name}
+            {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
+          </div>
+          <div className="tourist_spot_content_container">
+            {touristSpotData.map((item, index) => {
+              return (
+                <div className="tourist_spot_item_container">
+                  <div className="tourist_spot_item_div">
+                    <div className="tourist_spot_no_div">{index + 1}</div>
+                    <div className="tourist_spot_item_content_div">
+                      <div className="tourist_spot_item_content_title">
+                        <div
+                          className="tourist_spot_item_content_title_div"
+                          style={{ fontWeight: 700 }}
+                        >
+                          {item.name}
+                        </div>
+                        <div className="tourist_spot_item_content_title_div2">
+                          {item.address} {item.addressDetail}
+                        </div>
                       </div>
-                      <div className="tourist_spot_item_content_title_div2">
-                        {item.address} {item.addressDetail}
+                      <div className="tourist_spot_item_content_content">
+                        {item.description}
+                        <br />
+                        숙소로부터의 거리 {Math.round(item.distance * 10) /
+                          10}{" "}
+                        km
                       </div>
-                    </div>
-                    <div className="tourist_spot_item_content_content">
-                      {item.description}
-                      <br />
-                      숙소로부터의 거리 {Math.round(item.distance * 10) / 10} km
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className="partenrs_store_contact_container">
