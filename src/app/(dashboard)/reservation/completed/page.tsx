@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import styled from "styled-components";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 
@@ -22,12 +21,9 @@ export default function ReservationComplete() {
     paymentMethod: "",
   });
 
-  console.log("TID: ", TID);
-
   useEffect(() => {
     //TODO : TID로 예약 정보 조회
     customAxios.get(`${API.RESERVATION}/${TID}`).then((res) => {
-      console.log("res", res.data.response);
       setReservationData(res.data.response);
     });
   }, []);
@@ -118,7 +114,17 @@ export default function ReservationComplete() {
           </div>
         </div>
       </div> */}
-      <div className="reservation_completed_btn">확인</div>
+      <Link
+        href={{
+          pathname: `/reservation/information`,
+          query: {
+            tid: TID,
+          },
+        }}
+        style={{ textDecoration: "none" }}
+      >
+        <div className="reservation_completed_btn">확인</div>
+      </Link>
     </div>
   );
 }

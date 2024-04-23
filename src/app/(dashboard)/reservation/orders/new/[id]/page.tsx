@@ -10,6 +10,23 @@ import CryptoJS from "crypto-js";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 
+type Inputs = {
+  clientName: string;
+  clientRegion: string;
+  clientGender: string;
+  clientPhone: string;
+  clientEmail: string;
+  clientBirthday: string;
+  allChecked: boolean;
+  year: number;
+  month: number;
+  day: number;
+  // isProductAgreementTerms: boolean; //주문 상품정보에 대한 동의(필수)
+  // isPaymentAgencyServiceTerms: boolean; //결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의(필수)
+  // isCovidTerms: boolean; //코로나 19로 인한 방역지침 약관(필수)
+  // isNonMemberReservationTerms: boolean; //비회원 정보수집 약관(필수)
+};
+
 export default function OrdersContainer() {
   const formRef = useRef();
   const router = useRouter();
@@ -63,32 +80,6 @@ export default function OrdersContainer() {
   diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
   const [stayCount, setStayCount] = useState(diff);
 
-  const [options, setOptiont] = useState([
-    {
-      id: 1,
-      title: "침구추가",
-      content: "성인 인원 추가시 기본 제공됩니다.",
-      isCheck: false,
-    },
-    {
-      id: 2,
-      title: "그릴대여",
-      content: "그릴대여 서비스입니다.",
-      isCheck: false,
-    },
-    {
-      id: 3,
-      title: "커피 & 토스트 세트",
-      content: "커피 & 토스트 조직 세트(팥, 바질 선택 가능) 입실 전 예약 가능.",
-      isCheck: false,
-    },
-    {
-      id: 4,
-      title: "커피 & 크림치즈베이글 세트",
-      content: "커피 & 크림치느베이글 조식 세트. 입실 전 예약 가능.",
-      isCheck: false,
-    },
-  ]);
   const [terms, setTerms] = useState([
     {
       id: 0,
@@ -361,6 +352,9 @@ export default function OrdersContainer() {
         : term
     );
 
+    //약관 모두 동의상태이면 allCheck도 true로 변경
+    const isAllChecked = newTermsList.every((term) => term.isAgree);
+    setAllChecked(isAllChecked);
     setTermsList(newTermsList);
   };
 
@@ -418,11 +412,35 @@ export default function OrdersContainer() {
     return prefix + paddedRandomNumber + `${year}${month}${day}`;
   };
 
+  const validate = (data: Inputs) => {
+    if (!data.clientName) return "이름을 입력해주세요.";
+    if (!data.clientRegion) return "거주지를 선택해주세요.";
+    if (!data.clientGender) return "성별을 선택해주세요.";
+    if (!data.clientPhone) return "핸드폰 번호를 입력해주세요.";
+    if (!data.clientEmail) return "이메일을 입력해주세요.";
+    // if (!data.clientBirthday) return "생년월일을 선택해주세요.";
+    if (data.year === 0) return "년도를 선택해주세요.";
+    if (data.month === 0) return "월을 선택해주세요.";
+    if (data.day === 0) return "일을 선택해주세요.";
+    if (!allChecked) return "필수 약관에 모두 동의해주세요.";
+
+    return "";
+  };
+
   // 결제하기 버튼 함수
   const paymentHandler = () => {
     //TODO 입력값 벨리데이션 체크 추가 (Pia)
+    const message = validate(reservationData);
 
-    // goPay(document.payForm);
+    if (message) {
+      SweetAlert.fire({
+        text: `${message}`,
+        icon: "danger",
+        showConfirmButton: true,
+      });
+
+      return;
+    }
 
     // 현재 시간 구하기
     var currentTime = new Date();
@@ -444,8 +462,6 @@ export default function OrdersContainer() {
     let minutes = validTime.getMinutes();
     minutes = minutes < 10 ? "0" + minutes : minutes;
 
-    console.log("minutes", minutes);
-
     const goodsName = roomName;
     const moid = generateOrderNumber();
     const ediDate = moment().format("YYYYMMDDhhmmss");
@@ -458,7 +474,6 @@ export default function OrdersContainer() {
     const payMethod = reservationData.paymentMethod;
     const VbankExpDate =
       year + "" + month + "" + day + "" + hours + "" + minutes; //YYYYMMDDHHMM
-    console.log("VbankExpDate", VbankExpDate);
 
     document.payForm.GoodsName.value = goodsName;
     document.payForm.Moid.value = moid;
@@ -556,8 +571,6 @@ export default function OrdersContainer() {
     } else {
       // PC 결제창 진입
       if (typeof window !== "undefined") {
-        console.log("formRef.current", formRef.current);
-
         window.nicepaySubmit = nicepaySubmit;
         window.nicepayClose = nicepayClose;
         window.goPay(formRef.current);
@@ -598,8 +611,6 @@ export default function OrdersContainer() {
   const sendPaymentResult = async () => {
     // alert("결제에 성공했습니다.");
     const body = convertFormToObj(formRef.current);
-
-    console.log("body", body);
 
     body.success = success;
 
@@ -1159,7 +1170,7 @@ export default function OrdersContainer() {
       <button
         className="payment_btn"
         onClick={paymentHandler}
-        style={{ background: paymentEnabled ? "#203d1e" : "#808080" }}
+        // style={{ background: paymentEnabled ? "#203d1e" : "#808080" }}
       >
         결제하기
       </button>

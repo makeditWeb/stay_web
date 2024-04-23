@@ -1,12 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import styled from "styled-components";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function ReservationInformationPage() {
+  const searchParams = useSearchParams();
+  const TID = searchParams.get("tid");
   const [feeGuidance, setFeeGuidance] = useState("/topVector.png");
-
   const [feeGuidanceToggle, setFeeGuidanceToggle] = useState(false);
+  const [reservationData, setReservationData] = useState({});
+  const [refundPolicyList, setRefundPolicyList] = useState([]);
+
+  useEffect(() => {
+    //TID로 예약 정보 조회
+    customAxios.get(`${API.RESERVATION}/${TID}`).then((res) => {
+      setReservationData(res.data.response);
+      setRefundPolicyList(res.data.response.refundPolicyList.data);
+    });
+  }, []);
 
   const feeGuidanceHandler = () => {
     setFeeGuidance(
@@ -57,12 +71,17 @@ export default function ReservationInformationPage() {
         }}
       >
         <div style={{ width: "600px" }}>
-          <ContentContainer style={{ marginTop: "80px" }}>
-            <ContentName>계좌번호</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              0000634721
-            </div>
-          </ContentContainer>
+          {reservationData?.payMethod === "VBANK" ? (
+            <ContentContainer style={{ marginTop: "80px" }}>
+              <ContentName>계좌번호</ContentName>
+              <div style={{ fontSize: "20px", fontWeight: "500" }}>
+                0000634721
+              </div>
+            </ContentContainer>
+          ) : (
+            ""
+          )}
+
           <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
             <ContentName>예약상태</ContentName>
             <div style={{ fontSize: "25px", fontWeight: "700" }}>결제대기</div>
@@ -88,12 +107,16 @@ export default function ReservationInformationPage() {
               2024-02-29 15:54
             </div>
           </ContentContainer>
-          <ContentContainer style={{ marginTop: "50px" }}>
-            <ContentName>입금계좌</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              농협중앙회 3521719679693 이석현
-            </div>
-          </ContentContainer>
+          {reservationData?.payMethod === "VBANK" ? (
+            <ContentContainer style={{ marginTop: "50px" }}>
+              <ContentName>입금계좌</ContentName>
+              <div style={{ fontSize: "20px", fontWeight: "500" }}>
+                농협중앙회 3521719679693 이석현
+              </div>
+            </ContentContainer>
+          ) : (
+            ""
+          )}
         </div>
         <div
           style={{
@@ -107,31 +130,31 @@ export default function ReservationInformationPage() {
           <ContentContainer style={{ marginTop: "80px" }}>
             <ContentName>숙소이름</ContentName>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              스테이인터뷰, 영동
+              {reservationData.storeName}
             </div>
           </ContentContainer>
           <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
             <ContentName>객실타입</ContentName>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              ㄱ, 원룸형
+              {reservationData.roomName}
             </div>
           </ContentContainer>
           <ContentContainer>
             <ContentName>이용기간</ContentName>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              2024-02-29 ~ 2024-03-04
+              {reservationData.checkIn} ~ {reservationData.checkOut}
             </div>
           </ContentContainer>
           <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
             <ContentName>체크인</ContentName>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              2024-02-29
+              {reservationData.checkIn}
             </div>
           </ContentContainer>
           <ContentContainer>
             <ContentName>체크아웃</ContentName>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              2024-03-04
+              {reservationData.checkOut}
             </div>
           </ContentContainer>
           <ContentContainer
@@ -146,7 +169,8 @@ export default function ReservationInformationPage() {
                   marginLeft: "20px",
                 }}
               >
-                성인 2인, 아동 2인 / 1개 (기준 2인/최대 3인)
+                성인 {reservationData.adultCount}인, 아동{" "}
+                {reservationData.childCount}인 / 1개 (기준 2인/최대 3인)
               </div>
             </div>
             <div
@@ -208,160 +232,25 @@ export default function ReservationInformationPage() {
           <div
             style={{ fontSize: "14px", fontWeight: "300", paddingTop: "20px" }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
+            {refundPolicyList?.map((refundPolicy, index) => (
               <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 당일 총 결제금액의 0% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 1일 전 총 결제금액의 10% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 2일 전 총 결제금액의 20% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 3일 전 총 결제금액의 30% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 4일 전 총 결제금액의 40% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 5일 전 총 결제금액의 50% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 6일 전 총 결제금액의 60% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 7일 전 총 결제금액의 70% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 8일 전 총 결제금액의 80% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 9일 전 총 결제금액의 90% 환불</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginLeft: "80px",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{ width: "2px", height: "2px", background: "black" }}
-              ></div>
-              <div>이용일 10일 전 총 결제금액의 100% 환불</div>
-            </div>
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "20px",
+                  marginLeft: "80px",
+                  marginBottom: "20px",
+                }}
+              >
+                <div
+                  style={{ width: "2px", height: "2px", background: "black" }}
+                ></div>
+                <div>
+                  {refundPolicy.category} 총 결제금액의{" "}
+                  {refundPolicy.refundRatio}% 환불
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
