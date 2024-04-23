@@ -481,6 +481,7 @@ export default function OrdersContainer() {
     document.payForm.clientRegion.value = reservationData.clientRegion;
     document.payForm.paymentMethod.value = reservationData.paymentMethod;
     document.payForm.partnerStoreId.value = storeId;
+    document.payForm.storeName.value = storeName;
 
     document.payForm.roomId.value = roomId;
     document.payForm.roomName.value = roomName;
@@ -1194,6 +1195,7 @@ export default function OrdersContainer() {
         <input type="hidden" name="paymentMethod"></input>
         <input type="hidden" name="partnerStoreId"></input>
         <input type="hidden" name="stayCount"></input>
+        <input type="hidden" name="storeName"></input>
 
         <input type="hidden" name="roomId"></input>
         <input type="hidden" name="roomName"></input>
