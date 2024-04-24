@@ -1,0 +1,168 @@
+@media screen and (max-width: 1199px) {
+  body {
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    // width: 755px;
+  }
+
+  body {
+  }
+}
+
+.container_reservation_info {
+  width: 1200px;
+  margin: auto;
+  padding-top: 192px;
+  padding-bottom: 150px;
+}
+
+.header_reservation_info {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.sub_header_reservation_info {
+  text-align: center;
+  font-size: 19px;
+  color: #162318;
+  margin-bottom: 30px;
+}
+
+.title_reservation_info {
+  font-size: 32px;
+  font-weight: 700;
+  color: #162318;
+  margin: 50px 0 30px 0;
+}
+
+.section_reservation_info {
+  display: flex;
+  // width: 1200px;
+  // height: 550px;
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.wrap_payment {
+  width: 600px;
+  margin-top: 50px;
+}
+
+.container_badge_reservation_info {
+  display: flex;
+  align-items: center;
+  // height: 25px;
+  gap: 20px;
+  margin-left: 50px;
+}
+
+.title_badge_reservation_info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 22px;
+  font-size: 16px;
+  background: #203d1e;
+  border-radius: 4px;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 10px 0;
+}
+
+.div_content_reservation_info {
+  margin-left: 20px;
+  margin-top: 8px;
+}
+
+.content_reservation_info {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.content_reservation_info_bold {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn_reservation_cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 22px;
+  border: 1px solid #203d1e;
+  color: #203d1e;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.line_reservation_info {
+  width: 1px;
+  height: 450px;
+  background: #d9d9d9;
+  margin: 50px 0;
+}
+
+.wrap_room {
+  width: 600px;
+  margin-top: 50px;
+}
+
+.text_additional_fee_information {
+  margin-left: 100px;
+  margin-top: 5px;
+  line-height: 25px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.section_cancellation_fee {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #162318;
+  margin: 50px 0 30px 0;
+}
+
+.section_cancellation_fee img {
+  width: 25px;
+  height: 13px;
+  cursor: pointer;
+}
+
+.wrap_cancellation_fee {
+  display: flex;
+  width: 1200px;
+  border-radius: 15px;
+  background: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.content_cancellation_fee {
+  font-size: 14px;
+  font-weight: 300;
+  padding-top: 20px;
+}
+
+.item_cancellation_fee {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+.text_cancellation_fee {
+  width: 2px;
+  height: 2px;
+  background: black;
+}

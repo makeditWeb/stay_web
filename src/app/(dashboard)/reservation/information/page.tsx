@@ -30,221 +30,140 @@ export default function ReservationInformationPage() {
   };
 
   return (
-    <ReservationInformationContainer>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "50px",
-          fontWeight: "700",
-          marginBottom: "30px",
-        }}
-      >
-        Reservation Information
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "19px",
-          color: "#162318",
-          marginBottom: "30px",
-        }}
-      >
-        예약 상세 정보
-      </div>
-      <div
-        style={{
-          fontSize: "32px",
-          fontWeight: "700",
-          color: "#162318",
-          margin: "50px 0 30px 0",
-        }}
-      >
-        예약 정보
-      </div>
-      <div
-        style={{
-          display: "flex",
-          width: "1200px",
-          height: "550px",
-          borderRadius: "15px",
-          background: "#ffffff",
-        }}
-      >
-        <div style={{ width: "600px" }}>
+    <div className="container_reservation_info">
+      <div className="header_reservation_info">Reservation Information</div>
+      <div className="sub_header_reservation_info">예약 상세 정보</div>
+      <div className="title_reservation_info">예약 정보</div>
+      <div className="section_reservation_info">
+        <div className="wrap_payment">
           {reservationData?.payMethod === "VBANK" ? (
-            <ContentContainer style={{ marginTop: "80px" }}>
-              <ContentName>계좌번호</ContentName>
-              <div style={{ fontSize: "20px", fontWeight: "500" }}>
-                0000634721
-              </div>
-            </ContentContainer>
+            <div
+              className="container_badge_reservation_info"
+              // style={{ marginTop: "80px" }}
+            >
+              <div className="title_badge_reservation_info">계좌번호</div>
+              <div className="content_reservation_info">0000634721</div>
+            </div>
           ) : (
             ""
           )}
 
-          <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
-            <ContentName>예약상태</ContentName>
-            <div style={{ fontSize: "25px", fontWeight: "700" }}>결제대기</div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "88px",
-                height: "22px",
-                border: "1px solid #203d1e",
-                color: "#203d1e",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              예약 취소
+          <div
+            className="container_badge_reservation_info"
+            // style={{ margin: "20px 0 20px 50px" }}
+          >
+            <div className="title_badge_reservation_info">예약상태</div>
+            <div className="content_reservation_info_bold">
+              {reservationData.payStatus === "COMPLETE_PAYMENT"
+                ? "결제완료"
+                : reservationData.payStatus === "WAIT_PAYMENT"
+                ? "결제대기"
+                : reservationData.payStatus === "PAYMENT_CANCELLATION"
+                ? "결제취소"
+                : "확인중"}
             </div>
-          </ContentContainer>
-          <ContentContainer>
-            <ContentName>예약일시</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              2024-02-29 15:54
-            </div>
-          </ContentContainer>
+            {reservationData.payStatus === "COMPLETE_PAYMENT" ? (
+              <div className="btn_reservation_cancel">예약 취소</div>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="container_badge_reservation_info">
+            <div className="title_badge_reservation_info">예약일시</div>
+            <div className="content_reservation_info">2024-02-29 15:54</div>
+          </div>
           {reservationData?.payMethod === "VBANK" ? (
-            <ContentContainer style={{ marginTop: "50px" }}>
-              <ContentName>입금계좌</ContentName>
-              <div style={{ fontSize: "20px", fontWeight: "500" }}>
+            <div
+              className="container_badge_reservation_info"
+              // style={{ marginTop: "50px" }}
+            >
+              <div className="title_badge_reservation_info">입금계좌</div>
+              <div className="content_reservation_info">
                 농협중앙회 3521719679693 이석현
               </div>
-            </ContentContainer>
+            </div>
           ) : (
             ""
           )}
         </div>
-        <div
-          style={{
-            width: "1px",
-            height: "450px",
-            background: "#d9d9d9",
-            marginTop: "50px",
-          }}
-        ></div>
-        <div style={{ width: "600px" }}>
-          <ContentContainer style={{ marginTop: "80px" }}>
-            <ContentName>숙소이름</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
+        <div className="line_reservation_info"></div>
+        <div className="wrap_room">
+          <div className="container_badge_reservation_info">
+            <div className="title_badge_reservation_info">숙소이름</div>
+            <div className="content_reservation_info">
               {reservationData.storeName}
             </div>
-          </ContentContainer>
-          <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
-            <ContentName>객실타입</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
+          </div>
+          <div
+            className="container_badge_reservation_info"
+            // style={{ margin: "20px 0 20px 50px" }}
+          >
+            <div className="title_badge_reservation_info">객실타입</div>
+            <div className="content_reservation_info">
               {reservationData.roomName}
             </div>
-          </ContentContainer>
-          <ContentContainer>
-            <ContentName>이용기간</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
+          </div>
+          <div className="container_badge_reservation_info">
+            <div className="title_badge_reservation_info">이용기간</div>
+            <div className="content_reservation_info">
               {reservationData.checkIn} ~ {reservationData.checkOut}
             </div>
-          </ContentContainer>
-          <ContentContainer style={{ margin: "20px 0 20px 50px" }}>
-            <ContentName>체크인</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
+          </div>
+          <div
+            className="container_badge_reservation_info"
+            // style={{ margin: "20px 0 20px 50px" }}
+          >
+            <div className="title_badge_reservation_info">체크인</div>
+            <div className="content_reservation_info">
               {reservationData.checkIn}
             </div>
-          </ContentContainer>
-          <ContentContainer>
-            <ContentName>체크아웃</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
+          </div>
+          <div className="container_badge_reservation_info">
+            <div className="title_badge_reservation_info">체크아웃</div>
+            <div className="content_reservation_info">
               {reservationData.checkOut}
             </div>
-          </ContentContainer>
-          <ContentContainer
-            style={{ display: "block", margin: "20px 0 20px 50px" }}
+          </div>
+          <div
+            className="container_badge_reservation_info"
+            // style={{ display: "block", margin: "20px 0 20px 50px" }}
           >
             <div style={{ display: "flex" }}>
-              <ContentName>인원/객실</ContentName>
-              <div
-                style={{
-                  fontSize: "20px",
-                  fontWeight: "500",
-                  marginLeft: "20px",
-                }}
-              >
-                성인 {reservationData.adultCount}인, 아동{" "}
-                {reservationData.childCount}인 / 1개 (기준 2인/최대 3인)
+              <div className="title_badge_reservation_info">인원/객실</div>
+              <div className="div_content_reservation_info">
+                <div className="content_reservation_info">
+                  성인 {reservationData.adultCount}인, 아동{" "}
+                  {reservationData.childCount}인 / 1개 (기준 2인/최대 3인)
+                </div>
+                <div className="text_additional_fee_information">
+                  기준인원 초과시 추가 비용 발생 가능
+                  <br />
+                  입실 최대인원 초과시 강제 퇴실조치
+                </div>
               </div>
             </div>
-            <div
-              style={{
-                marginLeft: "100px",
-                marginTop: "5px",
-                lineHeight: "25px",
-                fontSize: "16px",
-                fontWeight: "300",
-              }}
-            >
-              기준인원 초과시 추가 비용 발생 가능
-              <br />
-              입실 최대인원 초과시 강제 퇴실조치
-            </div>
-          </ContentContainer>
-          <ContentContainer style={{ margin: "120px 0 0 50px" }}>
-            <ContentName>옵션 정보</ContentName>
-            <div style={{ fontSize: "20px", fontWeight: "500" }}>
-              침구추가 / 그릴대여
-            </div>
-          </ContentContainer>
+          </div>
+          <div
+            className="container_badge_reservation_info"
+            // style={{ margin: "120px 0 0 50px" }}
+          >
+            <div className="title_badge_reservation_info">옵션 정보</div>
+            <div className="content_reservation_info">침구추가 / 그릴대여</div>
+          </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontSize: "32px",
-          fontWeight: "700",
-          color: "#162318",
-          margin: "50px 0 30px 0",
-        }}
-      >
+      <div className="section_cancellation_fee">
         <div>취소 수수료 안내 보기</div>
         <div>
-          <Image
-            src={feeGuidance}
-            alt="화살표"
-            width={25}
-            height={13}
-            style={{ cursor: "pointer" }}
-            onClick={feeGuidanceHandler}
-          />
+          <img src={feeGuidance} alt="화살표" onClick={feeGuidanceHandler} />
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          width: "1200px",
-          borderRadius: "15px",
-          background: "#ffffff",
-          paddingTop: "10px",
-          paddingBottom: "10px",
-        }}
-      >
+      <div className="wrap_cancellation_fee">
         {feeGuidanceToggle && (
-          <div
-            style={{ fontSize: "14px", fontWeight: "300", paddingTop: "20px" }}
-          >
+          <div className="content_cancellation_fee">
             {refundPolicyList?.map((refundPolicy, index) => (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                  marginLeft: "80px",
-                  marginBottom: "20px",
-                }}
-              >
-                <div
-                  style={{ width: "2px", height: "2px", background: "black" }}
-                ></div>
+              <div className="item_cancellation_fee">
+                <div className="text_cancellation_fee"></div>
                 <div>
                   {refundPolicy.category} 총 결제금액의{" "}
                   {refundPolicy.refundRatio}% 환불
@@ -254,34 +173,6 @@ export default function ReservationInformationPage() {
           </div>
         )}
       </div>
-    </ReservationInformationContainer>
+    </div>
   );
 }
-
-const ReservationInformationContainer = styled.div`
-  width: 1200px;
-  margin: auto;
-  padding-top: 192px;
-  padding-bottom: 150px;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 25px;
-  gap: 20px;
-  margin-left: 50px;
-`;
-
-const ContentName = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 22px;
-  font-size: 16px;
-  background: #203d1e;
-  border-radius: 4px;
-  font-weight: 400;
-  color: #ffffff;
-`;
