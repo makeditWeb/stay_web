@@ -87,6 +87,8 @@ export default function ReservationInformationPage() {
           )}
         </div>
         <div className="line_reservation_info"></div>
+        <div className="rank_reservation_info"></div>
+
         <div className="wrap_room">
           <div className="container_badge_reservation_info">
             <div className="title_badge_reservation_info">숙소이름</div>

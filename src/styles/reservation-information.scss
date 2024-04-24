@@ -9,6 +9,86 @@
   }
 
   body {
+    .container_reservation_info {
+      width: 100%;
+      padding: 192px 20px 150px 20px;
+      box-sizing: border-box;
+    }
+
+    .header_reservation_info {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .sub_header_reservation_info {
+      font-size: 16px;
+    }
+
+    .container_badge_reservation_info {
+      margin-left: 0;
+    }
+
+    .content_reservation_info_bold {
+      font-size: 17px;
+    }
+
+    .section_reservation_info {
+      display: block;
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
+
+    .title_badge_reservation_info {
+      font-size: 14px;
+      width: 80px;
+    }
+
+    .title_reservation_info {
+      font-size: 20px;
+      margin: 50px 0 -30px 0;
+    }
+
+    .line_reservation_info {
+      display: none;
+    }
+
+    .rank_reservation_info {
+      width: 93%;
+      height: 1px;
+      background: #d9d9d9;
+      margin: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .wrap_payment {
+      width: 100%;
+    }
+
+    .wrap_room {
+      width: 100%;
+    }
+
+    .content_reservation_info {
+      font-size: 13px;
+    }
+
+    .text_additional_fee_information {
+      margin-left: 0;
+      font-size: 11px;
+    }
+
+    .section_cancellation_fee {
+      font-size: 20px;
+      margin: 30px 0 20px 0;
+    }
+
+    .wrap_cancellation_fee {
+      width: 100%;
+    }
+
+    .item_cancellation_fee {
+      margin-left: 50px;
+    }
   }
 }
 
