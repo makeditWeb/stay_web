@@ -1,6 +1,4 @@
 "use client";
-import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
 import "./globals.css";
 import "@/styles/globals.scss";
 import "@/styles/room-detail-modal.scss";
@@ -18,8 +16,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import styled from "styled-components";
 import Script from "next/script";
-import "react-kakao-maps-sdk";
-import Head from "next/head";
+// import "react-kakao-maps-sdk";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -44,25 +41,28 @@ export default function RootLayout({
         <FooterContainer>
           <Footer />
         </FooterContainer>
-
-        <Script src="https://developers.kakao.com/sdk/js/kakao.js" async />
+        <link
+          rel="preload"
+          as="image"
+          href="https://stay-interview.s3.amazonaws.com/stayinterviewLogo.png"
+        />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />.
+        {/* <Script src="https://developers.kakao.com/sdk/js/kakao.js" async /> */}
         {/* <Script
           strategy="beforeInteractive"
           type="text/javascript"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false&libraries=services`}
         ></Script> */}
-
-        <Script
+        {/* <Script
           strategy="beforeInteractive"
           type="text/javascript"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false&libraries=services`}
-        ></Script>
-
+        ></Script> */}
         {/* <script src="https://pay.nicepay.co.kr/v1/js/"></script> */}
-        <Script
+        {/* <Script
           src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"
           type="text/javascript"
-        ></Script>
+        ></Script> */}
         {/* <script src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"></script> */}
       </BodyContainer>
     </html>
@@ -75,16 +75,16 @@ const BodyContainer = styled.body`
   background: #f6f5f1;
 `;
 
-const HeaderContainer = styled.header`
-  position: absolute;
-  width: 100%;
-  // width: 100%;
-  // position: sticky;
-  top: 0;
-  /* background-color: #162318;
-  opacity: 0.5; */
-  z-index: 10;
-`;
+// const HeaderContainer = styled.header`
+//   position: absolute;
+//   width: 100%;
+//   // width: 100%;
+//   // position: sticky;
+//   top: 0;
+//   /* background-color: #162318;
+//   opacity: 0.5; */
+//   z-index: 10;
+// `;
 
 const FooterContainer = styled.footer`
   background-color: #203d1e;

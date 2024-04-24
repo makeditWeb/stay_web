@@ -43,11 +43,33 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
+  const customLoader = ({ src, width, quality }) => {
+    return `https://stay-interview.s3.amazonaws.com/${src}?w=${width}&q=${quality}`;
+  };
+
   return (
     <>
       <div className="navbar_container">
         <Link href="/" style={{ textDecoration: "none" }}>
-          <img src="/stayinterviewLogo.png" alt="사이트 로고" />
+          <Image
+            src="https://stay-interview.s3.amazonaws.com/stayinterviewLogo.png"
+            alt="사이트 로고"
+            width={337}
+            height={80}
+            quality={80}
+            priority={true}
+            // style={{ width: "100% !important" }}
+          />
+
+          {/* <Image
+            src="stayinterviewLogo.png"
+            alt="사이트 로고"
+            width={337}
+            height={80}
+            quality={80}
+            priority={true}
+            loader={customLoader}
+          /> */}
         </Link>
         <MiddleNavbarDiv className="navbar_div" style={{ marginLeft: "15px" }}>
           <Link
@@ -95,6 +117,7 @@ export default function Navbar() {
               alt="인스타그램 로고"
               width={36}
               height={36}
+              priority
             />
           </Link>
         </RightNavbarDiv>
@@ -148,6 +171,7 @@ export default function Navbar() {
               style={{ margin: "20px 0" }}
               width={36}
               height={36}
+              priority
             />
           </Link>
         </div>

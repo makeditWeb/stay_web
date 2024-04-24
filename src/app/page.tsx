@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
@@ -83,10 +82,16 @@ export default function Mainpage() {
         type="text/javascript"
       /> */}
       <div className="main_banner_ctn">
-        <img
+        <Image
           className="main_banner_img"
-          src="/image/main/main.png"
+          src="https://stay-interview.s3.amazonaws.com/main.png"
           alt="main_top"
+          // sizes="120px"
+          // priority="low"
+          width={1920}
+          height={845}
+          priority={true}
+          quality={80}
         />
         {/* <div className="container_banner_top"> */}
         <div className="box_banner_top">
@@ -103,7 +108,14 @@ export default function Mainpage() {
           {mainBannerList?.map((item, index) => {
             return (
               <div key={index}>
-                <img src={item?.imageUrl} alt={item?.imageName} />
+                <Image
+                  src={item?.imageUrl}
+                  alt={item?.imageName}
+                  width={1920}
+                  height={600}
+                  // priority={true}
+                  quality={80}
+                />
               </div>
             );
           })}
@@ -126,10 +138,12 @@ export default function Mainpage() {
               return (
                 <div className="out_stay_container" key={index}>
                   <div style={{ width: "370px", height: "230px" }}>
-                    <img
+                    <Image
                       src={item?.imageUrl}
                       alt={item?.imageName}
-                      style={{ width: "370px", height: "230px" }}
+                      width={370}
+                      height={230}
+                      // style={{ width: "370px", height: "230px" }}
                     />
                   </div>
                   <div style={{ display: "flex", marginTop: "45px" }}>
