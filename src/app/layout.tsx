@@ -9,6 +9,7 @@ import "@/styles/our-stay.scss";
 import "@/styles/login.scss";
 import "@/styles/sign-up.scss";
 import "@/styles/reservation-check.scss";
+import "@/styles/reservation-information.scss";
 import "@/styles/menu-bar.scss";
 import "slick-carousel";
 import "slick-carousel/slick/slick.css";
