@@ -17,6 +17,7 @@ export const API = {
   USER_WEB: "/user-web",
   LOGIN: "/authentication/login",
   RESERVATION: "/reservation",
+  NICE_ID: "/nice-id",
   AUTHENTICATION: "/authentication/refresh-token",
   HEALTH_CHECK: "/healthCheck",
 };

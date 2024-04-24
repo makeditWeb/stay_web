@@ -243,17 +243,37 @@ export default function SignUpPage() {
 
   //인증번호 받기 버튼
   const onClickgetVerificationCode = async () => {
-    SweetAlert.fire({
-      title: "인증번호가 발송되었습니다.",
-      icon: "success",
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        document.getElementById("btn_authenticate").style.background =
-          "#203D1E";
-        return;
+    customAxios.get(`${API.NICE_ID}/getEncData`).then((res) => {
+      console.log("res", res.data.response);
+
+      const { passForm } = document;
+
+      if (passForm && res.data.response) {
+        const left = screen.width / 2 - 500 / 2;
+        const top = screen.height / 2 - 800 / 2;
+        const option = `status=no, menubar=no, toolbar=no, resizable=no, width=500, height=600, top=${top}, left=${left}`;
+
+        window.open("", "nicePopup", option);
+
+        passForm.action =
+          "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+        passForm.EncodeData.value = res.data.response;
+        passForm.target = "nicePopup";
+        passForm.submit();
       }
     });
+
+    // SweetAlert.fire({
+    //   title: "인증번호가 발송되었습니다.",
+    //   icon: "success",
+    //   showConfirmButton: true,
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     document.getElementById("btn_authenticate").style.background =
+    //       "#203D1E";
+    //     return;
+    //   }
+    // });
 
     // const response = await customAxios.post(
     //   `${API.USER_WEB}/send-certification-number`,
@@ -266,21 +286,19 @@ export default function SignUpPage() {
 
   //인증하기 버튼
   const onClickAuthentication = async () => {
-    SweetAlert.fire({
-      title: "인증이 완료되었습니다.",
-      icon: "success",
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setIsCheckedPhoneNumber(true);
-
-        let btn_authenticate = document.getElementById("btn_authenticate");
-        btn_authenticate.style.background = "#BCC8BC";
-        btn_authenticate.innerText = "인증완료";
-        return;
-      }
-    });
-
+    // SweetAlert.fire({
+    //   title: "인증이 완료되었습니다.",
+    //   icon: "success",
+    //   showConfirmButton: true,
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     setIsCheckedPhoneNumber(true);
+    //     let btn_authenticate = document.getElementById("btn_authenticate");
+    //     btn_authenticate.style.background = "#BCC8BC";
+    //     btn_authenticate.innerText = "인증완료";
+    //     return;
+    //   }
+    // });
     // const response = await customAxios.post(
     //   `${API.USER_WEB}/send-certification-number`,
     //   {
@@ -623,6 +641,10 @@ export default function SignUpPage() {
           </button>
         </div>
       </Form>
+      <form name="passForm" method="post">
+        <input type="hidden" name="m" value="service" />
+        <input type="hidden" name="EncodeData" id="EncodeData" />
+      </form>
     </>
   );
 }
