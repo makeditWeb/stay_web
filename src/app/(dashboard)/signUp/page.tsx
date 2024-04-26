@@ -1,13 +1,11 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import { Alert, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import styled from "styled-components";
 import { customAxios } from "@/modules/common/api";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import SweetAlert from "sweetalert2";
-import { useForm } from "react-hook-form";
-import { Input, Label } from "reactstrap";
 
 type Inputs = {
   acName: string;
@@ -20,10 +18,15 @@ type Inputs = {
 
 export default function SignUpPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const acId: any = searchParams.get("acId");
+  const acName: any = searchParams.get("acName");
+
   // 연락처 인풋
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isCheckedPhoneNumber, setIsCheckedPhoneNumber] = useState(false);
   const [isSame, setIsSame] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [termsOfUse, setTermsOfUse] = useState("/topVector.png");
   const [collectionInformation, setCollectionInformation] =
@@ -241,47 +244,28 @@ export default function SignUpPage() {
       });
   };
 
-  //인증번호 받기 버튼
-  const onClickgetVerificationCode = async () => {
-    customAxios.get(`${API.NICE_ID}/getEncData`).then((res) => {
-      console.log("res", res.data.response);
-
+  //본인인증 버튼
+  const onClickIdentityVerification = async () => {
+    customAxios.get(`${API.NICE_ID}/getEncData/sign-up`).then((res) => {
       const { passForm } = document;
 
       if (passForm && res.data.response) {
-        const left = screen.width / 2 - 500 / 2;
-        const top = screen.height / 2 - 800 / 2;
-        const option = `status=no, menubar=no, toolbar=no, resizable=no, width=500, height=600, top=${top}, left=${left}`;
+        const left = (screen.width - 500) / 2;
+        const top = (screen.height - 800) / 2;
 
-        window.open("", "nicePopup", option);
+        const option = `status=no, menubar=no, toolbar=no, resizable=no, width=500, height=600, top=${
+          screen.height / 2
+        }, left=${left}`;
+
+        // const nicePopup = window.open("", "nicePopup", option);
 
         passForm.action =
           "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
         passForm.EncodeData.value = res.data.response;
-        passForm.target = "nicePopup";
+        passForm.target = "popupChk";
         passForm.submit();
       }
     });
-
-    // SweetAlert.fire({
-    //   title: "인증번호가 발송되었습니다.",
-    //   icon: "success",
-    //   showConfirmButton: true,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     document.getElementById("btn_authenticate").style.background =
-    //       "#203D1E";
-    //     return;
-    //   }
-    // });
-
-    // const response = await customAxios.post(
-    //   `${API.USER_WEB}/send-certification-number`,
-    //   {
-    //     phoneNumber: signUpData.phoneNumber,
-    //   }
-    // );
-    // console.log(response);
   };
 
   //인증하기 버튼
@@ -320,35 +304,71 @@ export default function SignUpPage() {
               </div>
             </div>
           </div>
+
           <div className="section_information">
             <div className="wrap_information">
               <div className="inner_information">
                 <div className="title_information">이름</div>
-                <div className="div_input_information">
-                  <input
-                    className="inp_information"
-                    type="text"
-                    name="acName"
-                    placeholder="이름을 입력해주세요."
-                    onChange={onChangeSignUpData}
-                  />
+                <div className="div_check_input_information">
+                  <div className="div_input_information_phone">
+                    <input
+                      className="inp_check_information"
+                      type="text"
+                      name="acPhone"
+                      value={acName != null ? acName : ""}
+                      disabled
+                    />
+                  </div>
+                  <div
+                    className="btn_get_verification_code"
+                    onClick={onClickIdentityVerification}
+                    style={{
+                      background: acName == null ? "#203d1e" : "#9bac9a",
+                    }}
+                    // disabled={acName == null ? false : true}
+                  >
+                    본인 인증하기
+                  </div>
                 </div>
               </div>
               <div className="inner_information">
-                <div className="title_information">이메일</div>
-                <div className="div_input_information">
-                  <input
-                    className="inp_information"
-                    type="text"
-                    name="acEmail"
-                    placeholder="이메일을 입력해주세요."
-                    onChange={onChangeSignUpData}
-                  />
+                <div className="title_information">연락처</div>
+                <div className="div_check_input_information">
+                  <div className="div_input_information_phone">
+                    <input
+                      className="inp_check_information"
+                      type="text"
+                      name="acPhone"
+                      value={acId != null ? acId : ""}
+                      disabled
+                    />
+                  </div>
+                  <div className="div_sign_in"></div>
                 </div>
               </div>
+              <div
+                className="inner_information_text"
+                style={{ marginLeft: "270px" }}
+              >
+                ※ 연락처는 아이디로 사용됩니다.
+              </div>
+
               <div className="inner_information">
                 <div className="title_information">비밀번호</div>
-                <div className="div_input_information">
+                <div className="div_check_input_information">
+                  <div className="div_input_information_phone">
+                    <input
+                      className="inp_check_information"
+                      type="password"
+                      name="acPw"
+                      // value={phoneNumber}
+                      placeholder="비밀번호를 입력해주세요."
+                      onChange={onChangeSignUpData}
+                    />
+                  </div>
+                  <div className="div_sign_in"></div>
+                </div>
+                {/* <div className="div_input_information">
                   <input
                     className="inp_information"
                     type="password"
@@ -356,11 +376,23 @@ export default function SignUpPage() {
                     placeholder="비밀번호를 입력해주세요."
                     onChange={onChangeSignUpData}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="inner_information">
                 <div className="title_information_none"></div>
-                <div className="div_input_information">
+                <div className="div_check_input_information">
+                  <div className="div_input_information_phone">
+                    <input
+                      className="inp_check_information"
+                      type="text"
+                      name="checkPassword"
+                      placeholder="비밀번호 확인을 위해 재입력해주세요."
+                      onChange={onChangePasswordConfirm}
+                    />
+                  </div>
+                  <div className="div_sign_in"></div>
+                </div>
+                {/* <div className="div_input_information">
                   <input
                     className="inp_information"
                     type="password"
@@ -368,7 +400,7 @@ export default function SignUpPage() {
                     placeholder="비밀번호 확인을 위해 재입력해주세요."
                     onChange={onChangePasswordConfirm}
                   />
-                </div>
+                </div> */}
               </div>
               {passwordConfirm.length > 0 && (
                 <div className="inner_information_text">
@@ -385,44 +417,28 @@ export default function SignUpPage() {
               )}
 
               <div className="inner_information">
-                <div className="title_information">연락처</div>
+                <div className="title_information">이메일</div>
                 <div className="div_check_input_information">
                   <div className="div_input_information_phone">
                     <input
                       className="inp_check_information"
                       type="text"
-                      name="acPhone"
-                      // value={phoneNumber}
+                      name="acEmail"
+                      placeholder="이메일을 입력해주세요."
                       onChange={onChangeSignUpData}
-                      placeholder="휴대폰 번호 ( - 를 빼고 입력해주세요. )"
                     />
                   </div>
-                  <div
-                    className="btn_get_verification_code"
-                    onClick={onClickgetVerificationCode}
-                  >
-                    인증번호 받기
-                  </div>
+                  <div className="div_sign_in"></div>
                 </div>
-              </div>
-              <div className="inner_information_phone">
-                <div className="title_information_none"></div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="text"
-                      placeholder="인증번호를 입력해주세요."
-                    />
-                  </div>
-                  <div
-                    className="btn_authenticate"
-                    id="btn_authenticate"
-                    onClick={onClickAuthentication}
-                  >
-                    인증하기
-                  </div>
-                </div>
+                {/* <div className="div_input_information">
+                  <input
+                    className="inp_information"
+                    type="text"
+                    name="acEmail"
+                    placeholder="이메일을 입력해주세요."
+                    onChange={onChangeSignUpData}
+                  />
+                </div> */}
               </div>
             </div>
           </div>

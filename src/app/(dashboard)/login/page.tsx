@@ -92,8 +92,19 @@ export default function LoginPage() {
           </div>
 
           <div className="inner_find_account">
-            <div className="btn_find_account">아이디 찾기</div>|
-            <div className="btn_find_account">비밀번호 찾기</div>
+            <Link
+              href={{ pathname: "/findUser/id" }}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="btn_find_account">아이디 찾기</div>
+            </Link>
+            <div>|</div>
+            <Link
+              href={{ pathname: "/findUser/password" }}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="btn_find_account">비밀번호 찾기</div>
+            </Link>
           </div>
         </div>
         <div className="section_btn">

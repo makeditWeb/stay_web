@@ -1,110 +1,83 @@
 "use client";
 import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { customAxios } from "@/modules/common/api";
 import { API } from "@/app/api/config";
 
 export default function LoginPage() {
   const router = useRouter();
-
-  const Rest_api_key = "fdae58a0738089d459f46e607436eb39"; //REST API KEY
-  // const redirect_uri = "http://3.209.225.241:8000/healthCheck"; //Redirect URI
-  const redirect_uri = "http://localhost:9000/api/v1/user-web/kakao"; //Redirect URI
-  // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-
-  const code = new URL(window.location.href).searchParams.get("code");
-
-  const handleLogin = () => {
-    // window.location.href = kakaoURL;
-    window.open(kakaoURL, "_self");
-  };
-
-  const onClickLogin = () => {
-    location.href = "/";
-  };
+  const searchParams = useSearchParams();
+  const acId: any = searchParams.get("acId");
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const code = url.searchParams.get("code");
-    const access_token = url.searchParams.get("access_token");
-
-    if (code) {
-      customAxios
-        .get(`${API.USER_WEB}/login/kakao?code=${access_token}`)
-        .then((res) => {
-          localStorage.setItem("accessToken", res.data.response.accessToken);
-          localStorage.setItem("refreshToken", res.data.response.refreshToken);
-
-          // customAxios.get(`${API.USER_WEB}/info`).then((res) => {
-          //   console.log(`${API.USER_WEB}/info ::`, res);
-          //   localStorage.setItem("user", JSON.stringify(res.data.response));
-          //   localStorage.setItem("acName", res.data.response.acName);
-          // });
-
-          router.push("/");
-        });
-    }
+    // acId: any = searchParams.get("acId");
+    console.log("acId", acId);
   }, []);
 
+  //본인인증 버튼
+  const onClickIdentityVerification = async () => {
+    customAxios
+      .get(`${API.NICE_ID}/getEncData/find-user`)
+      .then((res) => {
+        const { passForm } = document;
+
+        if (passForm && res.data.response) {
+          const left = (screen.width - 500) / 2;
+          const top = (screen.height - 800) / 2;
+
+          const option = `status=no, menubar=no, toolbar=no, resizable=no, width=500, height=600, top=${
+            screen.height / 2
+          }, left=${left}`;
+
+          // const nicePopup = window.open("", "nicePopup", option);
+
+          passForm.action =
+            "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+          passForm.EncodeData.value = res.data.response;
+          passForm.target = "popupChk";
+          passForm.submit();
+        }
+      })
+      .finally(() => {
+        console.log("finally");
+      });
+  };
+
   return (
-    <div className="container_login">
-      <div className="wrap_login">
-        <div className="header_title_login">아이디 찾기</div>
-        <div className="section_login">
-          <input
-            className="inp_login"
-            placeholder="휴대폰 번호를 입력해주세요."
-          ></input>
+    <div className="container_find_id">
+      <div className="wrap_find_id">
+        <div className="header_find_id">아이디 찾기</div>
+        <div className="header_text_find_id">
+          회원가입시 등록하신 정보로 아이디를 확인할 수 있습니다.
         </div>
-        <div className="section_login">
-          <input
-            className="inp_login"
-            placeholder="비밀번호를 입력해주세요."
-          ></input>
-        </div>
-        <div className="section_sign_in">
-          <div className="inner_sign_in">
-            <Link
-              href={{ pathname: "/signUp" }}
-              style={{ textDecoration: "none" }}
-            >
-              <div className="btn_sign_in">회원가입</div>
-            </Link>
+        {acId ? (
+          <div className="content_id_result">
+            <div className="section_id_result">
+              <div className="inp_id_result">
+                가입하신 아이디는 <span className="id_result">{acId}</span>{" "}
+                입니다.
+              </div>
+              <Link
+                href={{ pathname: "/login" }}
+                style={{ textDecoration: "none" }}
+              >
+                <div className="btn_id_result">로그인 하러 가기</div>
+              </Link>
+            </div>
           </div>
-
-          <div className="inner_find_account">
-            <div className="btn_find_account">아이디 찾기</div>|
-            <div className="btn_find_account">비밀번호 찾기</div>
+        ) : (
+          <div className="section_btn">
+            <div className="btn_login" onClick={onClickIdentityVerification}>
+              본인 인증하기
+            </div>
           </div>
-        </div>
-        <div className="section_btn">
-          <div className="btn_login" onClick={onClickLogin}>
-            로그인
-          </div>
-          {/* <KakaoLogin
-          token={kakaoClientId}
-          onSuccess={kakaoOnSuccess}
-          onFail={kakaoOnFailure}
-        /> */}
-
-          <div className="btn_kakao" onClick={handleLogin}>
-            <img
-              src="/kakaoIcon.png"
-              alt="카카오 로그인 버튼"
-              className="img_btn_kakao"
-            />
-            <div className="title_kakao_login">카카오 로그인</div>
-          </div>
-          <Link
-            href={{ pathname: "/reservation/nonMember" }}
-            style={{ textDecoration: "none" }}
-          >
-            <div className="btn_reservation_non_member">비회원 예약조회</div>
-          </Link>
-        </div>
+        )}
       </div>
+      <form name="passForm" method="post">
+        <input type="hidden" name="m" value="service" />
+        <input type="hidden" name="EncodeData" id="EncodeData" />
+      </form>
     </div>
   );
 }
