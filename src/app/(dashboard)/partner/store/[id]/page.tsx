@@ -370,7 +370,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
   };
 
   return (
-    <RoomDetailContainer>
+    <div className="container_room_detail">
       {loading ? (
         <>
           <Container>
@@ -401,7 +401,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
           />
         </div>
         {/* <div style={{ height: "183px", background: "#203d1e" }}></div> */}
-        <MainTitleContainer>
+        <div className="head_title_room_detail">
           <div
             style={{
               display: "flex",
@@ -673,7 +673,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
               </div>
             </div>
           </div>
-        </MainTitleContainer>
+        </div>
         <div className="section_notice">
           <div className="notice_container">
             <div className="notice_container_div">
@@ -909,7 +909,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
           </div>
         </div>
       </div>
-    </RoomDetailContainer>
+    </div>
   );
 }
 

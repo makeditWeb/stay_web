@@ -428,7 +428,7 @@ body {
     .notice_container {
       width: 100%;
       height: 205px;
-      margin-top: 402px;
+      margin-top: 350px;
     }
 
     .notice_container_div {
@@ -461,25 +461,27 @@ body {
 
     .story_img_container {
       width: 100%;
-      height: 450px;
-      margin-bottom: 15px;
-      padding: 0 600px;
+      height: 100%;
+      margin-bottom: 0px;
+      padding: 0;
     }
 
     .story_img_container img {
       width: 100%;
-      height: 450px;
+      height: 238px;
       margin-bottom: 15px;
+      border-radius: revert;
       object-fit: contain;
     }
 
     .box_story_img {
-      margin-top: 50px;
-      margin-bottom: 80px;
-      // width: 100%;
+      margin-top: 20px;
+      margin-bottom: 0;
+      width: 100%;
     }
 
     .story_content_container {
+      width: 100%;
       margin-top: 50px;
       margin-left: 0px;
       padding: 0 55px;
@@ -529,9 +531,13 @@ body {
       align-items: center;
     }
 
+    .feature_container img {
+      width: 100%;
+    }
+
     .box_feature {
       position: absolute;
-      top: 80px;
+      top: 50%;
       width: 100%;
       padding: 0 30px;
       box-sizing: border-box;
@@ -1314,6 +1320,25 @@ body {
       font-size: 15px;
       margin: 10px 0;
     }
+
+    .section_notice {
+      background: #203d1e;
+      height: 300px;
+      padding-top: 0;
+    }
+
+    .container_room_detail {
+      width: 100%;
+      margin: auto;
+    }
+
+    .head_title_room_detail {
+      // width: 1200px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50px;
+    }
   }
 }
 
@@ -2012,7 +2037,7 @@ body {
 }
 
 .notice_container_div {
-  margin-top: 110px;
+  // margin-top: 110px;
   height: 250px;
 }
 
@@ -3316,8 +3341,15 @@ body {
   font-weight: 600;
 }
 
+.section_notice {
+  background: #203d1e;
+  height: 300px;
+  padding-top: 100px;
+}
+
 .notice_container {
   width: 1200px;
+  margin: auto;
 }
 
 //[OUR_NEWS]
@@ -3433,4 +3465,17 @@ body {
   width: 280px;
   height: 155px;
   object-fit: cover;
+}
+
+.container_room_detail {
+  width: 1920px;
+  margin: auto;
+}
+
+.head_title_room_detail {
+  // width: 1200px;
+  width: 100%;
+  position: absolute;
+  top: 50px;
+  height: 897px;
 }
