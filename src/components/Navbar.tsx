@@ -43,20 +43,16 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
-  const customLoader = ({ src, width, quality }) => {
-    return `https://stay-interview.s3.amazonaws.com/${src}?w=${width}&q=${quality}`;
-  };
-
   return (
     <>
       <div className="navbar_container">
         <Link href="/" style={{ textDecoration: "none" }}>
           <Image
-            src="https://stay-interview.s3.amazonaws.com/stayinterviewLogo.png"
+            src="/stayinterviewLogo.svg"
             alt="사이트 로고"
-            width={337}
-            height={80}
-            quality={80}
+            width={276}
+            height={26}
+            quality={50}
             priority={true}
             // style={{ width: "100% !important" }}
           />
@@ -220,6 +216,7 @@ const MenuDiv = styled.div`
   margin-right: 50px;
   padding: 5px;
   box-sizing: border-box;
+  font-display: optional;
 
   &:hover {
     background: #131d14b3;

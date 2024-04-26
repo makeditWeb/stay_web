@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import Image from "next/image";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -127,10 +128,14 @@ export default function ReservationPage(props: any) {
   return (
     <div className="reservation_containter">
       <div className="reservation_left_container">
-        <img
+        <Image
           className="reservation_left_container_background"
-          src="/reservationImg.png"
+          src="https://stay-interview.s3.amazonaws.com/reservation/reservationImg.png"
           alt="예약 이미지"
+          width={490}
+          height={1100}
+          loading="eager"
+          // priority={true}
         />
         <div className="reservation_left_item_container">
           <div className="reservation_english_name">{englishStoreName}</div>
@@ -146,10 +151,12 @@ export default function ReservationPage(props: any) {
                       className="reservation_quantity_btn"
                       onClick={adultMinusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                     <p className="reservation_quantity_input">{adultCount}</p>
@@ -157,10 +164,12 @@ export default function ReservationPage(props: any) {
                       className="reservation_quantity_btn"
                       onClick={adultPlusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                   </div>
@@ -174,10 +183,12 @@ export default function ReservationPage(props: any) {
                       style={{ width: "45px", height: "45px" }}
                       onClick={kidMinusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                     <p className="reservation_quantity_input">{kidCount}</p>
@@ -185,10 +196,12 @@ export default function ReservationPage(props: any) {
                       className="reservation_quantity_btn"
                       onClick={kidPlusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                   </div>
@@ -202,10 +215,12 @@ export default function ReservationPage(props: any) {
                       className="reservation_quantity_btn"
                       onClick={petMinusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/minusIcon.png"
                         alt="마이너스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                     <p className="reservation_quantity_input">{petCount}</p>
@@ -213,10 +228,12 @@ export default function ReservationPage(props: any) {
                       className="reservation_quantity_btn"
                       onClick={petPlusCountHandler}
                     >
-                      <img
+                      <Image
                         src="/plusIcon.png"
                         alt="플러스 아이콘"
                         className="reservation_quantity_img"
+                        width={45}
+                        height={45}
                       />
                     </div>
                   </div>
@@ -310,7 +327,12 @@ export default function ReservationPage(props: any) {
                         <div className="room_info_conatiner">
                           <div className="room_image_container">
                             <div>
-                              <img src={item.imageUrl} alt={item.imageName} />
+                              <Image
+                                src={item.imageUrl}
+                                alt={item.imageName}
+                                width={330}
+                                height={250}
+                              />
                             </div>
                             <div className="room_image_div">
                               <div
@@ -400,11 +422,11 @@ const ImageWrapper = styled.div`
   height: 220px;
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
+// const Image = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// `;
 
 const Info = styled.div`
   display: flex;

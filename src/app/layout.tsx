@@ -1,5 +1,6 @@
 "use client";
-import "./globals.css";
+// import "./globals.css";
+// import "../styles/globals.css";
 import "@/styles/globals.scss";
 import "@/styles/room-detail-modal.scss";
 import "@/styles/consulting.scss";
@@ -42,11 +43,11 @@ export default function RootLayout({
           <Footer />
         </FooterContainer>
         <link
-          rel="preload"
+          rel="preconnect"
           as="image"
           href="https://stay-interview.s3.amazonaws.com/stayinterviewLogo.png"
         />
-        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />.
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />.
         {/* <Script src="https://developers.kakao.com/sdk/js/kakao.js" async /> */}
         {/* <Script
           strategy="beforeInteractive"

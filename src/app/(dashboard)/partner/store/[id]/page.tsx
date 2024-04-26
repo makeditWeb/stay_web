@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
+import Skeleton from "@/components/Skeleton";
 
 declare global {
   interface Window {
@@ -94,124 +95,214 @@ export default function RoomDetailPage({ location }: { location: string }) {
     }
   };
 
-  useEffect(() => {
-    customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
-      if (res !== undefined && res?.status === 200) {
-        setPartnerStoreData(res.data.response);
-        setLongitude(res.data.response.longitude);
-        setLatitude(res.data.response.latitude);
-        setStoreImageData(res.data.response.storeImages);
+  const selectPartnerStoreDetail = async () => {
+    await customAxios
+      .get(`${API.PARTNER_STORE}/${partnerStoreId}`)
+      .then((res) => {
+        if (res !== undefined && res?.status === 200) {
+          setPartnerStoreData(res.data.response);
+          setLongitude(res.data.response.longitude);
+          setLatitude(res.data.response.latitude);
+          setStoreImageData(res.data.response.storeImages);
 
-        const kakaoMapScript = document.createElement("script");
-        kakaoMapScript.async = false;
-        // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
-        kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
-        document.head.appendChild(kakaoMapScript);
+          const kakaoMapScript = document.createElement("script");
+          kakaoMapScript.async = false;
+          // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
+          kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
+          document.head.appendChild(kakaoMapScript);
 
-        const onLoadKakaoAPI = () => {
-          window.kakao.maps.load(() => {
-            var container = document.getElementById("map");
-            var options = {
-              center: new window.kakao.maps.LatLng(
-                res.data.response.latitude,
-                res.data.response.longitude
-              ),
-              level: 3,
-            };
-
-            var map = new window.kakao.maps.Map(container, options);
-            var positions = [];
-            //주변 관광지 마커 좌표
-            res.data.response.touristSpotList.data.forEach((item) => {
-              positions.push({
-                title: item.name,
-                latlng: new window.kakao.maps.LatLng(
-                  item.latitude,
-                  item.longitude
+          const onLoadKakaoAPI = () => {
+            window.kakao.maps.load(() => {
+              var container = document.getElementById("map");
+              var options = {
+                center: new window.kakao.maps.LatLng(
+                  res.data.response.latitude,
+                  res.data.response.longitude
                 ),
+                level: 3,
+              };
+
+              var map = new window.kakao.maps.Map(container, options);
+              var positions = [];
+              //주변 관광지 마커 좌표
+              res.data.response.touristSpotList.data.forEach((item) => {
+                positions.push({
+                  title: item.name,
+                  latlng: new window.kakao.maps.LatLng(
+                    item.latitude,
+                    item.longitude
+                  ),
+                });
               });
+
+              // 마커 이미지의 이미지 주소입니다
+              var imageSrc =
+                "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+              for (var i = 0; i < positions.length; i++) {
+                // 마커 이미지의 이미지 크기 입니다
+                var imageSize = new kakao.maps.Size(24, 35);
+
+                // 마커 이미지를 생성합니다
+                var markerImage = new kakao.maps.MarkerImage(
+                  imageSrc,
+                  imageSize
+                );
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                  map: map, // 마커를 표시할 지도
+                  position: positions[i].latlng, // 마커를 표시할 위치
+                  title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                  image: markerImage, // 마커 이미지
+                });
+
+                // // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+              }
+
+              // // 마커가 표시될 위치입니다
+              // var markerPosition = new kakao.maps.LatLng(
+              //   res.data.response.latitude,
+              //   res.data.response.longitude
+              // );
+
+              // // 마커를 생성합니다
+              // var marker = new kakao.maps.Marker({
+              //   position: markerPosition,
+              // });
             });
+          };
 
-            // 마커 이미지의 이미지 주소입니다
-            var imageSrc =
-              "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+          kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
 
-            for (var i = 0; i < positions.length; i++) {
-              // 마커 이미지의 이미지 크기 입니다
-              var imageSize = new kakao.maps.Size(24, 35);
+          if (res.data.response.partnerStoreNoticeList != null) {
+            setNoticeData(res.data.response.partnerStoreNoticeList?.data);
+          } else {
+            setDefaultNoticeData([
+              {
+                content: "등록된 공지사항이 없습니다.",
+                createdAt: "-",
+                id: 1,
+                title: "등록된 공지사항이 없습니다.",
+              },
+            ]);
+          }
 
-              // 마커 이미지를 생성합니다
-              var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-              // 마커를 생성합니다
-              var marker = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: positions[i].latlng, // 마커를 표시할 위치
-                title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                image: markerImage, // 마커 이미지
-              });
-
-              // // 마커가 지도 위에 표시되도록 설정합니다
-              marker.setMap(map);
-            }
-
-            // // 마커가 표시될 위치입니다
-            // var markerPosition = new kakao.maps.LatLng(
-            //   res.data.response.latitude,
-            //   res.data.response.longitude
-            // );
-
-            // // 마커를 생성합니다
-            // var marker = new kakao.maps.Marker({
-            //   position: markerPosition,
-            // });
+          setStoryData({
+            storyTitle: res.data.response.storyTitle,
+            storyContent: res.data.response.storyContent,
           });
-        };
+          setFeatureData(res.data.response.storeFeatureList.data);
+          setTouristSpotData(res.data.response.touristSpotList.data);
 
-        kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
-
-        if (res.data.response.partnerStoreNoticeList != null) {
-          setNoticeData(res.data.response.partnerStoreNoticeList?.data);
-        } else {
-          setDefaultNoticeData([
-            {
-              content: "등록된 공지사항이 없습니다.",
-              createdAt: "-",
-              id: 1,
-              title: "등록된 공지사항이 없습니다.",
-            },
-          ]);
+          // document.getElementById("storyContent").innerHTML =
+          //   res.data.response.storyContent;
         }
-
-        setStoryData({
-          storyTitle: res.data.response.storyTitle,
-          storyContent: res.data.response.storyContent,
-        });
-        setFeatureData(res.data.response.storeFeatureList.data);
-        setTouristSpotData(res.data.response.touristSpotList.data);
-
-        // document.getElementById("storyContent").innerHTML =
-        //   res.data.response.storyContent;
-      }
-    });
-  }, []);
+      });
+  };
 
   useEffect(() => {
-    // const kakaoMapScript = document.createElement("script");
-    // kakaoMapScript.async = false;
-    // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
-    // document.head.appendChild(kakaoMapScript);
-    // const onLoadKakaoAPI = () => {
-    //   window.kakao.maps.load(() => {
-    //     var container = document.getElementById("map");
-    //     var options = {
-    //       center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-    //       level: 3,
+    selectPartnerStoreDetail();
+    // customAxios.get(`${API.PARTNER_STORE}/${partnerStoreId}`).then((res) => {
+    //   if (res !== undefined && res?.status === 200) {
+    //     setPartnerStoreData(res.data.response);
+    //     setLongitude(res.data.response.longitude);
+    //     setLatitude(res.data.response.latitude);
+    //     setStoreImageData(res.data.response.storeImages);
+
+    //     const kakaoMapScript = document.createElement("script");
+    //     kakaoMapScript.async = false;
+    //     // kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a98d4c1b2d78b9d4e9ab8a8adc84a85b&autoload=false`;
+    //     kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
+    //     document.head.appendChild(kakaoMapScript);
+
+    //     const onLoadKakaoAPI = () => {
+    //       window.kakao.maps.load(() => {
+    //         var container = document.getElementById("map");
+    //         var options = {
+    //           center: new window.kakao.maps.LatLng(
+    //             res.data.response.latitude,
+    //             res.data.response.longitude
+    //           ),
+    //           level: 3,
+    //         };
+
+    //         var map = new window.kakao.maps.Map(container, options);
+    //         var positions = [];
+    //         //주변 관광지 마커 좌표
+    //         res.data.response.touristSpotList.data.forEach((item) => {
+    //           positions.push({
+    //             title: item.name,
+    //             latlng: new window.kakao.maps.LatLng(
+    //               item.latitude,
+    //               item.longitude
+    //             ),
+    //           });
+    //         });
+
+    //         // 마커 이미지의 이미지 주소입니다
+    //         var imageSrc =
+    //           "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+    //         for (var i = 0; i < positions.length; i++) {
+    //           // 마커 이미지의 이미지 크기 입니다
+    //           var imageSize = new kakao.maps.Size(24, 35);
+
+    //           // 마커 이미지를 생성합니다
+    //           var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    //           // 마커를 생성합니다
+    //           var marker = new kakao.maps.Marker({
+    //             map: map, // 마커를 표시할 지도
+    //             position: positions[i].latlng, // 마커를 표시할 위치
+    //             title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    //             image: markerImage, // 마커 이미지
+    //           });
+
+    //           // // 마커가 지도 위에 표시되도록 설정합니다
+    //           marker.setMap(map);
+    //         }
+
+    //         // // 마커가 표시될 위치입니다
+    //         // var markerPosition = new kakao.maps.LatLng(
+    //         //   res.data.response.latitude,
+    //         //   res.data.response.longitude
+    //         // );
+
+    //         // // 마커를 생성합니다
+    //         // var marker = new kakao.maps.Marker({
+    //         //   position: markerPosition,
+    //         // });
+    //       });
     //     };
-    //     var map = new window.kakao.maps.Map(container, options);
-    //   });
-    // };
-    // kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
+
+    //     kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
+
+    //     if (res.data.response.partnerStoreNoticeList != null) {
+    //       setNoticeData(res.data.response.partnerStoreNoticeList?.data);
+    //     } else {
+    //       setDefaultNoticeData([
+    //         {
+    //           content: "등록된 공지사항이 없습니다.",
+    //           createdAt: "-",
+    //           id: 1,
+    //           title: "등록된 공지사항이 없습니다.",
+    //         },
+    //       ]);
+    //     }
+
+    //     setStoryData({
+    //       storyTitle: res.data.response.storyTitle,
+    //       storyContent: res.data.response.storyContent,
+    //     });
+    //     setFeatureData(res.data.response.storeFeatureList.data);
+    //     setTouristSpotData(res.data.response.touristSpotList.data);
+
+    //     // document.getElementById("storyContent").innerHTML =
+    //     //   res.data.response.storyContent;
+    //   }
+    // });
   }, []);
 
   const onChangeReservationInfo = (e: any) => {
@@ -300,11 +391,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
       <div style={{ position: "relative" }}>
         <div className="box_banner_container">
           <Image
-            src="/DetailPageImg.png"
+            src="https://stay-interview.s3.amazonaws.com/partnerStore/DetailPageImg.png"
             alt="상세 페이지 메인 이미지"
             width={1920}
             height={850}
-            style={{ width: "100vw" }}
+            loading="lazy"
+            // priority={true}
+            // style={{ width: "100vw" }}
           />
         </div>
         {/* <div style={{ height: "183px", background: "#203d1e" }}></div> */}
@@ -343,11 +436,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
                       {storeImageData.map((item, index) => {
                         return (
                           <div key={index}>
-                            <img
+                            <Image
                               src={item?.imageUrl}
                               alt={item?.imageName}
-                              // width={1200}
+                              width={1200}
                               height={500}
+                              // priority={true}
+                              loading="lazy"
                               style={{
                                 borderRadius: "15px 15px 0 0",
                                 margin: "auto",
@@ -579,15 +674,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
         </MainTitleContainer>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            background: "#203d1e",
-            // height: "400px",
-          }}
-        >
+        <div className="section_notice">
           <div className="notice_container">
             <div className="notice_container_div">
               <div className="notice_title_container">
@@ -642,10 +729,20 @@ export default function RoomDetailPage({ location }: { location: string }) {
         <div className="story_container">
           <div className="box_story_img">
             <div className="story_img_container">
-              <img src="/roomDetailImg2.png" alt="서브 이미지" height={450} />
+              <Image
+                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg2.png"
+                alt="서브 이미지"
+                width={680}
+                height={450}
+              />
             </div>
             <div className="story_img_container">
-              <img src="/roomDetailImg3.png" alt="서브 이미지" height={450} />
+              <Image
+                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg3.png"
+                alt="서브 이미지"
+                width={680}
+                height={450}
+              />
             </div>
           </div>
           <div className="story_content_container">
@@ -664,7 +761,12 @@ export default function RoomDetailPage({ location }: { location: string }) {
         <div className="bg_feature_container">
           <div className="box_bg_feature"></div>
           <div className="feature_container">
-            <img src="/roomDetailImg4.png" alt="서브 이미지" />
+            <Image
+              src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg4.png"
+              width={1920}
+              height={654}
+              alt="서브 이미지"
+            />
             <div className="box_feature">
               {featureData.map((item, index) => {
                 return (
