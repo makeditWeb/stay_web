@@ -913,19 +913,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
   );
 }
 
-const RoomDetailContainer = styled.div`
-  // width: 1920px;
-  margin: auto;
-`;
-
-const MainTitleContainer = styled.div`
-  // width: 1200px;
-  width: 100%;
-  position: absolute;
-  top: 50px;
-  height: 897px;
-`;
-
 const SlickSlider = styled(Slider)`
   border-radius: 15px 0 15px 0;
 
