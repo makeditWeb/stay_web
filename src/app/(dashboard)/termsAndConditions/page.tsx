@@ -6,9 +6,11 @@ import TermsAndConditionsTabContents from "@/components/termsAndConditionsTabCon
 
 export default function TermsAndConditionsPage() {
   const [activeTab, setActiveTab] = useState(1);
+  const [subCategory, setSubCategory] = useState("TERMS_OF_USE");
 
-  const handleTabClick = (tabIndex: number) => {
+  const handleTabClick = (tabIndex: number, subCategory: string) => {
     setActiveTab(tabIndex);
+    setSubCategory(subCategory);
   };
 
   return (
@@ -25,13 +27,22 @@ export default function TermsAndConditionsPage() {
       </div>
       <div>
         <div style={{ display: "flex" }}>
-          <TabBtn active={activeTab === 1} onClick={() => handleTabClick(1)}>
+          <TabBtn
+            active={activeTab === 1}
+            onClick={() => handleTabClick(1, "TERMS_OF_USE")}
+          >
             이용약관
           </TabBtn>
-          <TabBtn active={activeTab === 2} onClick={() => handleTabClick(2)}>
+          <TabBtn
+            active={activeTab === 2}
+            onClick={() => handleTabClick(2, "TERMS_PERSONAL_INFO")}
+          >
             개인정보처리방침
           </TabBtn>
-          <TabBtn active={activeTab === 3} onClick={() => handleTabClick(3)}>
+          <TabBtn
+            active={activeTab === 3}
+            onClick={() => handleTabClick(3, "MARKETING")}
+          >
             마케팅 수신 정보 동의
           </TabBtn>
         </div>
@@ -43,7 +54,10 @@ export default function TermsAndConditionsPage() {
             borderRadius: "0 0 15px 15px",
           }}
         >
-          <TermsAndConditionsTabContents tabNumber={activeTab} />
+          <TermsAndConditionsTabContents
+            tabNumber={activeTab}
+            subCategory={subCategory}
+          />
         </div>
       </div>
     </TermsAndConditionsContainer>
