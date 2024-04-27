@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Script from "next/script";
 import moment from "moment";
@@ -9,6 +9,8 @@ import SweetAlert from "sweetalert2";
 import CryptoJS from "crypto-js";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
+import { BankCodeData } from "@/data/bank_code/BankCode";
+import * as DOMPurify from "dompurify";
 
 type Inputs = {
   clientName: string;
@@ -21,6 +23,13 @@ type Inputs = {
   year: number;
   month: number;
   day: number;
+  refundBankName: string;
+  refundAccountNumber: string;
+  adultCount: number;
+  childCount: number;
+  petCount: number;
+  reservationMemo: string;
+  paymentMethod: string;
   // isProductAgreementTerms: boolean; //주문 상품정보에 대한 동의(필수)
   // isPaymentAgencyServiceTerms: boolean; //결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의(필수)
   // isCovidTerms: boolean; //코로나 19로 인한 방역지침 약관(필수)
@@ -40,7 +49,7 @@ export default function OrdersContainer() {
     Array.from({ length: 31 }, (v, i) => i + 1)
   );
 
-  const [reservationData, setReservationData] = useState({
+  const [reservationData, setReservationData] = useState<Inputs>({
     clientName: "",
     clientRegion: "",
     clientGender: "",
@@ -52,6 +61,12 @@ export default function OrdersContainer() {
     petCount: 0,
     reservationMemo: "",
     paymentMethod: "CARD",
+    refundBankName: "",
+    refundAccountNumber: "",
+    year: 0,
+    month: 0,
+    day: 0,
+    allChecked: false,
   }); //예약정보
   const [birthDay, setBirthDay] = useState({
     year: 0,
@@ -67,7 +82,6 @@ export default function OrdersContainer() {
   const checkOutDate: any = new Date(searchParams.get("checkOutDate") || "");
   const storeName: any = searchParams.get("storeName");
   const addres: any = searchParams.get("addres");
-  const englishStoreName: any = searchParams.get("englishStoreName");
   const [isMobile, setIsMobile] = useState(false);
 
   const returnUrl = process.env.NEXT_PUBLIC_NICEPAY_REDIRECT_URL;
@@ -80,42 +94,7 @@ export default function OrdersContainer() {
   diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
   const [stayCount, setStayCount] = useState(diff);
 
-  const [terms, setTerms] = useState([
-    {
-      id: 0,
-      title: "주문 상품정보에 동의 (필수)",
-      content: "주문 상품정보에 대한 동의를 해주세요.",
-      toggleImage: "/topVector.png",
-      isToggle: false,
-      isAgree: false,
-    },
-    {
-      id: 1,
-      title:
-        "결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의 (필수)",
-      content:
-        "결제대행 서비스 이용을 위한 개인정보 제 3자 제공 및 위탁 동의 (필수)",
-      toggleImage: "/topVector.png",
-      isToggle: false,
-      isAgree: false,
-    },
-    {
-      id: 2,
-      title: "코로나 19로 인한 방역지침 약관 (필수)",
-      content: "코로나 19로 인한 방역지침 약관 (필수)",
-      toggleImage: "/topVector.png",
-      isToggle: false,
-      isAgree: false,
-    },
-    {
-      id: 3,
-      title: "비회원 정보수집 약관 (필수)",
-      content: "비회원 정보수집 약관 (필수)",
-      toggleImage: "/topVector.png",
-      isToggle: false,
-      isAgree: false,
-    },
-  ]);
+  const [terms, setTerms] = useState([]);
 
   const [optionsList, setOptionsList] = useState<any>([]);
   const [termsList, setTermsList] = useState<any>(terms);
@@ -151,6 +130,30 @@ export default function OrdersContainer() {
 
       setOptionsList(newOptions);
     });
+
+    customAxios
+      .get(`${API.TERMS}`, {
+        params: {
+          category: "ORDER",
+          termsType: "HEAD_OFFICE",
+        },
+      })
+      .then((res) => {
+        const getTermaList = res.data.response.data;
+        getTermaList.map((term) => {
+          setTermsList((prev) => [
+            ...prev,
+            {
+              id: term.id,
+              title: term.title,
+              content: term.content,
+              isAgree: false,
+              isToggle: false,
+              toggleImage: "/topVector.png",
+            },
+          ]);
+        });
+      });
   }, []);
 
   const onChangeReservationData = (e) => {
@@ -163,6 +166,11 @@ export default function OrdersContainer() {
     const { name, value } = e.target;
 
     setBirthDay({ ...birthDay, [name]: value });
+
+    setReservationData({
+      ...reservationData,
+      [name]: value,
+    });
 
     if (name === "month") {
       setDayList(
@@ -285,29 +293,6 @@ export default function OrdersContainer() {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("useEffect");
-
-  //   if (
-  //     (cardPayment || bankBookPayment) &&
-  //     orderProductChecked &&
-  //     trustChecked &&
-  //     covidChecked &&
-  //     nonMemberChecked
-  //   ) {
-  //     setPaymentEnabled(true);
-  //   } else {
-  //     setPaymentEnabled(false);
-  //   }
-  // }, [
-  //   cardPayment,
-  //   bankBookPayment,
-  //   orderProductChecked,
-  //   trustChecked,
-  //   covidChecked,
-  //   nonMemberChecked,
-  // ]);
-
   // 연락처 글자 제한, 자동 (-)
   const handlePhoneNumberChange = (e) => {
     let inputPhoneNumber = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
@@ -374,6 +359,8 @@ export default function OrdersContainer() {
         : term
     );
 
+    console.log("newTermsList", newTermsList);
+
     setTermsList(newTermsList);
   };
 
@@ -427,6 +414,16 @@ export default function OrdersContainer() {
     return "";
   };
 
+  //환불계좌 인증번호
+  const validateVBank = (data: Inputs) => {
+    if (!data.refundBankName) return "환불 은행을 선택해주세요.";
+    if (!data.refundAccountNumber) return "환불 계좌번호를 입력해주세요.";
+
+    return "";
+  };
+
+  console.log("reservationData", reservationData);
+
   // 결제하기 버튼 함수
   const paymentHandler = () => {
     //TODO 입력값 벨리데이션 체크 추가 (Pia)
@@ -440,6 +437,10 @@ export default function OrdersContainer() {
       });
 
       return;
+    }
+
+    if (reservationData.paymentMethod === "VBANK") {
+      validateVBank(reservationData);
     }
 
     // 현재 시간 구하기
@@ -466,8 +467,8 @@ export default function OrdersContainer() {
     const moid = generateOrderNumber();
     const ediDate = moment().format("YYYYMMDDhhmmss");
     const mid = process.env.NEXT_PUBLIC_MID;
-    // const amt = totalRate;
-    const amt = 1000;
+    const amt = totalRate;
+    // const amt = 1000;
     const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
     const TestData = ediDate + mid + amt + merchantKey;
     const SignData = CryptoJS.SHA256(TestData).toString();
@@ -576,26 +577,9 @@ export default function OrdersContainer() {
         window.goPay(formRef.current);
       }
     }
-
-    // if (
-    //   (cardPayment || bankBookPayment) &&
-    //   orderProductChecked &&
-    //   trustChecked &&
-    //   covidChecked &&
-    //   nonMemberChecked
-    // ) {
-    //   setPaymentEnabled(true);
-    //   alert("결제 진행을 합니다");
-    // } else {
-    //   setPaymentEnabled(false);
-    //   alert("약관 동의를 해주세요");
-    // }
   };
 
   const nicepaySubmit = async () => {
-    // setAlertType("success");
-    // setAlertMsg("결제에 성공했습니다.");
-
     document.payForm.submit();
     sendPaymentResult(true);
   };
@@ -1078,48 +1062,85 @@ export default function OrdersContainer() {
         </div>
       </div>
       <div className="order_new_title">결제 방법</div>
-      <div className="payment_method_container">
-        <div className="payment_method_section">
-          <CheckBox
-            type="checkbox"
-            id="paymentckbox"
-            name="paymentMethod"
-            checked={reservationData?.paymentMethod === "CARD"}
-            value={"CARD"}
-            onChange={onChangeReservationData}
-          ></CheckBox>
-          <CheckBoxLabel
-            htmlFor="paymentckbox"
-            style={{
-              background:
-                reservationData?.paymentMethod === "CARD"
-                  ? "#2b7638"
-                  : "initial",
-            }}
-          ></CheckBoxLabel>
-          <div className="payment_method_title">카드 결제</div>
+      <div className="container_payment_method">
+        <div style={{ display: "flex" }}>
+          <div className="payment_method_section">
+            <CheckBox
+              type="checkbox"
+              id="paymentckbox"
+              name="paymentMethod"
+              checked={reservationData?.paymentMethod === "CARD"}
+              value={"CARD"}
+              onChange={onChangeReservationData}
+            ></CheckBox>
+            <CheckBoxLabel
+              htmlFor="paymentckbox"
+              style={{
+                background:
+                  reservationData?.paymentMethod === "CARD"
+                    ? "#2b7638"
+                    : "initial",
+              }}
+            ></CheckBoxLabel>
+            <div className="payment_method_title">카드 결제</div>
+          </div>
+          <div className="payment_method_section">
+            <CheckBox
+              type="checkbox"
+              id="paymentckbox2"
+              name="paymentMethod"
+              checked={reservationData?.paymentMethod === "VBANK"}
+              value={"VBANK"}
+              onChange={onChangeReservationData}
+            ></CheckBox>
+            <CheckBoxLabel
+              htmlFor="paymentckbox2"
+              style={{
+                background:
+                  reservationData?.paymentMethod === "VBANK"
+                    ? "#2b7638"
+                    : "initial",
+              }}
+            ></CheckBoxLabel>
+            <div className="payment_method_title">가상 계좌 결제</div>
+          </div>
         </div>
-        <div className="payment_method_section">
-          <CheckBox
-            type="checkbox"
-            id="paymentckbox2"
-            name="paymentMethod"
-            checked={reservationData?.paymentMethod === "VBANK"}
-            value={"VBANK"}
-            onChange={onChangeReservationData}
-          ></CheckBox>
-          <CheckBoxLabel
-            htmlFor="paymentckbox2"
-            style={{
-              background:
-                reservationData?.paymentMethod === "VBANK"
-                  ? "#2b7638"
-                  : "initial",
-            }}
-          ></CheckBoxLabel>
-          <div className="payment_method_title">무통장 입금</div>
-        </div>
+        {reservationData?.paymentMethod === "VBANK" ? (
+          <>
+            <div className="box_refund_account">
+              <div className="payment_info_title">환불계좌</div>
+              <div className="box_refund_account_info">
+                <select
+                  className="opt_refund_account"
+                  name="refundBankName"
+                  onChange={onChangeReservationData}
+                >
+                  <option value="">은행</option>
+                  {BankCodeData.map((bank, index) => {
+                    return (
+                      <option key={index} value={bank.code}>
+                        {bank.name}
+                      </option>
+                    );
+                  })}
+                </select>
+                <input
+                  className="inp_refund_account"
+                  name="refundAccountNumber"
+                  placeholder="계좌번호"
+                  onChange={onChangeReservationData}
+                />
+                <div className="section_btn">
+                  <div className="btn_verify">검증하기</div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
+
       <div className="order_new_title">이용자 약관동의</div>
       <div className="terms_container">
         <div className="terms_item_container">
@@ -1158,7 +1179,12 @@ export default function OrdersContainer() {
                 </div>
                 {term.isToggle && (
                   <div className="terms_toggle_container">
-                    <div className="terms_toggle_section">{term.content}</div>
+                    <div
+                      className="terms_toggle_section"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(String(term.content)),
+                      }}
+                    ></div>
                   </div>
                 )}
               </>
@@ -1178,7 +1204,6 @@ export default function OrdersContainer() {
         src="https://pg-web.nicepay.co.kr/v3/common/js/nicepay-pgweb.js"
         type="text/javascript"
       />
-      {/* <Script src="https://pay.nicepay.co.kr/v1/js/"></Script> */}
       <form
         name="payForm"
         id="payForm"
@@ -1225,15 +1250,6 @@ export default function OrdersContainer() {
     </div>
   );
 }
-
-const SelectBox = styled.select`
-  width: 400px;
-  height: 52px;
-  border: 1px solid #203d1e;
-  border-radius: 15px;
-  padding-left: 10px;
-  color: #c8cdc6;
-`;
 
 const CheckBox = styled.input`
   display: none;

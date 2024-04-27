@@ -1,22 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
-import styled from "styled-components";
+import SweetAlert from "sweetalert2";
+import moment from "moment";
+import CryptoJS from "crypto-js";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 
 export default function ReservationInformationPage() {
+  const formRef = useRef();
   const searchParams = useSearchParams();
-  const TID = searchParams.get("tid");
+  const TID = searchParams.get("TID");
   const [feeGuidance, setFeeGuidance] = useState("/topVector.png");
   const [feeGuidanceToggle, setFeeGuidanceToggle] = useState(false);
   const [reservationData, setReservationData] = useState({});
   const [refundPolicyList, setRefundPolicyList] = useState([]);
+  console.log("TID :: ", TID);
 
   useEffect(() => {
     //TID로 예약 정보 조회
     customAxios.get(`${API.RESERVATION}/${TID}`).then((res) => {
+      console.log("res.data.response 12345 :: ", res.data.response);
+
       setReservationData(res.data.response);
       setRefundPolicyList(res.data.response.refundPolicyList.data);
     });
@@ -27,6 +32,65 @@ export default function ReservationInformationPage() {
       feeGuidance === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
     );
     setFeeGuidanceToggle(!feeGuidanceToggle);
+  };
+
+  //예약 취소
+  const onClickCancelReservation = () => {
+    SweetAlert.fire({
+      title: `예약을 취소하시겠습니까?`,
+      icon: "warning",
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 현재 시간 구하기
+        var currentTime = new Date();
+
+        const merchantKey = process.env.NEXT_PUBLIC_NICEPAY_KEY;
+        const moid = generateOrderNumber();
+        const ediDate = moment().format("YYYYMMDDhhmmss");
+        const mid = process.env.NEXT_PUBLIC_MID;
+        const cancelAmt = 80000; //취소금액
+        const cancelMsg = "사용자 취소"; //취소사유
+        const partialCancelCode = "0"; //전체취소
+
+        const TestData = ediDate + mid + cancelAmt + merchantKey;
+        const SignData = CryptoJS.SHA256(TestData).toString();
+
+        const cancelParam = {
+          tid: TID,
+          moid: moid,
+          mid: mid,
+          cancelAmt: cancelAmt,
+          cancelMsg: cancelMsg,
+          partialCancelCode: partialCancelCode,
+          ediDate: ediDate,
+          signData: SignData,
+        };
+
+        console.log("cancelParam :: ", cancelParam);
+
+        customAxios
+          .post(`${API.RESERVATION}/cancel`, cancelParam)
+          .then((res) => {
+            console.log(`${API.RESERVATION}/cancel :: `, res);
+          });
+      }
+    });
+  };
+
+  const generateOrderNumber = () => {
+    // 오늘 날짜
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
+
+    const prefix = "stay";
+    const randomNumber = Math.floor(Math.random() * 10000000000); // 10자리 랜덤 숫자 생성
+    const paddedRandomNumber = randomNumber.toString().padStart(10, "0"); // 10자리로 패딩
+
+    return prefix + paddedRandomNumber + `${year}${month}${day}`;
   };
 
   return (
@@ -54,16 +118,21 @@ export default function ReservationInformationPage() {
           >
             <div className="title_badge_reservation_info">예약상태</div>
             <div className="content_reservation_info_bold">
-              {reservationData.payStatus === "COMPLETE_PAYMENT"
+              {reservationData?.payStatus === "COMPLETE_PAYMENT"
                 ? "결제완료"
-                : reservationData.payStatus === "WAIT_PAYMENT"
+                : reservationData?.payStatus === "WAIT_PAYMENT"
                 ? "결제대기"
-                : reservationData.payStatus === "PAYMENT_CANCELLATION"
+                : reservationData?.payStatus === "PAYMENT_CANCELLATION"
                 ? "결제취소"
                 : "확인중"}
             </div>
-            {reservationData.payStatus === "COMPLETE_PAYMENT" ? (
-              <div className="btn_reservation_cancel">예약 취소</div>
+            {reservationData?.payStatus === "COMPLETE_PAYMENT" ? (
+              <div
+                className="btn_reservation_cancel"
+                onClick={onClickCancelReservation}
+              >
+                예약 취소
+              </div>
             ) : (
               ""
             )}
@@ -93,7 +162,7 @@ export default function ReservationInformationPage() {
           <div className="container_badge_reservation_info">
             <div className="title_badge_reservation_info">숙소이름</div>
             <div className="content_reservation_info">
-              {reservationData.storeName}
+              {reservationData?.storeName}
             </div>
           </div>
           <div
@@ -102,13 +171,13 @@ export default function ReservationInformationPage() {
           >
             <div className="title_badge_reservation_info">객실타입</div>
             <div className="content_reservation_info">
-              {reservationData.roomName}
+              {reservationData?.roomName}
             </div>
           </div>
           <div className="container_badge_reservation_info">
             <div className="title_badge_reservation_info">이용기간</div>
             <div className="content_reservation_info">
-              {reservationData.checkIn} ~ {reservationData.checkOut}
+              {reservationData?.checkIn} ~ {reservationData?.checkOut}
             </div>
           </div>
           <div
@@ -117,13 +186,13 @@ export default function ReservationInformationPage() {
           >
             <div className="title_badge_reservation_info">체크인</div>
             <div className="content_reservation_info">
-              {reservationData.checkIn}
+              {reservationData?.checkIn}
             </div>
           </div>
           <div className="container_badge_reservation_info">
             <div className="title_badge_reservation_info">체크아웃</div>
             <div className="content_reservation_info">
-              {reservationData.checkOut}
+              {reservationData?.checkOut}
             </div>
           </div>
           <div
@@ -134,8 +203,8 @@ export default function ReservationInformationPage() {
               <div className="title_badge_reservation_info">인원/객실</div>
               <div className="div_content_reservation_info">
                 <div className="content_reservation_info">
-                  성인 {reservationData.adultCount}인, 아동{" "}
-                  {reservationData.childCount}인 / 1개 (기준 2인/최대 3인)
+                  성인 {reservationData?.adultCount}인, 아동{" "}
+                  {reservationData?.childCount}인 / 1개 (기준 2인/최대 3인)
                 </div>
                 <div className="text_additional_fee_information">
                   기준인원 초과시 추가 비용 발생 가능

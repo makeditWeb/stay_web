@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 
@@ -38,10 +39,10 @@ export default function ReservationComplete() {
       </div>
       <div className="reservation_completed_section">
         <div className="reservation_completed_wrap">
-          <img
+          <Image
             src="/reservationCompletedImg.png"
             alt="예약 완료 이미지"
-            // width={210}
+            width={210}
             height={120}
           />
         </div>
