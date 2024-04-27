@@ -19,5 +19,6 @@ export const API = {
   RESERVATION: "/reservation",
   NICE_ID: "/nice-id",
   AUTHENTICATION: "/authentication/refresh-token",
+  TERMS: "/terms",
   HEALTH_CHECK: "/healthCheck",
 };

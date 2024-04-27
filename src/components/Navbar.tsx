@@ -56,16 +56,6 @@ export default function Navbar() {
             priority={true}
             // style={{ width: "100% !important" }}
           />
-
-          {/* <Image
-            src="stayinterviewLogo.png"
-            alt="사이트 로고"
-            width={337}
-            height={80}
-            quality={80}
-            priority={true}
-            loader={customLoader}
-          /> */}
         </Link>
         <MiddleNavbarDiv className="navbar_div" style={{ marginLeft: "15px" }}>
           <Link

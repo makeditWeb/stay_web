@@ -816,36 +816,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                 }}
               ></div>
             </div>
-
-            {/* <Map
-            center={{ lat: 33.5563, lng: 126.79581 }}
-            style={{
-              // 지도의 크기
-              width: "100%",
-              height: "350px",
-            }}
-          >
-            {LOCATIONS.map((location) => (
-              <MapMarker position={location} key={location.id} />
-            ))}
-          </Map> */}
-            {/* <div className="tourist_spot_map_container" id="map">
-            <div className="map_wrap">
-              <Map
-                // center={{ lat: latitude, lng: longitude }}
-                center={{ lat: 33.450701, lng: 126.570667 }}
-                style={{ width: "100%", height: "400px" }}
-              >
-                <MapMarker
-                  position={{
-                    lat: latitude,
-                    lng: longitude,
-                  }}
-                ></MapMarker>
-              </Map>
-            </div> */}
-
-            {/* <Image src="/map.png" alt="지도" width={1200} height={400} /> */}
           </div>
           <div className="tourist_spot_content_container">
             {touristSpotData.map((item, index) => {
