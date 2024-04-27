@@ -94,10 +94,8 @@ export default function OrdersContainer() {
   diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
   const [stayCount, setStayCount] = useState(diff);
 
-  const [terms, setTerms] = useState([]);
-
   const [optionsList, setOptionsList] = useState<any>([]);
-  const [termsList, setTermsList] = useState<any>(terms);
+  const [termsList, setTermsList] = useState<any>([]);
   const [rateList, setRateList] = useState([]); // 객식요금 목록
   const totalRate = rateList.reduce((acc, cur) => acc + cur.roomRatePrice, 0);
 

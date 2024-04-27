@@ -47,7 +47,7 @@ export default function RootLayout({
           as="image"
           href="https://stay-interview.s3.amazonaws.com/stayinterviewLogo.png"
         />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" />.
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         {/* <Script src="https://developers.kakao.com/sdk/js/kakao.js" async /> */}
         {/* <Script
           strategy="beforeInteractive"

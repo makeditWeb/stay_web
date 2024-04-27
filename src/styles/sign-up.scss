@@ -18,7 +18,7 @@
 
     .section_information {
       width: 100%;
-      padding: 30px 0;
+      padding: 0;
       margin-bottom: 50px;
     }
 
@@ -41,9 +41,9 @@
       height: 100%;
     }
 
-    .div_input_information_phone {
-      width: 100%;
-    }
+    // .div_input_information_phone {
+    //   width: 100%;
+    // }
 
     .section_terms_use {
       width: 100%;
@@ -83,7 +83,15 @@
     }
 
     .wrap_information {
-      height: 100%;
+      width: 100%;
+      // height: 100%;
+    }
+
+    .inner_information_text {
+      width: 100%;
+      margin-left: 0px;
+      padding-left: 10px;
+      box-sizing: border-box;
     }
 
     .inner_information_phone {
@@ -92,8 +100,23 @@
     }
 
     .btn_get_verification_code {
-      width: 100%;
-      margin: 10px 0;
+      display: none;
+      // width: 100%;
+      // margin: 10px 0;
+    }
+
+    .btn_get_verification_code_m {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 370px;
+      height: 50px;
+      background: #203d1e;
+      border-radius: 15px;
+      color: #ffffff;
+      margin: auto;
+      margin-bottom: 15px;
+      cursor: pointer;
     }
 
     .btn_authenticate {
@@ -103,6 +126,15 @@
 
     .title_information {
       font-size: 13px;
+      margin-right: 30px;
+    }
+
+    .title_information_none {
+      margin-right: 30px;
+    }
+
+    .div_sign_in {
+      display: none;
     }
 
     .section_terms_conditions {
@@ -186,6 +218,7 @@
   height: 30px;
   margin: auto;
   margin-bottom: 5px;
+  margin-left: 270px;
 }
 
 .inner_information_text.active {
@@ -242,15 +275,15 @@
   border-radius: 15px;
 }
 
-.div_input_information_phone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 800px;
-  height: 50px;
-  border: 1px solid #203d1e;
-  border-radius: 15px;
-}
+// .div_input_information_phone {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 800px;
+//   height: 50px;
+//   border: 1px solid #203d1e;
+//   border-radius: 15px;
+// }
 
 .inp_information {
   width: 940px;
@@ -282,6 +315,10 @@
   cursor: pointer;
 }
 
+.btn_get_verification_code_m {
+  display: none;
+}
+
 .div_sign_in {
   width: 150px;
   margin-left: 20px;
@@ -294,10 +331,12 @@
 }
 
 .inp_check_information {
-  width: 770px;
-  height: 40px;
-  border: none;
+  width: 800px;
+  height: 50px;
+  border: 1px solid #203d1e;
   border-radius: 15px;
+  padding-left: 10px;
+  box-sizing: border-box;
 
   &::placeholder {
     font-size: 15px;
@@ -450,12 +489,13 @@
   justify-content: center;
   align-items: center;
   width: 1200px;
-  height: 78px;
+  height: 60px;
   border-radius: 15px;
   background: #203d1e;
   color: #ffffff;
   font-size: 25px;
   font-weight: 600;
   margin: 75px 0;
+  border: none;
   cursor: pointer;
 }

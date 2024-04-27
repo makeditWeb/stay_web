@@ -6,6 +6,7 @@ import { customAxios } from "@/modules/common/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import SweetAlert from "sweetalert2";
+import * as DOMPurify from "dompurify";
 
 type Inputs = {
   acName: string;
@@ -13,7 +14,6 @@ type Inputs = {
   acPw: string;
   checkPassword: string;
   acPhone: string;
-  certificationNumber: string;
 };
 
 export default function SignUpPage() {
@@ -25,22 +25,6 @@ export default function SignUpPage() {
   // 연락처 인풋
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isCheckedPhoneNumber, setIsCheckedPhoneNumber] = useState(false);
-  const [isSame, setIsSame] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const [termsOfUse, setTermsOfUse] = useState("/topVector.png");
-  const [collectionInformation, setCollectionInformation] =
-    useState("/topVector.png");
-  const [ageCheck, setAgeCheck] = useState("/topVector.png");
-  const [receivingInformation, setReceivingInformation] =
-    useState("/topVector.png");
-
-  const [termsOfUseToggle, setTermsOfUseToggle] = useState(false);
-  const [collectionInformationToggle, setCollectionInformationToggle] =
-    useState(false);
-  const [ageCheckToggle, setAgeCheckToggle] = useState(false);
-  const [receivingInformationToggle, setReceivingInformationToggle] =
-    useState(false);
 
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
@@ -49,17 +33,10 @@ export default function SignUpPage() {
 
   // 체크박스
   const [isChecked, setIsChecked] = useState(false);
-  const [termsAndCondigionslist, setTermsAndCondigionslist] = useState({
-    termsOfUse: false,
-    collectionCheck: false,
-    ageCheck: false,
-    receiveingCheck: false,
-  });
 
-  const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(false);
-  const [isCollectionChecked, setIsCollectionChecked] = useState(false);
-  const [isAgeChecked, setIsAgeChecked] = useState(false);
-  const [isReceivingChecked, setIsReceivingChecked] = useState(false);
+  const [termsList, setTermsList] = useState<any>([]);
+  // 체크박스
+  const [allChecked, setAllChecked] = useState(false);
 
   const [signUpData, setSignUpData] = useState({
     acName: "",
@@ -67,13 +44,33 @@ export default function SignUpPage() {
     acPw: "",
     checkPassword: "", //비밀번호 확인
     acPhone: "",
-    certificationNumber: "", //인증번호
-    isCheckedPhoneNumber: false,
-    isTermsOfUseChecked: false,
-    isCollectionChecked: false,
-    isAgeChecked: false,
-    isReceivingChecked: false,
   });
+
+  useEffect(() => {
+    customAxios
+      .get(`${API.TERMS}`, {
+        params: {
+          category: "SIGN_UP",
+          termsType: "HEAD_OFFICE",
+        },
+      })
+      .then((res) => {
+        const getTermaList = res.data.response.data;
+        getTermaList.map((term) => {
+          setTermsList((prev) => [
+            ...prev,
+            {
+              id: term.id,
+              title: term.title,
+              content: term.content,
+              isAgree: false,
+              isToggle: false,
+              toggleImage: "/topVector.png",
+            },
+          ]);
+        });
+      });
+  }, []);
 
   const validate = (data: Inputs) => {
     if (!data.acName) return "이름을 입력해주세요.";
@@ -81,10 +78,10 @@ export default function SignUpPage() {
     if (!data.acPw) return "비밀번호를 입력해주세요.";
     if (!isPasswordConfirm) return "비밀번호가 일치하지 않습니다.";
     if (!data.acPhone) return "휴대폰 번호를 입력해주세요.";
-    if (!isCheckedPhoneNumber) return "휴대폰 인증을 해주세요.";
-    if (!isTermsOfUseChecked) return "필수 이용약관은 동의가 필요합니다!";
-    if (!isCollectionChecked) return "필수 이용약관은 동의가 필요합니다!";
-    if (!isAgeChecked) return "필수 이용약관은 동의가 필요합니다!";
+    // if (!isCheckedPhoneNumber) return "휴대폰 인증을 해주세요.";
+    // if (!isTermsOfUseChecked) return "필수 이용약관은 동의가 필요합니다!";
+    // if (!isCollectionChecked) return "필수 이용약관은 동의가 필요합니다!";
+    // if (!isAgeChecked) return "필수 이용약관은 동의가 필요합니다!";
 
     return "";
   };
@@ -114,33 +111,16 @@ export default function SignUpPage() {
     [signUpData.acPw]
   );
 
-  const handleSelectAllChange = (event) => {
-    const { checked } = event.target;
-    setIsChecked(checked);
-    setIsTermsOfUseChecked(checked);
-    setIsCollectionChecked(checked);
-    setIsAgeChecked(checked);
-    setIsReceivingChecked(checked);
-  };
+  const handleSelectAllChange = (e) => {
+    const { checked } = e.target;
 
-  const termsOfUseCheckedHandler = () => {
-    setIsTermsOfUseChecked(!isTermsOfUseChecked);
-    setIsChecked(false);
-  };
+    const newTermsList = termsList.map((term) => {
+      term.isAgree = checked;
+      return term;
+    });
 
-  const collectionCheckedHandler = () => {
-    setIsCollectionChecked(!isCollectionChecked);
-    setIsChecked(false);
-  };
-
-  const ageCheckedHandler = () => {
-    setIsAgeChecked(!isAgeChecked);
-    setIsChecked(false);
-  };
-
-  const receivingCheckedHandler = () => {
-    setIsReceivingChecked(!isReceivingChecked);
-    setIsChecked(false);
+    setTermsList(newTermsList);
+    setAllChecked(checked);
   };
 
   // 연락처 글자 제한, 자동 (-)
@@ -165,47 +145,6 @@ export default function SignUpPage() {
     });
   };
 
-  const termsOfUseHandler = () => {
-    setTermsOfUse(
-      termsOfUse === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
-    );
-    setTermsOfUseToggle(!termsOfUseToggle);
-  };
-
-  const collectionHandler = () => {
-    setCollectionInformation(
-      collectionInformation === "/topVector.png"
-        ? "/bottomVector.png"
-        : "/topVector.png"
-    );
-
-    setCollectionInformationToggle(!collectionInformationToggle);
-  };
-
-  const ageCheckHandler = () => {
-    setAgeCheck(
-      ageCheck === "/topVector.png" ? "/bottomVector.png" : "/topVector.png"
-    );
-
-    setAgeCheckToggle(!ageCheckToggle);
-  };
-
-  const receivingHandler = () => {
-    setReceivingInformation(
-      receivingInformation === "/topVector.png"
-        ? "/bottomVector.png"
-        : "/topVector.png"
-    );
-    setReceivingInformationToggle(!receivingInformationToggle);
-  };
-
-  const termsOfUseContent = () => {
-    return {
-      __html:
-        '<iframe src="@/app/TermsOfUse" width="100%" height="100%"></iframe>',
-    };
-  };
-
   //회원가입 버튼
   const onClickSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -214,18 +153,14 @@ export default function SignUpPage() {
     if (message) {
       SweetAlert.fire({
         title: `${message}`,
-        icon: "danger",
+        icon: "warning",
         showConfirmButton: true,
       });
 
       return;
     }
 
-    signUpData.isCheckedPhoneNumber = isCheckedPhoneNumber;
-    signUpData.isTermsOfUseChecked = isTermsOfUseChecked;
-    signUpData.isCollectionChecked = isCollectionChecked;
-    signUpData.isAgeChecked = isAgeChecked;
-    signUpData.isReceivingChecked = isReceivingChecked;
+    // signUpData.isCheckedPhoneNumber = isCheckedPhoneNumber;
 
     await customAxios
       .post(`${API.USER_WEB}/sign-up`, signUpData)
@@ -268,28 +203,42 @@ export default function SignUpPage() {
     });
   };
 
-  //인증하기 버튼
-  const onClickAuthentication = async () => {
-    // SweetAlert.fire({
-    //   title: "인증이 완료되었습니다.",
-    //   icon: "success",
-    //   showConfirmButton: true,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     setIsCheckedPhoneNumber(true);
-    //     let btn_authenticate = document.getElementById("btn_authenticate");
-    //     btn_authenticate.style.background = "#BCC8BC";
-    //     btn_authenticate.innerText = "인증완료";
-    //     return;
-    //   }
-    // });
-    // const response = await customAxios.post(
-    //   `${API.USER_WEB}/send-certification-number`,
-    //   {
-    //     phoneNumber: signUpData.phoneNumber,
-    //   }
-    // );
-    // console.log(response);
+  const termsAgreeHandler = (e) => {
+    const { id } = e.target;
+    const termsId = id.replace("terms", "");
+
+    const newTermsList = termsList.map((term: any, index: number) =>
+      term.id === Number(termsId)
+        ? {
+            ...term,
+            isAgree: !term.isAgree,
+          }
+        : term
+    );
+
+    //약관 모두 동의상태이면 allCheck도 true로 변경
+    const isAllChecked = newTermsList.every((term) => term.isAgree);
+    setAllChecked(isAllChecked);
+    setTermsList(newTermsList);
+  };
+
+  const termsToggleHandler = (e) => {
+    const { id } = e.target;
+
+    const newTermsList = termsList.map((term, index) =>
+      index === Number(id)
+        ? {
+            ...term,
+            toggleImage:
+              term.toggleImage === "/topVector.png"
+                ? "/bottomVector.png"
+                : "/topVector.png",
+            isToggle: !term.isToggle,
+          }
+        : term
+    );
+
+    setTermsList(newTermsList);
   };
 
   return (
@@ -307,100 +256,71 @@ export default function SignUpPage() {
 
           <div className="section_information">
             <div className="wrap_information">
+              <div
+                className="btn_get_verification_code_m"
+                onClick={onClickIdentityVerification}
+                style={{
+                  background: acName == null ? "#203d1e" : "#9bac9a",
+                }}
+              >
+                본인 인증하기
+              </div>
               <div className="inner_information">
                 <div className="title_information">이름</div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="text"
-                      name="acPhone"
-                      value={acName != null ? acName : ""}
-                      disabled
-                    />
-                  </div>
-                  <div
-                    className="btn_get_verification_code"
-                    onClick={onClickIdentityVerification}
-                    style={{
-                      background: acName == null ? "#203d1e" : "#9bac9a",
-                    }}
-                    // disabled={acName == null ? false : true}
-                  >
-                    본인 인증하기
-                  </div>
+                <input
+                  className="inp_check_information"
+                  type="text"
+                  name="acPhone"
+                  value={acName != null ? acName : ""}
+                  disabled
+                />
+                <div
+                  className="btn_get_verification_code"
+                  onClick={onClickIdentityVerification}
+                  style={{
+                    background: acName == null ? "#203d1e" : "#9bac9a",
+                  }}
+                >
+                  본인 인증하기
                 </div>
               </div>
               <div className="inner_information">
                 <div className="title_information">연락처</div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="text"
-                      name="acPhone"
-                      value={acId != null ? acId : ""}
-                      disabled
-                    />
-                  </div>
-                  <div className="div_sign_in"></div>
-                </div>
+                <input
+                  className="inp_check_information"
+                  type="text"
+                  name="acPhone"
+                  value={acId != null ? acId : ""}
+                  disabled
+                />
+                <div className="div_sign_in"></div>
               </div>
-              <div
-                className="inner_information_text"
-                style={{ marginLeft: "270px" }}
-              >
+              <div className="inner_information_text">
                 ※ 연락처는 아이디로 사용됩니다.
               </div>
 
               <div className="inner_information">
                 <div className="title_information">비밀번호</div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="password"
-                      name="acPw"
-                      // value={phoneNumber}
-                      placeholder="비밀번호를 입력해주세요."
-                      onChange={onChangeSignUpData}
-                    />
-                  </div>
-                  <div className="div_sign_in"></div>
-                </div>
-                {/* <div className="div_input_information">
-                  <input
-                    className="inp_information"
-                    type="password"
-                    name="acPw"
-                    placeholder="비밀번호를 입력해주세요."
-                    onChange={onChangeSignUpData}
-                  />
-                </div> */}
+                <input
+                  className="inp_check_information"
+                  type="password"
+                  name="acPw"
+                  // value={phoneNumber}
+                  placeholder="비밀번호를 입력해주세요."
+                  onChange={onChangeSignUpData}
+                />
+                <div className="div_sign_in"></div>
               </div>
               <div className="inner_information">
                 <div className="title_information_none"></div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="text"
-                      name="checkPassword"
-                      placeholder="비밀번호 확인을 위해 재입력해주세요."
-                      onChange={onChangePasswordConfirm}
-                    />
-                  </div>
-                  <div className="div_sign_in"></div>
-                </div>
-                {/* <div className="div_input_information">
-                  <input
-                    className="inp_information"
-                    type="password"
-                    name="checkPassword"
-                    placeholder="비밀번호 확인을 위해 재입력해주세요."
-                    onChange={onChangePasswordConfirm}
-                  />
-                </div> */}
+                <input
+                  className="inp_check_information"
+                  type="text"
+                  name="checkPassword"
+                  placeholder="비밀번호 확인을 위해 재입력해주세요."
+                  onChange={onChangePasswordConfirm}
+                />
+                <div className="div_sign_in"></div>
               </div>
               {passwordConfirm.length > 0 && (
                 <div className="inner_information_text">
@@ -418,27 +338,14 @@ export default function SignUpPage() {
 
               <div className="inner_information">
                 <div className="title_information">이메일</div>
-                <div className="div_check_input_information">
-                  <div className="div_input_information_phone">
-                    <input
-                      className="inp_check_information"
-                      type="text"
-                      name="acEmail"
-                      placeholder="이메일을 입력해주세요."
-                      onChange={onChangeSignUpData}
-                    />
-                  </div>
-                  <div className="div_sign_in"></div>
-                </div>
-                {/* <div className="div_input_information">
-                  <input
-                    className="inp_information"
-                    type="text"
-                    name="acEmail"
-                    placeholder="이메일을 입력해주세요."
-                    onChange={onChangeSignUpData}
-                  />
-                </div> */}
+                <input
+                  className="inp_check_information"
+                  type="text"
+                  name="acEmail"
+                  placeholder="이메일을 입력해주세요."
+                  onChange={onChangeSignUpData}
+                />
+                <div className="div_sign_in"></div>
               </div>
             </div>
           </div>
@@ -461,194 +368,43 @@ export default function SignUpPage() {
                   전체동의
                 </div>
                 <div className="line_terms_use"></div>
-                <div className="wrap_content_terms_use">
-                  <div className="inner_content_terms_use">
-                    <input
-                      className="inp_checkbox_terms_use"
-                      type="checkbox"
-                      id="ckbox1"
-                      checked={isTermsOfUseChecked}
-                      onChange={termsOfUseCheckedHandler}
-                    ></input>
-                    <label
-                      className="lebel_checkbox_terms_use"
-                      htmlFor="ckbox1"
-                    ></label>
-                    <div className="title_content_terms_use">
-                      스테이 인터뷰 이용약관 동의 (필수)
-                    </div>
-                    <img
-                      src={termsOfUse}
-                      alt="화살표"
-                      className="img_checkbox_terms_use"
-                      onClick={termsOfUseHandler}
-                    />
-                  </div>
-                </div>
-                {termsOfUseToggle && (
-                  <div className="section_terms_conditions">
-                    <div
-                      className="content_terms_conditions"
-                      // dangerouslySetInnerHTML={}
-                    ></div>
-                  </div>
-                )}
-                <div className="wrap_content_terms_use">
-                  <div className="inner_content_terms_use">
-                    <input
-                      className="inp_checkbox_terms_use"
-                      type="checkbox"
-                      id="ckbox2"
-                      checked={isCollectionChecked}
-                      onChange={collectionCheckedHandler}
-                    ></input>
-                    <label
-                      className="lebel_checkbox_terms_use"
-                      htmlFor="ckbox2"
-                    ></label>
-                    <div className="title_content_terms_use">
-                      개인정보 수집 및 이용 동의 (필수)
-                    </div>
-                    <img
-                      className="img_checkbox_terms_use"
-                      src={collectionInformation}
-                      alt="화살표"
-                      onClick={collectionHandler}
-                    />
-                  </div>
-                </div>
-                {collectionInformationToggle && (
-                  <div className="section_terms_conditions">
-                    <div className="content_terms_conditions">
-                      커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 &
-                      토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피
-                      & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능
-                    </div>
-                  </div>
-                )}
-                <div className="wrap_content_terms_use">
-                  <div className="inner_content_terms_use">
-                    <input
-                      className="inp_checkbox_terms_use"
-                      type="checkbox"
-                      id="ckbox3"
-                      checked={isAgeChecked}
-                      onChange={ageCheckedHandler}
-                    ></input>
-                    <label
-                      className="lebel_checkbox_terms_use"
-                      htmlFor="ckbox3"
-                    ></label>
-                    <div className="title_content_terms_use">
-                      만 14세 이상 확인 (필수)
-                    </div>
-                    <img
-                      src={ageCheck}
-                      alt="화살표"
-                      className="img_checkbox_terms_use"
-                      onClick={ageCheckHandler}
-                    />
-                  </div>
-                </div>
-                {ageCheckToggle && (
-                  <div className="section_terms_conditions">
-                    <div className="content_terms_conditions">
-                      커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 &
-                      토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피
-                      & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능
-                    </div>
-                  </div>
-                )}
-                <div className="wrap_content_terms_use">
-                  <div className="inner_content_terms_use">
-                    <input
-                      className="inp_checkbox_terms_use"
-                      type="checkbox"
-                      id="ckbox4"
-                      checked={isReceivingChecked}
-                      onChange={receivingCheckedHandler}
-                    ></input>
-                    <label
-                      className="lebel_checkbox_terms_use"
-                      htmlFor="ckbox4"
-                    ></label>
-                    <div className="title_content_terms_use">
-                      마케팅 정보 수신 (선택)
-                    </div>
-                    <img
-                      src={receivingInformation}
-                      alt="화살표"
-                      className="img_checkbox_terms_use"
-                      onClick={receivingHandler}
-                    />
-                  </div>
-                </div>
-                {receivingInformationToggle && (
-                  <div className="section_terms_conditions">
-                    <div className="content_terms_conditions">
-                      커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 &
-                      토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피
-                      & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전 예약
-                      가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실 전
-                      예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능) 입실
-                      전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택 가능)
-                      입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질 선택
-                      가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥, 바질
-                      선택 가능) 입실 전 예약 가능커피 & 토스트 조식 세트(팥,
-                      바질 선택 가능) 입실 전 예약 가능커피 & 토스트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능커피 & 토스트
-                      조식 세트(팥, 바질 선택 가능) 입실 전 예약 가능커피트 조식
-                      세트(팥, 바질 선택 가능) 입실 전 예약 가능
-                    </div>
-                  </div>
-                )}
+                {termsList.map((term: any, index: number) => {
+                  return (
+                    <>
+                      <div className="terms_wrap">
+                        <div className="terms_item_section">
+                          <CheckBox
+                            type="checkbox"
+                            id={`terms${term.id}`}
+                            checked={term.isAgree}
+                            onChange={termsAgreeHandler}
+                          ></CheckBox>
+                          <CheckBoxLabel
+                            htmlFor={`terms${term.id}`}
+                          ></CheckBoxLabel>
+                          <div className="terms_item_title">{term.title}</div>
+                          <img
+                            src={term.toggleImage}
+                            alt="화살표"
+                            className="terms_item_img"
+                            id={index}
+                            onClick={termsToggleHandler}
+                          />
+                        </div>
+                      </div>
+                      {term.isToggle && (
+                        <div className="terms_toggle_container">
+                          <div
+                            className="terms_toggle_section"
+                            dangerouslySetInnerHTML={{
+                              __html: DOMPurify.sanitize(String(term.content)),
+                            }}
+                          ></div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -664,97 +420,6 @@ export default function SignUpPage() {
     </>
   );
 }
-
-const SignUpContainer = styled.div`
-  width: 1200px;
-  margin: auto;
-`;
-
-const SignUpTextContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 270px;
-  height: 200px;
-  margin: auto;
-`;
-
-const SignUpText = styled.div`
-  width: 270px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  font-size: 50px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #162318;
-`;
-
-const SignUpWords = styled.div`
-  height: 22px;
-  font-size: 19px;
-  font-weight: 300;
-  color: #162318;
-`;
-
-const InformationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  width: 1200px;
-  height: 480px;
-  border-radius: 15px;
-  margin-bottom: 100px;
-`;
-
-const InformationInputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1100px;
-  height: 60px;
-  margin: auto;
-  margin-bottom: 5px;
-`;
-
-const InformationText = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 24px;
-  background: #203d1e;
-  color: #ffffff;
-  border-radius: 4px;
-  margin-right: 50px;
-`;
-
-const InformationInputDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1000px;
-  height: 50px;
-  border: 1px solid #203d1e;
-  border-radius: 15px;
-`;
-
-const InformationInput = styled.input`
-  width: 940px;
-  height: 40px;
-  border: none;
-  border-radius: 15px;
-
-  &::placeholder {
-    font-size: 15px;
-    font-weight: 300;
-    color: #c8cdc6;
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 const CheckBox = styled.input`
   display: none;
