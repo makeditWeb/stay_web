@@ -23,7 +23,7 @@ export default function ReservationCheckPage() {
     customAxios
       .get(`${API.RESERVATION}/non-member`, { params: nonMemberParam })
       .then((res) => {
-        router.push(`/reservation/information?TID=${res.data.response.tid}`);
+        router.push(`/reservation/information?tid=${res.data.response.tid}`);
       });
   };
 

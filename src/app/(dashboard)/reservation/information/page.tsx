@@ -10,7 +10,7 @@ import { customAxios } from "@/modules/common/api";
 export default function ReservationInformationPage() {
   const formRef = useRef();
   const searchParams = useSearchParams();
-  const TID = searchParams.get("TID");
+  const TID = searchParams.get("tid");
   const [feeGuidance, setFeeGuidance] = useState("/topVector.png");
   const [feeGuidanceToggle, setFeeGuidanceToggle] = useState(false);
   const [reservationData, setReservationData] = useState({});
