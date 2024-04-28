@@ -1339,6 +1339,10 @@ body {
       position: absolute;
       top: 50px;
     }
+
+    .box_reservation_count {
+      width: 100%;
+    }
   }
 }
 
@@ -1629,6 +1633,12 @@ body {
   height: 850px;
 }
 
+.box_banner_container img {
+  width: 100%;
+  height: 850px;
+  object-fit: cover;
+}
+
 .banner_container {
   margin: auto;
   display: flex;
@@ -1838,6 +1848,10 @@ body {
   // justify-content: center;
   // align-items: center;
   position: relative;
+}
+
+.feature_container img {
+  width: 100%;
 }
 
 .box_feature {
@@ -3515,7 +3529,8 @@ body {
 }
 
 .container_room_detail {
-  width: 1920px;
+  // width: 1920px;
+
   margin: auto;
 }
 
