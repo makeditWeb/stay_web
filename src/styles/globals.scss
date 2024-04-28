@@ -2124,8 +2124,8 @@ body {
 //[Reservation]
 .reservation_containter {
   display: flex;
-  justify-content: center;
-  padding: 0 500px;
+  // justify-content: center;
+  // padding: 0 500px;
   box-sizing: border-box;
   padding-bottom: 80px;
   width: 100%;
@@ -2362,6 +2362,10 @@ body {
   font-weight: 700;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.constainer_romm_detail {
+  width: 1054px;
 }
 
 .room_info_conatiner {

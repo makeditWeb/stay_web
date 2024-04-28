@@ -373,7 +373,7 @@ export default function ReservationPage(props: any) {
                 <>
                   {roomList.map((item, index) => {
                     return (
-                      <div key={index}>
+                      <div className="constainer_romm_detail" key={index}>
                         <div className="room_info_conatiner">
                           <div className="room_image_container">
                             <div>
