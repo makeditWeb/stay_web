@@ -1,15 +1,67 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import styled from "styled-components";
-import Link from "next/link";
-import OurStayTabContents from "@/components/ourStayTabContents";
+import { useRouter } from "next/navigation";
+import { API } from "@/app/api/config";
+import { customAxios } from "@/modules/common/api";
 
 export default function OurStayPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState(1);
+  const [ourStayStoreList, setOutStayStoreList] = useState<PartnerStore[]>([]);
 
-  const handleTabClick = (tabIndex: number) => {
+  useEffect(() => {
+    customAxios
+      .get(`${API.PARTNER_STORE}/our-stay`, {
+        params: {
+          category: "",
+        },
+      })
+      .then((res) => {
+        console.log("res.data.response: ", res.data.response);
+
+        res.data.response.map((data) => {
+          setOutStayStoreList((prev) => [
+            ...prev,
+            {
+              id: data.id,
+              storeName: data.storeName,
+              imageUrl: data.imageUrl,
+              imageName: data.imageName,
+              address: data.address,
+            },
+          ]);
+        });
+      });
+  }, []);
+
+  const onClickSelectOurStayList = async (
+    tabIndex: number,
+    category: string
+  ) => {
     setActiveTab(tabIndex);
+
+    const ourStayStoreList = await customAxios.get(
+      `${API.PARTNER_STORE}/our-stay`,
+      {
+        params: {
+          category: category,
+        },
+      }
+    );
+    setOutStayStoreList(ourStayStoreList.data.response);
+  };
+
+  const handlePagePartnerStore = (e: any) => {
+    const partnerStoreId = e.target.id;
+
+    router.push(`/partner/store/${partnerStoreId}`);
+
+    // partnerStoreList.filter((item) => {
+    //   if (item.id === Number(partnerStoreId)) {
+    //     console.log("item", item);
+    //   }
+    // });
   };
 
   return (
@@ -39,7 +91,7 @@ export default function OurStayPage() {
             className={
               activeTab == 1 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(1)}
+            onClick={() => onClickSelectOurStayList(1, "")}
           >
             전체
           </div>
@@ -47,7 +99,7 @@ export default function OurStayPage() {
             className={
               activeTab == 2 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(2)}
+            onClick={() => onClickSelectOurStayList(2, "RC0002")}
           >
             객실
           </div>
@@ -55,7 +107,7 @@ export default function OurStayPage() {
             className={
               activeTab == 3 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(3)}
+            onClick={() => onClickSelectOurStayList(3, "RC0003")}
           >
             방갈로
           </div>
@@ -63,7 +115,7 @@ export default function OurStayPage() {
             className={
               activeTab == 4 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(4)}
+            onClick={() => onClickSelectOurStayList(4, "RC0005")}
           >
             카라반
           </div>
@@ -71,7 +123,7 @@ export default function OurStayPage() {
             className={
               activeTab == 5 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(5)}
+            onClick={() => onClickSelectOurStayList(5, "RC0006")}
           >
             글램핑
           </div>
@@ -79,7 +131,7 @@ export default function OurStayPage() {
             className={
               activeTab == 6 ? "btn_tab_content_active" : "btn_tab_content"
             }
-            onClick={() => handleTabClick(6)}
+            onClick={() => onClickSelectOurStayList(6, "RC0007")}
           >
             풀카바나
           </div>
@@ -87,67 +139,43 @@ export default function OurStayPage() {
       </div>
       <div className="div_content_our_stay">
         <div className="list_our_stay">
-          <OurStayTabContents tabNumber={activeTab} />
+          {/* <OurStayTabContents tabNumber={activeTab} category={category} /> */}
+          {ourStayStoreList?.map((item, index) => {
+            return (
+              <div className="out_stay_container" key={index}>
+                <div style={{ width: "370px", height: "230px" }}>
+                  <Image
+                    src={item?.imageUrl}
+                    alt={item?.imageName}
+                    width={370}
+                    height={230}
+                  />
+                </div>
+                <div style={{ display: "flex", marginTop: "45px" }}>
+                  <div className="our_stay_content_container">
+                    <div>
+                      <div style={{ fontSize: "18px", fontWeight: "700" }}>
+                        {item?.storeName}
+                      </div>
+                      <div style={{ fontSize: "12px", fontWeight: "300" }}>
+                        {item?.address}
+                      </div>
+                    </div>
+
+                    <button
+                      className="our_stay_content_btn"
+                      id={item.id}
+                      onClick={handlePagePartnerStore}
+                    >
+                      둘러보기
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
-
-const OurStayContainer = styled.div`
-  // width: 1920px;
-`;
-
-const HotelListContainer = styled.div`
-  display: flex;
-  gap: 45px;
-  flex-wrap: wrap;
-  margin-bottom: 150px;
-`;
-
-const HotelContainer = styled.div`
-  width: 370px;
-  height: 350px;
-  border: 1px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
-`;
-
-const HotelContents = styled.div`
-  display: flex;
-  width: 300px;
-  margin: auto;
-  justify-content: space-between;
-`;
-
-const DetailPostButton = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 12px;
-  width: 70px;
-  height: 20px;
-  border: 1px solid #000000;
-  border-radius: 15px;
-  font-size: 10px;
-  font-weight: 300;
-  color: #000000;
-  cursor: pointer;
-`;
-
-interface TabBtnProps {
-  active: boolean;
-}
-
-const TabBtn = styled.div<TabBtnProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 115px;
-  height: 40px;
-  background: ${(props) => (props.active ? "#203D1E" : "none")};
-  border-radius: 30px;
-  color: ${(props) => (props.active ? "#ffffff" : "#203d1e")};
-  cursor: pointer;
-`;
