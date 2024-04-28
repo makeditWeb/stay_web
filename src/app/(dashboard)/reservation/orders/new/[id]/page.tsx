@@ -73,6 +73,7 @@ export default function OrdersContainer() {
     month: 0,
     day: 0,
   });
+  const [partnerStoreInfo, setPartnerStoreInfo] = useState<any>({}); //파트너스토어 정보
 
   const searchParams = useSearchParams();
   const storeId: any = searchParams.get("storeId");
@@ -81,7 +82,6 @@ export default function OrdersContainer() {
   const checkInDate: any = new Date(searchParams.get("checkInDate") || "");
   const checkOutDate: any = new Date(searchParams.get("checkOutDate") || "");
   const storeName: any = searchParams.get("storeName");
-  const addres: any = searchParams.get("addres");
   const [isMobile, setIsMobile] = useState(false);
 
   const returnUrl = process.env.NEXT_PUBLIC_NICEPAY_REDIRECT_URL;
@@ -107,6 +107,10 @@ export default function OrdersContainer() {
       startDate: searchParams.get("checkInDate"),
       endDate: searchParams.get("checkOutDate"),
     };
+
+    customAxios.get(`${API.PARTNER_STORE}/${storeId}/info`).then((res) => {
+      setPartnerStoreInfo(res.data.response);
+    });
 
     customAxios
       .get(`${API.ROOM_RATE}`, {
@@ -615,8 +619,10 @@ export default function OrdersContainer() {
                 <div className="order_room_badge">장소</div>
               </div>
               <div className="order_room_item_content_div">
-                <div className="info_title">{storeName}</div>
-                <div className="info_text">{addres}</div>
+                <div className="info_title">{partnerStoreInfo?.storeName}</div>
+                <div className="info_text">
+                  {partnerStoreInfo?.address} {partnerStoreInfo?.addressDetail}
+                </div>
               </div>
             </div>
           </div>

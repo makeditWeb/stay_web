@@ -56,6 +56,7 @@ export default function ReservationPage(props: any) {
 
   useEffect(() => {
     setLoading(true);
+
     customAxios.get(`${API.ROOM}/partner-store/${storeId}`).then((res) => {
       setRoomList(res.data.response.data);
       setLoading(false);
@@ -120,13 +121,62 @@ export default function ReservationPage(props: any) {
     }
   };
 
-  const selectRoomDetailModal = (e: any) => {
-    console.log("e", e);
-    console.log("e.target.id", e.target.id);
+  const onClickReservation = (roomId: number, roomName: string) => {
+    setLoading(true);
+    router.push(
+      `/reservation/orders/new/${roomId}` +
+        `?partnerStoreId=${partnerStoreId}` +
+        `&storeId=${storeId}` +
+        `&roomId=${roomId}` +
+        `&roomName=${roomName}` +
+        `&storeName=${storeName}` +
+        `&englishStoreName=${englishStoreName}` +
+        `&adultCount=${adultCount || 0}` +
+        `&kidCount=${kidCount || 0}` +
+        `&petCount=${petCount || 0}` +
+        `&checkInDate=${startDate}` +
+        `&checkOutDate=${endDate}`
+    );
+    setLoading(false);
   };
 
   return (
     <div className="reservation_containter">
+      {loading ? (
+        <>
+          <div
+            style={{
+              position: "absolute",
+              width: "100vw",
+              height: "100vh",
+              top: 0,
+              left: 0,
+              background: "#ffffffb7",
+              zIndex: 99999,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                font: "1rem Noto Sans KR",
+                textAlign: "center",
+              }}
+            >
+              잠시만 기다려 주세요.
+            </div>
+            <img
+              src={"/assets/loading/spinner_green.gif"}
+              alt="로딩중"
+              width="10%"
+            />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
       <div className="reservation_left_container">
         <Image
           className="reservation_left_container_background"
@@ -362,7 +412,7 @@ export default function ReservationPage(props: any) {
                               </div>
                               (최대 {item.maximumPersonnelCount}인)
                             </div>
-                            <Link
+                            {/* <Link
                               href={{
                                 pathname: `/reservation/orders/new/${roomId}`,
                                 query: {
@@ -381,11 +431,16 @@ export default function ReservationPage(props: any) {
                                 },
                               }}
                               style={{ textDecoration: "none" }}
+                            > */}
+                            <div
+                              className="room_reservation_btn"
+                              onClick={() =>
+                                onClickReservation(item.id, item.name)
+                              }
                             >
-                              <div className="room_reservation_btn">
-                                예약하기
-                              </div>
-                            </Link>
+                              예약하기
+                            </div>
+                            {/* </Link> */}
                           </div>
                         </div>
                       </div>

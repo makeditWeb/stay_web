@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-import Skeleton from "@/components/Skeleton";
 
 declare global {
   interface Window {
@@ -370,302 +369,299 @@ export default function RoomDetailPage({ location }: { location: string }) {
   };
 
   return (
-    <div className="container_room_detail">
-      {loading ? (
-        <>
-          <Container>
-            <ImageWrapper>
-              <Skeleton width={320} height={220} />
-            </ImageWrapper>
-            <Info>
-              <div style={{ height: "8px" }}></div>
-              <Skeleton width={150} height={29} rounded />
-              <div style={{ height: "8px" }}></div>
-              <Skeleton width={200} height={19} rounded />
-            </Info>
-          </Container>
-        </>
-      ) : (
-        <></>
-      )}
-      <div style={{ position: "relative" }}>
-        <div className="box_banner_container">
-          <Image
-            src="https://stay-interview.s3.amazonaws.com/partnerStore/DetailPageImg.png"
-            alt="상세 페이지 메인 이미지"
-            width={1920}
-            height={850}
-            loading="lazy"
-            // priority={true}
-            // style={{ width: "100vw" }}
-          />
-        </div>
-        {/* <div style={{ height: "183px", background: "#203d1e" }}></div> */}
-        <div className="head_title_room_detail">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div className="detail_main_container">
-              <div className="box_detail_slider_container">
-                <div className="detail_partner_store_container">
-                  <div className="english_name_container">
-                    {partnerStoreData?.storeEnglishName}
-                  </div>
-                  <div className="korean_name_container">
-                    <div className="korean_name_title">
-                      {partnerStoreData?.storeName}
+    <>
+      <div className="container_room_detail">
+        {loading ? (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                width: "100vw",
+                height: "100vh",
+                top: 0,
+                left: 0,
+                background: "#ffffffb7",
+                zIndex: 99999,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  font: "1rem Noto Sans KR",
+                  textAlign: "center",
+                }}
+              >
+                잠시만 기다려 주세요.
+              </div>
+              <img
+                src={"/assets/loading/spinner_green.gif"}
+                alt="로딩중"
+                width="10%"
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        <div style={{ position: "relative" }}>
+          <div className="box_banner_container">
+            <Image
+              src="https://stay-interview.s3.amazonaws.com/partnerStore/storeDetailBg.jpg"
+              alt="상세 페이지 메인 이미지"
+              width={1920}
+              height={850}
+              loading="lazy"
+              // priority={true}
+              // style={{ width: "100vw" }}
+            />
+          </div>
+          {/* <div style={{ height: "183px", background: "#203d1e" }}></div> */}
+          <div className="head_title_room_detail">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div className="detail_main_container">
+                <div className="box_detail_slider_container">
+                  <div className="detail_partner_store_container">
+                    <div className="english_name_container">
+                      {partnerStoreData?.storeEnglishName}
                     </div>
-                    <div>
-                      {/* <div className="reservation_status_btn">예약현황 보기</div> */}
+                    <div className="korean_name_container">
+                      <div className="korean_name_title">
+                        {partnerStoreData?.storeName}
+                      </div>
+                      <div>
+                        {/* <div className="reservation_status_btn">예약현황 보기</div> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="partner_store_description_container">
-                    동해에서 가장 먼저 태양과 마주할 수 있는 곳, 스테이 인터뷰
-                    강릉 나만의 스테이에엇 바다와 산이 열립니다.
+                    <div className="partner_store_description_container">
+                      {partnerStoreData?.description}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="banner_container">
-                <div>
-                  <div className="detail_slider_container">
-                    <SlickSlider {...settings}>
-                      {storeImageData.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            <Image
-                              src={item?.imageUrl}
-                              alt={item?.imageName}
-                              width={1200}
-                              height={500}
-                              // priority={true}
-                              loading="lazy"
-                              style={{
-                                borderRadius: "15px 15px 0 0",
-                                margin: "auto",
-                              }}
+                <div className="banner_container">
+                  <div>
+                    <div className="detail_slider_container">
+                      <SlickSlider {...settings}>
+                        {storeImageData.map((item, index) => {
+                          return (
+                            <div key={index}>
+                              <Image
+                                src={item?.imageUrl}
+                                alt={item?.imageName}
+                                width={1200}
+                                height={500}
+                                // priority={true}
+                                loading="lazy"
+                                style={{
+                                  borderRadius: "15px 15px 0 0",
+                                  margin: "auto",
+                                }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </SlickSlider>
+                    </div>
+                    <div className="reservation_info_container">
+                      <div className="reservation_info_div">
+                        <div>
+                          <div className="reservation_info_item_div">
+                            입실일
+                          </div>
+                          <div>
+                            <input
+                              className="reservation_info_item_input"
+                              type="date"
+                              id="date"
+                              name="checkInDate"
+                              onChange={onChangeReservationInfo}
+                              value={reservationInfoData.checkInDate}
                             />
                           </div>
-                        );
-                      })}
-                    </SlickSlider>
-                  </div>
-                  <div className="reservation_info_container">
-                    <div className="reservation_info_div">
-                      <div>
-                        <div className="reservation_info_item_div">입실일</div>
-                        <div>
-                          <input
-                            className="reservation_info_item_input"
-                            type="date"
-                            id="date"
-                            name="checkInDate"
-                            onChange={onChangeReservationInfo}
-                            value={reservationInfoData.checkInDate}
-                          />
                         </div>
-                      </div>
-                      <div>
-                        <div className="reservation_info_item_div">퇴실일</div>
                         <div>
-                          <input
-                            className="reservation_info_item_input"
-                            type="date"
-                            id="date"
-                            name="checkOutDate"
-                            onChange={onChangeReservationInfo}
-                            value={reservationInfoData.checkOutDate}
-                          />
+                          <div className="reservation_info_item_div">
+                            퇴실일
+                          </div>
+                          <div>
+                            <input
+                              className="reservation_info_item_input"
+                              type="date"
+                              id="date"
+                              name="checkOutDate"
+                              onChange={onChangeReservationInfo}
+                              value={reservationInfoData.checkOutDate}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        {/* <div className="reservation_info_item_div">인원</div>
+                        <div>
+                          {/* <div className="reservation_info_item_div">인원</div>
                         <div className="reservation_info_item_input">
                           성인 0명 / 어린이 0명
                         </div> */}
-                        <div>
-                          <div className="reservation_info_item_div">인원</div>
                           <div>
-                            <div
-                              className="box_reservation_count"
-                              onClick={handleEditClick}
-                            >
-                              {adultCount == 0 && kidCount == 0 && petCount == 0
-                                ? "인원 입력하기"
-                                : `성인 ${adultCount}명 / 어린이 ${kidCount}명 / 반려견 ${petCount}마리`}
+                            <div className="reservation_info_item_div">
+                              인원
+                            </div>
+                            <div>
+                              <div
+                                className="box_reservation_count"
+                                onClick={handleEditClick}
+                              >
+                                {adultCount == 0 &&
+                                kidCount == 0 &&
+                                petCount == 0
+                                  ? "인원 입력하기"
+                                  : `성인 ${adultCount}명 / 어린이 ${kidCount}명 / 반려견 ${petCount}마리`}
 
-                              <div>
-                                <Image
-                                  src="/editorVector.png"
-                                  alt="수정버튼"
-                                  width={7}
-                                  height={15}
-                                  style={{
-                                    marginRight: "10px",
-                                    cursor: "pointer",
-                                  }}
-                                />
+                                <div>
+                                  <Image
+                                    src="/editorVector.png"
+                                    alt="수정버튼"
+                                    width={7}
+                                    height={15}
+                                    style={{
+                                      marginRight: "10px",
+                                      cursor: "pointer",
+                                    }}
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="reservation_info_item_btn_div">
-                        <div
-                          className="reservation_info_item_btn"
-                          onClick={onClickReservation}
-                        >
-                          예약하기
-                        </div>
-                        {/* <Link
-                          href={
-                            isValid
-                              ? {
-                                  pathname: `/reservation/${partnerStoreData?.id}`,
-                                  query: {
-                                    storeId: partnerStoreData?.id,
-                                    storeName: partnerStoreData?.storeName,
-                                    englishStoreName:
-                                      partnerStoreData?.storeEnglishName,
-                                    checkInDate:
-                                      reservationInfoData.checkInDate,
-                                    checkOutDate:
-                                      reservationInfoData.checkOutDate,
-                                    adultCount: adultCount,
-                                    kidCount: kidCount,
-                                    petCount: petCount,
-                                  },
-                                }
-                              : "#"
-                          }
-                          // onClick={onClickReservation}
-                          // as={`/reservation/${partnerStoreData?.id}`}
-                          style={{ textDecoration: "none" }}
-                        >
+                        <div className="reservation_info_item_btn_div">
                           <div
                             className="reservation_info_item_btn"
                             onClick={onClickReservation}
                           >
                             예약하기
                           </div>
-                        </Link> */}
-                      </div>
-                      <div>
-                        {showEditBox && (
-                          <div className="box_outer_select_people">
-                            <div className="box_select_people">
-                              <div className="content_select_people">
-                                <div className="title_select_people">성인</div>
-                                <div className="div_number_people">
-                                  <div className="container_number_poeple">
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={adultMinusCountHandler}
-                                    >
-                                      <Image
-                                        src="/minusIcon.png"
-                                        alt="마이너스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
-                                    </div>
-                                    <div className="text_number_people">
-                                      {adultCount}
-                                    </div>
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={adultPlusCountHandler}
-                                    >
-                                      <Image
-                                        src="/plusIcon.png"
-                                        alt="플러스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
+                        </div>
+                        <div>
+                          {showEditBox && (
+                            <div className="box_outer_select_people">
+                              <div className="box_select_people">
+                                <div className="content_select_people">
+                                  <div className="title_select_people">
+                                    성인
+                                  </div>
+                                  <div className="div_number_people">
+                                    <div className="container_number_poeple">
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={adultMinusCountHandler}
+                                      >
+                                        <Image
+                                          src="/minusIcon.png"
+                                          alt="마이너스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
+                                      <div className="text_number_people">
+                                        {adultCount}
+                                      </div>
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={adultPlusCountHandler}
+                                      >
+                                        <Image
+                                          src="/plusIcon.png"
+                                          alt="플러스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="content_select_people">
-                                <div className="title_select_people">
-                                  어린이
-                                </div>
-                                <div className="div_number_people">
-                                  <div className="container_number_poeple">
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={kidMinusCountHandler}
-                                    >
-                                      <Image
-                                        src="/minusIcon.png"
-                                        alt="마이너스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
-                                    </div>
-                                    <div className="text_number_people">
-                                      {kidCount}
-                                    </div>
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={kidPlusCountHandler}
-                                    >
-                                      <Image
-                                        src="/plusIcon.png"
-                                        alt="플러스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
+                                <div className="content_select_people">
+                                  <div className="title_select_people">
+                                    어린이
+                                  </div>
+                                  <div className="div_number_people">
+                                    <div className="container_number_poeple">
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={kidMinusCountHandler}
+                                      >
+                                        <Image
+                                          src="/minusIcon.png"
+                                          alt="마이너스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
+                                      <div className="text_number_people">
+                                        {kidCount}
+                                      </div>
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={kidPlusCountHandler}
+                                      >
+                                        <Image
+                                          src="/plusIcon.png"
+                                          alt="플러스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="content_select_people">
-                                <div className="title_select_people">
-                                  반려견
-                                </div>
-                                <div className="div_number_people">
-                                  <div className="container_number_poeple">
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={petMinusCountHandler}
-                                    >
-                                      <Image
-                                        src="/minusIcon.png"
-                                        alt="마이너스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
-                                    </div>
-                                    <div className="text_number_people">
-                                      {petCount}
-                                    </div>
-                                    <div
-                                      className="btn_number_people"
-                                      onClick={petPlusCountHandler}
-                                    >
-                                      <Image
-                                        src="/plusIcon.png"
-                                        alt="플러스 아이콘"
-                                        width={45}
-                                        height={45}
-                                        style={{ cursor: "pointer" }}
-                                      />
+                                <div className="content_select_people">
+                                  <div className="title_select_people">
+                                    반려견
+                                  </div>
+                                  <div className="div_number_people">
+                                    <div className="container_number_poeple">
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={petMinusCountHandler}
+                                      >
+                                        <Image
+                                          src="/minusIcon.png"
+                                          alt="마이너스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
+                                      <div className="text_number_people">
+                                        {petCount}
+                                      </div>
+                                      <div
+                                        className="btn_number_people"
+                                        onClick={petPlusCountHandler}
+                                      >
+                                        <Image
+                                          src="/plusIcon.png"
+                                          alt="플러스 아이콘"
+                                          width={45}
+                                          height={45}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -673,44 +669,43 @@ export default function RoomDetailPage({ location }: { location: string }) {
               </div>
             </div>
           </div>
-        </div>
-        <div className="section_notice">
-          <div className="notice_container">
-            <div className="notice_container_div">
-              <div className="notice_title_container">
-                <div className="notice_title">공지사항</div>
-                {noticeData.length > 0 ? (
-                  <div className="notice_btn">more</div>
-                ) : (
-                  ""
-                )}
-              </div>
-
-              {noticeData.length > 0 ? (
-                <>
-                  {noticeData.map((item, index) => {
-                    return (
-                      <div style={{ marginBottom: "10px" }} key={index}>
-                        <div className="notice_content_container">
-                          <div className="notice_content">{item.title}</div>
-                          <div className="notice_content_date">
-                            {item.createdDate}
-                          </div>
-                        </div>
-                        <div className="notice_content_line"></div>
-                      </div>
-                    );
-                  })}
-                </>
-              ) : (
-                <div className="notice_content_container">
-                  <div className="notice_content">
-                    등록된 공지사항이 없습니다.
-                  </div>
-                  <div className="notice_content_date"></div>
+          <div className="section_notice">
+            <div className="notice_container">
+              <div className="notice_container_div">
+                <div className="notice_title_container">
+                  <div className="notice_title">공지사항</div>
+                  {noticeData.length > 0 ? (
+                    <div className="notice_btn">more</div>
+                  ) : (
+                    ""
+                  )}
                 </div>
-              )}
-              {/* {defaultNoticeData.map((item, index) => {
+
+                {noticeData.length > 0 ? (
+                  <>
+                    {noticeData.map((item, index) => {
+                      return (
+                        <div style={{ marginBottom: "10px" }} key={index}>
+                          <div className="notice_content_container">
+                            <div className="notice_content">{item.title}</div>
+                            <div className="notice_content_date">
+                              {item.createdDate}
+                            </div>
+                          </div>
+                          <div className="notice_content_line"></div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="notice_content_container">
+                    <div className="notice_content">
+                      등록된 공지사항이 없습니다.
+                    </div>
+                    <div className="notice_content_date"></div>
+                  </div>
+                )}
+                {/* {defaultNoticeData.map((item, index) => {
                 return (
                   <div style={{ marginBottom: "10px" }} key={index}>
                     <div className="notice_content_container">
@@ -723,66 +718,123 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   </div>
                 );
               })} */}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="story_container">
-          <div className="box_story_img">
-            <div className="story_img_container">
+          <div className="story_container">
+            <div className="box_story_img">
+              <div className="story_img_container">
+                <Image
+                  src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg2.png"
+                  alt="서브 이미지"
+                  width={680}
+                  height={450}
+                />
+              </div>
+              <div className="story_img_container">
+                <Image
+                  src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg3.png"
+                  alt="서브 이미지"
+                  width={680}
+                  height={450}
+                />
+              </div>
+            </div>
+            <div className="story_content_container">
+              <div className="story_content_haed_title">
+                {partnerStoreData?.storeName}
+              </div>
+              <div
+                id="storyContent"
+                className="story_item_content"
+                dangerouslySetInnerHTML={{
+                  __html: storyData?.storyContent,
+                }}
+              ></div>
+            </div>
+          </div>
+          <div className="bg_feature_container">
+            <div className="box_bg_feature"></div>
+            <div className="feature_container">
               <Image
-                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg2.png"
+                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg4.png"
+                width={1920}
+                height={654}
                 alt="서브 이미지"
-                width={680}
-                height={450}
               />
-            </div>
-            <div className="story_img_container">
-              <Image
-                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg3.png"
-                alt="서브 이미지"
-                width={680}
-                height={450}
-              />
-            </div>
-          </div>
-          <div className="story_content_container">
-            <div className="story_content_haed_title">
-              {partnerStoreData?.storeName}
-            </div>
-            <div
-              id="storyContent"
-              className="story_item_content"
-              dangerouslySetInnerHTML={{
-                __html: storyData?.storyContent,
-              }}
-            ></div>
-          </div>
-        </div>
-        <div className="bg_feature_container">
-          <div className="box_bg_feature"></div>
-          <div className="feature_container">
-            <Image
-              src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg4.png"
-              width={1920}
-              height={654}
-              alt="서브 이미지"
-            />
-            <div className="box_feature">
-              {featureData.map((item, index) => {
-                return (
-                  <div className="feature_container_div">
-                    <div className="feature_item_div">
-                      <div className="feature_item_title_container">
-                        <div className="feature_item_title_badge">
-                          Point {index + 1}
+              <div className="box_feature">
+                {featureData.map((item, index) => {
+                  return (
+                    <div className="feature_container_div">
+                      <div className="feature_item_div">
+                        <div className="feature_item_title_container">
+                          <div className="feature_item_title_badge">
+                            Point {index + 1}
+                          </div>
+                          <div className="feature_item_title_div">
+                            {item.title}
+                          </div>
                         </div>
-                        <div className="feature_item_title_div">
-                          {item.title}
+                        <div className="feature_item_content_container">
+                          <div className="feature_item_content_div">
+                            {item.content}
+                          </div>
                         </div>
                       </div>
-                      <div className="feature_item_content_container">
-                        <div className="feature_item_content_div">
-                          {item.content}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="tourist_spot_container">
+            <div style={{ marginBottom: "15px" }}>
+              <div className="tourist_spot_title_container">주변 관광지</div>
+              <div className="tourist_spot_sub_container">
+                <p>
+                  <strong>{partnerStoreData?.storeName}</strong>
+                </p>
+                <div>
+                  {partnerStoreData?.address} {partnerStoreData?.addressDetail}
+                </div>
+              </div>
+            </div>
+
+            <div className="tourist_spot_map_container" id="map">
+              <div className="map_wrap">
+                <div
+                  id="map"
+                  style={{
+                    // 지도의 크기
+                    width: "100%",
+                    height: "350px",
+                  }}
+                ></div>
+              </div>
+            </div>
+            <div className="tourist_spot_content_container">
+              {touristSpotData.map((item, index) => {
+                return (
+                  <div className="tourist_spot_item_container">
+                    <div className="tourist_spot_item_div">
+                      <div className="tourist_spot_no_div">{index + 1}</div>
+                      <div className="tourist_spot_item_content_div">
+                        <div className="tourist_spot_item_content_title">
+                          <div
+                            className="tourist_spot_item_content_title_div"
+                            style={{ fontWeight: 700 }}
+                          >
+                            {item.name}
+                          </div>
+                          <div className="tourist_spot_item_content_title_div2">
+                            {item.address} {item.addressDetail}
+                          </div>
+                        </div>
+                        <div className="tourist_spot_item_content_content">
+                          {item.description}
+                          <br />
+                          숙소로부터의 거리{" "}
+                          {Math.round(item.distance * 10) / 10} km
                         </div>
                       </div>
                     </div>
@@ -792,94 +844,37 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
         </div>
-        <div className="tourist_spot_container">
-          <div style={{ marginBottom: "15px" }}>
-            <div className="tourist_spot_title_container">주변 관광지</div>
-            <div className="tourist_spot_sub_container">
-              <p>
-                <strong>{partnerStoreData?.storeName}</strong>
-              </p>
-              <div>
-                {partnerStoreData?.address} {partnerStoreData?.addressDetail}
-              </div>
+        <div className="partenrs_store_contact_container">
+          <div className="partenrs_store_contact_container_div mr-b-15">
+            <div
+              className="partenrs_store_contact_content_container"
+              style={{ fontWeight: "700" }}
+            >
+              예약 및 환불 문의
+            </div>
+            <div className="partenrs_store_contact_content_container">
+              RESERVATION
             </div>
           </div>
-
-          <div className="tourist_spot_map_container" id="map">
-            <div className="map_wrap">
-              <div
-                id="map"
-                style={{
-                  // 지도의 크기
-                  width: "100%",
-                  height: "350px",
-                }}
-              ></div>
+          <div className="partenrs_store_contact_container_div">
+            <div className="partenrs_store_contact_content_container ">
+              {partnerStoreData?.storeName}
             </div>
-          </div>
-          <div className="tourist_spot_content_container">
-            {touristSpotData.map((item, index) => {
-              return (
-                <div className="tourist_spot_item_container">
-                  <div className="tourist_spot_item_div">
-                    <div className="tourist_spot_no_div">{index + 1}</div>
-                    <div className="tourist_spot_item_content_div">
-                      <div className="tourist_spot_item_content_title">
-                        <div
-                          className="tourist_spot_item_content_title_div"
-                          style={{ fontWeight: 700 }}
-                        >
-                          {item.name}
-                        </div>
-                        <div className="tourist_spot_item_content_title_div2">
-                          {item.address} {item.addressDetail}
-                        </div>
-                      </div>
-                      <div className="tourist_spot_item_content_content">
-                        {item.description}
-                        <br />
-                        숙소로부터의 거리 {Math.round(item.distance * 10) /
-                          10}{" "}
-                        km
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <div
+              className="partenrs_store_contact_content_container"
+              style={{ fontWeight: "700" }}
+            >
+              {partnerStoreData?.phone != null
+                ? String(partnerStoreData?.phone).replace(
+                    /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                    `$1-$2-$3`
+                  )
+                : ""}
+            </div>
           </div>
         </div>
       </div>
-      <div className="partenrs_store_contact_container">
-        <div className="partenrs_store_contact_container_div mr-b-15">
-          <div
-            className="partenrs_store_contact_content_container"
-            style={{ fontWeight: "700" }}
-          >
-            예약 및 환불 문의
-          </div>
-          <div className="partenrs_store_contact_content_container">
-            RESERVATION
-          </div>
-        </div>
-        <div className="partenrs_store_contact_container_div">
-          <div className="partenrs_store_contact_content_container ">
-            {partnerStoreData?.storeName}
-          </div>
-          <div
-            className="partenrs_store_contact_content_container"
-            style={{ fontWeight: "700" }}
-          >
-            {partnerStoreData?.phone != null
-              ? String(partnerStoreData?.phone).replace(
-                  /^(\d{2,3})(\d{3,4})(\d{4})$/,
-                  `$1-$2-$3`
-                )
-              : ""}
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
