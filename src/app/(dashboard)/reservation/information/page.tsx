@@ -15,13 +15,10 @@ export default function ReservationInformationPage() {
   const [feeGuidanceToggle, setFeeGuidanceToggle] = useState(false);
   const [reservationData, setReservationData] = useState({});
   const [refundPolicyList, setRefundPolicyList] = useState([]);
-  console.log("TID :: ", TID);
 
   useEffect(() => {
     //TID로 예약 정보 조회
     customAxios.get(`${API.RESERVATION}/${TID}`).then((res) => {
-      console.log("res.data.response 12345 :: ", res.data.response);
-
       setReservationData(res.data.response);
       setRefundPolicyList(res.data.response.refundPolicyList.data);
     });
@@ -49,7 +46,7 @@ export default function ReservationInformationPage() {
         const moid = generateOrderNumber();
         const ediDate = moment().format("YYYYMMDDhhmmss");
         const mid = process.env.NEXT_PUBLIC_MID;
-        const cancelAmt = 80000; //취소금액
+        const cancelAmt = reservationData.paymentAmount; //취소금액
         const cancelMsg = "사용자 취소"; //취소사유
         const partialCancelCode = "0"; //전체취소
 
