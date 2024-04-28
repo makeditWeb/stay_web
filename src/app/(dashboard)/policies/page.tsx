@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import styled from "styled-components";
 import PoliciesTabContents from "@/components/policiesTabContents";
 
 export default function PoliciesPage() {
   const [activeTab, setActiveTab] = useState(1);
+  const [subCategory, setSubCategory] = useState("REFUND_POLICY");
 
-  const handleTabClick = (tabIndex: number) => {
+  const handleTabClick = (tabIndex: number, subCategory: string) => {
     setActiveTab(tabIndex);
+    setSubCategory(subCategory);
   };
 
   return (
@@ -25,13 +26,22 @@ export default function PoliciesPage() {
       </div>
       <div>
         <div style={{ display: "flex" }}>
-          <TabBtn active={activeTab === 1} onClick={() => handleTabClick(1)}>
+          <TabBtn
+            active={activeTab === 1}
+            onClick={() => handleTabClick(1, "REFUND_POLICY")}
+          >
             환불정책
           </TabBtn>
-          <TabBtn active={activeTab === 2} onClick={() => handleTabClick(2)}>
+          <TabBtn
+            active={activeTab === 2}
+            onClick={() => handleTabClick(2, "YOUTH_PROTECTION_POLICY")}
+          >
             청소년 보호정책
           </TabBtn>
-          <TabBtn active={activeTab === 3} onClick={() => handleTabClick(3)}>
+          <TabBtn
+            active={activeTab === 3}
+            onClick={() => handleTabClick(3, "OHHER_LAWS")}
+          >
             그 외 법률
           </TabBtn>
           <div></div>
@@ -44,7 +54,10 @@ export default function PoliciesPage() {
             borderRadius: "0 0 15px 15px",
           }}
         >
-          <PoliciesTabContents tabNumber={activeTab} />
+          <PoliciesTabContents
+            tabNumber={activeTab}
+            subCategory={subCategory}
+          />
         </div>
       </div>
     </PoliciesContainer>
