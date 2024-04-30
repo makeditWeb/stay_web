@@ -15,11 +15,20 @@ export default function Navbar() {
 
   useEffect(() => {
     if (accessToken !== null) {
-      customAxios.get(`${API.USER_WEB}/info`).then((res) => {
-        localStorage.setItem("user", JSON.stringify(res.data.response));
+      customAxios.get(`${API.ACCESS_TOKEN}`).then((res) => {
+        console.log(`${API.ACCESS_TOKEN} res :: `, res);
+
+        // localStorage.setItem("user", JSON.stringify(res.data.response));
+        // localStorage.setItem("acName", res.data.response.acName);
         localStorage.setItem("acName", res.data.response.acName);
         setAcName(res.data.response.acName);
       });
+
+      // customAxios.get(`${API.USER_WEB}/info`).then((res) => {
+      //   localStorage.setItem("user", JSON.stringify(res.data.response));
+      //   localStorage.setItem("acName", res.data.response.acName);
+      //   setAcName(res.data.response.acName);
+      // });
     }
 
     setAcName(localStorage.getItem("acName"));

@@ -56,9 +56,11 @@ customAxios.interceptors.response.use(
 
       if (status === Number(401)) {
         console.log("401 error");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
 
         SweetAlert.fire({ title: "로그인 후 이용해주세요. :)" }).then(() => {
-          window.location.href = `${process.env.PUBLIC_URL}/login`;
+          window.location.href = `/login`;
         });
 
         return Promise.reject(error);
