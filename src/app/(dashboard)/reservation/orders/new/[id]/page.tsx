@@ -68,6 +68,7 @@ export default function OrdersContainer() {
     day: 0,
     allChecked: false,
   }); //예약정보
+  // const { adultCount, childCount, petCount } = reservationData;
   const [birthDay, setBirthDay] = useState({
     year: 0,
     month: 0,
@@ -106,6 +107,9 @@ export default function OrdersContainer() {
       roomId: roomId,
       startDate: searchParams.get("checkInDate"),
       endDate: searchParams.get("checkOutDate"),
+      adultCount,
+      childCount,
+      petCount,
     };
 
     customAxios.get(`${API.PARTNER_STORE}/${storeId}/info`).then((res) => {
