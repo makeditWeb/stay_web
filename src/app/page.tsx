@@ -44,12 +44,12 @@ export default function Mainpage() {
 
   const selectMainBannerList = async () => {
     const mainBannerList = await customAxios.get(`${API.MAIN_BANNER}`);
-    setMainBannerList(mainBannerList.data.response.data);
+    setMainBannerList(mainBannerList?.data?.response.data);
   };
 
   const selectPartnerStoreList = async () => {
     const partnerStoreList = await customAxios.get(`${API.PARTNER_STORE}`);
-    setPartnerStoreList(partnerStoreList.data.response.data);
+    setPartnerStoreList(partnerStoreList?.data?.response.data);
   };
 
   useEffect(() => {

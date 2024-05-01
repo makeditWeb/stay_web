@@ -57,36 +57,6 @@
   color: #162318;
 }
 
-.section_login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 500px;
-  height: 76px;
-  background: #ffffff;
-  border-radius: 15px;
-  margin-bottom: 10px;
-}
-
-.inp_login {
-  width: 450px;
-  height: 35px;
-  range: 15px;
-  border: none;
-  border-radius: 15px;
-  background: #ffffff;
-
-  &::placeholder {
-    font-size: 15px;
-    font-weight: 300;
-    color: #d4d4d4;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
 .section_sign_in {
   display: flex;
   justify-content: space-between;

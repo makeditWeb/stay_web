@@ -23,7 +23,7 @@ export default function OurNewsPage() {
 
   return (
     <>
-      {loading === true ? (
+      {loading === false ? (
         <div
           style={{
             position: "absolute",

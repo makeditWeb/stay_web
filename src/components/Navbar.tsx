@@ -116,7 +116,7 @@ export default function Navbar() {
             />
           </Link>
         </RightNavbarDiv>
-        <div className="menu-bar">
+        <div className=" menu-bar">
           <div className="menu menu-icon" onClick={toggleSidebar}>
             <div className="bar"></div>
             <div className="bar"></div>
@@ -124,6 +124,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
       <div className="section_bar">
         <Link
           href={{ pathname: "/ourStay" }}
@@ -150,7 +151,12 @@ export default function Navbar() {
 
         <div style={{ marginTop: "40px" }}>
           <div>
-            <MenuDiv>contact us</MenuDiv>
+            <Link
+              href={{ pathname: "/contactUs" }}
+              style={{ textDecoration: "none" }}
+            >
+              <MenuDiv>contact us</MenuDiv>
+            </Link>
             <MenuDiv style={{ fontSize: "15px" }}>
               stay_interview@naver.com
             </MenuDiv>

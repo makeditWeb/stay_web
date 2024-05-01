@@ -65,22 +65,21 @@ export default function LoginPage() {
     <div className="container_login">
       <div className="wrap_login">
         <div className="header_title_login">Login</div>
-        <div className="section_login">
+        <div className="flex w-full flex-col gap-2.5 mb-4">
           <input
-            className="inp_login"
+            className="px-4 py-4 h-[76px] w-full  rounded-[15px] outline-none placeholder:text-[#d4d4d4]"
             placeholder="휴대폰 번호를 입력해주세요."
             name="acPhone"
             onChange={onChangeLoginParam}
-          ></input>
-        </div>
-        <div className="section_login">
+          />
           <input
-            className="inp_login"
+            className="px-4 py-4 h-[76px] w-full  rounded-[15px] outline-none placeholder:text-[#d4d4d4]"
             placeholder="비밀번호를 입력해주세요."
             name="acPw"
             onChange={onChangeLoginParam}
-          ></input>
+          />
         </div>
+
         <div className="section_sign_in">
           <div className="inner_sign_in">
             <Link

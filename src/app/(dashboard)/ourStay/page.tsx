@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
+import TabButton from "./components/TabButton.js";
+import StoreCard from "./components/StoreCard.js";
 
 export default function OurStayPage() {
   const router = useRouter();
@@ -86,94 +88,45 @@ export default function OurStayPage() {
       </div>
       <div className="container_content_our_stay">
         <div className="title_content_our_stay">OUR STAY</div>
-        <div className="tab_content_our_stay">
-          <div
-            className={
-              activeTab == 1 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+        <div className="flex items-center">
+          <TabButton
+            active={activeTab === 1}
             onClick={() => onClickSelectOurStayList(1, "")}
-          >
-            전체
-          </div>
-          <div
-            className={
-              activeTab == 2 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+            label="전체"
+          />
+          <TabButton
+            active={activeTab === 2}
             onClick={() => onClickSelectOurStayList(2, "RC0002")}
-          >
-            객실
-          </div>
-          <div
-            className={
-              activeTab == 3 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+            label="객실"
+          />
+          <TabButton
+            active={activeTab === 3}
             onClick={() => onClickSelectOurStayList(3, "RC0003")}
-          >
-            방갈로
-          </div>
-          <div
-            className={
-              activeTab == 4 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+            label="방갈로"
+          />{" "}
+          <TabButton
+            active={activeTab === 4}
             onClick={() => onClickSelectOurStayList(4, "RC0005")}
-          >
-            카라반
-          </div>
-          <div
-            className={
-              activeTab == 5 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+            label="카라반"
+          />
+          <TabButton
+            active={activeTab === 5}
             onClick={() => onClickSelectOurStayList(5, "RC0006")}
-          >
-            글램핑
-          </div>
-          <div
-            className={
-              activeTab == 6 ? "btn_tab_content_active" : "btn_tab_content"
-            }
+            label="글램핑"
+          />
+          <TabButton
+            active={activeTab === 6}
             onClick={() => onClickSelectOurStayList(6, "RC0007")}
-          >
-            풀카바나
-          </div>
+            label="풀카바나"
+          />
         </div>
       </div>
       <div className="div_content_our_stay">
         <div className="list_our_stay">
           {/* <OurStayTabContents tabNumber={activeTab} category={category} /> */}
-          {ourStayStoreList?.map((item, index) => {
-            return (
-              <div className="out_stay_container" key={index}>
-                <div style={{ width: "370px", height: "230px" }}>
-                  <Image
-                    src={item?.imageUrl}
-                    alt={item?.imageName}
-                    width={370}
-                    height={230}
-                  />
-                </div>
-                <div style={{ display: "flex", marginTop: "45px" }}>
-                  <div className="our_stay_content_container">
-                    <div>
-                      <div style={{ fontSize: "18px", fontWeight: "700" }}>
-                        {item?.storeName}
-                      </div>
-                      <div style={{ fontSize: "12px", fontWeight: "300" }}>
-                        {item?.address}
-                      </div>
-                    </div>
-
-                    <button
-                      className="our_stay_content_btn"
-                      id={item.id}
-                      onClick={handlePagePartnerStore}
-                    >
-                      둘러보기
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {ourStayStoreList?.map((store, index) => (
+            <StoreCard key={index} store={store} />
+          ))}
         </div>
       </div>
     </div>

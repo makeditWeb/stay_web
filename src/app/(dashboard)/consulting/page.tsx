@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function ConsultingPage() {
   return (
     <div className="container_consulting">
-      <div className="container_consulting_top">
+      <div className="relative">
         <div>
           <img
             src="/consultingImg.png"
@@ -22,8 +22,13 @@ export default function ConsultingPage() {
           <div className="title_sub_head_consulting">파트너를 찾습니다.</div>
           <div className="btn_contact_us">문의하기 →</div>
         </div>
-        <div className="box_main_img">
-          <img src="/consultingSubImg.jpg" alt="컨설팅 로고" />
+        <div className="absolute flex transform -translate-x-1/2 -translate-y-1/2 left-1/2 ">
+          <Image
+            width={1200}
+            height={800}
+            src="/consultingSubImg.jpg"
+            alt="컨설팅 로고"
+          />
         </div>
       </div>
       <div className="box_main_content">
@@ -133,7 +138,7 @@ export default function ConsultingPage() {
           </div> */}
         </div>
       </div>
-      <div className="container_how_to_build">
+      <div className="px-5 container_how_to_build md:px-0">
         <div className="box_how_to_build">
           <div className="box_img_how_to_build">
             <img src="/bedImg.png" alt="소파" className="img_how_to_build" />
@@ -252,31 +257,37 @@ export default function ConsultingPage() {
             className="img_contact_us"
           />
         </div>
-        <div className="div_contact_content">
+        <div className="px-5 div_contact_content md:px-0">
           <div className="div_contact_foreword">
             보유 중인 토지와 건축물의 숨겨진 가치를 찾길 원하시나요?
           </div>
-          <div className="div_title_contact">
-            <div className="title_contact_us">Contact Us</div>
-            <div className="title_consultation_call">상담전화</div>|
-            <div className="title_phone_number">010-6836-4678</div>
+          <div className="flex justify-between items-center my-4 text-[15px] md:text-[19px]">
+            <div className="flex-shrink-0 text-[20px] font-bold md:text-[50px]">
+              Contact Us
+            </div>
+            <div className="flex gap-2 md:gap-5">
+              <div className="flex-shrink-0 ">상담전화</div>|
+              <div className="flex-shrink-0 ">010-6836-4678</div>
+            </div>
           </div>
-          <div className="div_contact_name">
-            <div className="title_contact_input">성함</div>
+          <div className="flex gap-2 div_contact_name">
+            <div className="flex-shrink-0">성함</div>
             <input
               className="div_contact_text"
               placeholder="성함을 입력해주세요"
             ></input>
           </div>
-          <div className="div_contact_phone">
-            <div className="title_contact_input">연락처</div>
+          <div className="flex gap-2 div_contact_phone">
+            <div className="flex-shrink-0">연락처</div>
             <input
               className="div_contact_text"
-              placeholder="연락받으실 휴대폰 번호를 입력해주세요"
+              placeholder="연락처를 입력해주세요"
             ></input>
           </div>
-          <div className="container_inquiry_details">
-            <div className="div_inquiry_details">문의내용</div>
+          <div className="flex gap-2 container_inquiry_details">
+            <div className="flex-shrink-0 w-fit div_inquiry_details">
+              문의내용
+            </div>
             <input
               className="div_contact_text"
               placeholder="상담 내용을 입력해주세요"

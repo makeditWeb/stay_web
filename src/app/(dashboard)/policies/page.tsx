@@ -13,63 +13,44 @@ export default function PoliciesPage() {
   };
 
   return (
-    <PoliciesContainer>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "50px",
-          fontWeight: "700",
-          marginBottom: "50px",
-        }}
-      >
+    <section className="max-w-[1200px] mx-auto w-full md:py-[150px] py-24 ">
+      <div className="text-center text-[50px] font-bold mb-[50px]">
         Policies
       </div>
-      <div>
-        <div style={{ display: "flex" }}>
+      <div className="flex flex-col gap-10 md:gap-0">
+        <div className="flex flex-col gap-4 md:gap-2 md:flex-row ">
           <TabBtn
             active={activeTab === 1}
+            className="transition-all duration-300 hover:bg-[#203D1E] md:w-[280px] h-[46px] md:round-t-xl md:rounded-b-none rounded-xl w-full hover:bg-opacity-80 hover:text-white"
             onClick={() => handleTabClick(1, "REFUND_POLICY")}
           >
             환불정책
           </TabBtn>
           <TabBtn
             active={activeTab === 2}
+            className="transition-all duration-300 hover:bg-[#203D1E] md:w-[280px] h-[46px] md:round-t-xl md:rounded-b-none rounded-xl w-full hover:bg-opacity-80 hover:text-white"
             onClick={() => handleTabClick(2, "YOUTH_PROTECTION_POLICY")}
           >
             청소년 보호정책
           </TabBtn>
           <TabBtn
             active={activeTab === 3}
+            className="transition-all duration-300 hover:bg-[#203D1E] md:w-[280px] h-[46px] md:round-t-xl md:rounded-b-none rounded-xl w-full hover:bg-opacity-80 hover:text-white"
             onClick={() => handleTabClick(3, "OHHER_LAWS")}
           >
             그 외 법률
           </TabBtn>
-          <div></div>
         </div>
-        <div
-          style={{
-            width: "1200px",
-            height: "1000px",
-            background: "#ffffff",
-            borderRadius: "0 0 15px 15px",
-          }}
-        >
+        <div className="max-w-[1200px] h-full w-full bg-white rounded-xl md:rounded-none">
           <PoliciesTabContents
             tabNumber={activeTab}
             subCategory={subCategory}
           />
         </div>
       </div>
-    </PoliciesContainer>
+    </section>
   );
 }
-
-const PoliciesContainer = styled.div`
-  width: 1200px;
-  margin: auto;
-  padding-top: 150px;
-  padding-bottom: 150px;
-`;
 
 interface TabBtnProps {
   active: boolean;
@@ -79,9 +60,6 @@ const TabBtn = styled.div<TabBtnProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 260px;
-  height: 46px;
-  border-radius: 15px 15px 0 0;
   background: ${(props) => (props.active ? "#203D1E" : "#ffffff")};
   font-size: 20px;
   font-weight: ${(props) => (props.active ? "800" : "500")};

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -9,142 +9,110 @@ export default function ContactUsPage() {
       <div style={{ textAlign: "center", fontSize: "50px", fontWeight: "700" }}>
         Contact Us
       </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "19px",
-          fontWeight: "300",
-          margin: "20px 0 20px 0",
-        }}
-      >
-        찾아오시는 길
-      </div>
-      <div style={{ width: "800px", height: "530px" }}>
+      <Subtitle>찾아오시는 길</Subtitle>
+      <ImageContainer>
         <Image
           src="/contactUsMapImg.png"
           alt="찾아오는길"
           width={800}
           height={530}
+          className="object-cover"
         />
-      </div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "32px",
-          fontWeight: "700",
-          color: "#162318",
-          margin: "50px 0 50px 0",
-        }}
-      >
-        STAY INTERVIEW
-      </div>
-      <div
-        style={{
-          width: "800px",
-          height: "150px",
-          background: "#ffffff",
-          borderRadius: "15px",
-          paddingTop: "20px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "390px",
-            height: "40px",
-            margin: "auto",
-            gap: "40px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "80px",
-              height: "22px",
-              background: "#203d1e",
-              borderRadius: "4px",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#ffffff",
-            }}
-          >
-            E-mail
-          </div>
-          <div style={{ fontSize: "20px", fontWeight: "500" }}>
-            stay_interview@naver.com
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "390px",
-            height: "40px",
-            margin: "5px auto 5px auto",
-            gap: "40px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "80px",
-              height: "22px",
-              background: "#203d1e",
-              borderRadius: "4px",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#ffffff",
-            }}
-          >
-            TEL
-          </div>
-          <div style={{ fontSize: "20px", fontWeight: "500" }}>
-            010-6836-4678
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "390px",
-            height: "40px",
-            margin: "auto",
-            gap: "40px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "80px",
-              height: "22px",
-              background: "#203d1e",
-              borderRadius: "4px",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#ffffff",
-            }}
-          >
-            Address
-          </div>
-          <div style={{ fontSize: "20px", fontWeight: "500" }}>
-            대전 광역시 유성구 대덕대로 606
-          </div>
-        </div>
-      </div>
+      </ImageContainer>
+      <TitleSub>STAY INTERVIEW</TitleSub>
+
+      <ContactInfoContainer>
+        <ContactItem>
+          <Label>E-mail</Label>
+          <div>stay_interview@naver.com</div>
+        </ContactItem>
+        <ContactItem>
+          <Label>TEL</Label>
+          <div>010-6836-4678</div>
+        </ContactItem>
+        <ContactItem>
+          <Label>Address</Label>
+          <div>대전 광역시 유성구 대덕대로 606</div>
+        </ContactItem>
+      </ContactInfoContainer>
     </ContactUsContainer>
   );
 }
 
 const ContactUsContainer = styled.div`
-  width: 800px;
+  max-width: 100%;
   margin: auto;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding: 150px 16px;
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+`;
+const TitleSub = styled.div`
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #162318;
+  margin: 50px 0;
+`;
+const Subtitle = styled.div`
+  text-align: center;
+  font-size: 19px;
+  font-weight: 300;
+  margin: 20px 0;
+`;
+const ContactInfoContainer = styled.div`
+  width: 100%;
+
+  margin: auto;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+`;
+
+const ContactItem = styled.div`
+display: flex;
+align-items: center;
+width: 100%;
+max-width: 390px;
+height: 40px;
+gap: 20px;
+
+@media screen and (max-width: 767px) {
+  gap: 10px; 
+
+}
+
+  .contact-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 22px;
+    background: #203d1e;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+  
+ 
+`;
+const Label = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 22px;
+  background: #203d1e;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+`;
+
+const Value = styled.div`
+  font-size: 20px;
+  font-weight: 500;
 `;
