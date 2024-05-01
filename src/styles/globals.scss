@@ -1223,7 +1223,7 @@ body {
     }
 
     .out_stay_container {
-      width: 330px;
+      width: 100%;
       // height: 350px;
       border: 1px;
       border-radius: 15px;
@@ -1492,7 +1492,8 @@ body {
 
 .main_our_stay_container {
   margin: auto;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   margin-top: 150px;
 }
 
@@ -1583,8 +1584,8 @@ body {
 }
 
 .out_stay_container {
-  width: 370px;
-  height: 350px;
+  width: 100%;
+  height: auto;
   border: 1px;
   border-radius: 15px;
   overflow: hidden;
