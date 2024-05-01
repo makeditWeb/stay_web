@@ -276,6 +276,7 @@ body {
       margin: auto;
       margin-top: 40px;
       width: 100%;
+      margin-bottom: 50px;
     }
 
     .main_our_stay_title_container {
@@ -1443,7 +1444,7 @@ body {
 
 .main_banner_title {
   font-size: 27px;
-  font-weight: 700;
+  font-weight: 300;
   color: #ffffff;
   text-align: center;
   // margin-top: 50px;
@@ -1452,7 +1453,7 @@ body {
 
 .main_banner_sub_title {
   font-size: 40px;
-  font-weight: 300;
+  font-weight: 700;
   color: #ffffff;
   text-align: center;
   // margin-bottom: 50px;
@@ -1597,6 +1598,7 @@ body {
   width: 300px;
   margin: auto;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 .our_stay_content_btn {
