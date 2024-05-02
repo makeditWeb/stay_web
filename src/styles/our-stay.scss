@@ -227,6 +227,7 @@
   width: 100%;
   margin: auto;
   margin-top: 40px;
+  margin-bottom: 150px;
 }
 
 .list_our_stay {
@@ -296,3 +297,21 @@
   background: #203d1e;
   color: #ffffff;
 }
+
+.slick-dots li button:before{
+  width: 18px!important;
+  height: 18px!important;
+  background: transparent!important;
+  color: transparent !important;
+  opacity: 1 !important;
+  border: 1px solid #203d1e;
+  border-radius: 50%;
+}
+.slick-dots li.slick-active button:before{
+  width: 22px!important;
+  height: 22px!important;
+  color: #203d1e!important;
+  border: none;
+  font-size: 25px!important;
+}
+
