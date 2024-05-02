@@ -6,7 +6,7 @@ import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import TabButton from "./components/TabButton.js";
 import StoreCard from "./components/StoreCard.js";
-
+import mockList from "@/data/mockup.json";
 export default function OurStayPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(1);
@@ -122,9 +122,9 @@ export default function OurStayPage() {
         </div>
       </div>
       <div className="div_content_our_stay">
-        <div className="list_our_stay">
+        <div className="grid gap-10 px-5 md:gap-10 md:px-0 md:grid-cols-2 lg:grid-cols-3">
           {/* <OurStayTabContents tabNumber={activeTab} category={category} /> */}
-          {ourStayStoreList?.map((store, index) => (
+          {mockList?.map((store, index) => (
             <StoreCard key={index} store={store} />
           ))}
         </div>

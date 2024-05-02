@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import mockList from "@/data/mockup.json";
+import StoreCard from "./(dashboard)/ourStay/components/StoreCard";
 interface PartnerStore {
   id: number;
   storeName: string;
@@ -134,41 +135,8 @@ export default function Mainpage() {
             </div>
           </div>
           <div className="grid gap-10 px-5 md:gap-10 md:px-0 md:grid-cols-2 lg:grid-cols-3">
-            {mockList?.map((item, index) => {
-              return (
-                <div className="out_stay_container" key={index}>
-                  <div className="w-full">
-                    <Image
-                      src={item?.imageUrl}
-                      alt={item?.imageName}
-                      width={370}
-                      height={230}
-                      className="w-full md:h-[250px] object-cover"
-                      // style={{ width: "370px", height: "230px" }}
-                    />
-                  </div>
-                  <div className="flex py-6 md:py-10">
-                    <div className="our_stay_content_container">
-                      <div className="">
-                        <div style={{ fontSize: "18px", fontWeight: "800" }}>
-                          {item?.storeName}
-                        </div>
-                        <div style={{ fontSize: "12px", fontWeight: "300" }}>
-                          {item?.address}
-                        </div>
-                      </div>
-
-                      <button
-                        className="md:w-[100px] md:h-[29px] px-2 justify-center  flex items-center border rounded-full hover:bg-[#203d1e] hover:text-white transition-all duration-300"
-                        id={item.id}
-                        onClick={handlePagePartnerStore}
-                      >
-                        둘러보기 →
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
+            {mockList?.map((store, index) => {
+              return <StoreCard key={index} store={store} />;
             })}
           </div>
         </div>
