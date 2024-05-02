@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
-
+import DetailMock from "@/data/detailmockup.json";
 declare global {
   interface Window {
     kakao: any;
@@ -431,26 +431,28 @@ export default function RoomDetailPage({ location }: { location: string }) {
                 <div className="box_detail_slider_container">
                   <div className="detail_partner_store_container">
                     <div className="english_name_container">
-                      {partnerStoreData?.storeEnglishName}
+                      {DetailMock?.storeEnglishName}
                     </div>
                     <div className="korean_name_container">
                       <div className="korean_name_title">
-                        {partnerStoreData?.storeName}
+                        {DetailMock?.storeName}
                       </div>
                       <div>
-                        {/* <div className="reservation_status_btn">예약현황 보기</div> */}
+                        <div className="reservation_status_btn">
+                          예약현황 보기
+                        </div>
                       </div>
                     </div>
                     <div className="partner_store_description_container">
-                      {partnerStoreData?.description}
+                      {DetailMock?.description}
                     </div>
                   </div>
                 </div>
                 <div className="banner_container">
-                  <div>
+                  <div className="max-w-[1200px] flex w-full flex-col">
                     <div className="detail_slider_container">
                       <SlickSlider {...settings}>
-                        {storeImageData.map((item, index) => {
+                        {DetailMock.storeImages.map((item, index) => {
                           return (
                             <div key={index}>
                               <Image
@@ -460,10 +462,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                                 height={500}
                                 // priority={true}
                                 loading="lazy"
-                                style={{
-                                  borderRadius: "15px 15px 0 0",
-                                  margin: "auto",
-                                }}
+                                className="rounded-t-[15px] object-cover mx-auto h-[500px] max-w-[1200px] w-full"
                               />
                             </div>
                           );
@@ -742,13 +741,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
             <div className="story_content_container">
               <div className="story_content_haed_title">
-                {partnerStoreData?.storeName}
+                {DetailMock?.storeName}
               </div>
+              <div className="story_item_title">{DetailMock?.storyTitle}</div>
               <div
                 id="storyContent"
                 className="story_item_content"
                 dangerouslySetInnerHTML={{
-                  __html: storyData?.storyContent,
+                  __html: DetailMock?.storyContent,
                 }}
               ></div>
             </div>
@@ -763,7 +763,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                 alt="서브 이미지"
               />
               <div className="box_feature">
-                {featureData.map((item, index) => {
+                {DetailMock.storeFeatureList.data.map((item, index) => {
                   return (
                     <div className="feature_container_div">
                       <div className="feature_item_div">
@@ -772,10 +772,10 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             Point {index + 1}
                           </div>
                           <div className="feature_item_title_div">
-                            {item.title}
+                            <p>{item.title}</p>
                           </div>
                         </div>
-                        <div className="feature_item_content_container">
+                        <div className="feature_item_content_container ">
                           <div className="feature_item_content_div">
                             {item.content}
                           </div>
@@ -790,12 +790,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
           <div className="tourist_spot_container">
             <div style={{ marginBottom: "15px" }}>
               <div className="tourist_spot_title_container">주변 관광지</div>
-              <div className="tourist_spot_sub_container">
+              <div className="flex-col tourist_spot_sub_container md:flex-row">
                 <p>
-                  <strong>{partnerStoreData?.storeName}</strong>
+                  <strong className="text-[16px] font-medium">
+                    {DetailMock?.storeName}
+                  </strong>
                 </p>
-                <div>
-                  {partnerStoreData?.address} {partnerStoreData?.addressDetail}
+                <div className="font-light text-darkgray">
+                  {DetailMock?.address} {DetailMock?.addressDetail}
                 </div>
               </div>
             </div>
@@ -813,7 +815,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
               </div>
             </div>
             <div className="tourist_spot_content_container">
-              {touristSpotData.map((item, index) => {
+              {DetailMock.touristSpotList.data.map((item, index) => {
                 return (
                   <div className="tourist_spot_item_container">
                     <div className="tourist_spot_item_div">
@@ -858,14 +860,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
           </div>
           <div className="partenrs_store_contact_container_div">
             <div className="partenrs_store_contact_content_container ">
-              {partnerStoreData?.storeName}
+              {DetailMock?.storeName}
             </div>
             <div
               className="partenrs_store_contact_content_container"
               style={{ fontWeight: "700" }}
             >
-              {partnerStoreData?.phone != null
-                ? String(partnerStoreData?.phone).replace(
+              {DetailMock?.phone !== null
+                ? String(DetailMock?.phone).replace(
                     /^(\d{2,3})(\d{3,4})(\d{4})$/,
                     `$1-$2-$3`
                   )

@@ -1,6 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const cities = [
+  "서울특별시",
+  "부산광역시",
+  "대구광역시",
+  "인천광역시",
+  "광주광역시",
+  "대전광역시",
+  "울산광역시",
+  "세종특별자치시",
+  "경기도",
+  "강원도",
+  "충청북도",
+  "충청남도",
+  "전라북도",
+  "전라남도",
+  "경상북도",
+  "경상남도",
+  "제주특별자치도",
+];
+
 const MyPageTabContents = ({ tabNumber }) => {
   // 연락처 인풋
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -76,7 +96,7 @@ const MyPageTabContents = ({ tabNumber }) => {
     );
   } else if (tabNumber === 2) {
     return (
-      <>
+      <section>
         <div
           style={{
             display: "flex",
@@ -118,9 +138,14 @@ const MyPageTabContents = ({ tabNumber }) => {
                   }}
                 >
                   <option value="년도">년도</option>
-                  <option value="2024">2024년</option>
-                  <option value="2023">2023년</option>
-                  <option value="2022">2022년</option>
+                  {Array.from({ length: 85 }, (_, index) => {
+                    const year = 2024 - index;
+                    return (
+                      <option key={year} value={year}>
+                        {year}년
+                      </option>
+                    );
+                  })}
                 </SelectBox>
                 <SelectBox
                   style={{
@@ -128,9 +153,14 @@ const MyPageTabContents = ({ tabNumber }) => {
                   }}
                 >
                   <option value="월">월</option>
-                  <option value="2024">2024년</option>
-                  <option value="2023">2023년</option>
-                  <option value="2022">2022년</option>
+                  {Array.from({ length: 12 }, (_, index) => {
+                    const month = index + 1;
+                    return (
+                      <option key={month} value={month}>
+                        {month}월
+                      </option>
+                    );
+                  })}
                 </SelectBox>
                 <SelectBox
                   style={{
@@ -138,9 +168,14 @@ const MyPageTabContents = ({ tabNumber }) => {
                   }}
                 >
                   <option value="일">일</option>
-                  <option value="2024">2024년</option>
-                  <option value="2023">2023년</option>
-                  <option value="2022">2022년</option>
+                  {Array.from({ length: 31 }, (_, index) => {
+                    const day = index + 1;
+                    return (
+                      <option key={day} value={day}>
+                        {day}일
+                      </option>
+                    );
+                  })}
                 </SelectBox>
               </div>
             </InformationInputContainer>
@@ -156,8 +191,11 @@ const MyPageTabContents = ({ tabNumber }) => {
                 <div style={{ display: "flex", gap: "6px" }}>
                   <SelectBox>
                     <option value="시 / 도 선택">시 / 도 선택</option>
-                    <option value="서울시">서울시</option>
-                    <option value="인천광역시">인천광역시</option>
+                    {cities.map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
                   </SelectBox>
                 </div>
               </div>
@@ -290,7 +328,7 @@ const MyPageTabContents = ({ tabNumber }) => {
         >
           회원탈퇴
         </ChangeInformation>
-      </>
+      </section>
     );
   } else {
     return null;
@@ -300,12 +338,16 @@ const MyPageTabContents = ({ tabNumber }) => {
 export default MyPageTabContents;
 
 const TabContainer = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   border-radius: 15px;
   background: #ffffff;
-  padding: 50px 0 50px 50px;
-`;
+  padding: 30px 10px;
 
+  @media (min-width: 768px) {
+    padding: 50px 0 50px 50px;
+  }
+`;
 const ContentContainer = styled.div`
   display: flex;
   align-items: center;

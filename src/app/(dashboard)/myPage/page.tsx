@@ -33,15 +33,7 @@ export default function MyPage() {
       >
         Username 님 반갑습니다!
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          margin: "auto",
-          width: "540px",
-          marginBottom: "30px",
-        }}
-      >
+      <div className="lg:w-[540px] flex gap-2 lg:gap-5 mb-[30px] mx-auto">
         <TabBtn active={activeTab === 1} onClick={() => handleTabClick(1)}>
           예약정보
         </TabBtn>
@@ -55,10 +47,11 @@ export default function MyPage() {
 }
 
 const MyPageContainer = styled.div`
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   margin: auto;
-  padding-top: 150px;
-  padding-bottom: 100px;
+
+  padding: 150px 20px 100px 20px;
 `;
 
 const ContentContainer = styled.div`

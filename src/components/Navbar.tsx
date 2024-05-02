@@ -63,6 +63,7 @@ export default function Navbar() {
             height={26}
             quality={50}
             priority={true}
+            className="lg:w-[276px] md:w-[200px]"
             // style={{ width: "100% !important" }}
           />
         </Link>

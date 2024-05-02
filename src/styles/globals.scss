@@ -339,6 +339,7 @@ body {
     }
 
     .detail_slider_container {
+      max-width: 1200px;
       width: 100%;
       height: 500px;
       margin: auto;
@@ -349,6 +350,7 @@ body {
     //[예약정보]
     .reservation_info_container {
       display: flex;
+
       width: 100%;
       height: 450px;
       background: #ffffff;
@@ -356,7 +358,8 @@ body {
 
     .reservation_info_div {
       display: block;
-      width: 1100px;
+      max-width: 1100px;
+      width: 100%;
       margin: auto;
       gap: 25px;
       padding: 0px 30px;
@@ -431,7 +434,7 @@ body {
     .notice_container {
       width: 100%;
       height: 205px;
-      margin-top: 350px;
+      margin-top: 400px;
     }
 
     .notice_container_div {
@@ -541,6 +544,7 @@ body {
     .box_feature {
       position: absolute;
       top: 50%;
+      max-width: 1200px;
       width: 100%;
       padding: 0 30px;
       box-sizing: border-box;
@@ -583,6 +587,7 @@ body {
 
     .feature_item_title_div {
       display: flex;
+
       align-items: center;
       // justify-content: center;
       justify-content: flex-start;
@@ -647,7 +652,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 350px;
+      width: 100%;
       height: 130px;
       gap: 10px;
     }
@@ -666,7 +671,7 @@ body {
     .partenrs_store_contact_container {
       display: block;
       width: 250px;
-      height: 67px;
+      height: 100px;
       margin: auto;
       gap: 40px;
       padding: 30px 0;
@@ -1653,7 +1658,8 @@ body {
 }
 
 .detail_slider_container {
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   height: 500px;
   border-radius: 15px;
 }
@@ -1710,7 +1716,8 @@ body {
 //[예약정보]
 .reservation_info_container {
   display: flex;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   height: 130px;
   background: #ffffff;
 }
@@ -1875,7 +1882,8 @@ body {
 
 .feature_container_div {
   display: flex;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   height: 150px;
   margin: auto;
   border-radius: 15px;
@@ -1898,7 +1906,7 @@ body {
   display: flex;
   width: 900px;
   margin: auto;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .feature_item_title_container {
@@ -1941,7 +1949,8 @@ body {
 
 //[관광지]
 .tourist_spot_container {
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   margin: auto;
   margin-top: 100px;
 }
@@ -1965,7 +1974,8 @@ body {
 }
 
 .tourist_spot_map_container {
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   height: 400px;
   background: #d9d9d9;
   border-radius: 15px;
@@ -1976,7 +1986,8 @@ body {
 .tourist_spot_content_container {
   display: flex;
   flex-wrap: wrap;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .tourist_spot_item_container {
@@ -2004,7 +2015,7 @@ body {
   width: 40px;
   height: 40px;
   border: 1px solid #c2bfb3;
-  border-radius: 50px;
+  border-radius: 90px;
 }
 
 .tourist_spot_item_content_div {
@@ -2037,7 +2048,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   height: 100px;
   margin: auto;
   gap: 40px;
@@ -2087,6 +2099,7 @@ body {
   font-size: 30px;
   font-weight: 700;
   color: #ffffff;
+  margin-top: 20px;
 }
 
 .notice_btn {
@@ -3365,7 +3378,7 @@ body {
   border-radius: 15px;
   // bottom: 120px;
   left: 50%;
-  top: 75%;
+  top: 81%;
   transform: translate(-50%, -50%);
 }
 
@@ -3426,7 +3439,8 @@ body {
 }
 
 .notice_container {
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   margin: auto;
 }
 

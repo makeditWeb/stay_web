@@ -1,12 +1,9 @@
 // StoreCard.js
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function StoreCard({ store }) {
-  const handlePagePartnerStore = (id) => {
-    router.push(`/partner/store/${id}`);
-  };
-
   return (
     <div className="out_stay_container" key={store.id}>
       <div className="w-full">
@@ -30,13 +27,13 @@ export default function StoreCard({ store }) {
             </div>
           </div>
 
-          <button
+          <Link
+            href={`/partner/store/${store.id}`}
             className="md:w-[100px] md:h-[29px] px-2 justify-center  flex items-center border rounded-full hover:bg-[#203d1e] hover:text-white transition-all duration-300"
             id={store.id}
-            onClick={handlePagePartnerStore}
           >
             둘러보기 →
-          </button>
+          </Link>
         </div>
       </div>
     </div>

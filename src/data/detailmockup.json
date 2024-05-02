@@ -1,0 +1,394 @@
+{
+  "id": 6,
+  "storeName": "스테이인터뷰, 강경",
+  "storeEnglishName": "STAY INTERVIEW, Ganggyeong",
+  "storeCode": "ns",
+  "description": "동해에서 가장 먼저 태양과 마주할 수 있는 곳",
+  "memo": "",
+  "address": "충남 논산시 강경읍",
+  "addressDetail": "계백로167번길 50",
+  "phone": "01057539156",
+  "latitude": 36.162105182853,
+  "longitude": 127.015120783758,
+  "storeImages": [
+    {
+      "id": 146,
+      "imageName": "DSC03860.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/6deab8e3-a36b-4718-a968-714fc6013a69DSC03860.jpg",
+      "orderNo": 0,
+      "representative": true
+    },
+    {
+      "id": 147,
+      "imageName": "DSC03865.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/58127d27-b488-4de0-b3e9-13b800b13c9bDSC03865.jpg",
+      "orderNo": 1,
+      "representative": false
+    },
+    {
+      "id": 148,
+      "imageName": "DSC03867.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/8e87eb94-c200-4bae-bdc4-45aaa44f202fDSC03867.jpg",
+      "orderNo": 2,
+      "representative": false
+    },
+    {
+      "id": 149,
+      "imageName": "DSC03869.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/4034af25-b3c6-4f7e-a7d9-ac5d1093e31fDSC03869.jpg",
+      "orderNo": 3,
+      "representative": false
+    },
+    {
+      "id": 150,
+      "imageName": "DSC03872.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/5b24b9b5-2b53-4e67-bce2-3fd47cfa7df4DSC03872.jpg",
+      "orderNo": 4,
+      "representative": false
+    },
+    {
+      "id": 151,
+      "imageName": "DSC03873.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/58c55c61-bb26-4f5e-808e-05cacf888429DSC03873.jpg",
+      "orderNo": 5,
+      "representative": false
+    },
+    {
+      "id": 152,
+      "imageName": "DSC03884.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/a90c66a0-37e0-4b41-b582-afc3a0564125DSC03884.jpg",
+      "orderNo": 6,
+      "representative": false
+    },
+    {
+      "id": 153,
+      "imageName": "DSC03885.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/85e1b042-71d8-4c84-b98c-84bb65affbe8DSC03885.jpg",
+      "orderNo": 7,
+      "representative": false
+    },
+    {
+      "id": 154,
+      "imageName": "DSC03887.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/a9370e7c-6ea1-4f0d-8e82-90a913d2309eDSC03887.jpg",
+      "orderNo": 8,
+      "representative": false
+    },
+    {
+      "id": 155,
+      "imageName": "DSC03888.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/a4c2caee-bfaa-4925-9883-109763d91dceDSC03888.jpg",
+      "orderNo": 9,
+      "representative": false
+    },
+    {
+      "id": 156,
+      "imageName": "DSC03889.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/d0c9cb87-0e65-452e-8d43-e14dc96574daDSC03889.jpg",
+      "orderNo": 10,
+      "representative": false
+    },
+    {
+      "id": 157,
+      "imageName": "DSC03890.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/f85aa0bf-b211-49f8-8588-dd15bcc56128DSC03890.jpg",
+      "orderNo": 11,
+      "representative": false
+    },
+    {
+      "id": 158,
+      "imageName": "DSC03892.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/1f6d2c59-bb4a-441c-8c39-66b3a1903260DSC03892.jpg",
+      "orderNo": 12,
+      "representative": false
+    },
+    {
+      "id": 159,
+      "imageName": "DSC03893.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/7479b5e8-e429-4091-aecb-d26429ef5f8eDSC03893.jpg",
+      "orderNo": 13,
+      "representative": false
+    },
+    {
+      "id": 160,
+      "imageName": "DSC03895.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/b1bee702-34b1-4478-9a43-e721c8846902DSC03895.jpg",
+      "orderNo": 14,
+      "representative": false
+    },
+    {
+      "id": 161,
+      "imageName": "DSC03896.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/499cf818-e914-479b-a7d5-dab4547f208fDSC03896.jpg",
+      "orderNo": 15,
+      "representative": false
+    },
+    {
+      "id": 162,
+      "imageName": "DSC04134.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/4014cac0-2a64-4036-890c-dc2a315d9a6bDSC04134.jpg",
+      "orderNo": 16,
+      "representative": false
+    },
+    {
+      "id": 163,
+      "imageName": "DSC04135.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/5eba3a31-ce42-4886-8df0-0a931856f0d2DSC04135.jpg",
+      "orderNo": 17,
+      "representative": false
+    },
+    {
+      "id": 164,
+      "imageName": "DSC04136.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/7fc3d7cc-d301-4286-92e0-021c33e8ee9dDSC04136.jpg",
+      "orderNo": 18,
+      "representative": false
+    },
+    {
+      "id": 165,
+      "imageName": "DSC04140.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/2dd2f76f-4da3-45bd-aec7-f658c3cc809aDSC04140.jpg",
+      "orderNo": 19,
+      "representative": false
+    },
+    {
+      "id": 166,
+      "imageName": "DSC04141.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/partnerStore/ns/6a25970d-a1d9-4407-9136-def548be5c96DSC04141.jpg",
+      "orderNo": 20,
+      "representative": false
+    }
+  ],
+  "storyTitle": "삶을 보다 아름답게 기억하도록  시간여행의 타임 머신을 타고 강경구락부로 떠나자!",
+  "storyContent": "<p class=\"ql-align-center\"><span style=\"background-color: transparent;\">충남 논산 강경구락부[클럽]는 100여년 전 강경 개화기 지식인들의&nbsp; 뜨거운 열정과 애환이 담긴 근대 건축물로 구성된&nbsp; 복합문화공간이다. </span></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">마치 드라마 ‘미스터 션사인’에 나올 법한 호텔과 커피하우스, 양과자점, 광장 등이 한데 모여 있어 특별한 추억을 쌓고 싶은 여행객들의 발길을 모으고 있다.&nbsp;&nbsp;</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">강경구락부에는 실제로 개화기의 건축물인 한일은행 강경지점이 자리잡고 있어 고풍스러운 개화기의 분위기를 생생하게 느껴볼 수 있다.&nbsp;</span></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">1905년 건립된 한일은행강경지점은 최초의 은행 건물이자 등록문화재로 당대 번성했던 강경의 모습을 대변한다. </span></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">붉은 벽돌 외관에 층고가 높아 마치 유럽풍의 웅장한 건물을 옮겨 놓은 듯한 장소이자 역사의 현장으로 그 의미가 남다르다.&nbsp;</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">한편에서는 뉴트로 분위기의 테마호텔 두 곳이 여행객들에게 색다른 분위기의 휴식을 선사한다.  하나는 근대 서양식 컨셉의 고풍스런 이층 호텔, </span></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">다른 하나는 다다미방의 근대 일본식 객실로 여행객들은 시간을 거슬러 개화기 강경에서의 잊지못할 하룻밤을 체험해볼 수 있다.&nbsp;&nbsp;</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">또한 문화적 감성을 충만시켜주는 개화기 감성 스팟인 커피하우스와 강경 양식당, 양과자점등이 한데 모여 있어 즐거움과 휴식이 어우러지는 여행을 책임진다.&nbsp;</span></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">과거로의 흥미진진한 여행과 동시에 새로운 세대에게는 역사의 현장을 느끼고 더불어 뉴트로 감성까지 책임 지는 강경구락부 여행. </span></p><p class=\"ql-align-center\"><span style=\"background-color: transparent;\">시간을 되짚어 만나는 특별한 강경으로의 여행을 떠나보자.&nbsp;</span></p><p><br></p>",
+  "storeFeatureList": {
+    "data": [
+      {
+        "id": 16,
+        "title": "근대문화역사거리",
+        "content": "이색적인 근대식 건물들이 주변 거리를 이루고 있습니다.",
+        "orderNo": 1
+      },
+      {
+        "id": 17,
+        "title": "강경젓갈타운",
+        "content": "강경 젓갈타운의 다양한 먹거리를 즐겨보세요.",
+        "orderNo": 2
+      }
+    ],
+    "totalCount": 2
+  },
+  "touristSpotList": {
+    "data": [
+      {
+        "id": 50,
+        "name": "강경 해물 칼국수",
+        "zipCode": "32936",
+        "address": "충남 논산시 강경읍 계백로147번길 7",
+        "addressDetail": "",
+        "latitude": 36.1574587795555,
+        "longitude": 127.015406942243,
+        "distance": 0.5172699027151852,
+        "description": "해산물의 특유의 시원한 맛이 일품인 칼국수 집",
+        "orderNo": 1
+      },
+      {
+        "id": 51,
+        "name": "함지박",
+        "zipCode": "32958",
+        "address": "충남 논산시 등화동 584-3",
+        "addressDetail": "",
+        "latitude": 36.1797241282118,
+        "longitude": 127.066013315745,
+        "distance": 4.970412459827488,
+        "description": "쫀득하고 부드러운 보쌈과 담백한 메밀 막국수 집",
+        "orderNo": 2
+      },
+      {
+        "id": 52,
+        "name": "만복정",
+        "zipCode": "32907",
+        "address": "충남 논산시 상월면 대촌4길 81",
+        "addressDetail": "",
+        "latitude": 36.2944911549094,
+        "longitude": 127.164718721757,
+        "distance": 19.917746759043037,
+        "description": "정갈한 플레이팅, 음식이 맛이 깔끔한 한식집",
+        "orderNo": 3
+      },
+      {
+        "id": 53,
+        "name": "탑정호",
+        "zipCode": "32916",
+        "address": "충남 논산시 부적면 부적로 721-10",
+        "addressDetail": "",
+        "latitude": 36.1912489514898,
+        "longitude": 127.172783689991,
+        "distance": 14.516900335027591,
+        "description": "대둔산 자락에서 내려오는 맑고 깨끗한 호수",
+        "orderNo": 4
+      },
+      {
+        "id": 54,
+        "name": "경모네 젓갈백반",
+        "zipCode": "32935",
+        "address": "충남 논산시 강경읍 태평리 2-2",
+        "addressDetail": "",
+        "latitude": 36.1611447948148,
+        "longitude": 127.016260965127,
+        "distance": 0.14791657909713665,
+        "description": "16가지 여러종류의 젓갈을 함께 먹을 수 있는 젓갈백반집",
+        "orderNo": 5
+      },
+      {
+        "id": 55,
+        "name": "태평식당",
+        "zipCode": "32935",
+        "address": "충남 논산시 강경읍 옥녀봉로35번길 9",
+        "addressDetail": "",
+        "latitude": 36.161654482684,
+        "longitude": 127.016525353342,
+        "distance": 0.1356808902997788,
+        "description": "복어, 아귀, 우어회를 즐길수 있는 한식당",
+        "orderNo": 6
+      },
+      {
+        "id": 56,
+        "name": "연산역",
+        "zipCode": "32913",
+        "address": "충남 논산시 연산면 선비로275번길 31-2",
+        "addressDetail": "",
+        "latitude": 36.2122946851942,
+        "longitude": 127.200811779644,
+        "distance": 17.573554248700628,
+        "description": "KTX 기장 등 다양한 포토존이 있는 기차문화체험관",
+        "orderNo": 7
+      }
+    ],
+    "totalCount": 7
+  },
+  "refundPolicyInfoList": [
+    {
+      "id": 48,
+      "category": "이용일 당일",
+      "cancelFee": 100,
+      "refundRatio": 0,
+      "orderNo": 45
+    },
+    {
+      "id": 49,
+      "category": "이용일 1일 전",
+      "cancelFee": 90,
+      "refundRatio": 10,
+      "orderNo": 46
+    },
+    {
+      "id": 50,
+      "category": "이용일 2일 전",
+      "cancelFee": 80,
+      "refundRatio": 20,
+      "orderNo": 47
+    },
+    {
+      "id": 51,
+      "category": "이용일 3일 전",
+      "cancelFee": 70,
+      "refundRatio": 30,
+      "orderNo": 48
+    },
+    {
+      "id": 52,
+      "category": "이용일 4일 전",
+      "cancelFee": 60,
+      "refundRatio": 40,
+      "orderNo": 49
+    },
+    {
+      "id": 53,
+      "category": "이용일 5일 전",
+      "cancelFee": 50,
+      "refundRatio": 50,
+      "orderNo": 50
+    },
+    {
+      "id": 54,
+      "category": "이용일 6일 전",
+      "cancelFee": 40,
+      "refundRatio": 60,
+      "orderNo": 51
+    },
+    {
+      "id": 55,
+      "category": "이용일 7일 전",
+      "cancelFee": 30,
+      "refundRatio": 70,
+      "orderNo": 52
+    },
+    {
+      "id": 56,
+      "category": "이용일 8일 전",
+      "cancelFee": 20,
+      "refundRatio": 80,
+      "orderNo": 53
+    },
+    {
+      "id": 57,
+      "category": "이용일 9일 전",
+      "cancelFee": 10,
+      "refundRatio": 90,
+      "orderNo": 54
+    },
+    {
+      "id": 58,
+      "category": "이용일 10일 전",
+      "cancelFee": 0,
+      "refundRatio": 100,
+      "orderNo": 55
+    }
+  ],
+  "guideInfoList": [
+    {
+      "id": 30,
+      "type": "RESERVATION_AND_PAYMENT",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5829\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5248\"></span></p>"
+    },
+    {
+      "id": 31,
+      "type": "FACILITY_INFORMATION",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5249\"></span></p>"
+    },
+    {
+      "id": 32,
+      "type": "SERVICE_INFORMATION",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5250\"></span></p>"
+    },
+    {
+      "id": 33,
+      "type": "PEOPLE_AND_AMOUNT",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5827\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5246\"></span></p>"
+    }
+  ],
+  "optionProductList": {
+    "data": [
+      {
+        "id": 17,
+        "optionName": "침구추가",
+        "price": 20000,
+        "maximumQuantity": 2,
+        "isUse": true,
+        "orderNo": 1,
+        "memo": "성인 인원 추가 시 기본 제공됩니다.",
+        "image": null
+      }
+    ],
+    "totalCount": 1
+  },
+  "termsList": {
+    "data": [],
+    "totalCount": 0
+  },
+  "partnerStoreNoticeList": {
+    "data": [],
+    "totalCount": 0
+  }
+}
