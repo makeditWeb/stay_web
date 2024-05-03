@@ -26,13 +26,13 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
   const [roomDetail, setRoomDetail] = useState(roomData);
   const [loading, setLoading] = useState(false);
   const [roomInfoData, setRoomInfoData] = useState();
-
+  console.log(roomDetail);
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
   };
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false); //수정을위해 로딩 false로 고정
     customAxios.get(`${API.ROOM}/${roomDetail.id}`).then((res) => {
       console.log(`${API.ROOM}/${roomDetail.id} :: 111`, res.data.response);
 
@@ -161,15 +161,20 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
                 </div>
               </div>
             </div>
-            <div className="box_additional_person_fee">
-              <div className="title_additional_person_fee">추가 인원 요금</div>
-              <div className="container_additional_rate">
-                <div className="box_rate">
+            <div className="flex flex-col gap-2 mt-6 md:ml-[110px] ">
+              <div className=" bg-brand w-[100px] h-[22px] text-white flex items-center justify-center mr-[25px] text-[16px] font-semibold md:hidden">
+                추가 인원 요금
+              </div>
+              <div className="hidden title_additional_person_fee md:block">
+                추가 인원 요금
+              </div>
+              <div className="w-full container_additional_rate">
+                <div className="w-full box_rate">
                   <div className="title_additional_target">성인(14세 이상)</div>
                   <div className="title_additional_target">아동</div>
                   <div className="title_additional_target">유아</div>
                 </div>
-                <div className="box_additional_amount">
+                <div className="w-full box_additional_amount">
                   <div className="content_additional_amount">
                     30,000 (침구 제공)
                   </div>
@@ -337,7 +342,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
           </div>
         </div>
         <div className="box_line"></div>
-        <div className="box_guide">
+        <div className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 md:box_guide">
           <TabBtn
             className="btn_tab_guide"
             active={activeTab === 1}
@@ -391,8 +396,8 @@ const ModalContainer = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 150px;
-  padding-bottom: 500px;
+  padding-top: 100px;
+  padding-bottom: 700px;
   overflow-y: auto;
 `;
 
@@ -415,7 +420,8 @@ const TabBtn = styled.div<TabBtnProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 260px;
+  max-width: 260px;
+  width: 100%;
   height: 46px;
   border: ${(props) => (props.active ? "none" : "3px solid #f2f2f2")};
   border-radius: 15px;

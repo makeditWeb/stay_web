@@ -1,0 +1,161 @@
+{
+  "id": 7,
+  "isSale": true,
+  "name": "동양식 스테이 102호",
+  "roomTypeId": 7,
+  "roomTypeName": "동양식 스테이 1.5룸형",
+  "typeName": null,
+  "checkIn": "1500",
+  "checkOut": "1100",
+  "description": "다다미 방이 있습니다. 입실 인원에 맞추어 침구가 준비되어 있습니다.",
+  "orderNo": 7,
+  "managementBusinessOperatorId": 8,
+  "standardPeopleCount": null,
+  "maximumPersonnelCount": null,
+  "image": {
+    "id": 394,
+    "imageName": "DSC04066.jpg",
+    "imageUrl": "https://stay-interview.s3.amazonaws.com/room/13704ac0-4ccb-4318-8d3f-d1a62612e54bDSC04066.jpg",
+    "orderNo": 1,
+    "representative": false
+  },
+  "imageUrl": null,
+  "imageName": null,
+  "roomTypeVo": {
+    "id": 7,
+    "partnerStoreId": 6,
+    "storeName": null,
+    "name": "동양식 스테이 1.5룸형",
+    "typeId": null,
+    "type": null,
+    "managementBusinessOperatorId": 9,
+    "ceoName": null,
+    "size": 11,
+    "roomCount": 1,
+    "bathroomCount": 1,
+    "standardPeopleCount": 2,
+    "maximumPersonnelCount": 3,
+    "bedSingleSizeCount": 0,
+    "bedQueenSizeCount": 0,
+    "bedKingSizeCount": 0,
+    "isUse": true,
+    "isConsecutiveNightsPossible": false
+  },
+  "roomRateVo": null,
+  "imageList": [
+    {
+      "id": 394,
+      "imageName": "DSC04066.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/13704ac0-4ccb-4318-8d3f-d1a62612e54bDSC04066.jpg",
+      "orderNo": 1,
+      "representative": false
+    },
+    {
+      "id": 395,
+      "imageName": "DSC04082.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/dc6ea1f4-0b3b-4394-b064-4393c78dba4aDSC04082.jpg",
+      "orderNo": 2,
+      "representative": false
+    },
+    {
+      "id": 396,
+      "imageName": "DSC04083.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/7856b606-9800-4fb3-88b3-bcd3f9d1e6ccDSC04083.jpg",
+      "orderNo": 3,
+      "representative": false
+    },
+    {
+      "id": 397,
+      "imageName": "DSC04092.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/390d822d-d15f-474f-8b0c-b9a6cd10303eDSC04092.jpg",
+      "orderNo": 4,
+      "representative": false
+    },
+    {
+      "id": 398,
+      "imageName": "DSC04073.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/941e2fdd-4452-43c4-a885-c033a10517e9DSC04073.jpg",
+      "orderNo": 5,
+      "representative": false
+    },
+    {
+      "id": 399,
+      "imageName": "DSC04075.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/4c86581d-dba3-428c-9ef7-3acd3e06955fDSC04075.jpg",
+      "orderNo": 6,
+      "representative": false
+    },
+    {
+      "id": 400,
+      "imageName": "DSC04077.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/fe8f4ed4-b74c-4ccf-a84f-b145c0292cf4DSC04077.jpg",
+      "orderNo": 7,
+      "representative": false
+    },
+    {
+      "id": 401,
+      "imageName": "DSC04080.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/93afb381-d622-425f-8b12-f95acdfa7962DSC04080.jpg",
+      "orderNo": 8,
+      "representative": false
+    },
+    {
+      "id": 402,
+      "imageName": "DSC04086.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/c0777872-c80c-470b-a79e-15f0d8de1bd4DSC04086.jpg",
+      "orderNo": 9,
+      "representative": false
+    },
+    {
+      "id": 403,
+      "imageName": "DSC04100.jpg",
+      "imageUrl": "https://stay-interview.s3.amazonaws.com/room/3906fa95-7416-49a8-8972-eaa763474682DSC04100.jpg",
+      "orderNo": 10,
+      "representative": false
+    }
+  ],
+  "publicFacilityList": [],
+  "facilitiesList": [],
+  "serviceList": [],
+  "amenitiesList": [],
+  "roomOptionList": [
+    {
+      "id": 17,
+      "optionName": "침구추가",
+      "price": 20000,
+      "maximumQuantity": 2,
+      "isUse": true,
+      "orderNo": 1,
+      "memo": "성인 인원 추가 시 기본 제공됩니다.",
+      "image": null
+    }
+  ],
+  "ceoName": "권순창",
+  "ceoPhone": "01057539156",
+  "address": "충남 논산시 강경읍",
+  "addressDetail": "계백로167번길 50",
+  "email": "stay_interview@naver.com",
+  "guideList": [
+    {
+      "id": 30,
+      "type": "RESERVATION_AND_PAYMENT",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5829\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5248\"></span></p>"
+    },
+    {
+      "id": 31,
+      "type": "FACILITY_INFORMATION",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5249\"></span></p>"
+    },
+    {
+      "id": 32,
+      "type": "SERVICE_INFORMATION",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5250\"></span></p>"
+    },
+    {
+      "id": 33,
+      "type": "PEOPLE_AND_AMOUNT",
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5827\"><img src=\"https://stayinterview.co.kr/fileData/download?code=5246\"></span></p>"
+    }
+  ],
+  "isReservationAvailability": null
+}
