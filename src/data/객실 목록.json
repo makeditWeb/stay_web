@@ -30,7 +30,8 @@
     "addressDetail": null,
     "email": null,
     "guideList": [],
-    "isReservationAvailability": true
+    "isReservationAvailability": true,
+    "isBooked": true
   },
   {
     "id": 6,

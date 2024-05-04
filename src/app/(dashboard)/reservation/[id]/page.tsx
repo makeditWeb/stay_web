@@ -374,16 +374,30 @@ export default function ReservationPage(props: any) {
                   {roomList.map((item, index) => {
                     return (
                       <div className="constainer_romm_detail" key={index}>
-                        <div className="room_info_conatiner">
+                        <div className="relative room_info_conatiner">
+                          {/* 예약 완료 오버레이  목데이터에 isBooked을 추가했습니다. */}
+                          {item.isBooked && (
+                            <div className="absolute z-10 w-full h-full bg-black cursor-not-allowed bg-opacity-60" />
+                          )}
                           <div className="room_image_container">
-                            <div>
+                            <div className="relative ">
                               <Image
                                 src={item.imageUrl}
                                 alt={item.imageName}
                                 width={330}
                                 height={250}
+                                className="-z-10"
                               />
+                              {item.isBooked && (
+                                <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full px-5 cursor-not-allowed md:px-14 py-14 ">
+                                  <div className="text-center text-[28px] font-Pretendard py-4 w-full h-full flex items-center justify-center flex-col rounded-2xl text-white border border-white  bg-white bg-opacity-30">
+                                    <p className="font-medium">해당날짜</p>
+                                    <p className="font-bold">예약완료</p>
+                                  </div>
+                                </div>
+                              )}
                             </div>
+
                             <div className="room_image_div">
                               <div
                                 className="room_detail_btn"
