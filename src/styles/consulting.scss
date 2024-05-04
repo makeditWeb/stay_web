@@ -63,7 +63,7 @@
       margin-top: 200px;
     }
 
-    .img_benefit_content{
+    .img_benefit_content {
       height: 100%;
       object-fit: contain;
     }
@@ -155,7 +155,7 @@
       height: 336px;
     }
 
-    .img_remodeling_after{
+    .img_remodeling_after {
       width: 100%;
       object-fit: contain;
       height: auto;
@@ -183,9 +183,6 @@
       width: 100%;
       padding: 0 20px;
       box-sizing: border-box;
-
-
-
     }
 
     .div_benefit_content {
@@ -264,13 +261,13 @@
       height: 100%;
     }
 
-    .container_max1400{
+    .container_max1400 {
       flex-direction: column;
       justify-content: flex-start;
       width: 100%;
     }
 
-    .box_benefit{
+    .box_benefit {
       height: 2300px;
     }
   }
@@ -725,8 +722,8 @@
   height: 850px;
 }
 
-.box_benefit{
-  background: url('/consultingBgImg.png ');
+.box_benefit {
+  background: url("/consultingBgImg.png ");
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
@@ -739,11 +736,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
 }
 
-.container_max1400{
-  width: 1200px;   
+.container_max1400 {
+  width: 1200px;
   display: flex;
   justify-content: space-between;
 }
@@ -754,7 +750,7 @@
   background: #ffffff;
   border-radius: 15px;
   padding: 30px 20px;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .div_benefit_badge {

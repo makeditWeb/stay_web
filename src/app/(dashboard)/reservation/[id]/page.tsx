@@ -12,7 +12,8 @@ import ModalComponent from "@/components/modalComponent";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import Skeleton from "@/components/Skeleton";
-
+import 객실목록 from "@/data/객실 목록.json";
+import 객실팝업 from "@/data/객실 팝업.json";
 export default function ReservationPage(props: any) {
   const router = useRouter();
   const pathname = usePathname();
@@ -55,7 +56,7 @@ export default function ReservationPage(props: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false); //수정때문에 임시적으로 로딩기능 false로 변경하였습니다.
 
     customAxios.get(`${API.ROOM}/partner-store/${storeId}`).then((res) => {
       setRoomList(res.data.response.data);
@@ -315,14 +316,14 @@ export default function ReservationPage(props: any) {
             <div className="calendar_item_container">
               <div className="calendar_item_div">
                 <div className="date_container">
-                  <p className="date_title">입실일</p>
+                  <p className="hidden md:block date_title">입실일</p>
                   <div className="date_input">
                     {/* {moment(startDate).format("YYYY년 MM월 DD일")} */}
                     {moment(startDate).format("YYYY년 MM월 DD일 (ddd)")}
                   </div>
                 </div>
                 <div className="date_container">
-                  <p className="date_title">퇴실일</p>
+                  <p className="hidden md:block date_title">퇴실일</p>
                   <div className="date_input">
                     {/* {moment(value).format("YYYY년 MM월 DD일")} */}
                     {moment(endDate).format("YYYY년 MM월 DD일 (ddd)")}
@@ -371,7 +372,7 @@ export default function ReservationPage(props: any) {
                 </>
               ) : (
                 <>
-                  {roomList.map((item, index) => {
+                  {객실목록.map((item, index) => {
                     return (
                       <div className="constainer_romm_detail" key={index}>
                         <div className="relative room_info_conatiner">
@@ -389,7 +390,7 @@ export default function ReservationPage(props: any) {
                                 className="-z-10"
                               />
                               {item.isBooked && (
-                                <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full px-5 cursor-not-allowed md:px-14 py-14 ">
+                                <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full px-5 cursor-not-allowed md:px-14 py-14 md:py-14 ">
                                   <div className="text-center text-[28px] font-Pretendard py-4 w-full h-full flex items-center justify-center flex-col rounded-2xl text-white border border-white  bg-white bg-opacity-30">
                                     <p className="font-medium">해당날짜</p>
                                     <p className="font-bold">예약완료</p>
@@ -410,7 +411,7 @@ export default function ReservationPage(props: any) {
                                 <ModalComponent
                                   isOpen={isModalOpen}
                                   closeModal={closeModal}
-                                  roomData={roomData}
+                                  roomData={객실팝업}
                                 />
                               )}
                             </div>
