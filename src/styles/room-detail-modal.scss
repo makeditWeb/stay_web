@@ -48,14 +48,20 @@
     .box_rate {
       display: block;
       margin-top: 0px;
+      width: 50%;
     }
 
     .title_room_badge {
-      width: 100px;
+      width: 30%;
+    }
+
+    .time_check_in_out{
+      width: 70%;
     }
 
     .box_additional_amount {
       display: block;
+      width: 50%;
     }
 
     .title_additional_person_fee {
@@ -63,9 +69,10 @@
     }
 
     .title_additional_target {
-      width: 94%;
+      width: 100%;
       border: 1px solid;
       padding: 3px;
+      border-right: none;
       // box-sizing: border-box;
     }
 

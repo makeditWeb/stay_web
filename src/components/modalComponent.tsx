@@ -152,7 +152,7 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
               </div>
               <div className="box_standard_person">
                 <div className="title_room_badge">기준인원</div>
-                <div>
+                <div className="time_check_in_out">
                   <div className="text_standard_person">
                     {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대인원
                     {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
