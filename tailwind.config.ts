@@ -71,7 +71,7 @@ const config: Config = {
         minfo: "-0.02em",
       },
       colors: {
-        brand: "#44A83D",
+        brand: "#203D1E ",
         point: "#0058DB",
         lightpoint: "#005ED9",
         pointhover: "#0049B8",
@@ -98,6 +98,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
