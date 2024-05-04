@@ -12,8 +12,8 @@ import ModalComponent from "@/components/modalComponent";
 import { API } from "@/app/api/config";
 import { customAxios } from "@/modules/common/api";
 import Skeleton from "@/components/Skeleton";
-import 객실목록 from "@/data/객실 목록.json";
-import 객실팝업 from "@/data/객실 팝업.json";
+import 객실목록 from "@/data/객실 목록.json";
+import 객실팝업 from "@/data/객실 팝업.json";
 export default function ReservationPage(props: any) {
   const router = useRouter();
   const pathname = usePathname();

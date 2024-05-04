@@ -1867,7 +1867,8 @@ body {
 
 .story_img_container img {
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit:cover;
   border-radius: 0 15px 15px 0;
 }
 
@@ -1875,6 +1876,9 @@ body {
   margin-top: 50px;
   margin-bottom: 80px;
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .story_content_container {
