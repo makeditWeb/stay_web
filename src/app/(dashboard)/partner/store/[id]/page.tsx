@@ -859,12 +859,13 @@ export default function RoomDetailPage({ location }: { location: string }) {
             </div>
           </div>
           <div className="partenrs_store_contact_container_div">
-            <div className="partenrs_store_contact_content_container ">
+            <div className="partenrs_store_contact_content_container "
+            style={{  color:"#203D1E" }}>
               {DetailMock?.storeName}
             </div>
             <div
               className="partenrs_store_contact_content_container"
-              style={{ fontWeight: "700" }}
+              style={{ fontWeight: "700", color:"#203D1E" }}
             >
               {DetailMock?.phone !== null
                 ? String(DetailMock?.phone).replace(

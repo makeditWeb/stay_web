@@ -183,16 +183,9 @@ export default function ConsultingPage() {
       </div>
       <div>
         <div className="box_benefit">
-          <div className="box_bg_benefit">
-            <img
-              src="/consultingBgImg.png"
-              alt="백그라운드 이미지"
-              className="img_bg_benefit"
-            />
-          </div>
 
-          <div>
-            <div className="container_benefit_content">
+          <div className="container_benefit_content">
+            <div className="container_max1400">
               <div className="div_benefit_content">
                 <div className="div_benefit_badge">Benefit #1</div>
                 <div className="title_benefit_content">스테이 인터뷰만의</div>
@@ -247,6 +240,7 @@ export default function ConsultingPage() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <div className="container_contact">

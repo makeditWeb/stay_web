@@ -56,7 +56,7 @@ const MyPageTabContents = ({ tabNumber }) => {
           <div style={{ fontSize: "25px", fontWeight: "700" }}>
             스테이인터뷰, 영동 (ㄱ)
           </div>
-          <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+          <div style={{ display: "flex", gap: "20px", marginTop: "10px", alignItems: "center" }}>
             <div style={{ fontSize: "20px", fontWeight: "500" }}>80,000 원</div>
             <div
               style={{
@@ -97,45 +97,23 @@ const MyPageTabContents = ({ tabNumber }) => {
   } else if (tabNumber === 2) {
     return (
       <section>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "165px",
-            height: "100px",
-            fontSize: "32px",
-            fontWeight: "700",
-            color: "#162318",
-          }}
-        >
+        <div className="text_title" >
           회원 정보
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "1200px",
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "30px 0 30px 0",
-          }}
+        <div className="mypage_input"
+          
         >
-          <div>
+          <div className="mypage_input-wrapp">
             <InformationInputContainer>
               <InformationText>이름</InformationText>
               <InformationInputDiv>
                 <InformationInput placeholder="이름" />
               </InformationInputDiv>
             </InformationInputContainer>
-            <InformationInputContainer>
+            <InformationInputContainer className="birth_m">
               <InformationText>생년월일</InformationText>
-              <div style={{ display: "flex", gap: "6px" }}>
+              <div className="birth_input" style={{ display: "flex", gap: "6px" }}>
                 <SelectBox
-                  style={{
-                    width: "320px",
-                  }}
                 >
                   <option value="년도">년도</option>
                   {Array.from({ length: 85 }, (_, index) => {
@@ -179,16 +157,16 @@ const MyPageTabContents = ({ tabNumber }) => {
                 </SelectBox>
               </div>
             </InformationInputContainer>
-            <InformationInputContainer>
-              <div
+            <InformationInputContainer className="column-m">
+              <div className="input03"
                 style={{
                   display: "flex",
                   alignItems: "center",
                   width: "550px",
                 }}
               >
-                <InformationText>거주지</InformationText>
-                <div style={{ display: "flex", gap: "6px" }}>
+                <InformationText className="text_flex">거주지</InformationText>
+                <div className="width_80m" style={{ display: "flex", gap: "6px" }}>
                   <SelectBox>
                     <option value="시 / 도 선택">시 / 도 선택</option>
                     {cities.map((city, index) => (
@@ -199,17 +177,10 @@ const MyPageTabContents = ({ tabNumber }) => {
                   </SelectBox>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  width: "550px",
-                  alignItems: "center",
-                  marginLeft: "40px",
-                }}
-              >
-                <InformationText>성별</InformationText>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <SelectBox>
+              <div className="input03 gender_left" >
+                <InformationText className="text_flex">성별</InformationText>
+                <div className="width_80m" style={{ display: "flex", gap: "6px" }}>
+                  <SelectBox >
                     <option value="성별">성별</option>
                     <option value="남자">남자</option>
                     <option value="여자">여자</option>
@@ -234,16 +205,7 @@ const MyPageTabContents = ({ tabNumber }) => {
                 <InformationInput placeholder="이메일" />
               </InformationInputDiv>
             </InformationInputContainer>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "1060px",
-                margin: "30px 0 30px 250px",
-                fontSize: "16px",
-                fontWeight: "500",
-                gap: "20px",
-              }}
+            <div className="maketing"
             >
               <CheckBox
                 type="checkbox"
@@ -266,34 +228,15 @@ const MyPageTabContents = ({ tabNumber }) => {
             <ChangeInformation>회원정보 변경하기</ChangeInformation>
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "200px",
-            height: "100px",
-            fontSize: "32px",
-            fontWeight: "700",
-            color: "#162318",
-          }}
+        <div className="text_title"
         >
           비밀번호 변경
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "1200px",
-            background: "#ffffff",
-            borderRadius: "15px",
-            padding: "30px 0 30px 0",
-          }}
+        <div className="password_input"
         >
-          <div>
+          <div className="password_input-div" >
             <InformationInputContainer>
-              <InformationInputDiv style={{ width: "1120px" }}>
+              <InformationInputDiv className="password-inputDiv" >
                 <InformationInput
                   type="password"
                   style={{ width: "1000px" }}
@@ -302,7 +245,7 @@ const MyPageTabContents = ({ tabNumber }) => {
               </InformationInputDiv>
             </InformationInputContainer>
             <InformationInputContainer>
-              <InformationInputDiv style={{ width: "1120px" }}>
+              <InformationInputDiv className="password-inputDiv" >
                 <InformationInput
                   type="password"
                   style={{ width: "1000px" }}
@@ -311,7 +254,7 @@ const MyPageTabContents = ({ tabNumber }) => {
               </InformationInputDiv>
             </InformationInputContainer>
             <InformationInputContainer>
-              <InformationInputDiv style={{ width: "1120px" }}>
+              <InformationInputDiv  className="password-inputDiv">
                 <InformationInput
                   type="password"
                   style={{ width: "1000px" }}
@@ -323,9 +266,7 @@ const MyPageTabContents = ({ tabNumber }) => {
           </div>
           <div></div>
         </div>
-        <ChangeInformation
-          style={{ width: "1200px", marginTop: "40px", background: "#C2BFB3" }}
-        >
+        <ChangeInformation className="btn-out">
           회원탈퇴
         </ChangeInformation>
       </section>
