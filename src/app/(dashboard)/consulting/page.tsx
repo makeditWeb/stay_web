@@ -15,7 +15,7 @@ export default function ConsultingPage() {
           />
         </div>
         <div className="box_consulting_top">
-          <div className="mt-10 box_consulting_logo">
+          <div className="box_consulting_logo">
             <img src="/consultingLogo.png" alt="컨설팅 로고" />
           </div>
           <div className="title_head_consulting">스테이인터뷰와 함께 할</div>
@@ -87,9 +87,8 @@ export default function ConsultingPage() {
             건출물과 지형의 숨어있는 가치를 찾아냅니다.
           </div>
           <div className="text_point_one">
-            오랫동안 방치된 골조 건물을 카페와 펜션으로 개축하여, <br></br>2018
-            강원도 건축문화상 대상을 수상하며 강릉 최고의 SNS 사진 명소가
-            되었습니다.
+            오랫동안 방치된 골조 건물을 카페와 펜션으로 개축하여, <br></br>2018 강원도
+            건축문화상 대상을 수상하며 강릉 최고의 SNS 사진 명소가 되었습니다.
           </div>
         </div>
       </div>
@@ -108,8 +107,8 @@ export default function ConsultingPage() {
           <div className="title_point_one">트랜드를 정확히 짚어내는 감각</div>
           <div className="text_point_two">
             손님이 끊긴 낡은 펜션을 태국의 휴양지 컨셉으로 리모델링 하였습니다
-            <br></br>오픈 직후 예약을 100% 달성 하였으며, <br></br>대전 근교의
-            주말 나들이 명소가 되었습니다.
+            <br></br>오픈 직후 예약을 100% 달성 하였으며, <br></br>대전 근교의 주말 나들이 명소가
+            되었습니다.
           </div>
           <div className="div_img_point_two">
             <div className="box_remodeling_before">

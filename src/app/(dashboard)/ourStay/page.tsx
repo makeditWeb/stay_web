@@ -86,11 +86,9 @@ export default function OurStayPage() {
           <div className="btn_header_our_stay">둘러보기 →</div>
         </div>
       </div>
-      <div className="flex w-full gap-2  md:max-w-[1200px] md:justify-between md:mx-auto flex-col md:flex-row  mt-10 ">
-        <div className="px-5 title_content_our_stay heading1 md:px-0">
-          OUR STAY
-        </div>
-        <div className="flex items-center pl-5 overflow-scroll scrollbar-hide">
+      <div className="container_content_our_stay">
+        <div className="title_content_our_stay">OUR STAY</div>
+        <div className="flex items-center">
           <TabButton
             active={activeTab === 1}
             onClick={() => onClickSelectOurStayList(1, "")}
