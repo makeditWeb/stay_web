@@ -755,13 +755,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
           </div>
           <div className="bg_feature_container">
             <div className="box_bg_feature"></div>
-            <div className="feature_container">
-              <Image
-                src="https://stay-interview.s3.amazonaws.com/partnerStore/roomDetailImg4.png"
-                width={1920}
-                height={654}
-                alt="서브 이미지"
-              />
               <div className="box_feature">
                 {DetailMock.storeFeatureList.data.map((item, index) => {
                   return (
@@ -785,7 +778,7 @@ export default function RoomDetailPage({ location }: { location: string }) {
                   );
                 })}
               </div>
-            </div>
+
           </div>
           <div className="tourist_spot_container">
             <div style={{ marginBottom: "15px" }}>

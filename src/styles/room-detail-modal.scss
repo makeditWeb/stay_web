@@ -119,11 +119,14 @@
   margin: auto;
   background: #ffffff;
   border-radius: 46px;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: 50px;
-  padding-top: 50px;
-  padding-bottom: 100px;
   max-width: 1200px;
+  height: 80vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .box_colse_btn {
@@ -457,5 +460,4 @@
   background: #f0f0f0;
   border-radius: 15px;
   padding: 30px;
-  overflow: auto;
 }

@@ -68,8 +68,8 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             <div
               style={{
                 position: "absolute",
-                width: "100vw",
-                height: "100vh",
+                width: "100%",
+                height: "100%",
                 top: 0,
                 left: 0,
                 background: "#ffffffb7",
@@ -96,150 +96,130 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
             </div>
           </>
         ) : null}
-        <div className="box_colse_btn">
-          <div className="close_btn_section" onClick={closeModal}>
-            <img
-              className="close_btn_img"
-              src="/closeBtn.png"
-              alt="닫기버튼"
-              width={60}
-              height={60}
-            />
-          </div>
-        </div>
-        <div className="container_room_detail_top">
-          <div className="box_title_top">
-            <div className="box_title">{roomDetail.name}</div>
-            <div className="box_subtitle">
-              기준 {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대{" "}
-              {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
+        <div className="modal_detail_wrap">
+          <div className="box_colse_btn">
+            <div className="close_btn_section" onClick={closeModal}>
+              <img
+                className="close_btn_img"
+                src="/closeBtn.png"
+                alt="닫기버튼"
+                width={60}
+                height={60}
+              />
             </div>
           </div>
-          <div className="box_description">{roomData.description}</div>
-        </div>
-        <div className="box_room_banner">
-          <SlickSlider {...settings}>
-            {roomDetail.imageList.map((item, index) => {
-              return (
-                <div>
-                  <img
-                    src={item.imageUrl}
-                    alt={item.imageName}
-                    // style={{ borderRadius: "15px 15px 0 0" }}
-                  />
-                </div>
-              );
-            })}
-          </SlickSlider>
-        </div>
-        <div className="box_room_basic">
-          <div className="title_room_info">객실정보</div>
-          <div>
-            <div className="box_check_in_out">
-              <div className="title_room_badge">체크인</div>
-              <div className="time_check_in_out">
-                {roomDetail.checkIn?.substring(0, 2)}:
-                {roomDetail.checkIn?.substring(2, 4)}
+          <div className="container_room_detail_top">
+            <div className="box_title_top">
+              <div className="box_title">{roomDetail.name}</div>
+              <div className="box_subtitle">
+                기준 {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대{" "}
+                {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
               </div>
             </div>
-            <div className="box_check_in_out">
-              <div className="title_room_badge">체크아웃</div>
-              <div className="time_check_in_out">
-                {roomDetail.checkOut?.substring(0, 2)}:
-                {roomDetail.checkOut?.substring(2, 4)}
-              </div>
-            </div>
-            <div className="box_standard_person">
-              <div className="title_room_badge">기준인원</div>
-              <div>
-                <div className="text_standard_person">
-                  {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대인원
-                  {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
-                </div>
-                <div className="text_add_person">
-                  성인 인원 추가(30,000원)시 추가 침구 무료 제공
-                </div>
-              </div>
-            </div>
-            <div className="box_additional_person_fee">
-              <div className="title_additional_person_fee">추가 인원 요금</div>
-              <div className="container_additional_rate">
-                <div className="box_rate">
-                  <div className="title_additional_target">성인(14세 이상)</div>
-                  <div className="title_additional_target">아동</div>
-                  <div className="title_additional_target">유아</div>
-                </div>
-                <div className="box_additional_amount">
-                  <div className="content_additional_amount">
-                    30,000 (침구 제공)
-                  </div>
-                  <div className="content_additional_amount">
-                    무료 (이불 미포함)
-                  </div>
-                  <div className="content_additional_amount">
-                    무료 (이불 미포함)
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="box_room_size">
-              <div className="title_room_badge">면적</div>
-              <div className="content_room_size">
-                {roomDetail.roomTypeVo?.size != null
-                  ? roomDetail.roomTypeVo?.size + ".00 ㎡"
-                  : ""}
-              </div>
-            </div>
-            <div className="box_room_bed">
-              <div className="title_room_badge">침대</div>
-              <div className="content_room_bed">
-                {roomDetail.roomTypeVo?.bedQueenSizeCount !== undefined
-                  ? "퀸 사이즈 " + roomDetail.roomTypeVo?.bedQueenSizeCount
-                  : ""}
-                {roomDetail.roomTypeVo?.bedKingSizeCount !== undefined
-                  ? " / 킹 사이즈 " + roomDetail.roomTypeVo?.bedKingSizeCount
-                  : ""}
-                {roomDetail.roomTypeVo?.bedSingleSizeCount !== undefined
-                  ? " / 싱글 사이즈 " +
-                    roomDetail.roomTypeVo?.bedSingleSizeCount
-                  : ""}
-              </div>
-            </div>
+            <div className="box_description">{roomData.description}</div>
           </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_room_facilities">
-          <div className="title_room_facilities">공용시설</div>
-          <div className="content_room_facilities">
-            {roomDetail.publicFacilityList?.map((item, index) => {
-              return (
-                <div className="box_facilities_item">
+          <div className="box_room_banner">
+            <SlickSlider {...settings}>
+              {roomDetail.imageList.map((item, index) => {
+                return (
                   <div>
                     <img
-                      className="img_room_facilities"
                       src={item.imageUrl}
-                      alt={item.name}
+                      alt={item.imageName}
+                      // style={{ borderRadius: "15px 15px 0 0" }}
                     />
                   </div>
-                  <div className="text_room_facilities">{item?.name}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </SlickSlider>
           </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_room_facilities">
-          <div className="title_room_facilities">구비시설</div>
-          <div>
+          <div className="box_room_basic">
+            <div className="title_room_info">객실정보</div>
+            <div>
+              <div className="box_check_in_out">
+                <div className="title_room_badge">체크인</div>
+                <div className="time_check_in_out">
+                  {roomDetail.checkIn?.substring(0, 2)}:
+                  {roomDetail.checkIn?.substring(2, 4)}
+                </div>
+              </div>
+              <div className="box_check_in_out">
+                <div className="title_room_badge">체크아웃</div>
+                <div className="time_check_in_out">
+                  {roomDetail.checkOut?.substring(0, 2)}:
+                  {roomDetail.checkOut?.substring(2, 4)}
+                </div>
+              </div>
+              <div className="box_standard_person">
+                <div className="title_room_badge">기준인원</div>
+                <div>
+                  <div className="text_standard_person">
+                    {roomDetail.roomTypeVo?.standardPeopleCount}인 (최대인원
+                    {roomDetail.roomTypeVo?.maximumPersonnelCount}인)
+                  </div>
+                  <div className="text_add_person">
+                    성인 인원 추가(30,000원)시 추가 침구 무료 제공
+                  </div>
+                </div>
+              </div>
+              <div className="box_additional_person_fee">
+                <div className="title_additional_person_fee">추가 인원 요금</div>
+                <div className="container_additional_rate">
+                  <div className="box_rate">
+                    <div className="title_additional_target">성인(14세 이상)</div>
+                    <div className="title_additional_target">아동</div>
+                    <div className="title_additional_target">유아</div>
+                  </div>
+                  <div className="box_additional_amount">
+                    <div className="content_additional_amount">
+                      30,000 (침구 제공)
+                    </div>
+                    <div className="content_additional_amount">
+                      무료 (이불 미포함)
+                    </div>
+                    <div className="content_additional_amount">
+                      무료 (이불 미포함)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="box_room_size">
+                <div className="title_room_badge">면적</div>
+                <div className="content_room_size">
+                  {roomDetail.roomTypeVo?.size != null
+                    ? roomDetail.roomTypeVo?.size + ".00 ㎡"
+                    : ""}
+                </div>
+              </div>
+              <div className="box_room_bed">
+                <div className="title_room_badge">침대</div>
+                <div className="content_room_bed">
+                  {roomDetail.roomTypeVo?.bedQueenSizeCount !== undefined
+                    ? "퀸 사이즈 " + roomDetail.roomTypeVo?.bedQueenSizeCount
+                    : ""}
+                  {roomDetail.roomTypeVo?.bedKingSizeCount !== undefined
+                    ? " / 킹 사이즈 " + roomDetail.roomTypeVo?.bedKingSizeCount
+                    : ""}
+                  {roomDetail.roomTypeVo?.bedSingleSizeCount !== undefined
+                    ? " / 싱글 사이즈 " +
+                      roomDetail.roomTypeVo?.bedSingleSizeCount
+                    : ""}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="box_line"></div>
+          <div className="box_room_facilities">
+            <div className="title_room_facilities">공용시설</div>
             <div className="content_room_facilities">
-              {roomDetail.facilitiesList?.map((item, index) => {
+              {roomDetail.publicFacilityList?.map((item, index) => {
                 return (
                   <div className="box_facilities_item">
                     <div>
                       <img
+                        className="img_room_facilities"
                         src={item.imageUrl}
                         alt={item.name}
-                        className="img_room_facilities"
                       />
                     </div>
                     <div className="text_room_facilities">{item?.name}</div>
@@ -248,130 +228,152 @@ const ModalComponent = ({ isOpen, closeModal, id, roomData }) => {
               })}
             </div>
           </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_room_facilities">
-          <div className="title_room_facilities">어메니티</div>
-          <div className="content_room_facilities">
-            {roomDetail.amenitiesList?.map((item, index) => {
-              return (
-                <>
-                  <div>
-                    <div className="text_room_facilities">{item?.name}</div>
-                  </div>
-                </>
-              );
-            })}
-          </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_room_facilities">
-          <div className="title_room_facilities">서비스 및 옵션</div>
-          <div>
-            <div className="content_room_service">
-              {roomDetail.serviceList?.length > 0 ? (
-                <div className="title_room_badge">서비스</div>
-              ) : (
-                <> </>
-              )}
-
-              <div className="box_room_service">
-                {roomDetail.serviceList?.map((item, index) => {
+          <div className="box_line"></div>
+          <div className="box_room_facilities">
+            <div className="title_room_facilities">구비시설</div>
+            <div>
+              <div className="content_room_facilities">
+                {roomDetail.facilitiesList?.map((item, index) => {
                   return (
-                    <>
+                    <div className="box_facilities_item">
                       <div>
-                        <div className="text_room_service">{item?.name}</div>
+                        <img
+                          src={item.imageUrl}
+                          alt={item.name}
+                          className="img_room_facilities"
+                        />
                       </div>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="content_room_service">
-              <div className="title_room_badge">옵션</div>
-              <div>
-                {roomDetail.roomOptionList?.map((item, index) => {
-                  return (
-                    <>
-                      <div className="text_room_option">
-                        {item?.optionName} ({item.price} 원 / 선택 시에만 제공)
-                      </div>
-                    </>
+                      <div className="text_room_facilities">{item?.name}</div>
+                    </div>
                   );
                 })}
               </div>
             </div>
           </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_room_facilities">
-          <div className="title_room_facilities">지점 상세 정보</div>
-          <div>
-            <div className="content_room_service">
-              <div className="title_room_badge">대표자</div>
-              <div className="text_partner_store_info">
-                {roomDetail.ceoName}
-              </div>
-            </div>
-            <div className="content_room_service">
-              <div className="title_room_badge">연락처</div>
-              <div className="text_partner_store_info">
-                {roomDetail.ceoPhone != null
-                  ? String(roomDetail.ceoPhone).replace(
-                      /^(\d{2,3})(\d{3,4})(\d{4})$/,
-                      `$1-$2-$3`
-                    )
-                  : ""}
-              </div>
-            </div>
-            <div className="content_room_service">
-              <div className="title_room_badge">소재지</div>
-              <div className="text_partner_store_info">
-                {roomDetail.address} {roomDetail.addressDetail}
-              </div>
-            </div>
-            <div className="content_room_service">
-              <div className="title_room_badge">이메일</div>
-              <div className="text_partner_store_info">{roomDetail.email}</div>
+          <div className="box_line"></div>
+          <div className="box_room_facilities">
+            <div className="title_room_facilities">어메니티</div>
+            <div className="content_room_facilities">
+              {roomDetail.amenitiesList?.map((item, index) => {
+                return (
+                  <>
+                    <div>
+                      <div className="text_room_facilities">{item?.name}</div>
+                    </div>
+                  </>
+                );
+              })}
             </div>
           </div>
-        </div>
-        <div className="box_line"></div>
-        <div className="box_guide">
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 1}
-            onClick={() => handleTabClick(1)}
-          >
-            인원 및 금액
-          </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 2}
-            onClick={() => handleTabClick(2)}
-          >
-            예약 및 결제
-          </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 3}
-            onClick={() => handleTabClick(3)}
-          >
-            시설 안내
-          </TabBtn>
-          <TabBtn
-            className="btn_tab_guide"
-            active={activeTab === 4}
-            onClick={() => handleTabClick(4)}
-          >
-            서비스 안내
-          </TabBtn>
-        </div>
-        <div className="content_guide">
-          <ModalTabContents
-            tabNumber={activeTab}
-            guideList={roomDetail.guideList}
-          />
+          <div className="box_line"></div>
+          <div className="box_room_facilities">
+            <div className="title_room_facilities">서비스 및 옵션</div>
+            <div>
+              <div className="content_room_service">
+                {roomDetail.serviceList?.length > 0 ? (
+                  <div className="title_room_badge">서비스</div>
+                ) : (
+                  <> </>
+                )}
+
+                <div className="box_room_service">
+                  {roomDetail.serviceList?.map((item, index) => {
+                    return (
+                      <>
+                        <div>
+                          <div className="text_room_service">{item?.name}</div>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="content_room_service">
+                <div className="title_room_badge">옵션</div>
+                <div>
+                  {roomDetail.roomOptionList?.map((item, index) => {
+                    return (
+                      <>
+                        <div className="text_room_option">
+                          {item?.optionName} ({item.price} 원 / 선택 시에만 제공)
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="box_line"></div>
+          <div className="box_room_facilities">
+            <div className="title_room_facilities">지점 상세 정보</div>
+            <div>
+              <div className="content_room_service">
+                <div className="title_room_badge">대표자</div>
+                <div className="text_partner_store_info">
+                  {roomDetail.ceoName}
+                </div>
+              </div>
+              <div className="content_room_service">
+                <div className="title_room_badge">연락처</div>
+                <div className="text_partner_store_info">
+                  {roomDetail.ceoPhone != null
+                    ? String(roomDetail.ceoPhone).replace(
+                        /^(\d{2,3})(\d{3,4})(\d{4})$/,
+                        `$1-$2-$3`
+                      )
+                    : ""}
+                </div>
+              </div>
+              <div className="content_room_service">
+                <div className="title_room_badge">소재지</div>
+                <div className="text_partner_store_info">
+                  {roomDetail.address} {roomDetail.addressDetail}
+                </div>
+              </div>
+              <div className="content_room_service">
+                <div className="title_room_badge">이메일</div>
+                <div className="text_partner_store_info">{roomDetail.email}</div>
+              </div>
+            </div>
+          </div>
+          <div className="box_line"></div>
+          <div className="box_guide">
+            <TabBtn
+              className="btn_tab_guide"
+              active={activeTab === 1}
+              onClick={() => handleTabClick(1)}
+            >
+              인원 및 금액
+            </TabBtn>
+            <TabBtn
+              className="btn_tab_guide"
+              active={activeTab === 2}
+              onClick={() => handleTabClick(2)}
+            >
+              예약 및 결제
+            </TabBtn>
+            <TabBtn
+              className="btn_tab_guide"
+              active={activeTab === 3}
+              onClick={() => handleTabClick(3)}
+            >
+              시설 안내
+            </TabBtn>
+            <TabBtn
+              className="btn_tab_guide"
+              active={activeTab === 4}
+              onClick={() => handleTabClick(4)}
+            >
+              서비스 안내
+            </TabBtn>
+          </div>
+          <div className="content_guide">
+            <ModalTabContents
+              tabNumber={activeTab}
+              guideList={roomDetail.guideList}
+            />
+          </div>
         </div>
       </div>
     </ModalContainer>
@@ -386,7 +388,7 @@ const ModalContainer = styled(Modal)`
   top: 0;
   left: 0;
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
