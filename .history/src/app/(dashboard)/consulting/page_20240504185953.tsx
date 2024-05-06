@@ -182,6 +182,7 @@ export default function ConsultingPage() {
         </div>
       </div>
       <div>
+        <div className="box_benefit">
 
           <div className="container_benefit_content">
             <div className="container_max1400">
@@ -240,6 +241,7 @@ export default function ConsultingPage() {
             </div>
           </div>
 
+        </div>
       </div>
       <div className="container_contact">
         <div className="div_img_contact">

@@ -181,7 +181,7 @@
     .container_benefit_content {
       display: block;
       width: 100%;
-      padding: 20px 20px;
+      padding: 0 20px;
       box-sizing: border-box;
     }
 
@@ -270,12 +270,6 @@
     .box_benefit {
       height: 2300px;
     }
-  }
-}
-
-@media  (min-width:431px) and (max-width:768px) {
-  .box_benefit {
-    height: 2500px;
   }
 }
 
@@ -738,19 +732,16 @@
 }
 
 .container_benefit_content {
-  height: auto;
-  background: url(/consultingBgImg.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  padding: 50px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .container_max1400 {
   width: 1200px;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
 }
 
 .div_benefit_content {

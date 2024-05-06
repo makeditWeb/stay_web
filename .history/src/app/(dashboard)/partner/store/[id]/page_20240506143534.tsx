@@ -537,6 +537,14 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             </div>
                           </div>
                         </div>
+                        <div className="reservation_info_item_btn_div">
+                          <div
+                            className="reservation_info_item_btn"
+                            onClick={onClickReservation}
+                          >
+                            예약하기
+                          </div>
+                        </div>
                         <div className="reservation_popup">
                           {showEditBox && (
                             <div className="box_outer_select_people">
@@ -653,15 +661,6 @@ export default function RoomDetailPage({ location }: { location: string }) {
                             </div>
                           )}
                         </div>
-                        <div className="reservation_info_item_btn_div">
-                          <div
-                            className="reservation_info_item_btn"
-                            onClick={onClickReservation}
-                          >
-                            예약하기
-                          </div>
-                        </div>
-
                       </div>
                     </div>
                   </div>

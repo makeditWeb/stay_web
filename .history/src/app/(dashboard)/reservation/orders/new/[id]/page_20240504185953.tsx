@@ -681,7 +681,7 @@ export default function OrdersContainer() {
                 </div>
                 {showEditBox && (
                   <div className="personnel_modify_container">
-                    <div className="personnel_add">
+                    <div>
                       <div className="personnel_modify_section">
                         <div className="personnel_modify_title">성인</div>
                         <div className="personnel_number_container">
